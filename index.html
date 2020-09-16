@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="author" content="Bracha Pachtman">
+    <meta name="description" content="Recipe Manager Platform">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="keywords" content="HTML, CSS, JavaScript, Node.js, Food, Recipes, Organization">
+    <link rel="stylesheet" href="styles.css">
+    <title>Recipize</title>
+</head>
+<body>
+     <div class="pageBody">
+         <div class="headerSection">
+           <div id="nav"></div>
+             <div class="mainContent">
+                 <div class="contentWrapper">
+                    <div class="leftSideContent">
+                        <div class="imageWrapper">
+                            <img src="resources/images/whitePlateWFood (2).png" alt="Main Content Plate">
+                        </div>
+                    </div>
+                    <div class="rightSideContent">
+                        <div class="visibleContent">
+                            <h1>Welcome to Recipeze</h1>
+                            <h3>Enter, edit, share, update recipes easily, quicly, and effortlesslesy.</h3>
+                            <button type="button" class="loginPropmtButton" data-open='modal'>Login</button>
+                            <button type="button">Add Recipe</button>
+                        </div>
+                    </div>
+                    <div class="modalWrapper">
+                        <div id="modal" class="modal">
+                            <div class="modalDialog">
+                                <div class="modalHeader">
+                                    <h1>Login</h1>
+                                    <button class="closeModal" data-close>✕</button>
+                                </div>
+                                <div class="modalMainContent">
+                                    <form action="" class="loginForm">
+                                        <div class="loginFormContent">
+                                            <h3>Login here to have access to your collections and recipes</h3>    
+                                            <div class="inputLabelWrapper">
+                                                <label for="username">Username/Email address</label>
+                                                <input type="text" name="usernameField" id="username" placeholder="BobRelis@gmail.com">
+                                                <label for="password">Password</label>
+                                                <input type="password" name="passwordField" id="password" placeholder="8%^Q5$&g$9">
+                                            </div>
+                                            
+                                        </div>
+                                        <div class="loginFormbuttons">
+                                            <button type="button" class="userLoginButton openLoginModal">Login</button>
+                                            <button type="button" class="userLoginCancelButton" data-close>Cancel</button>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+         </div>
+     </div>
+</body>
+</html>
+
+<script src="https://code.jquery.com/jquery-3.5.1.min.js""></script>
+<script src="script.js"></script>

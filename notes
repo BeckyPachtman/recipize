@@ -1,0 +1,67 @@
+Questions for Hadas:
+
+Search inputs starts at the center just like thw other nav items but because it is bigger it ends lower than the other links and is therefore not alignd properly with the other items
+solved!
+Do I have to rewrite my links in all web pages, is here a way of grabbig all of them at once?
+
+My notes and research required:
+
+search icon source from image is able to be copied into the input field
+
+Reference code:
+popup window like original login modal
+/*Login Page
+.loginFormWrapper{
+    /*background: linear-gradient(to right, #ffdde1, #e9acb4); /*in between
+    background:   #e9acb4; /*in between
+    display: none;
+    padding: 1em 0;
+    position: absolute;
+    text-align: center;
+    top: 0;
+    width: 70%;
+}
+.loginFormWrapper h3{
+    width: 100%;
+}
+.loginFormWrapper form{
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+}
+.loginFormWrapper form input{
+    margin: .5em 0 1.2em;
+    max-width: 50%;
+}
+.loginFormWrapper form label{
+    font-size: .9em;
+    align-self: flex-start;
+}
+.loginFormWrapper button{
+    margin-right: 0;
+}
+*/
+
+backup if I want to bring back the recipeCoverPage div under the cover div
+.book .cover{
+    height: 100%;
+    position: relative;
+    transform-origin: left;
+    transition: 1.2s;
+    width: 100%;
+    z-index: 1;
+}
+.book:hover .cover{
+    transform: rotateY(-165deg);
+}
+.recipeCoverPage{
+    background-color: #007a83;
+    height: 100%;
+    left: 0;
+    object-fit: cover;
+    position: absolute;
+    top: 0;
+    width: 100%;
+}
+/***************/
+Looks like you can't use transform in js, toggle a class to get that effect
