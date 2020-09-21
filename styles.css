@@ -389,13 +389,16 @@ input{
     position: absolute;
     top: 0;
 }
-.details{
-    height: 99%;
+.detailsScrollbar{
+    height: 100%;
     overflow-y: scroll;
 }
 .details ol li{
     padding: 1em;
     letter-spacing: .01em;
+}
+.details ol li:first-child{
+    padding-top: .3em;
 }
 .recipeBook ul li{
     padding: .3em;

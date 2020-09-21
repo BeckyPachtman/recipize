@@ -20,3 +20,8 @@ function openClosemodal(){
         })
     }
 }
+
+
+if($('.details').height() > 752){
+    $('.details').addClass('detailsScrollbar')
+}
