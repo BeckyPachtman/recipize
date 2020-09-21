@@ -65,3 +65,47 @@ backup if I want to bring back the recipeCoverPage div under the cover div
 }
 /***************/
 Looks like you can't use transform in js, toggle a class to get that effect
+
+/*
+click on functions to open and close recipe book, it will only open and close one time
+$('#recipeBook').on('click', function(){
+   $(this).addClass('bookOpened');
+   $('.cover').addClass('openRecipeBook')
+});
+
+$('#closeRecipe').on('click', function(){
+    $('.cover').addClass('closeRecipeBook');
+    $('#recipeBook').addClass('bookClosed')
+})
+
+css to go with this function
+.openRecipeBook{
+    transform: rotateY(-180deg);
+}
+.bookOpened{
+    left: 50%;
+}
+.closeRecipeBook{
+    transform: rotateY(0deg);
+}
+.bookClosed{
+    left: 0%;
+}
+
+the x for closing the recipe book
+<div  class="closeRecipe">
+    <img src="resources/images/close.png" alt="Close Recipe" id="closeRecipe">
+</div>
+
+the css to go with the closing button and div
+.closeRecipe{
+    cursor: pointer;
+    position: relative;
+    height: 10px;
+    z-index: 5;
+}
+
+.closeRecipe img{
+    height: 1.5em;
+}
+*/
