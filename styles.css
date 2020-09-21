@@ -271,7 +271,6 @@ input{
     cursor: default;
     height: 150px;
     width: 40%;
-    /*flex: 1;*/
 }
 .plate1{
     background: url(resources/images/meatplateCropped.jpg) center no-repeat;
@@ -301,9 +300,10 @@ input{
     flex: 1;
 }
 .saveToCollectionImg{
-    filter: invert(50%);
+    filter: invert(35%);
     position: relative;
-    top: -2.2em;
+    top: -2.4em;
+    height: 3.12em;
 }
 /*View Recipe Page*/
 .viewRecipePageWrapper{
