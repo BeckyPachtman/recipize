@@ -394,20 +394,6 @@ input{
     position: absolute;
     top: 0;
 }
-.closeRecipe{
-    cursor: pointer;
-    position: relative;
-    height: 10px;
-   /* top: 7em;
-    left: 47em;*/
-    z-index: 5;
-}
-.closeRecipeBttnVsbl{
-    visibility: visible;
-}
-.closeRecipe img{
-    height: 1.5em;
-}
 .details{
     height: 99%;
     overflow-y: scroll;
@@ -435,34 +421,4 @@ input{
 }
 .details::-webkit-scrollbar-thumb:hover{
     background-color: #9c4444;
-}
-
-.openRecipeBook{
-    transform: rotateY(-180deg);
-    
-}
-.bookOpened{
-    left: 50%;
-}
-.closeRecipeBook{
-    transform: rotateY(0deg);
-}
-.bookClosed{
-    left: 0%;
-}
-.wrapperForThatDiv{
-    height: 150px;
-    width: 300px;
-    background-color: tan;
-    transition: all 0.3s ease-in-out;
-    transform-origin: right;
-    transform: perspective(2000px);
-    
-}
-.buttonForClosing{
-    border: solid 1px green;
-    cursor: pointer;
-}
-.rotated {
-    transform:rotateY(180deg); 
 }
