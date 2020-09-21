@@ -6,7 +6,7 @@ Do I have to rewrite my links in all web pages, is here a way of grabbig all of 
 
 My notes and research required:
 
-search icon source from image is able to be copied into the input field
+search icon source from image is able to be copied into the input field, fixed that. added as after to input wrapper
 
 Reference code:
 popup window like original login modal

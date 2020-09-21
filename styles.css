@@ -99,12 +99,12 @@ input{
     margin-left: 1em;
     position: relative;
 }
-.searchInputIconWrapper img{
+.navSearchInputWrapper::after{
+    content: url('resources/images/search.png');
     filter: invert(.5);
-    position: absolute;
-    right: .4em;
-    top: .3em;
-    user-select: none;
+    left: -1.8em;
+    position: relative;
+    top: .2em;
 }
 .mainContent{
     flex: 2;
