@@ -21,7 +21,14 @@ function openClosemodal(){
     }
 }
 
-
 if($('.details').height() > 752){
     $('.details').addClass('detailsScrollbar')
 }
+
+var recipeImageModal = $('.recipeImageModal');
+
+$('.viewImage').on('click', function(){
+    
+    $(recipeImageModal).fadeToggle()
+    $('.page').toggleClass('imageVisble')
+})
