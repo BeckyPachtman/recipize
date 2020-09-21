@@ -1,2 +1,2 @@
 # recipize
-An application that easily saves all your recipes in you place
+An application that easily saves all your recipes in one place
