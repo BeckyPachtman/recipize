@@ -69,6 +69,27 @@ Looks like you can't use transform in js, toggle a class to get that effect
 /*
 click on functions to open and close recipe book, it will only open and close one time
 $('#recipeBook').on('click', function(){
+All the HTML CSS JS functions needed to make the recipe book open and close
+
+The close button and it's CSS
+<div  class="closeRecipe">
+        <img src="resources/images/close.png" alt="Close Recipe" id="closeRecipe">
+</div>
+.closeRecipe{
+    cursor: pointer;
+    position: relative;
+    height: 10px;
+   /* top: 7em;
+    left: 47em;*/
+    z-index: 5;
+}
+.closeRecipe img{
+    height: 1.5em;
+}
+
+the JS for the cover animation
+var recipeBook = $('#recipeBook');
+$(recipeBook).on('click', function(){
    $(this).addClass('bookOpened');
    $('.cover').addClass('openRecipeBook')
 });
@@ -79,6 +100,10 @@ $('#closeRecipe').on('click', function(){
 })
 
 css to go with this function
+    $(recipeBook).addClass('bookClosed')
+})
+
+It's CSS
 .openRecipeBook{
     transform: rotateY(-180deg);
 }

@@ -1,16 +1,22 @@
 $('#nav').load('header.html')
 
-const open = document.querySelector('[data-open]');
-const close = document.querySelectorAll('[data-close]');
-const modalVisible = 'modalVisible';
+if(document.getElementById('indexPage')!=null){
+    openClosemodal()
+}
 
-open.addEventListener('click', function(){
-    const modalId = this.dataset.open;
-    document.getElementById(modalId).classList.add(modalVisible)
-})
+function openClosemodal(){
+    const open = document.querySelector('[data-open]');
+    const close = document.querySelectorAll('[data-close]');
+    const modalVisible = 'modalVisible';
 
-for(const eachButton of close){
-    eachButton.addEventListener('click', function(){
-        document.getElementById('modal').classList.remove(modalVisible)
+    open.addEventListener('click', function(){
+        const modalId = this.dataset.open;
+        document.getElementById(modalId).classList.add(modalVisible)
     })
+
+    for(const eachButton of close){
+        eachButton.addEventListener('click', function(){
+            document.getElementById('modal').classList.remove(modalVisible)
+        })
+    }
 }

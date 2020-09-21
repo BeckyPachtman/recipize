@@ -316,14 +316,14 @@ input{
 .recipeBook{
     background-color: #fff;
     color: #696969;
-    height: 750px;
+    height: 800px;
     position: relative;
     left: 50%;
     margin: 5em 0;
     transition: left ease 1s;
     transform: perspective(2000px);
     transform-style: preserve-3d;
-    width: 550px;
+    width: 600px;
 }
 .cover{
     background-color: #fff;
