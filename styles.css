@@ -460,3 +460,59 @@ input{
 .recipeImage img{
     height: 100%;   
 }
+/*Add Recipe Page*/
+.addRecimageWrapper{
+    width: 80%;
+    position: relative;
+    top: 5em;
+}
+.AddRecFormWrapper{
+    border: solid 1px rgb(0, 3, 179)
+}
+.AddRecFormWrapper form{
+    border: solid 1px rgb(0, 179, 95);
+    width: 65%;
+}
+.inputWrapper{
+    display: flex;
+    justify-content: space-between;
+}
+.eachInput{
+    position: relative;
+    width: 100%;
+}
+.recTimingWrapper .eachInput{
+    width: 32%;
+}
+.eachInput input{
+    width: 100%;
+    padding: 10px 0;
+    font-size: 16px;
+    color: #535353;
+    margin-bottom: 30px;
+    border: none;
+    border-bottom: 1px solid #535353;
+    outline: none;
+    background: transparent;
+    border-radius: 0;
+}
+.eachInput label{
+    position: absolute;
+    top:0;
+    left: 0;
+    padding: 10px 0;
+    font-size: 16px;
+    color: #9e9e9e;
+    pointer-events: none;
+    transition: .5s;
+}
+.eachInput input:focus ~ label,
+.eachInput input:active ~ label{
+    
+   /* left: -.2em;*/
+    
+}
+.inputClicked{
+    font-size: .7em;
+    top: -1em;
+}
