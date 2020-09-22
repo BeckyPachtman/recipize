@@ -26,9 +26,8 @@ if($('.details').height() > 752){
 }
 
 var recipeImageModal = $('.recipeImageModal');
-
 $('.viewImage').on('click', function(){
-    
     $(recipeImageModal).fadeToggle()
-    $('.page').toggleClass('imageVisble')
+    $('.pageBody, .recipeBook, .back').toggleClass('imageVisble')
+    $('.viewImage').toggleClass('viewImgLighter')
 })

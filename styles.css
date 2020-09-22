@@ -58,6 +58,7 @@ input{
     font-family: 'Montserrat', sans-serif;
     font-size: 16px;
     height: 100%;
+    transition: background 1s ease;
 }
 .headerSection{
     display: flex;
@@ -320,7 +321,7 @@ input{
     position: relative;
     left: 50%;
     margin: 5em 0;
-    transition: left ease 1s;
+    transition: all ease 1s;
     transform: perspective(2000px);
     transform-style: preserve-3d;
     width: 600px;
@@ -355,6 +356,7 @@ input{
     box-shadow: inset 5px 0px 50px rgba(100, 100, 100, 0.397);
     padding: 1.5em;
     transform: rotateY(180deg);
+    transition: background 1s ease;
 }
 .backText{
     padding: .3em;
@@ -421,27 +423,44 @@ input{
     background-color: #9c4444;
 }
 .imageVisble{
-    transition: background 1s linear;
-    background: rgba(0, 0, 0, 0.418);
+    transition: background 1s ease-in;
+    background: rgba(0, 0, 0, 0.5);
 }
 .viewImage{
     bottom: 0;
+    cursor: pointer;
     float: right;
     padding: 0 2.5em 1.8em 0;
     position: absolute;
     right: 0;
+    z-index: 5;
 }
 .viewImage img{
-    height: 1.7em;
     filter: invert(35%);
+}
+.viewImgLighter img{
+    filter: invert(80%);
 }
 .recipeImageModal{
     display: none;
     position: absolute;
     left: 50%;
+    top: 60%;
+    transform: translate(-50%, -50%);
+    width: 1200px;
+    height: 680px;
+  /*background-color: rgb(0, 0, 0);
+  background-color: rgba(0, 0, 0, 0.5);*/
+
+}
+.recipeImage{
+
+    max-height: 100%;
+    max-width: 95%;
+    position: absolute;
+    left: 50%;
     top: 50%;
     transform: translate(-50%, -50%);
-    width: 85%;
 }
 .recipeImage img{
     width: 100%;
