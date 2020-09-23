@@ -1,0 +1,28 @@
+{
+  "name": "recipize",
+  "version": "1.0.0",
+  "description": "App that stores and displays your recipies",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/BeckyPachtman/recipize.git"
+  },
+  "keywords": [
+    "notepad",
+    "organise",
+    "recipe",
+    "keep"
+  ],
+  "author": "Becky Pachtman",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/BeckyPachtman/recipize/issues"
+  },
+  "homepage": "https://github.com/BeckyPachtman/recipize#readme",
+  "dependencies": {
+    "express": "^4.17.1"
+  }
+}
