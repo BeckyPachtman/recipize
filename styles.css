@@ -58,6 +58,7 @@ input{
     font-family: 'Montserrat', sans-serif;
     font-size: 16px;
     height: 100%;
+    min-height: 100vh;
     transition: background 1s ease;
 }
 .headerSection{
@@ -510,10 +511,70 @@ input{
 .eachInput input:focus ~ label,
 .eachInput input:not(:placeholder-shown) ~ label{    
     left: -.2em;
-    top: -1.2em;
+    top: -1.5em;
     font-size: .8em;
 }
 .inputClicked{
     font-size: .7em;
     top: -1em;
+}
+/*POC page*/
+.addRecBodyPage{
+    background: linear-gradient(to right, #f8d6db, #fcd3d9);
+}
+.addRecMainContent{
+    /*align-items: center;*/
+    display: flex;
+    justify-content: center;
+    
+}
+.addRecMainContent h1{
+    font-size: 2.2em;
+}
+.addRecMainContent h3{
+    font-size: 1em;
+}
+.AddRecFormWrapper form{
+    margin: 1em 0;
+    width: 85%;
+    /*border: solid 1px gray;*/
+}
+.addRecinputWrapper{
+    display: flex;
+    justify-content: space-between;
+    padding: .5em 0;
+}
+.addreceachInput{
+    position: relative;
+    width: 100%;
+}
+.recTimingWrapper .eachInput{
+    width: 32%;
+}
+.recYielImageWrapper .addreceachInput{
+    width: 49%;
+}
+.addreceachInput input{
+    background: transparent;
+    border-radius: 0;
+    border-bottom: 1px solid #0c0575;
+    display: block;
+    font-size: 1em;
+    margin-bottom: 30px;
+    outline: none;
+    padding: 10px 0;
+    width: 100%;
+}
+.addreceachInput label{
+    font-size: .9em;
+    position: absolute;
+    top:0;
+    left: 0;
+    padding: 10px 0;
+    color: #410000;
+    pointer-events: none;
+    transition: .3s ease-in-out;
+}
+.addreceachInput button:nth-child(1){
+    margin-right: .5em;
 }
