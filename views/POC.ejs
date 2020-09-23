@@ -19,12 +19,12 @@
                 <h1>Add Your New Recipe here</h1>
                 <h3>Click add to submit an add new to add this on and a new one</h3>
                 <div class="AddRecFormWrapper">
-                    <form action="">
+                    <form action="/newRecipeData" method="POST">
 
                         <div class="addRecinputWrapper inputWrapper">
 
                             <div class="addreceachInput eachInput recTitleWrapper">
-                                <input type="text" placeholder=" ">
+                                <input type="text" name="title" placeholder=" ">
                                 <label for="RecTitle">Recipe Title</label>
                             </div>
 
@@ -33,16 +33,16 @@
                         <div class="addRecinputWrapper inputWrapper recTimingWrapper">
 
                             <div class="addreceachInput eachInput">
-                                <input type="text" placeholder=" ">
+                                <input type="text" name="prpTime" placeholder=" ">
                                 <label for="RecTitle">Prep Time</label>
                             </div>
                             
                             <div class="addreceachInput eachInput">
-                                <input type="text" placeholder=" ">
+                                <input type="text" name="ckTime" placeholder=" ">
                                 <label for="RecTitle">Cook Time</label>
                             </div>
                             <div class="addreceachInput eachInput">
-                                    <input type="text" placeholder=" ">
+                                    <input type="text" name="ttlTime" placeholder=" ">
                                 <label for="RecTitle">Total Time</label>
                             </div>
                             
@@ -51,13 +51,12 @@
                         <div class="addRecinputWrapper inputWrapper recYielImageWrapper">
 
                             <div class="addreceachInput eachInput">
-                                <input type="number" placeholder=" ">
+                                <input type="number" name="yields" placeholder=" ">
                                 <label for="RecTitle">Yields</label>
                             </div>
 
                             <div class="addreceachInput eachInput">
-                                <input type="text" placeholder=" ">
-                                <label for="RecTitle">Upload Image</label>
+                                <input type="file" name="image">
                             </div>
                                 
                         </div>
@@ -65,7 +64,7 @@
                         <div class="addRecinputWrapper inputWrapper">
 
                             <div class="addreceachInput eachInput">
-                                <input type="text" placeholder=" ">
+                                <input type="text" name="ingrdnts" placeholder=" ">
                                 <label for="RecTitle">Ingredients</label>
                             </div>
                                 
@@ -74,7 +73,7 @@
                         <div class="addRecinputWrapper inputWrapper">
 
                             <div class="addreceachInput eachInput">
-                                <input type="text" placeholder=" ">
+                                <input type="text" name="dirctns" placeholder=" ">
                                 <label for="RecTitle">Directions</label>
                             </div>
                                 
@@ -83,8 +82,8 @@
                         <div class="addRecinputWrapper inputWrapper">
 
                             <div class="addreceachInput eachInput">
-                                <button type="button" class="loginPropmtButton" data-open='modal'>Add Recipe</button>
-                                <button type="button">Submit &amp; Add New</button>
+                                <button type="submit" class="loginPropmtButton">Add Recipe</button>
+                                <button type="submit">Submit &amp; Add New</button>
                             </div>
                                 
                         </div>

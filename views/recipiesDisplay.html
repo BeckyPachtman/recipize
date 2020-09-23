@@ -19,15 +19,22 @@
             </div>
             <div class="recipeDisplayWrapper">
 
-                <div class="oneRecipeDisplayWrapper">
-                    <div class="recipeDisplay">
-                        <div class="plate plate1"></div>
-                        <div class="text">
-                            <h3>Hearty broccoli soup</h3>
-                        </div>
-                            <img src="../resources/images/saveToCollection.png" alt="save to collection" class="saveToCollectionImg">
+                <% recipe.forEach(function(rec){ %>
+                    <div class="oneRecipeDisplayWrapper">
+                        
+                            <div class="recipeDisplay">
+                                <div class="plate plate1"></div>
+                                <div class="text">
+                                    <h3><%= rec.title %></h3>
+                                    <a href="/recipe/<%= rec._id%>">lik</a>
+                                </div>
+                                <img src="../resources/images/saveToCollection.png" alt="save to collection" class="saveToCollectionImg">
+                            </div>
+                        
+                        
                     </div>
-                </div>
+                <% }) %>
+                
                 
                 <div class="oneRecipeDisplayWrapper">
                     <div class="recipeDisplay">

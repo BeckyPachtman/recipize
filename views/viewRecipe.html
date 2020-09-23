@@ -7,23 +7,23 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="keywords" content="HTML, CSS, JavaScript, Node.js, Food, Recipes, Organization">
     <link rel="stylesheet" href="../styles.css">
-    <title>View Recipe</title>
+    <title>Recipize | <%= recipe.title %></title>
 </head>
 <body>
     
     <div class="pageBody">
-        <div id="nav"></div>
+        <%- include('header.html')%>
         <div class="viewRecipePageWrapper">
             <div class="viewRecipePage">
                 <div class="recipeBook" id="recipeBook">
                 
                     <div id="cover" class="cover">
                         <div id="front" class="front">
-                            <h2>SUPER EASY BAKED POTATOES</h2>
+                            <h2></h2>
                         </div>
                         <div class="back">
                             <div class="backText">
-                                <h2>SUPER EASY BAKED POTATOES</h2>
+                                <h2><%= recipe.title %></h2>
                                 <hr>
                                 <div class="recipeIngredeients">
                                     <h3>You will need the following:</h3>
@@ -41,6 +41,17 @@
                                     <ul>
                                         <li>You would want to be generous with the kosher salt, It might look like too much but it isn't</li>
                                     </ul>
+                                </div>
+                                <div class="timimgs">
+                                    <p>
+                                        <%= recipe.prpTime %>
+                                    </p>
+                                    <p>
+                                        <%= recipe.ckTime %>
+                                    </p>
+                                    <p>
+                                        <%= recipe.ttlTime %>
+                                    </p>
                                 </div>
                             </div>
                         </div>
