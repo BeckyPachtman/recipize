@@ -519,8 +519,12 @@ input{
     top: -1em;
 }
 /*POC page*/
+.addRecMainContent{
+    overflow: visible;
+}
 .addRecBodyPage{
     background: linear-gradient(to right, #f8d6db, #fcd3d9);
+    
 }
 .addRecMainContent{
     /*align-items: center;*/
@@ -592,4 +596,39 @@ input{
     white-space: nowrap;
     cursor: pointer;
     font-size: 10pt;
+}
+
+.adIngrdntToListBttn{
+    cursor: pointer;
+    display: inline;
+    font-size: 1.7em;
+    font-weight: bold;
+    padding: .5em;
+    position: absolute;
+    right: -.3em;
+    top: -.3em;
+}
+.igUl{
+    margin: 0;
+    padding: 0;
+}
+.igUl li{
+    list-style-position: inside;
+}
+.igUl {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.DeleteListItem{
+    align-self: flex-end;
+    cursor: pointer;
+    display: flex;
+    font-size: 1.3em;
+    font-weight: bold;
+    position: relative;
+    right: -.1em;
+    top: -1.2em;
+    width: 1em;
 }

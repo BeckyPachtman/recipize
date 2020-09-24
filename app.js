@@ -26,10 +26,10 @@ app.use(express.static('public'))
 app.use(bodyParser.urlencoded({extended:false}))
 app.use(bodyParser.json()); 
 
-/*
+
 app.get('/', function(req, res){
     res.render('POC.ejs')
-})*/
+})
 
 app.get('/AddNewRecipe', function(req, res){
     res.render('POC.ejs')
@@ -59,8 +59,6 @@ app.post('/newRecipeData', (req, res) => {
         if(err){
             console.log(err);
         }else{
-            /*res.json(newRecipe)
-            console.log(newRecipe); */
             res.redirect('/recipiesDisplay') 
         }
     })
@@ -75,6 +73,7 @@ app.get('/recipe/:id', (req, res) =>{
             res.render('viewRecipe', {recipe: returningRec})
         }
     })
+
 })
 
 app.listen(3000)

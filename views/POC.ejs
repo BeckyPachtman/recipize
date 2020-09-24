@@ -42,7 +42,7 @@
                                 <label for="RecTitle">Cook Time</label>
                             </div>
                             <div class="addreceachInput eachInput">
-                                    <input type="text" name="ttlTime" placeholder=" ">
+                                <input type="text" name="ttlTime" placeholder=" ">
                                 <label for="RecTitle">Total Time</label>
                             </div>
                             
@@ -51,7 +51,7 @@
                         <div class="addRecinputWrapper inputWrapper recYielImageWrapper">
 
                             <div class="addreceachInput eachInput">
-                                <input type="number" name="yields" placeholder=" ">
+                                <input type="number" name="yields" placeholder=" " min="1">
                                 <label for="RecTitle">Yields</label>
                             </div>
 
@@ -61,19 +61,23 @@
                                 
                         </div>
 
-                        <div class="addRecinputWrapper inputWrapper">
+                        <div class="addRecinputWrapper inputWrapper ingrInputWrapper">
 
                             <div class="addreceachInput eachInput">
-                                <input type="text" name="ingrdnts" placeholder=" ">
+                                <input type="text" name="ingrdnts" class="ingrdntsInput" placeholder=" ">
                                 <label for="RecTitle">Ingredients</label>
+                                <span class="adIngrdntToListBttn">&#43;</span>
+                            
+                                <div class="ingrdntListWrapper">
+                                    <ol class="igUl"><ol>
+                                </div>
                             </div>
-                                
                         </div>
 
                         <div class="addRecinputWrapper inputWrapper">
 
                             <div class="addreceachInput eachInput">
-                                <input type="text" name="dirctns" placeholder=" ">
+                                <input type="text" name="dirctns" class="dirctnsInput" placeholder=" " required>
                                 <label for="RecTitle">Directions</label>
                             </div>
                                 
