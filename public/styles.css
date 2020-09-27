@@ -612,23 +612,17 @@ input{
     margin: 0;
     padding: 0;
 }
-.igUl li{
+/*.igUl li{
     list-style-position: inside;
+}*/
+.IngredientItem{
+    list-style: circle;
+    padding: .2em 0;
 }
-.igUl {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-}
-
-.DeleteListItem{
-    align-self: flex-end;
+.IngredientItem span{
     cursor: pointer;
-    display: flex;
-    font-size: 1.3em;
+    float: right;
+    font-size: 1.2em;
     font-weight: bold;
-    position: relative;
-    right: -.1em;
-    top: -1.2em;
-    width: 1em;
+    margin-right: .4em;
 }

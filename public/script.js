@@ -34,37 +34,28 @@ $('.viewImage').on('click', function(){
 })
 var ingrdntsInput = $('.ingrdntsInput');
 var adIngrdntToListBttn = $('.adIngrdntToListBttn');
-var str = $(document.createElement('span'))
-
-function runSpan(){
-    $(str).text('x').appendTo('.igUl');
-    str.addClass('DeleteListItem')
-}
 
 function addLiToList(){
-    $(document.createElement('li'),{}).text($(ingrdntsInput).val()).appendTo('.igUl');
-    
+    liStr = $(document.createElement('li')).text($(ingrdntsInput).val()).appendTo('.igUl');
+    liStr.addClass('IngredientItem')
+
+    var deleteIng = $(document.createElement('span')).text('x').appendTo(liStr);
+    $(deleteIng).addClass('DeleteListItem')
+
+    $(deleteIng).on('click', function(){
+        $(this).parent().remove()
+    })
         $(ingrdntsInput).val(' ')
         $(ingrdntsInput).focus()
-        //str.addClass('DeleteListItem')   
 }
 
 $('.adIngrdntToListBttn').on('click', function(){
     addLiToList();
-    runSpan()
 })
 
 $(ingrdntsInput).keydown(function(e){
     if(e.keyCode == 13){
         addLiToList()
         e.preventDefault()
-        runSpan()
     }
-})
-
-
-$(str).on('click', function(e){
-    $(this).parent().css('color', 'red')
-    $(this).parent().css('border', 'solid 1px green')
-    e.preventDefault()
 })
