@@ -618,6 +618,7 @@ input{
 .IngredientItem{
     list-style: circle;
     padding: .2em 0;
+    border: none;
 }
 .IngredientItem span{
     cursor: pointer;
@@ -625,4 +626,9 @@ input{
     font-size: 1.2em;
     font-weight: bold;
     margin-right: .4em;
+}
+.hu{
+    background-color: red;
+    height: 150px;
+    width: 150px;
 }

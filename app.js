@@ -45,17 +45,18 @@ app.get('/recipiesDisplay', function(req, res){
 })
 
 app.post('/newRecipeData', (req, res) => {
-    const title = req.body.title,
-    prpTime = req.body.prpTime,
-    ckTime = req.body.ckTime,
-    ttlTime = req.body.ttlTime,
-    yields = req.body.yields,
-    ingrdnts = req.body.ingrdnts,
-    dirctns = req.body.dirctns;
 
-    var newRecipe = {title, prpTime, ckTime, ttlTime, yields, ingrdnts, dirctns};
-
-    recipe.create(newRecipe, function(err){
+    var fullRecipe = {
+        title: req.body.title,
+        prpTime: req.body.prpTime,
+        ckTime: req.body.ckTime,
+        ttlTime: req.body.ttlTime,
+        yields: req.body.yields,
+        ingrdnts: req.body.ingrdnts,
+        dirctns: req.body.dirctns
+    }
+    
+    recipe.create(fullRecipe, function(err){
         if(err){
             console.log(err);
         }else{

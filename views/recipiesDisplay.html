@@ -11,7 +11,7 @@
 </head>
 <body>
     <div class="pageBody recipeDisplayBody">
-        <div id="nav"></div>
+        <%- include('header.html')%>
         <div class="recipeViewContentWrapper">
             <div class="welcomeText">
                 <h1>Recipe Gallery</h1>
@@ -26,7 +26,7 @@
                                 <div class="plate plate1"></div>
                                 <div class="text">
                                     <h3><%= rec.title %></h3>
-                                    <a href="/recipe/<%= rec._id%>">lik</a>
+                                    <a href="/recipe/<%= rec._id%>">View Full Recipe</a>
                                 </div>
                                 <img src="../resources/images/saveToCollection.png" alt="save to collection" class="saveToCollectionImg">
                             </div>

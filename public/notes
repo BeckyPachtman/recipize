@@ -144,3 +144,25 @@ yields
 ingredients
 directions
 image
+
+old and crappy version of saving recipe - line 47
+
+app.post('/newRecipeData', (req, res) => {
+    const title = req.body.title,
+    prpTime = req.body.prpTime,
+    ckTime = req.body.ckTime,
+    ttlTime = req.body.ttlTime,
+    yields = req.body.yields,
+    ingrdnts = req.body.ingrdnts,
+    dirctns = req.body.dirctns;
+
+    var newRecipe = {title, prpTime, ckTime, ttlTime, yields, ingrdnts, dirctns};
+
+    recipe.create(newRecipe, function(err){
+        if(err){
+            console.log(err);
+        }else{
+            res.redirect('/recipiesDisplay') 
+        }
+    })
+})

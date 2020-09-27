@@ -34,10 +34,14 @@ $('.viewImage').on('click', function(){
 })
 var ingrdntsInput = $('.ingrdntsInput');
 var adIngrdntToListBttn = $('.adIngrdntToListBttn');
+var dsd = $(document.createElement('input')).addClass('hu')
+
 
 function addLiToList(){
     liStr = $(document.createElement('li')).text($(ingrdntsInput).val()).appendTo('.igUl');
+    //liStr = $(document.createElement('input')).val($(ingrdntsInput).val()).appendTo('.igUl');
     liStr.addClass('IngredientItem')
+    $(liStr).attr('name', 'ingrdnts')
 
     var deleteIng = $(document.createElement('span')).text('x').appendTo(liStr);
     $(deleteIng).addClass('DeleteListItem')
