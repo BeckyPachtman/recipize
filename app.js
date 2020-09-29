@@ -13,9 +13,10 @@ const newRecipeSchema = new mongoose.Schema({
     prpTime: String,
     ckTime: String,
     ttlTime: String,
+    img: String,
     yields: String,
-    ingrdnts: String,
-    dirctns: String
+    ingrdnts: Array,
+    dirctns: Array
 })
 
 const recipe = mongoose.model('Recipe', newRecipeSchema)
@@ -52,6 +53,7 @@ app.post('/newRecipeData', (req, res) => {
         ckTime: req.body.ckTime,
         ttlTime: req.body.ttlTime,
         yields: req.body.yields,
+        img: req.body.img,
         ingrdnts: req.body.ingrdnts,
         dirctns: req.body.dirctns
     }

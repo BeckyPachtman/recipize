@@ -27,27 +27,35 @@ if($('.details').height() > 752){
 }
 
 var recipeImageModal = $('.recipeImageModal');
+
 $('.viewImage').on('click', function(){
     $(recipeImageModal).fadeToggle()
     $('.pageBody, .recipeBook, .back').toggleClass('imageVisble')
     $('.viewImage').toggleClass('viewImgLighter')
 })
+
+
 var ingrdntsInput = $('.ingrdntsInput');
-var adIngrdntToListBttn = $('.adIngrdntToListBttn');
-var dsd = $(document.createElement('input')).addClass('hu')
+var dirctnsInput = $('.dirctnsInput');
 
 
+/*Ingredients function*/
 function addLiToList(){
     liStr = $(document.createElement('li')).text($(ingrdntsInput).val()).appendTo('.igUl');
-    //liStr = $(document.createElement('input')).val($(ingrdntsInput).val()).appendTo('.igUl');
-    liStr.addClass('IngredientItem')
-    $(liStr).attr('name', 'ingrdnts')
+    liStr.addClass('IngredientItem');
+
+    var liStrToInput = $('<input type="hidden" />').attr({
+        name: 'ingrdnts'
+    }).appendTo('form');
+
+    $(liStrToInput).val(liStr.text());
 
     var deleteIng = $(document.createElement('span')).text('x').appendTo(liStr);
     $(deleteIng).addClass('DeleteListItem')
 
     $(deleteIng).on('click', function(){
         $(this).parent().remove()
+        $(liStrToInput).remove()
     })
         $(ingrdntsInput).val(' ')
         $(ingrdntsInput).focus()
@@ -55,11 +63,43 @@ function addLiToList(){
 
 $('.adIngrdntToListBttn').on('click', function(){
     addLiToList();
-})
-
+});
 $(ingrdntsInput).keydown(function(e){
     if(e.keyCode == 13){
         addLiToList()
+        e.preventDefault()
+    }
+})
+
+/*Directions Function */
+function addLDirToDirList(){
+    DirLiStr = $(document.createElement('li')).text($(dirctnsInput).val()).appendTo('.dirOl');
+    DirLiStr.addClass('IngredientItem');
+
+    var DirliStrToInput = $('<input class="inp" type="hidden" />').attr({
+        name: 'dirctns'
+    }).appendTo('form');
+
+    $(DirliStrToInput).val(DirLiStr.text());
+
+    var deleteIng = $(document.createElement('span')).text('x').appendTo(DirLiStr);
+    $(deleteIng).addClass('DeleteListItem')
+
+    $(deleteIng).on('click', function(){
+        $(this).parent().remove()
+        $(DirliStrToInput).remove()
+    })
+        $(dirctnsInput).val(' ')
+        $(dirctnsInput).focus()
+}
+
+$('.adDirToDirListBttn').on('click', function(){
+    addLDirToDirList();
+});
+
+$(dirctnsInput).keydown(function(e){
+    if(e.keyCode == 13){
+        addLDirToDirList()
         e.preventDefault()
     }
 })

@@ -28,14 +28,20 @@
                                 <div class="recipeIngredeients">
                                     <h3>You will need the following:</h3>
                                     <ul>
-                                        
-                                        <li><%= recipe.ingrdnts %></li>
-                                        <li>1–2 teaspoons melted butter (or olive oil)</li>
-                                        <li>pinch of coarse Kosher salt</li>
-                                        <li>pinch of freshly-cracked black pepper</li>
-                                        <li>any other spices to your preference like oregano, garlic powder, chilli flakes</li>
-                                        <li>1–2 teaspoons melted butter</li>
+                                        <% recipe.ingrdnts.forEach(function(item){ %>
+                                            <li><%= item %></li>
+                                        <% }); %>  
                                     </ul> 
+                                </div>
+                               
+                                <div class="timimgs">
+                                    <h3>Timings</h3>
+                                    <h4>Prep Time</h4>
+                                    <p><%= recipe.prpTime %></p>
+                                    <h4>Cook Time</h4>
+                                    <p><%= recipe.ckTime %></p>
+                                    <h4>Total Time</h4>
+                                    <p><%= recipe.ttlTime %></p>
                                 </div>
                                 <div class="recipeTips">
                                     <h3>Tips for this recipe</h3>
@@ -43,47 +49,31 @@
                                         <li>You would want to be generous with the kosher salt, It might look like too much but it isn't</li>
                                     </ul>
                                 </div>
-                                <div class="timimgs">
-                                    <p>
-                                        <%= recipe.prpTime %>
-                                    </p>
-                                    <p>
-                                        <%= recipe.ckTime %>
-                                    </p>
-                                    <p>
-                                        <%= recipe.ttlTime %>
-                                    </p>
-                                </div>
                             </div>
                         </div>
                     </div>                        
                     
                     <div class="page">
                         <div class="details">
+                            <h3>Directions:</h3>
                             <ol>
-                                <li>Heat oven to 450°F.  Line a large baking sheet with foil (or parchment*), and if you happen to own a wire cooling rack, place it on top of the baking sheet.</li>
-                                <li>Prep the potato. Using a dinner fork or a small paring knife, poke the potato at least 10 times on all sides.  Place the potato on the prepared baking sheet.</li>
-                                <li>Bake (round one). Bake for 25 minutes.  Remove baking sheet from the oven.</li>
-                                <li>Brush with butter (or oil).  Using a pastry brush, brush the outside of the potato with melted butter or olive oil until it is completely coated on all sides.  Sprinkle the potato with a generous pinch of Kosher salt, and place the potato back on the baking sheet reverse-side-up, so that it can cook evenly on both sides.</li>
-                                <li>Bake (round two). Bake for an additional 20 minutes.  Using an oven mitt, carefully squeeze the potato to check for doneness.  If the insides are soft and give under pressure, remove the potato from the oven.  Otherwise, continue cooking in 5-minute increments until the potato is soft.</li>
-                                <li>Cut the potato.  Using a small paring knife, slice halfway through the potato lengthwise. Then give it a gentle squeeze to open.</li>
-                                <li>Serve immediately, with your desired toppings.</li>
-                                <li>Bake (round two). Bake for an additional 20 minutes.  Using an oven mitt, carefully squeeze the potato to check for doneness.  If the insides are soft and give under pressure, remove the potato from the oven.  Otherwise, continue cooking in 5-minute increments until the potato is soft.</li>
-                                <li>Cut the potato.  Using a small paring knife, slice halfway through the potato lengthwise. Then give it a gentle squeeze to open.</li>
+                                <% recipe.dirctns.forEach(function(Direction){ %>
+                                        <li><%= Direction %></li>
+                                <% }); %> 
                             </ol>
 
-                            <div class="viewImageWrapper">
-                                <div class="viewImage">
-                                    <img src="../resources/images/image.png" alt="see more">
-                                </div>
+                        <div class="viewImageWrapper">
+                            <div class="viewImage">
+                                <img src="../resources/images/image.png" alt="see more">
                             </div>
                         </div>
+                    </div>
                     </div>
                 </div>
                             
                 <div class="recipeImageModal">
                     <div class="recipeImage">
-                        <img src="../resources/images/platesOfFood/96.jpg" alt="">
+                        <img src="<%= recipe.img %>">
                     </div>
                 </div>
                 

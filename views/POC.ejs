@@ -56,7 +56,8 @@
                             </div>
 
                             <div class="addreceachInput eachInput">
-                                <input type="file" name="image">
+                                <input type="text" name="img" placeholder=" ">
+                                <label for="">Enter Image</label>
                             </div>
                                 
                         </div>
@@ -64,7 +65,7 @@
                         <div class="addRecinputWrapper inputWrapper ingrInputWrapper">
 
                             <div class="addreceachInput eachInput">
-                                <input type="text" name="ingrdnts" class="ingrdntsInput" placeholder=" ">
+                                <input type="text" class="ingrdntsInput" placeholder=" ">
                                 <label for="RecTitle">Ingredients</label>
                                 <span class="adIngrdntToListBttn">&#43;</span>
                             
@@ -77,8 +78,14 @@
                         <div class="addRecinputWrapper inputWrapper">
 
                             <div class="addreceachInput eachInput">
-                                <input type="text" name="dirctns" class="dirctnsInput" placeholder=" " required>
+                                <input type="text" class="dirctnsInput" placeholder=" ">
                                 <label for="RecTitle">Directions</label>
+                                <span class="adDirToDirListBttn">&#43;</span>
+
+                                <div class="ingrdntListWrapper">
+                                    <ul class="dirOl"></ul>
+                                </div>
+
                             </div>
                                 
                         </div>

@@ -263,36 +263,22 @@ input{
     height: 100px;
     margin-bottom: 8em;
     position: relative;
-    width: 80%;    
+    width: 80%;
 }
 .plate{
-    background-color: rgb(173, 159, 152);
-    background: url(resources/images/meatplateCropped.jpg) top no-repeat;
-    background-size: cover;
+    background-color: rgb(177, 171, 168);    
     border-radius: 10em;
     cursor: default;
-    height: 150px;
-    width: 40%;
+    height: 135px;
+    width: 42%;
+ /*overflow: hidden;
+   background: url(resources/images/meatplateCropped.jpg) center no-repeat;
+    background-size: cover;*/
 }
-.plate1{
-    background: url(resources/images/meatplateCropped.jpg) center no-repeat;
-    background-size: cover;
-}
-.plate2{
-    background: url(resources/images/dairyFoodPlateCropped.jpg) center no-repeat;
-    background-size: cover;
-}
-.plate3{
-    background: url(resources/images/PareveFoodCropped.jpg) center no-repeat;
-    background-size: cover;
-}
-.plate4{
-    background: url(resources/images/displayRecipeImage1Crpped.jpg) center no-repeat;
-    background-size: cover;
-}
-.plate5{
-    background: url(resources/images/whitePlateWFoodCopy.png) center no-repeat;
-    background-size: cover;
+.plate img{
+    border-radius: inherit;
+    width: 100%;
+    height: 100%;
 }
 .recipeDisplay .text{
     font-size: .9em;
@@ -345,8 +331,8 @@ input{
     width: 100%;
 }
 .front{
-    background: #1c87c9;
-    background: linear-gradient(rgba(206, 206, 206, 0.822), rgba(255, 255, 255, 0.705), rgba(255, 255, 255, 0.541)), url(/resources/images/RoastedPotatoes.jpg);
+    background: #5c4a4a;
+    /*background: linear-gradient(rgba(206, 206, 206, 0.822), rgba(255, 255, 255, 0.705), rgba(255, 255, 255, 0.541)), url(/resources/images/RoastedPotatoes.jpg);*/
     color: #666;
     font-size: 1.5em;
     padding-top: 3em;
@@ -391,6 +377,7 @@ input{
     padding: 1.5em;
     position: absolute;
     top: 0;
+    width: 100%;
 }
 .detailsScrollbar{
     height: 100%;
@@ -598,7 +585,8 @@ input{
     font-size: 10pt;
 }
 
-.adIngrdntToListBttn{
+.adIngrdntToListBttn,
+.adDirToDirListBttn{
     cursor: pointer;
     display: inline;
     font-size: 1.7em;
@@ -612,9 +600,9 @@ input{
     margin: 0;
     padding: 0;
 }
-/*.igUl li{
+.igUl li{
     list-style-position: inside;
-}*/
+}
 .IngredientItem{
     list-style: circle;
     padding: .2em 0;
@@ -627,8 +615,7 @@ input{
     font-weight: bold;
     margin-right: .4em;
 }
-.hu{
+.inp{
     background-color: red;
-    height: 150px;
-    width: 150px;
+    margin: 1em;
 }
