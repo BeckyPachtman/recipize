@@ -1,6 +1,3 @@
-
-$('#nav').load('../views/header.html')
-
 if(document.getElementById('indexPage')!=null){
     openClosemodal()
 }

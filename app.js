@@ -1,7 +1,8 @@
-const bodyParser = require('body-parser')
-const mongoose = require('mongoose')
-const express = require('express')
-const app = express()
+const bodyParser = require('body-parser'),
+ mongoose = require('mongoose'),
+ express = require('express'),
+ methodOverride = require('method-override'),
+ app = express()
 
 mongoose.connect('mongodb://localhost/recipize', {
     useNewUrlParser: true,
@@ -26,7 +27,7 @@ app.set('view engine', 'html')
 app.use(express.static('public'))
 app.use(bodyParser.urlencoded({extended:false}))
 app.use(bodyParser.json()); 
-
+app.use(methodOverride('_method'))
 
 app.get('/', function(req, res){
     res.render('POC.ejs')
@@ -76,7 +77,16 @@ app.get('/recipe/:id', (req, res) =>{
             res.render('viewRecipe', {recipe: returningRec})
         }
     })
+})
 
+app.delete('/recipe/:id', (req, res) =>{
+    recipe.findByIdAndRemove(req.params.id, function(err){
+        if(err){
+            res.send(err)
+        }else{
+            res.redirect('/recipiesDisplay')
+        }
+    })
 })
 
 app.listen(3000)

@@ -166,3 +166,39 @@ app.post('/newRecipeData', (req, res) => {
         }
     })
 })
+
+original ercipe book<div id="cover" class="cover">
+<div id="front" class="front">
+        <h2></h2>
+    </div>
+    <div class="back">
+        <div class="backText">
+            <h2><%= recipe.title %></h2>
+            <hr>
+            <div class="recipeIngredeients">
+                <h3>You will need the following:</h3>
+                <ul>
+                    <% recipe.ingrdnts.forEach(function(item){ %>
+                        <li><%= item %></li>
+                    <% }); %>  
+                </ul> 
+            </div>
+            
+            <div class="timings">
+                <h3>Timings</h3>
+                <h4>Prep Time</h4>
+                <p><%= recipe.prpTime %></p>
+                <h4>Cook Time</h4>
+                <p><%= recipe.ckTime %></p>
+                <h4>Total Time</h4>
+                <p><%= recipe.ttlTime %></p>
+            </div>
+            <div class="recipeTips">
+                <h3>Tips for this recipe</h3>
+                <ul>
+                    <li>You would want to be generous with the kosher salt, It might look like too much but it isn't</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>

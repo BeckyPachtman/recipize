@@ -22,24 +22,24 @@
                 <% recipe.forEach(function(rec){ %>
                     <div class="oneRecipeDisplayWrapper">
                         
-                            <div class="recipeDisplay">
-                                <div class="plate">
-                                    <img src="<%= rec.img %>" alt="">
-                                </div>
-                                <div class="text">
-                                    <h3><%= rec.title %></h3>
-                                    <a href="/recipe/<%= rec._id%>">View Full Recipe</a>
-                                </div>
-                                <img src="../resources/images/saveToCollection.png" alt="save to collection" class="saveToCollectionImg">
+                        <div class="recipeDisplay">
+                            <div class="plate">
+                                <img src="<%= rec.img %>" alt="">
                             </div>
+                            <div class="text">
+                                <h3><a href="/recipe/<%= rec._id%>"><%= rec.title %></a></h3>
+                            </div>
+                            <img src="../resources/images/saveToCollection.png" alt="save to collection" class="saveToCollectionImg">
                         
-                        
+                        <form action="/recipe/<%= rec._id %>?_method=DELETE" method="POST">
+                           <button type="submit" class="deleterecipe"><img src="../resources/images/delete.png" alt=""></button>
+                        </form>
+                    </div>
                     </div>
                 <% }) %>
-                
+
             </div>
         </div>
-        
     </div>
     
 </body>

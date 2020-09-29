@@ -14,7 +14,7 @@ a{
     color: var(--mainGrayColor);
     text-decoration: none;
 }
-button{
+button:not[deleterecipe]{
     background-color: var(--mainRedishColor);
     border: none;
     color: #D9CCCC;
@@ -24,7 +24,7 @@ button{
     outline: none;
     padding: .5em .7em;
 }
-button:hover{
+button:not[deleterecipe]:hover{
     background-color: #b45959;
 }
 h1{
@@ -271,9 +271,6 @@ input{
     cursor: default;
     height: 135px;
     width: 42%;
- /*overflow: hidden;
-   background: url(resources/images/meatplateCropped.jpg) center no-repeat;
-    background-size: cover;*/
 }
 .plate img{
     border-radius: inherit;
@@ -331,8 +328,7 @@ input{
     width: 100%;
 }
 .front{
-    background: #5c4a4a;
-    /*background: linear-gradient(rgba(206, 206, 206, 0.822), rgba(255, 255, 255, 0.705), rgba(255, 255, 255, 0.541)), url(/resources/images/RoastedPotatoes.jpg);*/
+    background: #5a5757;
     color: #666;
     font-size: 1.5em;
     padding-top: 3em;
@@ -357,13 +353,19 @@ input{
     width: 61%;    
 }
 .backText h2{
-    padding-bottom: .2em;
+    padding-bottom: .5em;
     text-align: center;
 }
 .backText h3{
     font-weight: bold;
     padding: .5em 0;
     text-align: center;
+}
+.backText h4{
+    padding: .5em;
+}
+.timings p{
+    padding-left: .2em;
 }
 .recipeIngredeients{
     padding: 1.5em 0;
@@ -456,9 +458,7 @@ input{
     width: 80%;
     position: relative;
     top: 5em;
-}/*
-.AddRecFormWrapper{
-}*/
+}
 .AddRecFormWrapper form{
     width: 65%;
 }
@@ -511,13 +511,10 @@ input{
 }
 .addRecBodyPage{
     background: linear-gradient(to right, #f8d6db, #fcd3d9);
-    
 }
 .addRecMainContent{
-    /*align-items: center;*/
     display: flex;
     justify-content: center;
-    
 }
 .addRecMainContent h1{
     font-size: 2.2em;
@@ -528,7 +525,6 @@ input{
 .AddRecFormWrapper form{
     margin: 1em 0;
     width: 85%;
-    /*border: solid 1px gray;*/
 }
 .addRecinputWrapper{
     display: flex;
@@ -569,9 +565,6 @@ input{
 .addreceachInput button:nth-child(1){
     margin-right: .5em;
 }
-.addreceachInput input[type=file]{
-    border-bottom: none;
-}
 .addreceachInput input::-webkit-file-upload-button{
     color: white;
     display: inline-block;
@@ -584,7 +577,6 @@ input{
     cursor: pointer;
     font-size: 10pt;
 }
-
 .adIngrdntToListBttn,
 .adDirToDirListBttn{
     cursor: pointer;
@@ -615,7 +607,13 @@ input{
     font-weight: bold;
     margin-right: .4em;
 }
-.inp{
-    background-color: red;
-    margin: 1em;
+.deleterecipe{
+    bottom: .2em;
+    background: none;
+    border: none;
+    cursor: pointer;
+    filter: invert(40%);
+    outline: none;
+    position: absolute;
+    right: 1em;
 }

@@ -18,9 +18,7 @@
                 <div class="recipeBook" id="recipeBook">
                 
                     <div id="cover" class="cover">
-                        <div id="front" class="front">
-                            <h2></h2>
-                        </div>
+                        <div id="front" class="front"></div>
                         <div class="back">
                             <div class="backText">
                                 <h2><%= recipe.title %></h2>
@@ -34,7 +32,7 @@
                                     </ul> 
                                 </div>
                                
-                                <div class="timimgs">
+                                <div class="timings">
                                     <h3>Timings</h3>
                                     <h4>Prep Time</h4>
                                     <p><%= recipe.prpTime %></p>
@@ -45,9 +43,7 @@
                                 </div>
                                 <div class="recipeTips">
                                     <h3>Tips for this recipe</h3>
-                                    <ul>
-                                        <li>You would want to be generous with the kosher salt, It might look like too much but it isn't</li>
-                                    </ul>
+                                    <ul></ul>
                                 </div>
                             </div>
                         </div>
@@ -67,13 +63,17 @@
                                 <img src="../resources/images/image.png" alt="see more">
                             </div>
                         </div>
+                        
+                        <form action="/recipe/<%= recipe._id %>?_method=DELETE" method="POST">
+                            <button type="submit" class="deleterecipe"><img src="../resources/images/delete.png" alt=""></button>
+                         </form>
                     </div>
                     </div>
                 </div>
                             
                 <div class="recipeImageModal">
                     <div class="recipeImage">
-                        <img src="<%= recipe.img %>">
+                        <img src="<%= recipe.img %>" alt="">
                     </div>
                 </div>
                 
