@@ -13,20 +13,20 @@ $(document).ready(function(){
     //$('.errMsg').text(' ')
 //$('.modal').addClass('modalVisible')
 
-    if(document.getElementById('indexPage')!=null){
-        openClosemodal()
-    }
-
+    /*if(document.getElementById('indexPage')!=null){
+        
+    }*/
+openClosemodal()
     function openClosemodal(){
-        const open = document.querySelector('[data-open]');
+        //const open = document.querySelector('[data-open]');
         const close = document.querySelectorAll('[data-close]');
         const modalVisible = 'modalVisible';
 
-        open.addEventListener('click', function(){
+        /*open.addEventListener('click', function(){
             const modalId = this.dataset.open;
             document.getElementById(modalId).classList.add(modalVisible)
         
-        })
+        })*/
 
         for(const eachButton of close){
             eachButton.addEventListener('click', function(){
@@ -34,7 +34,10 @@ $(document).ready(function(){
             })
         }
     }
-
+$('.closeModal').on('click', function(){
+    $('.modal').fadeOut()
+    
+})
 
     $('.tab a').on('click', function(){
 
@@ -52,7 +55,6 @@ $(document).ready(function(){
 
     $('.reset').on('click', function(){
         $('.eachInput input').val('')
-        
     })
 
     $('.modalButton').on('click', function(){

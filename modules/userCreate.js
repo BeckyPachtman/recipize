@@ -3,18 +3,24 @@ var mongoose = require('mongoose')
 var userCreate = new mongoose.Schema({
     createUserFName:{
         type: String,
-        trim: true
+        trim: true,
+        required: true
     },
     createUserLName:{
         type: String,
-        trim: true
+        trim: true,
+        required: true
     },
     email: {
         type: String,
         trim: true,
-        lowercase: true
+        lowercase: true,
+        required: true
     },
-    password: String
+    password: {
+        type: String,
+        required: true
+    }
 })
 
 module.exports = mongoose.model('create', userCreate)

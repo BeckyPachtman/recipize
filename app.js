@@ -29,6 +29,11 @@ app.get('/', function(req, res){
 app.get('/AddNewRecipe', function(req, res){
     res.render('addRecipe')
 })
+
+app.get('/openModal', function(erq, res){
+    res.render('htmlModal', {msg: ' '})
+})
+
 app.get('/recipiesDisplay', function(req, res){
     recipe.find({}, function(err, allRecipies){
         if(err){
@@ -91,7 +96,8 @@ app.post('/login', function(req, res){
         email: req.body.email,
     }).then((userLogin) => {
         if(!userLogin){
-            res.render('index', {msg: 'User not found'})
+            //res.render('htmlModal', {msg: 'User not found'})
+            res.status(400).send('User not found')
         }
         else{
             create.findOne({
