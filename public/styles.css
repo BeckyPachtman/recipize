@@ -14,7 +14,7 @@ a{
     color: var(--mainGrayColor);
     text-decoration: none;
 }
-button:not[deleterecipe]{
+button:not(deleterecipe){
     background-color: var(--mainRedishColor);
     border: none;
     color: #D9CCCC;
@@ -24,7 +24,7 @@ button:not[deleterecipe]{
     outline: none;
     padding: .5em .7em;
 }
-button:not[deleterecipe]:hover{
+button:not(deleterecipe):hover{
     background-color: #b45959;
 }
 h1{
@@ -49,11 +49,9 @@ input{
 .pageBody{
     background-color: #d9cccc;
     background: #ee9ca7;
-    /*background: -webkit-linear-gradient(to right, #ffdde1, #ee9ca7);*/
-    /* /*darkest*/background: linear-gradient(to right, #f8cbd1, #ee9ca7);
-    /*background: linear-gradient(to right, #ffdde1, #ee9ca7); /*darkest*/
-    /*background: linear-gradient(to right, #ffdde1, #e9a2ab); /*lightest*/
-    /*background: linear-gradient(to right, #ffdde1, #e9acb4); /*in between*/
+    /*/background: #ffffff;
+
+    background: #d1b4b48c;*/
     color: var(--mainGrayColor);
     font-family: 'Montserrat', sans-serif;
     font-size: 16px;
@@ -110,19 +108,19 @@ input{
 }
 .mainContent{
     flex: 2;
-    max-height: 867px;
-    padding-top: 12em;
-    overflow: hidden;
+    padding-top: 12.5em;
 }
 .contentWrapper{
     display: flex;
 }
 .leftSideContent{
     flex: 1;
+    max-height: 670px;
+    overflow: hidden;
 }
 .imageWrapper img{
     border-radius: 100%;
-    margin: 0 0 -7em -7em;
+    margin: 0 0 0 -7em;
     width: 100%;
 }
 .rightSideContent{
@@ -137,7 +135,7 @@ input{
     width: 28em;
 }
 .rightSideContent button{
-    margin: .7em 1.5em 0 0;
+    margin: .7em 1.5em 1em 0;
 }
 .modalWrapper{
     align-items: center;
@@ -151,6 +149,7 @@ input{
     display: flex;
     justify-content: center;
     opacity: 0;
+    /*opacity: 1;*/
     padding: 1em;
     position: fixed;
     bottom: 0;
@@ -159,23 +158,43 @@ input{
     top: 0;
     transition: all .35s ease-in;
     visibility: hidden;
+    /*visibility: visible;*/
 }
 .modalVisible{
     opacity: 1;
     visibility: visible;
 }
-.modalDialog{
+.modalMainContent{
     background-color: #f3f3f3;
-    border-radius: .5em;
+    /*border-radius: .5em;*/
     cursor: default;
     display: flex;
     flex-direction: column;
+    height: 43vh;
     overflow: auto;
     position: relative;
-    max-height: 80vh;
+    text-align: center;
+    /*max-height: 80vh;
     max-width: 40%;
-    min-height: 30vh;
+    min-height: 30vh;*/
+    overflow: hidden;
+    width: 35%;
 }
+
+.modalCloseWrapper{
+    position: relative;
+}
+button.closeModal{
+    /*display: inline;*/
+    background: none;
+    color: red;
+    position: absolute;
+    
+    right: -3em;
+    bottom: -1em;
+}
+
+/*
 .modalHeader{
     display: flex;
     background-color: #ebebeb;
@@ -186,7 +205,7 @@ input{
 }
 .modalHeader button{
     background: none;
-}
+}*//*
 .modalMainContent form{
     align-items: center;
     display: flex;
@@ -226,7 +245,7 @@ input{
 .loginForm > *{
     padding: 1rem;
 }
-/*recipe view page*/
+recipe view page*/
 .recipeDisplayBody{
     background: linear-gradient(rgba(219, 208, 208, 0.897), rgba(219, 208, 208, 0.897)), url(resources/images/foodBackground2.jpg) no-repeat;
     background-size: cover;
@@ -453,6 +472,7 @@ input{
 /*Add Recipe Page*/
 .addRecSideContent{
     padding-top: 3em;
+    margin-left: -4em;
 }
 .addRecimageWrapper{
     width: 80%;
@@ -548,9 +568,9 @@ input{
     display: block;
     font-size: 1em;
     margin-bottom: 30px;
+    padding-right: 2em;
     outline: none;
-    padding: 10px 0;
-    width: 100%;
+    width: 100%; 
 }
 .addreceachInput label{
     font-size: .9em;
@@ -592,15 +612,20 @@ input{
     margin: 0;
     padding: 0;
 }
-.igUl li{
+ul.igUl li,
+ol.dirOl li{
+    border: none;
+    padding: .2em 0;
     list-style-position: inside;
 }
-.IngredientItem{
-    list-style: circle;
-    padding: .2em 0;
-    border: none;
+.igUl li:last-child{
+    padding-bottom: 1em;
 }
-.IngredientItem span{
+.igUl li{
+    list-style: circle;
+}
+.igUl span,
+.dirOl span{
     cursor: pointer;
     float: right;
     font-size: 1.2em;
@@ -616,4 +641,71 @@ input{
     outline: none;
     position: absolute;
     right: 1em;
+}
+/*New recipe Page*/
+/*index toggle forms*/
+.tabs{
+    background-color: #e0e0e0;
+    display: flex;
+    list-style: none;
+}
+.tabs li{
+    width: 50%;
+}
+.tabs li a{
+    display: block;
+    text-align: center;
+    padding: 1.5em 0;
+}
+.tabs .active{
+    background-color: #f3f3f3;
+}
+.tabs a:hover{
+    background-color: #e9e9e9;
+}
+.forms{
+    display: flex;
+    flex-direction: column;
+}
+.forms form{
+    align-items: center;
+    display: flex;
+    justify-content: center;
+}
+.forms form:nth-child(3){
+    display: none;
+}
+.userFormWrapper{
+    margin: .5em 0;
+    width: 70%;
+}
+.userFormWrapper .eachInput{
+    text-align: left;
+}
+.userFormWrapper input{
+    background-color: #ececec;
+    border-bottom: none;
+    border-radius: .1em;
+    padding-left: .5em;
+}
+.userFormWrapper label{
+    color: #696969;
+    font-size: .9em; 
+    padding-left: .5em;
+}
+.userFormWrapper .eachInput a{
+    font-size: .8em;
+    position: relative;
+    top: -1.5em;
+}
+.userFormButtons{
+    margin: .5em 0;
+    position: relative;
+}
+.userFormWrapper .nameFields{
+    display: flex;
+    justify-content: space-between;
+}
+.nameFields .eachInput{
+    width: 48%;
 }

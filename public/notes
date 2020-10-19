@@ -202,3 +202,53 @@ original ercipe book<div id="cover" class="cover">
         </div>
     </div>
 </div>
+
+/*hashing and authenticating:*/
+hashing = a hash is a function that coverts one value to another.
+it wil encrypt the password and save t like that so humans can't read the value
+salt = salt hashing is a technique in which we take the user entered password and a random string of charachters called as salt hash the combined string with a suitable hashing algorithm and store the results in the database
+
+/*different ful page backgrounds, lighter and darkeer*/
+ /*background: -webkit-linear-gradient(to right, #ffdde1, #ee9ca7);*/
+    /* /*darkest*/background: linear-gradient(to right, #f8cbd1, #ee9ca7);
+    /*background: linear-gradient(to right, #ffdde1, #ee9ca7); /*darkest*/
+    /*background: linear-gradient(to right, #ffdde1, #e9a2ab); /*lightest*/
+    /*background: linear-gradient(to right, #ffdde1, #e9acb4); /*in between*/
+
+
+/*validate email didn't work in login should work indipendatly*/
+    app.post('/login', urlencodedParser, [
+    check('email', 'email not valid')
+    .isEmail()
+    .normalizeEmail()
+    
+], function(req, res){
+
+    const errors = validationResult(req)
+    if(!errors.isEmpty()){
+        const alert = errors.array()
+            res.redirect('/', {
+                alert
+            })
+    }
+    create.findOne({
+        email: req.body.email,
+    }).then((userLogin) => {
+        if(!userLogin){
+            console.log('not found');
+            res.redirect('/', '{user not found}')
+        }
+        else{
+            create.findOne({
+                password: req.body.password
+            }).then((pass) => {
+                if(!pass){
+                    console.log('wrong password')
+                }
+                else{
+                    res.redirect('/recipiesDisplay')
+                }
+            })
+        }
+    })
+})

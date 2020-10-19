@@ -15,9 +15,9 @@
         <%- include('header.html') %>
         <div class="mainContent addRecMainContent">
             <div class="MainText">
-                
-                <h1>Add Your New Recipe here</h1>
-                <h3>Click add to submit an add new to add this on and a new one</h3>
+                {{msg}}
+                <h1>Add Your New Recipe</h1>
+                <h3>Click add to submit an add new to add this on and a new one</h3> 
                 <div class="AddRecFormWrapper">
                     <form action="/newRecipeData" method="POST">
 
@@ -73,6 +73,7 @@
                                     <ul class="igUl"></ul>
                                 </div>
                             </div>
+
                         </div>
 
                         <div class="addRecinputWrapper inputWrapper">
@@ -83,23 +84,19 @@
                                 <span class="adDirToDirListBttn">&#43;</span>
 
                                 <div class="ingrdntListWrapper">
-                                    <ul class="dirOl"></ul>
+                                    <ol class="dirOl"></ol>
                                 </div>
-
                             </div>
                                 
                         </div>
 
                         <div class="addRecinputWrapper inputWrapper">
-
                             <div class="addreceachInput eachInput">
                                 <button type="submit" class="loginPropmtButton">Add Recipe</button>
                                 <button type="submit">Submit &amp; Add New</button>
-                            </div>
-                                
+                            </div> 
                         </div>
 
-                        
                     </form>
 
                 </div>

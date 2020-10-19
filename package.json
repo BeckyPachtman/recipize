@@ -23,9 +23,11 @@
   },
   "homepage": "https://github.com/BeckyPachtman/recipize#readme",
   "dependencies": {
+    "argon2": "^0.27.0",
     "body-parser": "^1.19.0",
     "ejs": "^3.1.5",
     "express": "^4.17.1",
+    "express-validator": "^6.6.1",
     "method-override": "^3.0.0",
     "mongoose": "^5.10.6"
   }
