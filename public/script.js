@@ -11,22 +11,26 @@ $(document).ready(function(){
     
     
     //$('.errMsg').text(' ')
-//$('.modal').addClass('modalVisible')
+//
 
-    /*if(document.getElementById('indexPage')!=null){
-        
-    }*/
-openClosemodal()
+//$('#indexPage').removeClass('classes')
+
+
+    if(document.getElementById('indexPage')!=null){
+        openClosemodal()
+    }
+
+
     function openClosemodal(){
-        //const open = document.querySelector('[data-open]');
+        const open = document.querySelector('[data-open]');
         const close = document.querySelectorAll('[data-close]');
         const modalVisible = 'modalVisible';
 
-        /*open.addEventListener('click', function(){
+        open.addEventListener('click', function(){
             const modalId = this.dataset.open;
             document.getElementById(modalId).classList.add(modalVisible)
         
-        })*/
+        })
 
         for(const eachButton of close){
             eachButton.addEventListener('click', function(){
@@ -34,10 +38,7 @@ openClosemodal()
             })
         }
     }
-$('.closeModal').on('click', function(){
-    $('.modal').fadeOut()
-    
-})
+
 
     $('.tab a').on('click', function(){
 
@@ -55,6 +56,7 @@ $('.closeModal').on('click', function(){
 
     $('.reset').on('click', function(){
         $('.eachInput input').val('')
+        
     })
 
     $('.modalButton').on('click', function(){
@@ -143,3 +145,40 @@ $('.closeModal').on('click', function(){
     })
 
 })
+
+$('#login').on('submit', function(e){
+    console.log('submitted');
+    //e.preventDefault()
+
+/*
+$.ajax({
+    url: '/login',
+    type: 'POST',
+    dataType: 'json',
+    //data: {},
+    contentType: 'application/json',
+    
+    error: function(req, res, error){
+        console.log(error);
+        $('.errMsg').text('eror here')
+
+        //serviceError()
+    },
+    success: function(){
+        console.log('success');
+    }
+});*/
+})
+
+
+/*
+$.ajax({
+    url: 'http://localhost:3000/login',
+    type: 'POST',
+    dataType: 'json',
+    data: {'hello': 'world'},
+    contentType: 'application/json',
+    success: function() {
+        console.log(data);
+    }
+});*/

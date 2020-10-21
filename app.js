@@ -96,8 +96,22 @@ app.post('/login', function(req, res){
         email: req.body.email,
     }).then((userLogin) => {
         if(!userLogin){
-            //res.render('htmlModal', {msg: 'User not found'})
-            res.status(400).send('User not found')
+            res.render('index', {msg: 'User not found'})
+            //res.status(400).send('User not found')
+            //res.msg = "Current password does not match";
+            
+            //res.send(req.body)
+            //return false
+            create.findById(req.params.id, function(err, ret){
+                if(err){
+                    console.log(err);
+                    
+                }else{
+                    console.log(ret);
+                    
+                }
+            })
+            
         }
         else{
             create.findOne({
