@@ -1,26 +1,19 @@
 $(document).ready(function(){
 
-   /* var windowLocation = window.location.href
-    if(windowLocation == 'http://127.0.0.1:3000/login'){
-        console.log('You tried logging in');
-        openClosemodal()
-
+    //errMsg = $('.errMsg')
+    //if(errMsg.innerHTML != ""){
+    //    $(errMsg).css('padding', '.6em 1em')
+    //}
+   //const modalVisible = 'modalVisible';
+   //document.getElementById('modal').classList.add(modalVisible)
     
-    }else{
-    }*/
-    
-    
-    //$('.errMsg').text(' ')
-//
-
-//$('#indexPage').removeClass('classes')
-
+   //$('.modal').css('visibility', 'visible')
+   //$('.modal').css('opacity', '1')
 
     if(document.getElementById('indexPage')!=null){
         openClosemodal()
     }
-
-
+  
     function openClosemodal(){
         const open = document.querySelector('[data-open]');
         const close = document.querySelectorAll('[data-close]');
@@ -29,12 +22,14 @@ $(document).ready(function(){
         open.addEventListener('click', function(){
             const modalId = this.dataset.open;
             document.getElementById(modalId).classList.add(modalVisible)
-        
         })
 
         for(const eachButton of close){
             eachButton.addEventListener('click', function(){
                 document.getElementById('modal').classList.remove(modalVisible)
+
+                //console.log('hidden');
+                
             })
         }
     }
@@ -46,21 +41,20 @@ $(document).ready(function(){
         $(this).parent().siblings().removeClass('active')
 
         var href = $(this).attr('href')
-        $('.forms form').hide()
+        $('.formWrapper').hide()
         $(href).fadeIn(500)
     })
 
     $('.signUpButton').on('click', function(){
-        $('.signUpForm').css('display', 'flex')
+        $('.signUpFormWrapper').css('display', 'flex')
+    })
+    $('.loginButton').on('click', function(){
+        $('.loginFormWrapper').css('display', 'flex')
     })
 
     $('.reset').on('click', function(){
         $('.eachInput input').val('')
         
-    })
-
-    $('.modalButton').on('click', function(){
-    
     })
 
     if($('.details').height() > 752){
