@@ -24,7 +24,8 @@ button:not(deleterecipe){
     outline: none;
     padding: .5em .7em;
 }
-button:not(deleterecipe):hover{
+button:not(deleterecipe):hover,
+button:not(closeModal):hover{
     background-color: #b45959;
 }
 h1{
@@ -148,7 +149,6 @@ input{
     display: flex;
     justify-content: center;
     opacity: 0;
-    /*opacity: 1;*/
     padding: 1em;
     position: fixed;
     bottom: 0;
@@ -157,7 +157,6 @@ input{
     top: 0;
     transition: all .35s ease-in;
     visibility: hidden;
-    /*visibility: visible;*/
 }
 .modalVisible{
     opacity: 1;
@@ -165,7 +164,6 @@ input{
 }
 .modalMainContent{
     background-color: #f3f3f3;
-    /*border-radius: .5em;*/
     cursor: default;
     display: flex;
     flex-direction: column;
@@ -173,91 +171,27 @@ input{
     overflow: auto;
     position: relative;
     text-align: center;
-    /*max-height: 80vh;
-    max-width: 40%;
-    min-height: 30vh;*/
-    overflow: hidden;
     width: 35%;
 }
-.modalCloseWrapper{
-    position: relative;
-}
-button.closeModal{
-    /*display: inline;*/
+.closeModal{
     background: none;
-    color: red;
+    color: #ff3939;
     position: absolute;
-    right: -3em;
-    bottom: -1em;
+    bottom: 0;
+    right: 1em;
 }
-.errMsgWrapper{
-   /* height: 1.9em;
-    width: 10em;
-    display: block;
-    align-items: center;*/
+.closeModal:hover{
+
 }
 .errMsg{
-    background-color: rgb(250, 71, 71);
-    color: rgb(65, 65, 65);
-     padding: .2em .4em;
-  /* text-align: center;
-    width: 100%;
-    height: 100%;*/
-
-    
+    display: inline-block;
+    margin-bottom: 2em;
+    padding: .5em 1em;
+    background: #FFE0E0;
+    color: red;
+    font-size: .85em;
 }
-/*
-.modalHeader{
-    display: flex;
-    background-color: #ebebeb;
-    padding: .5em 1.5em;
-}
-.modalHeader h1{
-    flex: 1;
-}
-.modalHeader button{
-    background: none;
-}*//*
-.modalMainContent form{
-    align-items: center;
-    display: flex;
-    flex-direction: column;
-}
-.loginFormContent{
-    align-items: center;
-    display: flex;
-    flex-direction: column;
-    padding: 1rem;
-}
-.loginFormContent label{
-    font-size: .84em;
-    padding: 0;
-}
-.loginFormContent input{
-    margin: .5em 0 1.5em;
-    padding: .6em .5em;
-}
-.loginFormContent input:last-child{
-    margin-bottom: 0;
-}
-.inputLabelWrapper{
-    display: flex;
-    flex-direction: column;
-    padding: 1.5em;
-}
-.loginFormbuttons{
-    background-color: #ebebeb;
-    display: flex;
-    justify-content: center;
-    width: 100%;
-}
-.loginFormbuttons button{
-    margin: 0 .2em;
-}
-.loginForm > *{
-    padding: 1rem;
-}
-recipe view page*/
+/*recipe view page*/
 .recipeDisplayBody{
     background: linear-gradient(rgba(219, 208, 208, 0.897), rgba(219, 208, 208, 0.897)), url(resources/images/foodBackground2.jpg) no-repeat;
     background-size: cover;
@@ -675,16 +609,20 @@ ol.dirOl li{
 .tabs a:hover{
     background-color: #e9e9e9;
 }
-.forms{
+.formWrapper{
     display: flex;
     flex-direction: column;
+/*    overflow-x: hidden;*/
 }
-.forms form{
+.formWrapper form{
+    position: relative;
+}
+.formWrapper form:nth-child(1){
     align-items: center;
     display: flex;
-    justify-content: center;
+    justify-content: center;   
 }
-.forms form:nth-child(3){
+.forms .formWrapper:nth-child(3){
     display: none;
 }
 .userFormWrapper{
@@ -699,6 +637,7 @@ ol.dirOl li{
     border-bottom: none;
     border-radius: .1em;
     padding-left: .5em;
+    width: 100%;
 }
 .userFormWrapper label{
     color: #696969;
@@ -712,7 +651,7 @@ ol.dirOl li{
 }
 .userFormButtons{
     margin: .5em 0;
-    position: relative;
+    /*position: relative;*/
 }
 .userFormWrapper .nameFields{
     display: flex;

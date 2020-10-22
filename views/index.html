@@ -27,30 +27,26 @@
                             <button type="button" class="loginPropmtButton" data-open='modal'>Login/Sign Up</button>
                             <button type="button">Add Recipe</button>
                         </div>
-                        <div class="errMsgWrapper">
-                            <span class="errMsg"><%- msg %></span> 
-                        </div>
-                        
                     </div>
+
                     <div class="modalWrapper">
                         <div id="modal" class="modal">
                             <div class="modalMainContent">
 
                                     <div class="forms">
                                         <ul class="tabs">
-                                           
-                                          
-                                            <li class="tab active"><a href="#login">Login</a></li>
-                                            <li class="tab"><a href="#signUp" class="signUpButton">Signup</a></li>
+                                            <li class="tab active"><a href="javascript:void(0)" class="loginButton">Login</a></li>
+                                            <li class="tab" id="SignUpBtnWrpr"><a href="javascript:void(0)" class="signUpButton">Signup</a></li>
                                         </ul>
                                        
-                                        
+                                        <div class="formWrapper loginFormWrapper">
+                                      
                                             <form action="/login" method="POST" id="login">
                                                
                                                 <div class="userFormWrapper">
                                                     
                                                     <h3>Login to your account</h3>    
-                                                    
+                                                    <span class="errMsgWrpr" id="loginErr"><%- output %></span>
                                                     
                                                     <div class="eachInput">
                                                         <input type="email" name="email" id="email" placeholder=" " required>
@@ -66,60 +62,70 @@
                                                     <div class="userFormButtons">
                                                         <button type="submit" class="modalButton">Login</button>
                                                         <button type="button" class="reset">Reset</button>
-                                                        <button type="button" class="closeModal" data-close>✕</button>
                                                     </div>
                                                 </div>
                                             </form>
 
-                          
-                                        <form action="/createUser" method="POST" id="signUp" class="signUpForm">
-                                            
-                                            <div class="userFormWrapper">
-                                                
-                                                <h3>Sign Up to Recipize</h3>
+                                            <form action="/closeModal" method="GET" class="closeModalForm">
+                                                <button type="submit" class="closeModal" data-close>✕</button>
+                                            </form>
 
-                                                <div class="nameFields">
-                                                    <div class="eachInput">
-                                                        <input type="text" name="createUserFName" id="firstName" placeholder=" ">
-                                                        <label for="firstName">First Name</label>
+                                        </div>
+                                           
+
+                                        <div class="formWrapper signUpFormWrapper">
+
+                                            <form action="/createUser" method="POST" id="signUp" class="signUpForm">
+                                                
+                                                <div class="userFormWrapper">
+                                                    
+                                                    <h3>Sign Up to Recipize</h3>
+                                                    <span class="errMsgWrpr" id="signUpErr"><%- output %></span>
+
+
+                                                    <div class="nameFields">
+                                                        <div class="eachInput">
+                                                            <input type="text" name="createUserFName" id="firstName" placeholder=" ">
+                                                            <label for="firstName">First Name</label>
+                                                        </div>
+
+                                                        <div class="eachInput">
+                                                            <input type="text" name="createUserLName" id="lastName" placeholder=" ">
+                                                            <label for="lastName">Last Name</label>
+                                                        </div>
                                                     </div>
 
                                                     <div class="eachInput">
-                                                        <input type="text" name="createUserLName" id="lastName" placeholder=" ">
-                                                        <label for="lastName">Last Name</label>
+                                                        <input type="email" name="email" id="email" placeholder=" ">
+                                                        <label for="email">Email address</label>
                                                     </div>
-                                                </div>
+                                                    
+                                                    <div class="eachInput">
+                                                        <input type="password" name="password" id="password" placeholder=" ">
+                                                        <label for="password">Password</label>
+                                                    </div>
 
-                                                <div class="eachInput">
-                                                    <input type="email" name="email" id="email" placeholder=" ">
-                                                    <label for="email">Email address</label>
-                                                </div>
-                                                
-                                                <div class="eachInput">
-                                                    <input type="password" name="password" id="password" placeholder=" ">
-                                                    <label for="password">Password</label>
-                                                </div>
+                                                    <div class="userFormButtons">
+                                                        <button type="submit" class="modalButton">Sigup</button>
+                                                        <button type="button" class="reset">Reset</button>
+                                                    </div>
 
-                                                <div class="userFormButtons">
-                                                    <button type="submit" class="modalButton">Sigup</button>
-                                                    <button type="button" class="reset">Reset</button>
-                                                    <button type="button" class="closeModal" data-close>✕</button>
                                                 </div>
+                                            </form>
 
-                                            </div>
-                                        </form>
-
+                                            <form action="/closeModal" method="GET" class="closeModalForm">
+                                                <button type="submit" class="closeModal" data-close>✕</button>
+                                            </form>
+                                        </div>
                                        
                                     </div>
                                 </div>
                             </div>
                         </div>
-
-
                     </div>
                 </div>
          </div>
-     </div>
+    </div>
 </body>
 </html>
 

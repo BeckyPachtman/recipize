@@ -23,7 +23,9 @@ app.use(bodyParser.json());
 app.use(methodOverride('_method'))
 
 app.get('/', function(req, res){
-    res.render('index', {msg: ' '})
+    //var messages = [output, SignUpErr]
+    //res.render('index', messages)
+    res.render('index', {output: ' '})
 })
 
 app.get('/AddNewRecipe', function(req, res){
@@ -76,7 +78,13 @@ app.post('/createUser', function(req, res){
         email: req.body.email
     }).then((user) => {
         if(user){
-            res.render('index', {msg: 'A user with this email already exists'})
+            var output = `
+                        <style> .modal{opacity: 1;visibility: visible;}</style>
+                        <strong class="errMsg">This user already exists, log in or choose a different email</strong>
+                        
+                        <script> document.getElementById('loginErr').innerHTML = ""; </script>
+                    `
+            res.render('index', {output})
         }else{
             create.create(userCreate, function(err){
                 if(err){
@@ -89,36 +97,33 @@ app.post('/createUser', function(req, res){
     })
 })
 
-
+app.get('/closeModal', function(req, res){
+    res.redirect('/')
+})
 app.post('/login', function(req, res){
 
     create.findOne({
         email: req.body.email,
     }).then((userLogin) => {
         if(!userLogin){
-            res.render('index', {msg: 'User not found'})
-            //res.status(400).send('User not found')
-            //res.msg = "Current password does not match";
-            
-            //res.send(req.body)
-            //return false
-            create.findById(req.params.id, function(err, ret){
-                if(err){
-                    console.log(err);
-                    
-                }else{
-                    console.log(ret);
-                    
-                }
-            })
-            
+            var output = `
+                        <style> .modal{opacity: 1;visibility: visible;}</style>
+                        <strong class="errMsg">Oops. This email is not found, please try again</strong>
+                        <script> document.getElementById('signUpErr').innerHTML = ""; </script>
+                    `
+            res.render('index', {output})
         }
         else{
             create.findOne({
                 password: req.body.password
             }).then((pass) => {
                 if(!pass){
-                    res.render('index', {msg: 'Wrong password'})
+                    var output = `
+                        <style> .modal{ opacity: 1;visibility: visible;}</style>
+                        <strong class="errMsg">Password incorrect, please try again</strong>
+                        <script> document.getElementById('signUpErr').innerHTML = ""; </script>
+                    `
+                    res.render('index', {output})
                 }
                 else{
                     res.redirect('/recipiesDisplay')
