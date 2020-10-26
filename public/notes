@@ -252,3 +252,18 @@ salt = salt hashing is a technique in which we take the user entered password an
         }
     })
 })
+
+
+
+<!--<span class="errMsgWrpr" id="loginErr">
+<% messages.forEach(function(mes) { %>
+<li><%= mes.output %></li>
+<% }); %></span>-->
+
+
+
+ <span class="errMsgWrpr" id="signUpErr">
+                                                        <% messages.forEach(function(mes) { %>
+                                                            <li><%= mes.signUpErr %></li>
+                                                            <% }); %></span>
+                                                    </span>

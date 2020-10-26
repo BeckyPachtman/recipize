@@ -167,7 +167,7 @@ input{
     cursor: default;
     display: flex;
     flex-direction: column;
-    height: 43vh;
+    height: 47vh;
     overflow: auto;
     position: relative;
     text-align: center;
@@ -180,8 +180,9 @@ input{
     bottom: 0;
     right: 1em;
 }
-.closeModal:hover{
-
+.errMsgWrpr{
+    height: 41px;
+    display: block;
 }
 .errMsg{
     display: inline-block;
@@ -613,6 +614,9 @@ ol.dirOl li{
     display: flex;
     flex-direction: column;
 /*    overflow-x: hidden;*/
+}
+.formWrapper h3{
+    padding: .5em;
 }
 .formWrapper form{
     position: relative;

@@ -1,15 +1,5 @@
 $(document).ready(function(){
 
-    //errMsg = $('.errMsg')
-    //if(errMsg.innerHTML != ""){
-    //    $(errMsg).css('padding', '.6em 1em')
-    //}
-   //const modalVisible = 'modalVisible';
-   //document.getElementById('modal').classList.add(modalVisible)
-    
-   //$('.modal').css('visibility', 'visible')
-   //$('.modal').css('opacity', '1')
-
     if(document.getElementById('indexPage')!=null){
         openClosemodal()
     }
@@ -35,19 +25,19 @@ $(document).ready(function(){
     }
 
 
-    $('.tab a').on('click', function(){
-
+    $('.tab a').on('click', function(){   
         $(this).parent().addClass('active')
         $(this).parent().siblings().removeClass('active')
 
         var href = $(this).attr('href')
         $('.formWrapper').hide()
-        $(href).fadeIn(500)
+        $(href).fadeIn(500)       
     })
 
     $('.signUpButton').on('click', function(){
         $('.signUpFormWrapper').css('display', 'flex')
     })
+
     $('.loginButton').on('click', function(){
         $('.loginFormWrapper').css('display', 'flex')
     })
@@ -140,39 +130,3 @@ $(document).ready(function(){
 
 })
 
-$('#login').on('submit', function(e){
-    console.log('submitted');
-    //e.preventDefault()
-
-/*
-$.ajax({
-    url: '/login',
-    type: 'POST',
-    dataType: 'json',
-    //data: {},
-    contentType: 'application/json',
-    
-    error: function(req, res, error){
-        console.log(error);
-        $('.errMsg').text('eror here')
-
-        //serviceError()
-    },
-    success: function(){
-        console.log('success');
-    }
-});*/
-})
-
-
-/*
-$.ajax({
-    url: 'http://localhost:3000/login',
-    type: 'POST',
-    dataType: 'json',
-    data: {'hello': 'world'},
-    contentType: 'application/json',
-    success: function() {
-        console.log(data);
-    }
-});*/

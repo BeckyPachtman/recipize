@@ -8,6 +8,7 @@ const bodyParser = require('body-parser'),
  {check, validationResult} = require('express-validator'),
  //argon2 = require('argon2'),
  app = express()
+ //functionFromScript = require('./public/scriptForApp')
 
 mongoose.connect('mongodb://localhost/recipize', {
     useNewUrlParser: true,
@@ -23,23 +24,7 @@ app.use(bodyParser.json());
 app.use(methodOverride('_method'))
 
 app.get('/', function(req, res){
-    //var messages = [output, SignUpErr]
-    //res.render('index', messages)
-    //var output = ;
-    //var sigUpErr =' text ';
-   /* var messages = [
-       
-    ]*/
-
-    var data = [
-        'The login output error',
-        'The signup output error'
-        ];
-        res.render('index', {data: data[0]} );
-     
-    //res.render('index', {messages: messages})
-
-    //    res.render('index', {output: 'Login error text'}, {sigUpErr: 'Signup error text'})
+    res.render('index', {errMsg: ''} );
 })
 
 app.get('/AddNewRecipe', function(req, res){
@@ -92,23 +77,50 @@ app.post('/createUser', function(req, res){
         email: req.body.email
     }).then((user) => {
         if(user){
-            var dataAA = `
-                        <style> .modal{opacity: 1;visibility: visible;}</style>
+            var errMsg  = `
+                        <style> .modal{opacity: 1;visibility: visible;}
+                        .forms .formWrapper:nth-child(2){
+                            display: none;
+                        }
+                        .forms .formWrapper:nth-child(3){
+                            display: flex;
+                        }
+                        /*.loginButton{
+                            background-color: #e0e0e0;
+                        }*/
+                        
+                        </style>
                         <strong class="errMsg">This user already exists, log in or choose a different email</strong>
+                        <script>
                         
-                        <script> 
-                        
-                        var so = document.getElementById('SignUpBtnWrpr')
-                        so.classList.remove('active')
-                        
-                        var tt = document.getElementById('loginErr')
-                        tt.innerHTML = "";
-                        this.tt.classList.remove('active')
-                        console.log(so)
+                            var so = document.getElementById('SignUpBtnWrpr')
+                            so.classList.add('active')
+
+                            var so = document.getElementById('loginBtnWrpr')
+                            so.classList.remove('active')
+
+                            document.getElementById('loginErr').innerHTML = "";
+                           
+                           
+                            /*document.querySelector('#login').style.display = 'none';
+                            document.querySelector('.signUpFormWrapper').style.display = 'flex';
+
+                           functionFromScript()
+
+                            var signUpBtnwrapr = document.getElementById('SignUpBtnWrpr')
+                            signUpBtnwrapr.classlist.add('active')
+                            console.log(signUpBtnwrapr)
+                            
+                            
+                            var tt = document.getElementById('loginErr')
+                            tt.innerHTML = "";
+                            this.tt.classList.remove('active')
+                            console.log(so)*/
+
 
                         </script>
                     `
-            res.render('index', {data: dataAA})
+            res.render('index', {errMsg: errMsg})
         }else{
             create.create(userCreate, function(err){
                 if(err){
@@ -130,14 +142,16 @@ app.post('/login', function(req, res){
         email: req.body.email,
     }).then((userLogin) => {
         if(!userLogin){
-            var data = [ `
+            var errMsg = `
                         <style> .modal{opacity: 1;visibility: visible;}</style>
                         <strong class="errMsg">Oops. This email is not found, please try again</strong>
-                        <script> document.getElementById('signUpErr').innerHTML = ""; </script>
-                    `,
-                'more buthsit']
-                    var data = data[0]
-            res.render('index', {data: data})
+                        <script>
+
+                            document.getElementById('signUpErr').innerHTML = "";
+
+                        </script>
+                    `
+            res.render('index', {errMsg: errMsg})
         }
         else{
             create.findOne({

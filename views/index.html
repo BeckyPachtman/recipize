@@ -26,8 +26,11 @@
                             <h3>Enter, edit, share, update recipes easily, quicly, and effortlesslesy.</h3>
                             <button type="button" class="loginPropmtButton" data-open='modal'>Login/Sign Up</button>
                             <button type="button">Add Recipe</button>
+                      
                         </div>
+                  
                     </div>
+
 
                     <div class="modalWrapper">
                         <div id="modal" class="modal">
@@ -35,10 +38,15 @@
 
                                     <div class="forms">
                                         <ul class="tabs">
-                                            <li class="tab active"><a href="javascript:void(0)" class="loginButton">Login</a></li>
-                                            <li class="tab" id="SignUpBtnWrpr"><a href="javascript:void(0)" class="signUpButton">Signup</a></li>
+                                            <li class="tab active" id="loginBtnWrpr">
+                                                <a href="javascript:void(0)" class="loginButton">Login</a>
+                                            </li>
+                                            <li class="tab" id="SignUpBtnWrpr">
+                                                <a href="javascript:void(0)" class="signUpButton">Signup</a>
+                                            </li>
                                         </ul>
                                        
+                                        
                                         <div class="formWrapper loginFormWrapper">
                                       
                                             <form action="/login" method="POST" id="login">
@@ -46,8 +54,9 @@
                                                 <div class="userFormWrapper">
                                                     
                                                     <h3>Login to your account</h3>    
-                                                    <span class="errMsgWrpr" id="loginErr"><%- output %></span>
-                                                    
+                                                    <span class="errMsgWrpr" id="loginErr"><%- errMsg %></span>
+
+
                                                     <div class="eachInput">
                                                         <input type="email" name="email" id="email" placeholder=" " required>
                                                         <label for="email">Email address</label>
@@ -73,14 +82,14 @@
                                         </div>
                                            
 
-                                        <div class="formWrapper signUpFormWrapper">
+                                        <div class="formWrapper signUpFormWrapper" id="signUpFormWrapper">
 
                                             <form action="/createUser" method="POST" id="signUp" class="signUpForm">
                                                 
                                                 <div class="userFormWrapper">
                                                     
                                                     <h3>Sign Up to Recipize</h3>
-                                                    <span class="errMsgWrpr" id="signUpErr"><%- output %></span>
+                                                    <span class="errMsgWrpr" id="signUpErr"><%- errMsg %></span>
 
 
                                                     <div class="nameFields">
@@ -131,3 +140,4 @@
 
 <script src="https://code.jquery.com/jquery-3.5.1.min.js""></script>
 <script src="script.js"></script>
+<script src="scriptForApp.js"></script>
