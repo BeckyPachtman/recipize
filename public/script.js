@@ -17,9 +17,6 @@ $(document).ready(function(){
         for(const eachButton of close){
             eachButton.addEventListener('click', function(){
                 document.getElementById('modal').classList.remove(modalVisible)
-
-                //console.log('hidden');
-                
             })
         }
     }
@@ -46,6 +43,11 @@ $(document).ready(function(){
         $('.eachInput input').val('')
         
     })
+
+    $('.showHidePassIcon').on('click', function(){
+        $('.showHidePassIcon img').toggle()
+    })
+
 
     if($('.details').height() > 752){
         $('.details').addClass('detailsScrollbar')
