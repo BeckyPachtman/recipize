@@ -44,7 +44,23 @@ $(document).ready(function(){
         
     })
 
+    
+
     $('.showHidePassIcon').on('click', function(){
+        var passwordField = $('#password');
+        
+        
+       /* if( $(passwordField).type === 'password'){
+            $(this).type ='text'
+            console.log('text');
+        }else{
+            $(this).type ='password'
+            console.log('pass');
+        }*/
+
+        var passAtr = passwordField.attr('type') === 'password' ? 'text' : 'password'
+        passwordField.attr('type', passAtr)
+
         $('.showHidePassIcon img').toggle()
     })
 
