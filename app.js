@@ -25,7 +25,21 @@ app.use(methodOverride('_method'))
 app.get('/', function(req, res){
     //var messages = [output, SignUpErr]
     //res.render('index', messages)
-    res.render('index', {output: ' '})
+    //var output = ;
+    //var sigUpErr =' text ';
+   /* var messages = [
+       
+    ]*/
+
+    var data = [
+        'The login output error',
+        'The signup output error'
+        ];
+        res.render('index', {data: data[0]} );
+     
+    //res.render('index', {messages: messages})
+
+    //    res.render('index', {output: 'Login error text'}, {sigUpErr: 'Signup error text'})
 })
 
 app.get('/AddNewRecipe', function(req, res){
@@ -78,13 +92,23 @@ app.post('/createUser', function(req, res){
         email: req.body.email
     }).then((user) => {
         if(user){
-            var output = `
+            var dataAA = `
                         <style> .modal{opacity: 1;visibility: visible;}</style>
                         <strong class="errMsg">This user already exists, log in or choose a different email</strong>
                         
-                        <script> document.getElementById('loginErr').innerHTML = ""; </script>
+                        <script> 
+                        
+                        var so = document.getElementById('SignUpBtnWrpr')
+                        so.classList.remove('active')
+                        
+                        var tt = document.getElementById('loginErr')
+                        tt.innerHTML = "";
+                        this.tt.classList.remove('active')
+                        console.log(so)
+
+                        </script>
                     `
-            res.render('index', {output})
+            res.render('index', {data: dataAA})
         }else{
             create.create(userCreate, function(err){
                 if(err){
@@ -92,7 +116,7 @@ app.post('/createUser', function(req, res){
                 }else{
                 }
             })
-            res.redirect('/AddNewRecipe')
+            res.redirect('/')
         }
     })
 })
@@ -106,12 +130,14 @@ app.post('/login', function(req, res){
         email: req.body.email,
     }).then((userLogin) => {
         if(!userLogin){
-            var output = `
+            var data = [ `
                         <style> .modal{opacity: 1;visibility: visible;}</style>
                         <strong class="errMsg">Oops. This email is not found, please try again</strong>
                         <script> document.getElementById('signUpErr').innerHTML = ""; </script>
-                    `
-            res.render('index', {output})
+                    `,
+                'more buthsit']
+                    var data = data[0]
+            res.render('index', {data: data})
         }
         else{
             create.findOne({
