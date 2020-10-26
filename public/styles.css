@@ -664,3 +664,16 @@ ol.dirOl li{
 .nameFields .eachInput{
     width: 48%;
 }
+.showHidePassIcon img{
+    position: absolute;
+    top: .6em;
+    right: 1em;
+    height: 1.2em;
+    cursor: pointer;
+}
+.showPassIcon{
+    
+}
+.hidePassIcon{
+    display: none;
+}
