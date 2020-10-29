@@ -21,7 +21,6 @@ $(document).ready(function(){
         }
     }
 
-
     $('.tab a').on('click', function(){   
         $(this).parent().addClass('active')
         $(this).parent().siblings().removeClass('active')
@@ -41,26 +40,13 @@ $(document).ready(function(){
 
     $('.reset').on('click', function(){
         $('.eachInput input').val('')
-        
+        $('.errMsg').css('display', 'none')
     })
 
-    
-
     $('.showHidePassIcon').on('click', function(){
-        var passwordField = $('#password');
-        
-        
-       /* if( $(passwordField).type === 'password'){
-            $(this).type ='text'
-            console.log('text');
-        }else{
-            $(this).type ='password'
-            console.log('pass');
-        }*/
-
+        var passwordField = $('.password');
         var passAtr = passwordField.attr('type') === 'password' ? 'text' : 'password'
         passwordField.attr('type', passAtr)
-
         $('.showHidePassIcon img').toggle()
     })
 
@@ -80,7 +66,6 @@ $(document).ready(function(){
 
     var ingrdntsInput = $('.ingrdntsInput');
     var dirctnsInput = $('.dirctnsInput');
-
 
     /*Ingredients function*/
     function addLiToList(){

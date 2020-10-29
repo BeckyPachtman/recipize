@@ -45,7 +45,6 @@
                                                 <a href="javascript:void(0)" class="signUpButton">Signup</a>
                                             </li>
                                         </ul>
-                                       
                                         
                                         <div class="formWrapper loginFormWrapper">
                                       
@@ -56,14 +55,13 @@
                                                     <h3>Login to your account</h3>    
                                                     <span class="errMsgWrpr" id="loginErr"><%- errMsg %></span>
 
-
                                                     <div class="eachInput">
                                                         <input type="email" name="email" id="email" placeholder=" " required>
                                                         <label for="email">Email address</label>
                                                     </div>
                                                     
                                                     <div class="eachInput">
-                                                        <input type="password" name="password" id="password" placeholder=" " required>
+                                                        <input type="password" name="password" class="password" placeholder=" " required>
                                                         <span class="showHidePassIcon">
                                                             <img src="/resources/images/passwordVisibility.png" alt="password icon" class="showPassIcon">
                                                             <img src="/resources/images/passwordInvisible.png" alt="password icon" class="hidePassIcon">
@@ -85,8 +83,7 @@
                                             </form>
 
                                         </div>
-                                           
-
+                                        
                                         <div class="formWrapper signUpFormWrapper" id="signUpFormWrapper">
 
                                             <form action="/createUser" method="POST" id="signUp" class="signUpForm">
@@ -96,27 +93,42 @@
                                                     <h3>Sign Up to Recipize</h3>
                                                     <span class="errMsgWrpr" id="signUpErr"><%- errMsg %></span>
 
-
-                                                    <div class="nameFields">
+                                                    <div class="firstLastRowInputs">
                                                         <div class="eachInput">
-                                                            <input type="text" name="createUserFName" id="firstName" placeholder=" ">
+                                                            <input type="text" name="createUserFName" id="firstName" placeholder=" " required>
                                                             <label for="firstName">First Name</label>
                                                         </div>
 
                                                         <div class="eachInput">
-                                                            <input type="text" name="createUserLName" id="lastName" placeholder=" ">
+                                                            <input type="text" name="createUserLName" id="lastName" placeholder=" " required>
                                                             <label for="lastName">Last Name</label>
                                                         </div>
                                                     </div>
 
                                                     <div class="eachInput">
-                                                        <input type="email" name="email" id="email" placeholder=" ">
+                                                        <input type="email" name="email" id="email" placeholder=" " required>
                                                         <label for="email">Email address</label>
                                                     </div>
                                                     
+
+                                                    <div class="firstLastRowInputs">
+                                                        <div class="eachInput">
+                                                            <input type="password" name="password" class="password" placeholder=" " required>
+                                                            <span class="showHidePassIcon">
+                                                                <img src="/resources/images/passwordVisibility.png" alt="password icon" class="showPassIcon">
+                                                                <img src="/resources/images/passwordInvisible.png" alt="password icon" class="hidePassIcon">
+                                                            </span>
+                                                            <label for="password">Password</label>
+                                                        </div>
+
+                                                        <div class="eachInput">
+                                                            <input type="file" name="attachProfilePhoto" id="profilePhoto" class="profilePhotoInpt" placeholder=" ">
+                                                            <label for="profilePhoto" class="profilePhotoLbl"><img src="../resources/images/upload.png" alt=""> <span>Profile Photo</span> </label>
+                                                        </div>
+                                                    </div>
+                                                    
                                                     <div class="eachInput">
-                                                        <input type="password" name="password" id="password" placeholder=" ">
-                                                        <label for="password">Password</label>
+                                                        
                                                     </div>
 
                                                     <div class="userFormButtons">

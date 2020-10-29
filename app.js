@@ -119,15 +119,15 @@ app.post('/login', function(req, res){
                 password: req.body.password
             }).then((pass) => {
                 if(!pass){
-                    var output = `
+                    var errMsg = `
                         <style> .modal{ opacity: 1;visibility: visible;}</style>
                         <strong class="errMsg">Password incorrect, please try again</strong>
                         <script> document.getElementById('signUpErr').innerHTML = ""; </script>
                     `
-                    res.render('index', {output})
+                    res.render('index', {errMsg: errMsg})
                 }
                 else{
-                    res.redirect('/recipiesDisplay')
+                    res.redirect('/')
                 }
             })
         }
@@ -155,6 +155,10 @@ app.delete('/recipe/:id', (req, res) =>{
     })
 })
 
+
+app.get('/createUser', function(){
+    res.send('not such thing')
+})
 
 /*
 async function starts(){
