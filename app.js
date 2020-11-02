@@ -1,19 +1,67 @@
 const bodyParser = require('body-parser'),
- mongoose = require('mongoose'),
+ create = require('./modules/userCreate'),
+ Grid = require('gridfs-stream'), //GridFs Stream
+ GridFsStorage = require('multer-gridfs-storage'), //GridFs
  express = require('express'),
  methodOverride = require('method-override'),
+ mongoose = require('mongoose'),
+ multer = require('multer'),
+ path = require('path')
  recipe = require('./modules/recipe'),
- create = require('./modules/userCreate'),
- //login = require('./modules/userLogin'),
  {check, validationResult} = require('express-validator'),
  //argon2 = require('argon2'),
  app = express()
 
-mongoose.connect('mongodb://localhost/recipize', {
+var mongoU = 'mongodb://localhost/recipize';
+
+var conn = mongoose.createConnection(mongoU, {
     useNewUrlParser: true,
     useUnifiedTopology: true,
     useFindAndModify: false
-});
+})
+
+/*
+var conn = mongoose.createConnection('mongodb://localhost/recipize', {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+    useFindAndModify: false
+});*/
+
+//initialize stream
+conn.once('open', function(){
+    var gfs = Grid(conn.db, mongoose.mongo)
+    gfs.collection('photoUploads')
+})
+
+var storage = new GridFsStorage({
+    
+    url: mongoU,
+    file: function(req, res) {
+        return new Promise((resolve, reject) => {
+            crypto.randomBytes(16, (err, buf) => {
+                if(err){
+                    return reject(err)
+                }
+                const filename = buf.toString('hex') + path.extname(file.originalname)
+                const fileInfo = {
+                    filename: filename,
+                    bucketname: 'photoUploads'
+                }
+                resolve(fileInfo)
+            })
+        })
+    }
+})
+
+const PhotoUpload = multer({storage})
+
+app.post('/photoUpload', PhotoUpload.single('attachProfilePhoto'), function(req, res){
+    res.json({
+        file: req.file
+    })
+})
+
+
 
 app.engine('html', require('ejs').renderFile)
 app.set('view engine', 'html')
@@ -156,9 +204,7 @@ app.delete('/recipe/:id', (req, res) =>{
 })
 
 
-app.get('/createUser', function(){
-    res.send('not such thing')
-})
+
 
 /*
 async function starts(){
