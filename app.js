@@ -1,42 +1,36 @@
 const bodyParser = require('body-parser'),
  create = require('./modules/userCreate'),
+ crypto = require('crypto'),
  Grid = require('gridfs-stream'), //GridFs Stream
  GridFsStorage = require('multer-gridfs-storage'), //GridFs
  express = require('express'),
  methodOverride = require('method-override'),
  mongoose = require('mongoose'),
  multer = require('multer'),
- path = require('path')
+ path = require('path');
+const { response } = require('express');
  recipe = require('./modules/recipe'),
  {check, validationResult} = require('express-validator'),
  //argon2 = require('argon2'),
  app = express()
 
-var mongoU = 'mongodb://localhost/recipize';
-
-var conn = mongoose.createConnection(mongoU, {
+mongoURI = 'mongodb://localhost/recipize'
+var conn = mongoose.createConnection(mongoURI, {
     useNewUrlParser: true,
     useUnifiedTopology: true,
     useFindAndModify: false
-})
-
-/*
-var conn = mongoose.createConnection('mongodb://localhost/recipize', {
-    useNewUrlParser: true,
-    useUnifiedTopology: true,
-    useFindAndModify: false
-});*/
-
+});
 //initialize stream
+
+let gfs;
 conn.once('open', function(){
-    var gfs = Grid(conn.db, mongoose.mongo)
+    gfs = Grid(conn.db, mongoose.mongo)
     gfs.collection('photoUploads')
 })
 
 var storage = new GridFsStorage({
-    
-    url: mongoU,
-    file: function(req, res) {
+    url: mongoURI,
+    file: (req, file) => {
         return new Promise((resolve, reject) => {
             crypto.randomBytes(16, (err, buf) => {
                 if(err){
@@ -45,22 +39,51 @@ var storage = new GridFsStorage({
                 const filename = buf.toString('hex') + path.extname(file.originalname)
                 const fileInfo = {
                     filename: filename,
-                    bucketname: 'photoUploads'
+                    bucketName: 'photoUploads'
                 }
                 resolve(fileInfo)
             })
         })
+    },
+    options: {
+        useUnifiedTopology: true
     }
 })
 
 const PhotoUpload = multer({storage})
 
+
 app.post('/photoUpload', PhotoUpload.single('attachProfilePhoto'), function(req, res){
-    res.json({
-        file: req.file
-    })
+    res.redirect('/')
 })
 
+//get all photos
+app.get('/photos', function(req, res){
+    gfs.files.find().toArray(function(err, files){
+        if(!files || files.length === 0){
+            res.send('no photos found')
+        }
+        return res.send(files)
+    })
+    
+})
+
+
+app.get('/photos/:filename', function(req, res){
+    gfs.files.findOne({filename: req.params.filename}, function(err, file){
+        if(!file || file.length === 0){
+            res.send('no photos found')
+        }
+        
+        else if(file.contentType === 'image/png' || file.contentType === 'image/jpeg'){
+            var readStream = gfs.createReadStream(file.filename);
+            readStream.pipe(res)
+        }else{
+            res.send('not a photo')
+        }
+    })
+    
+})
 
 
 app.engine('html', require('ejs').renderFile)
