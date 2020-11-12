@@ -14,11 +14,9 @@
     <div class="pageBody">
         <%- include('header.html')%>
         <div class="viewRecipePageWrapper">
-            <div class="viewRecipePage">
                 <div class="recipeBook" id="recipeBook">
                 
                     <div id="cover" class="cover">
-                        <div id="front" class="front"></div>
                         <div class="back">
                             <div class="backText">
                                 <h2><%= recipe.title %></h2>
@@ -34,12 +32,25 @@
                                
                                 <div class="timings">
                                     <h3>Timings</h3>
-                                    <h4>Prep Time</h4>
-                                    <p><%= recipe.prpTime %></p>
-                                    <h4>Cook Time</h4>
-                                    <p><%= recipe.ckTime %></p>
-                                    <h4>Total Time</h4>
-                                    <p><%= recipe.ttlTime %></p>
+                                    
+                                    <div class="timingSpecific">
+                                        <div>
+                                            <h4>Prep Time</h4>
+                                            <p><%= recipe.prpTime %></p>
+                                        </div>
+                                        
+                                        <div>
+                                            <h4>Cook Time</h4>
+                                            <p><%= recipe.ckTime %></p>
+                                        </div>
+                                        
+                                        <div>
+                                            <h4>Total Time</h4>
+                                            <p><%= recipe.ttlTime %></p>
+                                        </div>
+                                        
+                                    </div>
+                                    
                                 </div>
                                 <div class="recipeTips">
                                     <h3>Tips for this recipe</h3>
@@ -65,7 +76,7 @@
                         </div>
                         
                         <form action="/recipe/<%= recipe._id %>?_method=DELETE" method="POST">
-                            <button type="submit" class="deleterecipe"><img src="../resources/images/delete.png" alt=""></button>
+                            <button type="submit" class="deleterecipe dltRecOnView"><img src="../resources/images/delete.png" alt=""></button>
                          </form>
                     </div>
                     </div>
@@ -77,7 +88,7 @@
                     </div>
                 </div>
                 
-            </div>
+           
         </div>
     </div>
        

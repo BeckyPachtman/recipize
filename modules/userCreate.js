@@ -15,11 +15,15 @@ var userCreate = new mongoose.Schema({
         type: String,
         trim: true,
         lowercase: true,
-        required: true
+        //required: true
     },
     password: {
         type: String,
-        required: true
+        //required: true
+    },
+    profilephoto: {
+        data: Buffer,
+        contentType: String
     }
 })
 

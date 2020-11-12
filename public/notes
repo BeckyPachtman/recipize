@@ -262,8 +262,74 @@ salt = salt hashing is a technique in which we take the user entered password an
 
 
 
- <span class="errMsgWrpr" id="signUpErr">
-                                                        <% messages.forEach(function(mes) { %>
-                                                            <li><%= mes.signUpErr %></li>
-                                                            <% }); %></span>
-                                                    </span>
+<span class="errMsgWrpr" id="signUpErr">
+    <% messages.forEach(function(mes) { %>
+        <li><%= mes.signUpErr %></li>
+        <% }); %></span>
+</span>
+
+
+
+Password hashing
+/*
+async function starts(){
+    let hash;
+    let userPassword = 'bracha PachtmanIsTringStuffHErr';
+    try{
+        hash = await argon2.hash(userPassword)
+        console.log(hash);
+        
+    }catch (err) {
+        console.log(err); 
+    }
+    try{
+        if(await argon2.verify(hash, 'hfiuhgiuhf')){
+            console.log('matched');
+        }else{
+            console.log('not a match');
+        }
+    }catch(err) {
+        console.log(err)
+    }
+}
+starts()
+*/
+
+//worked on this password hashing jut to read afterwardds that it's very bad practice
+function logger(errr){
+    console.log(errr);
+}
+
+var generateSalt = function(rounds){
+    if(rounds >= 15){
+        console.log(rounds + 'is greater than 15');
+    }else if(typeof rounds !== 'number'){
+        console.log('rounds must be a number');
+    }else if(rounds == null){
+        rounds = 12
+    }
+    return crypto.randomBytes(Math.ceil(rounds / 2)).toString('hex').slice(0, rounds)
+}
+
+logger(generateSalt(10))
+
+var hasher = function(password, salt){
+    var hash = crypto.createHmac('sha512', salt)
+    hash.update(password)
+    let value = hash.digest('hex')
+    return{
+        salt: salt,
+        hashedPassword: value
+    }
+}
+
+var hash = function(password, salt){
+    if(password == null || salt == null){
+        console.log('provide password and salt values');
+    }else if(typeof password !== 'string' || typeof salt !=='string'){
+        console.log('password must be a string and salt must either be a salt string or a number of rounds');
+    }
+    return hasher(password, salt)
+}
+
+logger(hash('Wisdom', generateSalt(12)))

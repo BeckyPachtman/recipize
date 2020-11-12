@@ -1,3 +1,5 @@
+const { argon2 } = require('argon2');
+
 const bodyParser = require('body-parser'),
  create = require('./modules/userCreate'),
  crypto = require('crypto'),
@@ -7,25 +9,30 @@ const bodyParser = require('body-parser'),
  methodOverride = require('method-override'),
  mongoose = require('mongoose'),
  multer = require('multer'),
- path = require('path');
-const { response } = require('express');
+ path = require('path'),
  recipe = require('./modules/recipe'),
  {check, validationResult} = require('express-validator'),
- //argon2 = require('argon2'),
- app = express()
+ argon = require('argon2'),
+ app = express();
 
-mongoURI = 'mongodb://localhost/recipize'
-var conn = mongoose.createConnection(mongoURI, {
+mongoose.connect('mongodb://localhost/recipize', {
     useNewUrlParser: true,
     useUnifiedTopology: true,
     useFindAndModify: false
 });
-//initialize stream
+
+/*--------------------------------------------------------------*/
+var mongoURI = 'mongodb://localhost/recipize'
+var conn = mongoose.createConnection(mongoURI, {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+});
 
 let gfs;
+
 conn.once('open', function(){
     gfs = Grid(conn.db, mongoose.mongo)
-    gfs.collection('photoUploads')
+    gfs.collection('creates')
 })
 
 var storage = new GridFsStorage({
@@ -39,7 +46,7 @@ var storage = new GridFsStorage({
                 const filename = buf.toString('hex') + path.extname(file.originalname)
                 const fileInfo = {
                     filename: filename,
-                    bucketName: 'photoUploads'
+                    bucketName: 'creates'
                 }
                 resolve(fileInfo)
             })
@@ -52,29 +59,23 @@ var storage = new GridFsStorage({
 
 const PhotoUpload = multer({storage})
 
-
-app.post('/photoUpload', PhotoUpload.single('attachProfilePhoto'), function(req, res){
-    res.redirect('/')
-})
-
+/*
 //get all photos
 app.get('/photos', function(req, res){
     gfs.files.find().toArray(function(err, files){
         if(!files || files.length === 0){
             res.send('no photos found')
+        }else{
+            res.send(files)
         }
-        return res.send(files)
     })
-    
-})
-
+})*/
 
 app.get('/photos/:filename', function(req, res){
     gfs.files.findOne({filename: req.params.filename}, function(err, file){
         if(!file || file.length === 0){
             res.send('no photos found')
-        }
-        
+        } 
         else if(file.contentType === 'image/png' || file.contentType === 'image/jpeg'){
             var readStream = gfs.createReadStream(file.filename);
             readStream.pipe(res)
@@ -82,9 +83,9 @@ app.get('/photos/:filename', function(req, res){
             res.send('not a photo')
         }
     })
-    
 })
 
+/*----------------------------------------------------*/
 
 app.engine('html', require('ejs').renderFile)
 app.set('view engine', 'html')
@@ -94,11 +95,135 @@ app.use(bodyParser.json());
 app.use(methodOverride('_method'))
 
 app.get('/', function(req, res){
-    res.render('index', {errMsg: ''});
+  /*  gfs.files.findOne({filename: req.params.filename}, function(err, file){
+        if(!file || file.length === 0){
+            res.render('index', {
+                errMsg: '',
+                files: false
+            })
+        }else if(file.contentType === 'image/png' || file.contentType === 'image/jpeg'){
+            var readStream = gfs.createReadStream(file.filename);
+            readStream.pipe(res)
+        }else{
+            res.render('index', {
+                errMsg: '',
+                files: files
+            });
+        }
+    })*/
+    gfs.files.find().toArray(function(err, files){
+        if(!files || files.length === 0){
+            res.render('index', {
+                errMsg: '',
+                files: false,
+                userName: ''
+            })
+        }else{
+            files.map(function(file){
+                if(file.contentType === 'image.png' || file.contentType === 'image/jpeg'){
+                    file.isImage = true
+                }else{
+                    file.isImage = false
+                }
+            })
+            res.render('index', {
+                errMsg: '',
+                files: '',
+                userName: ''
+            });
+        }
+    })
+})
+
+app.post('/createUser', PhotoUpload.single('attachProfilePhoto'), function(req, res){
+    var userCreate = {
+        createUserFName: req.body.createUserFName,
+        createUserLName: req.body.createUserLName,
+        email: req.body.email,
+        password: req.body.password
+    }
+
+    create.findOne({
+        email: req.body.email
+    }).then((user) => {
+        if(user){
+            var errMsg = `  <style> .modal{opacity: 1; visibility: visible;}
+                                .forms .formWrapper:nth-child(2){  display: none; }
+                                .forms .formWrapper:nth-child(3){  display: flex; } </style>
+                            <strong class="errMsg">This user already exists, log in or choose a different email</strong>
+                            <script> document.getElementById('SignUpBtnWrpr').classList.add('active')
+                                document.getElementById('loginBtnWrpr').classList.remove('active')
+                                document.getElementById('loginErr').innerHTML = ""; </script> `
+
+            gfs.files.find().toArray(function(err, files){
+                if(!files || files.length === 0){
+                    res.render('index', {
+                        errMsg: errMsg,
+                        files: false
+                    })
+                }else{
+                    files.map(function(file){
+                        if(file.contentType === 'image.png' || file.contentType === 'image/jpeg'){
+                            file.isImage = true
+                        }else{
+                            file.isImage = false
+                        }
+                    })
+                    res.render('index', {
+                        errMsg: errMsg,
+                        files: files
+                    });
+                }
+            })
+        }else{
+            create.create(userCreate, function(err){
+                if(err){
+                    console.log(err);
+                }
+            })
+            res.redirect('/');
+        }
+    })
+})
+
+app.post('/login', function(req, res){
+
+
+    create.findOne({
+        email: req.body.email,
+    }).then((userLogin) => {
+        if(!userLogin){
+            var errMsg = `  <style> .modal{opacity: 1; visibility: visible;} </style>
+                            <strong class="errMsg">Oops. This email is not found, please try again</strong>
+                            <script> document.getElementById('signUpErr').innerHTML = ""; </script> `
+            res.render('index', {errMsg: errMsg, files: '', userName: '' })
+        }else{
+            create.findOne({
+                password: req.body.password
+            }).then((pass) => {
+                if(!pass){
+                    var errMsg = `  <style> .modal{ opacity: 1;visibility: visible;}</style>
+                                    <strong class="errMsg">Password incorrect, please try again</strong>
+                                    <script> document.getElementById('signUpErr').innerHTML = ""; </script> `
+                    res.render('index', {errMsg: errMsg, files: '', userName: '' })
+                }else{
+                    //
+
+                    var password = req.body.password
+                    argon2.generateSalt().then(salt => {
+                        argon2.hash(password, salt).then(hash =>{
+                            console.log('successfully created argon2 hash:', hash);
+                        })
+                    })
+                    res.render('index', {errMsg: '', files: '', userName: '' })
+                }
+            })
+        }
+    })
 })
 
 app.get('/AddNewRecipe', function(req, res){
-    res.render('addRecipe')
+    res.render('addRecipe', {files: '',  userName: ''})
 })
 
 app.get('/recipiesDisplay', function(req, res){
@@ -106,12 +231,16 @@ app.get('/recipiesDisplay', function(req, res){
         if(err){
             console.log(err);
         }else{
-            res.render('recipiesDisplay', {recipe:allRecipies})
+            res.render('recipiesDisplay', {
+                recipe: allRecipies,
+                files: '',
+                userName: '' 
+            })
         }
     })
 })
 
-app.post('/newRecipeData', (req, res) => {
+app.post('/newRecipeData', function(req, res) {
     var fullRecipe = {
         title: req.body.title,
         prpTime: req.body.prpTime,
@@ -131,92 +260,21 @@ app.post('/newRecipeData', (req, res) => {
     })
 })
 
-app.post('/createUser', function(req, res){
-    var userCreate = {
-        createUserFName:req.body.createUserFName,
-        createUserLName:req.body.createUserLName,
-        email: req.body.email,
-        password: req.body.password
-    }
-
-    create.findOne({
-        email: req.body.email
-    }).then((user) => {
-        if(user){
-            var errMsg  = `
-                        <style>
-                        .modal{opacity: 1; visibility: visible;}
-                        .forms .formWrapper:nth-child(2){  display: none; }
-                        .forms .formWrapper:nth-child(3){  display: flex; }
-                        </style>
-                        <strong class="errMsg">This user already exists, log in or choose a different email</strong>
-                        <script>
-                            document.getElementById('SignUpBtnWrpr').classList.add('active')
-                            document.getElementById('loginBtnWrpr').classList.remove('active')
-                            document.getElementById('loginErr').innerHTML = "";
-                        </script>
-                    `
-            res.render('index', {errMsg: errMsg})
-        }else{
-            create.create(userCreate, function(err){
-                if(err){
-                    console.log(err);
-                }else{
-                }
-            })
-            res.redirect('/')
-        }
-    })
-})
-
-app.get('/closeModal', function(req, res){
-    res.redirect('/')
-})
-app.post('/login', function(req, res){
-
-    create.findOne({
-        email: req.body.email,
-    }).then((userLogin) => {
-        if(!userLogin){
-            var errMsg = `
-                        <style> .modal{opacity: 1; visibility: visible;}</style>
-                        <strong class="errMsg">Oops. This email is not found, please try again</strong>
-                        <script> document.getElementById('signUpErr').innerHTML = ""; </script>
-                    `
-            res.render('index', {errMsg: errMsg})
-        }
-        else{
-            create.findOne({
-                password: req.body.password
-            }).then((pass) => {
-                if(!pass){
-                    var errMsg = `
-                        <style> .modal{ opacity: 1;visibility: visible;}</style>
-                        <strong class="errMsg">Password incorrect, please try again</strong>
-                        <script> document.getElementById('signUpErr').innerHTML = ""; </script>
-                    `
-                    res.render('index', {errMsg: errMsg})
-                }
-                else{
-                    res.redirect('/')
-                }
-            })
-        }
-    })
-})
-
-
-app.get('/recipe/:id', (req, res) =>{
+app.get('/recipe/:id', function(req, res) {
     recipe.findById(req.params.id, function(err, returningRec){
         if(err){
             console.log(err); 
         }else{
-            res.render('viewRecipe', {recipe: returningRec})
+            res.render('viewRecipe', {
+                recipe: returningRec,
+                files: '',
+                userName: ''
+            })
         }
     })
 })
 
-app.delete('/recipe/:id', (req, res) =>{
+app.delete('/recipe/:id', function(req, res) {
     recipe.findByIdAndRemove(req.params.id, function(err){
         if(err){
             res.send(err)
@@ -226,31 +284,8 @@ app.delete('/recipe/:id', (req, res) =>{
     })
 })
 
-
-
-
-/*
-async function starts(){
-    let hash;
-    let userPassword = 'bracha PachtmanIsTringStuffHErr';
-    try{
-        hash = await argon2.hash(userPassword)
-        console.log(hash);
-        
-    }catch (err) {
-        console.log(err); 
-    }
-    try{
-        if(await argon2.verify(hash, 'hfiuhgiuhf')){
-            console.log('matched');
-        }else{
-            console.log('not a match');
-        }
-    }catch(err) {
-        console.log(err)
-    }
-}
-starts()*/
-
+app.get('/closeModal', function(req, res){
+    res.redirect('/')
+})
 
 app.listen(3000)

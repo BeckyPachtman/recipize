@@ -1,12 +1,11 @@
 <!DOCTYPE html>
 <html lang="en">
 <body>
-
     <div class="navWrapper">
         <div class="nav">
             <div class="logoWrapper">
-                <img src="../resources/images/logoCopy.png" alt="recipeze logo">
-            </div>
+                <img src="../resources/images/logoCopy.png" alt="recipeze logo"><span> <%- userName %></span>
+            </div> 
             <div class="navItemsWrapper">
                 <nav>
                     <ul class="navUl">
@@ -20,16 +19,19 @@
                             </span> 
                         </div>
                    
-
-                    <div class="userProfile">
-                        <img src="../resources/images/profilePhoto.jpg" alt="profile photo">
-                    </div>
-
+                        <% if(files){ %>
+                            <% files.forEach(function(file){ %>
+                                <% if(file.isImage){ %>
+                                    <div class="userProfile">
+                                        <img src="photos/<%= file.filename %>" alt="profile photo">
+                                    </div>
+                                <% } %>
+                            <% }) %>
+                        <% }  %>
                     </ul>
                 </nav>
             </div>
         </div>
-    </div>   
- 
+    </div>
 </body>
 </html>

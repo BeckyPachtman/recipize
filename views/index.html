@@ -30,18 +30,6 @@
                         </div>
                     </div>
 
-                    <form action="/photoUpload" method="POST" class="firstLastRowInputs" enctype="multipart/form-data">
-                        <div class="eachInput">
-                            <input type="file" name="attachProfilePhoto" id="profilePhoto" class="profilePhotoInpt" placeholder=" ">
-                            <label for="profilePhoto" class="profilePhotoLbl"><img src="../resources/images/upload.png" alt=""> <span>Profile Photo</span> </label>
-                            <button type="submit">Submit</button>
-                        </div>
-                   </form>
-
-
-
-
-
                     <div class="modalWrapper">
                         <div id="modal" class="modal">
                             <div class="modalMainContent">
@@ -96,7 +84,7 @@
                                         
                                         <div class="formWrapper signUpFormWrapper" id="signUpFormWrapper">
 
-                                            <form action="/createUser" method="POST" id="signUp" class="signUpForm">
+                                            <form action="/createUser" method="POST" id="signUp" class="signUpForm" enctype="multipart/form-data">
                                                 
                                                 <div class="userFormWrapper">
                                                     
@@ -105,25 +93,25 @@
 
                                                     <div class="firstLastRowInputs">
                                                         <div class="eachInput">
-                                                            <input type="text" name="createUserFName" id="firstName" placeholder=" " required>
+                                                            <input type="text" name="createUserFName" id="firstName" placeholder=" " >
                                                             <label for="firstName">First Name</label>
                                                         </div>
 
                                                         <div class="eachInput">
-                                                            <input type="text" name="createUserLName" id="lastName" placeholder=" " required>
+                                                            <input type="text" name="createUserLName" id="lastName" placeholder=" " >
                                                             <label for="lastName">Last Name</label>
                                                         </div>
                                                     </div>
 
                                                     <div class="eachInput">
-                                                        <input type="email" name="email" id="email" placeholder=" " required>
+                                                        <input type="email" name="email" id="email" placeholder=" " >
                                                         <label for="email">Email address</label>
                                                     </div>
                                                     
 
                                                     <div class="firstLastRowInputs">
                                                         <div class="eachInput">
-                                                            <input type="password" name="password" class="password" placeholder=" " required>
+                                                            <input type="password" name="password" class="password" placeholder=" " >
                                                             <span class="showHidePassIcon">
                                                                 <img src="/resources/images/passwordVisibility.png" alt="password icon" class="showPassIcon">
                                                                 <img src="/resources/images/passwordInvisible.png" alt="password icon" class="hidePassIcon">
@@ -138,7 +126,6 @@
                                                     </div>
                                                     
                                                 
-
                                                     <div class="userFormButtons">
                                                         <button type="submit" class="modalButton">Sigup</button>
                                                         <button type="button" class="reset">Reset</button>

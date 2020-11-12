@@ -50,7 +50,6 @@ $(document).ready(function(){
         $('.showHidePassIcon img').toggle()
     })
 
-
     if($('.details').height() > 752){
         $('.details').addClass('detailsScrollbar')
     }
@@ -59,8 +58,8 @@ $(document).ready(function(){
 
     $('.viewImage').on('click', function(){
         $(recipeImageModal).fadeToggle()
-        $('.pageBody, .recipeBook, .back').toggleClass('imageVisble')
-        $('.viewImage').toggleClass('viewImgLighter')
+       $('.pageBody, .recipeBook, .cover, .back').toggleClass('imageVisble')
+       $('.viewImage').toggleClass('viewImgLighter')
     })
 
 
