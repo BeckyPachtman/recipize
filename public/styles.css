@@ -585,6 +585,22 @@ ol.dirOl li{
     font-weight: bold;
     margin-right: .4em;
 }
+/*----------------------*/
+/*.modal{
+    align-items: center;
+    background: rgba(0, 0, 0, 0.8);
+    display: flex;
+    justify-content: center;
+    opacity: 0;
+    padding: 1em;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    top: 0;
+    transition: all .35s ease-in;
+    visibility: hidden;
+}*/
 .dltRecWrrpModal{
     z-index: 45;
 }
@@ -599,6 +615,9 @@ ol.dirOl li{
     text-align: center;
     width: 28%;
 }
+
+
+
 .confirmDeleteCard{
     align-self: center;
     /*border: solid 1px green;*/
@@ -621,7 +640,6 @@ ol.dirOl li{
 }
 .confirmDeleteCardTxt h1{
     border-radius: 100%;
-    
     display: inline-block;
     border: var(--mainRedishColor) solid .01em;
     align-self: center;

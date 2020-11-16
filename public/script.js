@@ -134,9 +134,9 @@ $(document).ready(function(){
 
   $('.deleteRecConfirm').on('click', function(){
       //$(this).parent().parent().children('.confirmDeleteCard').css('display', 'flex');  
-      $('.modalDel').addClass('modalVisible')
+     $('#modalDel').addClass('modalVisible')
 
-      //$('.dltRecModalMainCntnt').css('display', 'flex')
+     //$('.dltRecModalMainCntnt').css('display', 'flex')
       
     })
 })
