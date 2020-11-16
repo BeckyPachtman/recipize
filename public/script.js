@@ -21,6 +21,8 @@ $(document).ready(function(){
         }
     }
 
+
+
     $('.tab a').on('click', function(){   
         $(this).parent().addClass('active')
         $(this).parent().siblings().removeClass('active')
@@ -50,15 +52,15 @@ $(document).ready(function(){
         $('.showHidePassIcon img').toggle()
     })
 
-    if($('.details').height() > 752){
+    if($('.details').height() > 700){
         $('.details').addClass('detailsScrollbar')
     }
 
-    var recipeImageModal = $('.recipeImageModal');
 
     $('.viewImage').on('click', function(){
-        $(recipeImageModal).fadeToggle()
-       $('.pageBody, .recipeBook, .cover, .back').toggleClass('imageVisble')
+       $('.recipeImageModal').fadeToggle()
+       $('.pageBody, .recipeBook').toggleClass('imageVisble')
+       $('.recipeBook hr').fadeToggle()
        $('.viewImage').toggleClass('viewImgLighter')
     })
 
@@ -130,5 +132,12 @@ $(document).ready(function(){
         }
     })
 
+  $('.deleteRecConfirm').on('click', function(){
+      //$(this).parent().parent().children('.confirmDeleteCard').css('display', 'flex');  
+      $('.modalDel').addClass('modalVisible')
+
+      //$('.dltRecModalMainCntnt').css('display', 'flex')
+      
+    })
 })
 
