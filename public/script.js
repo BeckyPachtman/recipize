@@ -133,11 +133,11 @@ $(document).ready(function(){
     })
 
   $('.deleteRecConfirm').on('click', function(){
-      //$(this).parent().parent().children('.confirmDeleteCard').css('display', 'flex');  
-     $('#modalDel').addClass('modalVisible')
-
-     //$('.dltRecModalMainCntnt').css('display', 'flex')
-      
+      $(this).parent().children('.confirmDeleteCard').css('display', 'flex');  
+     //$('.modalDel').addClass('modalDelVisible')
+    $('.recipeDisplayBody').css('background', 'rgba(0, 0, 0, 0.8)')
+     //$('.confirmDeleteCard').css('display', 'flex')
+    // $(this).parent().parent().parent().parent().parent().css('background', 'rgba(0, 0, 0, 0.8)')
     })
 })
 
