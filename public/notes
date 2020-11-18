@@ -333,3 +333,35 @@ var hash = function(password, salt){
 }
 
 logger(hash('Wisdom', generateSalt(12)))
+
+ <% if(files){ %>
+                            <% files.forEach(function(file){ %>
+                                <% if(file.isImage){ %>
+                                    <div class="userProfile">
+                                        <img src="photos/<%= file.filename %>" alt="profile photo">
+                                    </div>
+                                <% } %>
+                            <% }) %>
+                        <% }  %>
+
+delete correct recipe nly works either when
+oly last of the 3 divs is in the html (deleete the other ones)
+ot when the last div name is as the first then 2 divs with no classes
+
+being that modal is a child of the page not of this specific recipe when I call delete the first collection item on the page will be deleted, if modal is child o this specif recipe t will dlete this specific ecipe
+
+/*lateset versoin*/
+
+<div class="confirmDeleteCard">
+                                        <div class="confirmDeleteCardTxt">
+                                            <h1>&#33;</h1>
+                                            <h4>Are you sure you want to permanently delete this recipe?</h4>
+                                        </div>
+                                        
+                                        <div class="confirmBttns">
+                                            <button type="submit"><a href="/testBook">Cancel</a></button> 
+                                            <form action="/recipe/<%= rec._id %>?_method=DELETE" method="POST">
+                                                <button type="submit" class="deleterecipe">Delete</button>
+                                            </form>
+                                        </div>
+                                    </div>

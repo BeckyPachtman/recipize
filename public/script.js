@@ -79,8 +79,8 @@ $(document).ready(function(){
 
         $(liStrToInput).val(liStr.text());
 
-        var deleteIng = $(document.createElement('span')).text('x').appendTo(liStr);
-        $(deleteIng).addClass('DeleteListItem')
+        var deleteIng = $(document.createElement('span')).text('x').prependTo(liStr);
+        $(deleteIng).addClass('deleteListItem')
 
         $(deleteIng).on('click', function(){
             $(this).parent().remove()
@@ -110,8 +110,8 @@ $(document).ready(function(){
 
         $(DirliStrToInput).val(DirLiStr.text());
 
-        var deleteIng = $(document.createElement('span')).text('x').appendTo(DirLiStr);
-        $(deleteIng).addClass('DeleteListItem')
+        var deleteIng = $(document.createElement('span')).text('x').prependTo(DirLiStr);
+        $(deleteIng).addClass('deleteListItem')
 
         $(deleteIng).on('click', function(){
             $(this).parent().remove()
@@ -133,11 +133,32 @@ $(document).ready(function(){
     })
 
   $('.deleteRecConfirm').on('click', function(){
-      $(this).parent().children('.confirmDeleteCard').css('display', 'flex');  
+      $(this).parent().children('.dltRecWrrpModal').children('.modalDel').addClass('modalDelVisible'); 
      //$('.modalDel').addClass('modalDelVisible')
-    $('.recipeDisplayBody').css('background', 'rgba(0, 0, 0, 0.8)')
-     //$('.confirmDeleteCard').css('display', 'flex')
-    // $(this).parent().parent().parent().parent().parent().css('background', 'rgba(0, 0, 0, 0.8)')
+    /*for previos style
+        $('.recipeDisplayBody').addClass('modalVis')
+        $(this).parent().addClass('oneRecipeDisplayWrapperVis')
+        $(this).parent().children('.confirmDeleteCard').css('display', 'flex'); 
+        */
     })
+
+    
+    var ttlTimeHrs = $('.ttlTimeHrs').text()
+    var ttlTimeSlctHrs = $('.ttlTimeSlctHrs')
+    var ttlTimeMin = $('.ttlTimeMin').text()
+    var ttlTimeSlctMin = $('.ttlTimeSlctMin')
+
+    if(ttlTimeHrs == 1){
+        $(ttlTimeSlctHrs).text('Hour')
+    }else if(ttlTimeHrs == ''){
+        $(ttlTimeSlctHrs).text('')
+    }
+
+    if(ttlTimeMin == 1){
+        $(ttlTimeSlctMin).text('Minute')
+    }else if(ttlTimeMin == ''){
+        $(ttlTimeSlctMin).text('')
+    }
+
 })
 

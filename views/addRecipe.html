@@ -17,45 +17,59 @@
                 <div class="contentWrapper">
                     <div class="leftSideContent">
                         <div class="imageWrapper addRecimageWrapper">
-                            <img src="../resources/images/platesOfFood/108Cropped.jpg" alt="Main Content Plate">
+                            <img src="../resources/images/platesOfFood/113Cropped.jpg" alt="Main Content Plate">
                         </div>
                     </div>
                     <div class="rightSideContent addRecSideContent">
                         
                             <h1>Add Your New Recipe</h1>
                             <h3>Click add to submit an add new to add this on and a new one</h3>
+
+                            <%- submitSucessMsg %>
                             <div class="AddRecFormWrapper">
                                 <form action="/newRecipeData" method="POST">
 
                                     <div class="addRecinputWrapper inputWrapper">
-
                                         <div class="addreceachInput eachInput recTitleWrapper">
                                             <input type="text" name="title" placeholder=" ">
                                             <label for="RecTitle">Recipe Title</label>
                                         </div>
-
                                     </div>
 
                                     <div class="addRecinputWrapper inputWrapper recTimingWrapper">
-
                                         <div class="addreceachInput eachInput">
-                                            <input type="text" name="prpTime" placeholder=" ">
+                                            <input type="number" min="0" name="prpTime" placeholder=" ">
+                                            <select name="select1">
+                                                <option value="Minutes">Minutes</option>
+                                                <option value="Hours">Hours</option>
+                                            </select>
                                             <label for="RecTitle">Prep Time</label>
                                         </div>
                                         
                                         <div class="addreceachInput eachInput">
-                                            <input type="text" name="ckTime" placeholder=" ">
+                                            <input type="number" min="0" name="ckTime" placeholder=" ">
+                                            <select name="select2">
+                                                <option value="Minutes">Minutes</option>
+                                                <option value="Hours">Hours</option>
+                                            </select>
                                             <label for="RecTitle">Cook Time</label>
                                         </div>
-                                        <div class="addreceachInput eachInput">
-                                            <input type="text" name="ttlTime" placeholder=" ">
-                                            <label for="RecTitle">Total Time</label>
+
+                                        <div class="addreceachInput eachInput ttlTimeInputs">
+                                            <input type="number" min="0" name="ttlTimeHrs" placeholder=" ">
+                                            <select name="ttlTimeSlctHrs" class="ttlTimeHrs">
+                                                <option value="Hours">Hours</option>
+                                            </select>
+                                            
+                                            <input type="number" min="0" name="ttlTimeMin" placeholder=" ">
+                                            <select name="ttlTimeSlctMin">
+                                                <option value="Minutes">Minutes</option>
+                                            </select>
+                                            <label for="RecTitle">Total</label>
                                         </div>
-                                        
                                     </div>
 
                                     <div class="addRecinputWrapper inputWrapper recYielImageWrapper">
-
                                         <div class="addreceachInput eachInput">
                                             <input type="number" name="yields" placeholder=" " min="1">
                                             <label for="RecTitle">Yields</label>
@@ -63,13 +77,12 @@
 
                                         <div class="addreceachInput eachInput">
                                             <input type="text" name="img" placeholder=" ">
+                                            <input type="image" name="img" placeholder=" bb">
                                             <label for="">Enter Image</label>
                                         </div>
-                                            
                                     </div>
 
                                     <div class="addRecinputWrapper inputWrapper ingrInputWrapper">
-
                                         <div class="addreceachInput eachInput">
                                             <input type="text" class="ingrdntsInput" placeholder=" ">
                                             <label for="RecTitle">Ingredients</label>
@@ -79,11 +92,9 @@
                                                 <ul class="igUl"></ul>
                                             </div>
                                         </div>
-
                                     </div>
 
                                     <div class="addRecinputWrapper inputWrapper">
-
                                         <div class="addreceachInput eachInput">
                                             <input type="text" class="dirctnsInput" placeholder=" ">
                                             <label for="RecTitle">Directions</label>
@@ -93,22 +104,17 @@
                                                 <ol class="dirOl"></ol>
                                             </div>
                                         </div>
-                                            
                                     </div>
 
                                     <div class="addRecinputWrapper inputWrapper">
                                         <div class="addreceachInput eachInput">
                                             <button type="submit" class="loginPropmtButton">Add Recipe</button>
-                                            <button type="submit">Submit &amp; Add New</button>
                                         </div> 
                                     </div>
 
-                        </form>
+                                </form>
                             </div>
-                
-                        </div>
-                    
-                   
+                    </div>
                 </div>
             </div>
         </div>

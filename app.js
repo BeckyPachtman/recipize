@@ -223,7 +223,7 @@ app.post('/login', function(req, res){
 })
 
 app.get('/AddNewRecipe', function(req, res){
-    res.render('addRecipe', {files: '',  userName: ''})
+    res.render('addRecipe', {files: '',  userName: '', submitSucessMsg: ''})
 })
 
 app.get('/recipiesDisplay', function(req, res){
@@ -244,8 +244,13 @@ app.post('/newRecipeData', function(req, res) {
     var fullRecipe = {
         title: req.body.title,
         prpTime: req.body.prpTime,
+        prpTimeSlct: req.body.select1,
         ckTime: req.body.ckTime,
-        ttlTime: req.body.ttlTime,
+        ckTimeSlct: req.body.select2,
+        ttlTimeHrs: req.body.ttlTimeHrs,
+        ttlTimeMin: req.body.ttlTimeMin,
+        ttlTimeSlctHrs: req.body.ttlTimeSlctHrs,
+        ttlTimeSlctMin: req.body.ttlTimeSlctMin,
         yields: req.body.yields,
         img: req.body.img,
         ingrdnts: req.body.ingrdnts,
@@ -255,7 +260,7 @@ app.post('/newRecipeData', function(req, res) {
         if(err){
             console.log(err);
         }else{
-            res.redirect('/recipiesDisplay') 
+            res.render('addRecipe', {submitSucessMsg: 'Recipe submitted Successfully', files: '', userName: '' }) 
         }
     })
 })
@@ -274,12 +279,33 @@ app.get('/recipe/:id', function(req, res) {
     })
 })
 
+/*Testing new delete on seperate page 
+
+app.get('/testBook', function(req, res){
+    recipe.find({}, function(err, allRecipies){
+        
+        if(err){
+            console.log(err);
+        }else{
+            res.render('testBook', {
+                recipe: allRecipies,
+                files: '',
+                userName: '' 
+            })
+            console.log({recipe: allRecipies});
+        }
+    })
+})*/
+
+
 app.delete('/recipe/:id', function(req, res) {
     recipe.findByIdAndRemove(req.params.id, function(err){
         if(err){
             res.send(err)
         }else{
             res.redirect('/recipiesDisplay')
+            //res.redirect(req.originalUrl)
+
         }
     })
 })
@@ -287,5 +313,6 @@ app.delete('/recipe/:id', function(req, res) {
 app.get('/closeModal', function(req, res){
     res.redirect('/')
 })
+
 
 app.listen(3000)

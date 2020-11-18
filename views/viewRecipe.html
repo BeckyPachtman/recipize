@@ -10,10 +10,9 @@
     <title>Recipize | <%= recipe.title %></title>
 </head>
 <body>
-    
     <div class="pageBody">
         <%- include('header.html')%>
-        <div class="viewRecipePageWrapper">
+        <!--<div class="viewRecipePageWrapper">
                 <div class="recipeBook" id="recipeBook">
                 
                     <div id="cover" class="cover">
@@ -89,9 +88,100 @@
                 </div>
                 
            
+        </div>-->
+
+    <div class="bookWrapper">
+        <div class="recipeBook">
+            <div class="rightSide">
+                <div class="rightSideText">
+                    <h2><%= recipe.title %></h2>
+                    <hr>
+                    <div class="recipeIngredeients">
+                        <h3>You will need the following:</h3>
+                        <ul>
+                            <% recipe.ingrdnts.forEach(function(item){ %>
+                                <li><%= item %></li>
+                            <% }); %>  
+                        </ul> 
+                    </div>
+                    <div class="timings">
+                        <h3>Timings</h3>
+                        <div class="timingSpecific">
+                            <div>
+                                <h4>Prep Time</h4>
+                                <p><%= recipe.prpTime %> <%= recipe.prpTimeSlct %></p>
+                            </div>
+                            <div>
+                                <h4>Cook Time</h4>
+                                <p><%= recipe.ckTime %> <%= recipe.ckTimeSlct %></p>
+                            </div>
+                            <div>
+                                <h4>Total Time</h4>
+                                <p><span class="ttlTimeHrs"><%= recipe.ttlTimeHrs %></span> <span class="ttlTimeSlctHrs"><%= recipe.ttlTimeSlctHrs %></span> <span class="ttlTimeMin"><%= recipe.ttlTimeMin %></span> <span class="ttlTimeSlctMin"><%= recipe.ttlTimeSlctMin %></span> </p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="recipeTips">
+                        <h3>Tips for this recipe</h3>
+                        <ul></ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="leftSide">
+                <div class="details leftSideText">
+                    <h3>Directions:</h3>
+                    <ol>
+                        <% recipe.dirctns.forEach(function(Direction){ %>
+                                <li><%= Direction %></li>
+                        <% }); %>
+                    </ol>
+
+                    <div class="viewImageWrapper">
+                        <div class="viewImage">
+                            <img src="../resources/images/image.png" alt="see more">
+                        </div>
+                    </div>
+                
+                    <button type="button" id="delRec" class="deleteRecConfirm"><img src="../resources/images/delete.png" alt=""></button>
+                        
+                  
+
+
+                    <div class="dltRecWrrpModal">
+                        <div class="modalDel">
+                            <div class="dltRecModalMainCntnt">
+
+                                <div class="confirmDeleteCard">
+                                    <div class="confirmDeleteCardTxt">
+                                        <h1>&#33;</h1>
+                                        <h4>Are you sure you want to permanently delete "<%= recipe.title %>" recipe?</h4>
+                                    </div>
+                                    
+                                    <div class="confirmBttns">
+                                        <button type="submit" class="cancelDeleteBttn"><a href="/recipe/<%= recipe._id%>">Cancel</a></button> 
+                                        <form action="/recipe/<%= recipe._id %>?_method=DELETE" method="POST">
+                                            <button type="submit" class="deleterecipe">Delete</button>
+                                        </form>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                    
+                </div>
+            </div>
+            <div class="recipeImageModal">
+                <div class="recipeImage">
+                    <img src="<%= recipe.img %>" alt="">
+                </div>
+            </div>
         </div>
     </div>
+</div>
        
+
 </body>
 </html>
 <script src="https://code.jquery.com/jquery-3.5.1.min.js""></script>

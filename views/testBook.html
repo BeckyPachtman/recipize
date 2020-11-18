@@ -11,56 +11,62 @@
 </head>
 <body>
     <div class="pageBody recipeDisplayBody">
-        <%- include('header.html')%>
-        <div class="recipeViewContentWrapper">
-            <div class="welcomeText">
-                <h1>Test Book Page</h1>
-                <h3>For testing purposes</h3>
-            </div>
-            <div class="recipeDisplayWrapper">
 
-                <% recipe.forEach(function(rec){ %>
-                    <div class="oneRecipeDisplayWrapper">
-                        
-                        <div class="recipeDisplay">
-                            <div class="plate">
-                                <img src="<%= rec.img %>" alt="">
-                            </div>
-                            <div class="text">
-                                <h3><a href="/recipe/<%= rec._id%>"><%= rec.title %></a></h3>
-                            </div>
-                            <img src="../resources/images/saveToCollection.png" alt="save to collection" class="saveToCollectionImg">
-                        
-                            <button type="button" id="delRec" class="deleteRecConfirm"><img src="../resources/images/delete.png" alt=""></button>
-                        
+        <!DOCTYPE html>
+<html>
+<style>
+.tooltip {
+  position: relative;
+  display: inline-block;
+  border-bottom: 1px dotted black;
+}
+.tooltip .tooltiptext {
+  visibility: hidden;
+  width: 120px;
+  background-color: #555;
+  color: #fff;
+  text-align: center;
+  border-radius: 6px;
+  padding: 5px 0;
+  position: absolute;
+  z-index: 1;
+  bottom: 125%;
+  left: 50%;
+  margin-left: -60px;
+  opacity: 0;
+  transition: opacity 0.3s;
+}
+.tooltip .tooltiptext::after {
+  content: "";
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  margin-left: -5px;
+  border-width: 5px;
+  border-style: solid;
+  border-color: #555 transparent transparent transparent;
+}
 
-                                <!--<div class="dltRecWrrpModal">
-                                        <div class="dltRecModalMainCntnt">-->
+.tooltip:hover .tooltiptext {
+  visibility: visible;
+  opacity: 1;
+}
+</style>
+<body style="text-align:center;">
 
-                                            <div class="confirmDeleteCard">
-                                                <div class="confirmDeleteCardTxt">
-                                                    <h1>&#33;</h1>
-                                                    <h4>Are you sure you want to permanently delete this recipe?</h4>
-                                                </div>
-                                                
-                                                <div class="confirmBttns">
-                                                    <button type="submit"><a href="/testBook">Cancel</a></button> 
-                                                    <form action="/recipe/<%= rec._id %>?_method=DELETE" method="POST">
-                                                        <button type="submit" class="deleterecipe">Delete</button>
-                                                    </form>
-                                                </div>
-                                            </div>
+<h2>Tooltip</h2>
 
-                                    <!--</div>
-                                </div>-->
+<div class="tooltip">
+	<p>Hover over me</p>
+  <span class="tooltiptext">View Image recipe</span>
+</div>
 
-                        </div>
-                    </div>
-                <% }) %>
 
-            </div>
-        </div>
-    </div>
+
+
+
+
+
     
 </body>
 </html>

@@ -12,7 +12,7 @@
 <body>
     <div class="pageBody recipeDisplayBody">
         <%- include('header.html')%>
-        <!--<div class="recipeViewContentWrapper">
+        <div class="recipeViewContentWrapper">
             <div class="welcomeText">
                 <h1>Recipe Gallery</h1>
                 <h3>Browse through to view and edit all of your existing recipes</h3>
@@ -24,7 +24,7 @@
                         
                         <div class="recipeDisplay">
                             <div class="plate">
-                                <img src="<%= rec.img %>" alt="">
+                                <img src="<%= rec.img %>" alt="Recipe Image">
                             </div>
                             <div class="text">
                                 <h3><a href="/recipe/<%= rec._id%>"><%= rec.title %></a></h3>
@@ -35,17 +35,17 @@
                         
 
                             <div class="dltRecWrrpModal">
-                                <div class="modalDel modal">
+                                <div class="modalDel">
                                     <div class="dltRecModalMainCntnt">
         
                                         <div class="confirmDeleteCard">
                                             <div class="confirmDeleteCardTxt">
                                                 <h1>&#33;</h1>
-                                                <h4>Are you sure you want to permanently delete this recipe?</h4>
+                                                <h4>Are you sure you want to permanently delete "<%= rec.title %>" recipe?</h4>
                                             </div>
                                             
                                             <div class="confirmBttns">
-                                                <button type="submit"><a href="/recipiesDisplay">Cancel</a></button> 
+                                                <button type="submit" class="cancelDeleteBttn"><a href="/recipiesDisplay">Cancel</a></button> 
                                                 <form action="/recipe/<%= rec._id %>?_method=DELETE" method="POST">
                                                     <button type="submit" class="deleterecipe">Delete</button>
                                                 </form>
@@ -62,7 +62,7 @@
 
             </div>
         </div>
-    </div>--->
+    </div>
     
 </body>
 </html>

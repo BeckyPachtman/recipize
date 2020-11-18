@@ -15,19 +15,10 @@
                         <li><a href="/recipiesDisplay">View All Recipies</a></li>
                         <div class="searchInputIconWrapper">
                             <span class="navSearchInputWrapper">
-                                <input type="search" name="searchRecipes" placeholder="search" class="navSearchInput">
+                                <input type="search" name="searchRecipes" placeholder="Search Recipe" class="navSearchInput">
                             </span> 
                         </div>
-                   
-                        <% if(files){ %>
-                            <% files.forEach(function(file){ %>
-                                <% if(file.isImage){ %>
-                                    <div class="userProfile">
-                                        <img src="photos/<%= file.filename %>" alt="profile photo">
-                                    </div>
-                                <% } %>
-                            <% }) %>
-                        <% }  %>
+                        
                     </ul>
                 </nav>
             </div>
