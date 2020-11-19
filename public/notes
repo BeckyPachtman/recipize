@@ -365,3 +365,15 @@ being that modal is a child of the page not of this specific recipe when I call 
                                             </form>
                                         </div>
                                     </div>
+                                    
+                                    
+    background: transparent;
+    border-radius: 0;
+    border-bottom: 1px solid #535353;
+    color: #535353;
+    display: block;
+    font-size: 1em;
+    margin-bottom: 30px;
+    outline: none;
+    padding: 10px 0;
+    width: 100%;

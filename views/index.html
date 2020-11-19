@@ -25,7 +25,7 @@
                             <h1>Welcome to Recipeze</h1>
                             <h3>Enter, edit, share, update recipes easily, quickly, and effortlessly.</h3>
                             <button type="button" class="loginPropmtButton" data-open='modal'>Login/Sign Up</button>
-                            <button type="button">Add Recipe</button>
+                            <button type="button"><a href="/AddNewRecipe"> Add Recipe</a></button>
                         </div>
                     </div>
 
@@ -92,25 +92,25 @@
 
                                                     <div class="firstLastRowInputs">
                                                         <div class="eachInput">
-                                                            <input type="text" name="createUserFName" id="firstName" placeholder=" " >
+                                                            <input type="text" name="createUserFName" id="firstName" placeholder=" " required>
                                                             <label for="firstName">First Name</label>
                                                         </div>
 
                                                         <div class="eachInput">
-                                                            <input type="text" name="createUserLName" id="lastName" placeholder=" " >
+                                                            <input type="text" name="createUserLName" id="lastName" placeholder=" " required>
                                                             <label for="lastName">Last Name</label>
                                                         </div>
                                                     </div>
 
                                                     <div class="eachInput">
-                                                        <input type="email" name="email" id="email" placeholder=" " >
+                                                        <input type="email" name="email" id="email" placeholder=" " required>
                                                         <label for="email">Email address</label>
                                                     </div>
                                                     
 
                                                     <div class="firstLastRowInputs">
                                                         <div class="eachInput">
-                                                            <input type="password" name="password" class="password" placeholder=" " >
+                                                            <input type="password" name="password" class="password" placeholder=" " required>
                                                             <span class="showHidePassIcon">
                                                                 <img src="/resources/images/passwordVisibility.png" alt="password icon" class="showPassIcon">
                                                                 <img src="/resources/images/passwordInvisible.png" alt="password icon" class="hidePassIcon">

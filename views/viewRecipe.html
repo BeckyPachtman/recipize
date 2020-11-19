@@ -12,84 +12,7 @@
 <body>
     <div class="pageBody">
         <%- include('header.html')%>
-        <!--<div class="viewRecipePageWrapper">
-                <div class="recipeBook" id="recipeBook">
-                
-                    <div id="cover" class="cover">
-                        <div class="back">
-                            <div class="backText">
-                                <h2><%= recipe.title %></h2>
-                                <hr>
-                                <div class="recipeIngredeients">
-                                    <h3>You will need the following:</h3>
-                                    <ul>
-                                        <% recipe.ingrdnts.forEach(function(item){ %>
-                                            <li><%= item %></li>
-                                        <% }); %>  
-                                    </ul> 
-                                </div>
-                               
-                                <div class="timings">
-                                    <h3>Timings</h3>
-                                    
-                                    <div class="timingSpecific">
-                                        <div>
-                                            <h4>Prep Time</h4>
-                                            <p><%= recipe.prpTime %></p>
-                                        </div>
-                                        
-                                        <div>
-                                            <h4>Cook Time</h4>
-                                            <p><%= recipe.ckTime %></p>
-                                        </div>
-                                        
-                                        <div>
-                                            <h4>Total Time</h4>
-                                            <p><%= recipe.ttlTime %></p>
-                                        </div>
-                                        
-                                    </div>
-                                    
-                                </div>
-                                <div class="recipeTips">
-                                    <h3>Tips for this recipe</h3>
-                                    <ul></ul>
-                                </div>
-                            </div>
-                        </div>
-                    </div>                        
-                    
-                    <div class="page">
-                        <div class="details">
-                            <h3>Directions:</h3>
-                            <ol>
-                                <% recipe.dirctns.forEach(function(Direction){ %>
-                                        <li><%= Direction %></li>
-                                <% }); %> 
-                            </ol>
-
-                        <div class="viewImageWrapper">
-                            <div class="viewImage">
-                                <img src="../resources/images/image.png" alt="see more">
-                            </div>
-                        </div>
-                        
-                        <form action="/recipe/<%= recipe._id %>?_method=DELETE" method="POST">
-                            <button type="submit" class="deleterecipe dltRecOnView"><img src="../resources/images/delete.png" alt=""></button>
-                         </form>
-                    </div>
-                    </div>
-                </div>
-                            
-                <div class="recipeImageModal">
-                    <div class="recipeImage">
-                        <img src="<%= recipe.img %>" alt="">
-                    </div>
-                </div>
-                
-           
-        </div>-->
-
+                                      
     <div class="bookWrapper">
         <div class="recipeBook">
             <div class="rightSide">
@@ -144,9 +67,6 @@
                     </div>
                 
                     <button type="button" id="delRec" class="deleteRecConfirm"><img src="../resources/images/delete.png" alt=""></button>
-                        
-                  
-
 
                     <div class="dltRecWrrpModal">
                         <div class="modalDel">

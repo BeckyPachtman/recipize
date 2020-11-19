@@ -207,15 +207,13 @@ app.post('/login', function(req, res){
                                     <script> document.getElementById('signUpErr').innerHTML = ""; </script> `
                     res.render('index', {errMsg: errMsg, files: '', userName: '' })
                 }else{
-                    //
-
-                    var password = req.body.password
-                    argon2.generateSalt().then(salt => {
-                        argon2.hash(password, salt).then(hash =>{
-                            console.log('successfully created argon2 hash:', hash);
-                        })
-                    })
-                    res.render('index', {errMsg: '', files: '', userName: '' })
+                    //var password = req.body.password
+                    //argon2.generateSalt().then(salt => {
+                    //    argon2.hash(password, salt).then(hash =>{
+                    //        console.log('successfully created argon2 hash:', hash);
+                    //    })
+                    //})
+                    res.redirect('/')
                 }
             })
         }
@@ -249,8 +247,8 @@ app.post('/newRecipeData', function(req, res) {
         ckTimeSlct: req.body.select2,
         ttlTimeHrs: req.body.ttlTimeHrs,
         ttlTimeMin: req.body.ttlTimeMin,
-        ttlTimeSlctHrs: req.body.ttlTimeSlctHrs,
-        ttlTimeSlctMin: req.body.ttlTimeSlctMin,
+        ttlTimeSlctHrs: 'Hours',
+        ttlTimeSlctMin: 'Minutes',
         yields: req.body.yields,
         img: req.body.img,
         ingrdnts: req.body.ingrdnts,
@@ -304,8 +302,6 @@ app.delete('/recipe/:id', function(req, res) {
             res.send(err)
         }else{
             res.redirect('/recipiesDisplay')
-            //res.redirect(req.originalUrl)
-
         }
     })
 })
@@ -313,6 +309,5 @@ app.delete('/recipe/:id', function(req, res) {
 app.get('/closeModal', function(req, res){
     res.redirect('/')
 })
-
 
 app.listen(3000)
