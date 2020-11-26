@@ -1,12 +1,12 @@
 var mongoose = require('mongoose')
 
 var userCreate = new mongoose.Schema({
-    createUserFName:{
+    firstName:{
         type: String,
         trim: true,
         //required: true
     },
-    createUserLName:{
+    lastName:{
         type: String,
         trim: true,
         //required: true

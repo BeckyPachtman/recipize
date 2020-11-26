@@ -1,9 +1,16 @@
 $(document).ready(function(){
 
+/*
+This function checks if the page you are currently on has the id of index page.
+It will only run the open and close modal function if it indeed finds the id on that page
+*/
     if(document.getElementById('indexPage')!=null){
         openClosemodal()
     }
-  
+
+/*
+This function opens and closes the user login and signup modal window
+*/
     function openClosemodal(){
         const open = document.querySelector('[data-open]');
         const close = document.querySelectorAll('[data-close]');
@@ -20,8 +27,10 @@ $(document).ready(function(){
             })
         }
     }
-
-
+/*
+This function allows you to switch between both the login and signup form in the modal window.
+It will dispaly the appropiate form acording to what you specify
+*/
 
     $('.tab a').on('click', function(){   
         $(this).parent().addClass('active')
@@ -40,23 +49,31 @@ $(document).ready(function(){
         $('.loginFormWrapper').css('display', 'flex')
     })
 
+/*
+This function clears the appropiate form when the reset button on the form is clicked
+*/
     $('.reset').on('click', function(){
         $('.eachInput input').val('')
         $('.errMsg').css('display', 'none')
     })
-
+/*
+This function toggles the forms' password visiblity
+*/
     $('.showHidePassIcon').on('click', function(){
         var passwordField = $('.password');
         var passAtr = passwordField.attr('type') === 'password' ? 'text' : 'password'
         passwordField.attr('type', passAtr)
         $('.showHidePassIcon img').toggle()
     })
-
+/*
+This function adds a scrollbar when viewing one recipe and the directions get longer than a specified height
+*/
     if($('.details').height() > 700){
         $('.details').addClass('detailsScrollbar')
     }
-
-
+/*
+This function toggles a recipe's image visibilty
+*/
     $('.viewImage').on('click', function(){
        $('.recipeImageModal').fadeToggle()
        $('.pageBody, .recipeBook').toggleClass('imageVisble')
@@ -64,21 +81,28 @@ $(document).ready(function(){
        $('.viewImage').toggleClass('viewImgLighter')
     })
 
+/*
+This function takes each recipe ingredient as you add it to a new recipe
+it let's you click enter to let the new ingredient be displayed as a list undernath the field
+togethor with all the other ingredients until you submit
+*/
 
     var ingrdntsInput = $('.ingrdntsInput');
     var dirctnsInput = $('.dirctnsInput');
 
     /*Ingredients function*/
-    function addLiToList(){
+    function addIngrdntToList(){
         liStr = $(document.createElement('li')).text($(ingrdntsInput).val()).appendTo('.igUl');
-    //liStr.addClass('IngredientItem');
 
-        var liStrToInput = $('<input type="hidden" />').attr({
-            name: 'ingrdnts'
+        var liStrToInput = $('<input type="text"/>').attr({
+            name: 'recipe[ingrdnts]'
         }).appendTo('form');
 
         $(liStrToInput).val(liStr.text());
 
+/* TRY TO MOVE THIS AFTER ALL FUNCTIONS FOR THIS THING
+This function displays an x icon to delete an ingredient that we added to the list but decided to remove
+*/
         var deleteIng = $(document.createElement('span')).text('x').prependTo(liStr);
         $(deleteIng).addClass('deleteListItem')
 
@@ -86,26 +110,49 @@ $(document).ready(function(){
             $(this).parent().remove()
             $(liStrToInput).remove()
         })
-            $(ingrdntsInput).val(' ')
-            $(ingrdntsInput).focus()
+/*
+This part of the function empties the ingredient field
+every time you add the current ingredient to the ingredient list in the form 
+*/
+        $(ingrdntsInput).val(' ')
+        $(ingrdntsInput).focus()
     }
 
+/*
+This function runs the above function when the enter key
+is pressed or when the plus buttn on the input is clicked
+*/
     $('.adIngrdntToListBttn').on('click', function(){
-        addLiToList();
+        addIngrdntToList();
     });
+
     $(ingrdntsInput).keydown(function(e){
         if(e.keyCode == 13){
-            addLiToList()
+            addIngrdntToList()
             e.preventDefault()
         }
     })
 
+    // var editRecInput = $('.editRecItem');
+
+    // editRecInput = $('<input type="hidden"/>').attr({
+    //     name: 'ingrdnts'
+    // }).appendTo('form');
+
+
+    //addIngrdntToList()
+
+/*
+This function takes each recipe direction/instruction as you add it to a new recipe
+it let's you click enter to let the new direction be displayed as a list undernath the field
+togethor with all the other directions specified until you submit
+*/
     /*Directions Function */
     function addLDirToDirList(){
         DirLiStr = $(document.createElement('li')).text($(dirctnsInput).val()).appendTo('.dirOl');
 
         var DirliStrToInput = $('<input type="hidden" />').attr({
-            name: 'dirctns'
+            name: 'recipe[dirctns]'
         }).appendTo('form');
 
         $(DirliStrToInput).val(DirLiStr.text());
@@ -117,14 +164,13 @@ $(document).ready(function(){
             $(this).parent().remove()
             $(DirliStrToInput).remove()
         })
-            $(dirctnsInput).val(' ')
-            $(dirctnsInput).focus()
+        $(dirctnsInput).val(' ')
+        $(dirctnsInput).focus()
     }
 
     $('.adDirToDirListBttn').on('click', function(){
         addLDirToDirList();
     });
-
     $(dirctnsInput).keydown(function(e){
         if(e.keyCode == 13){
             addLDirToDirList()
@@ -132,17 +178,17 @@ $(document).ready(function(){
         }
     })
 
-  $('.deleteRecConfirm').on('click', function(){
+    //addLDirToDirList()
+/*
+This function displays the 'delete a recipe confirmation window' when clicking the delete a recipe icon
+*/
+    $('.deleteRecConfirm').on('click', function(){
       $(this).parent().children('.dltRecWrrpModal').children('.modalDel').addClass('modalDelVisible'); 
-     //$('.modalDel').addClass('modalDelVisible')
-    /*for previos style
-        $('.recipeDisplayBody').addClass('modalVis')
-        $(this).parent().addClass('oneRecipeDisplayWrapperVis')
-        $(this).parent().children('.confirmDeleteCard').css('display', 'flex'); 
-        */
     })
-
-    
+/*
+This function check if the reipce total time hours is 1 and changes the word hours to hour.
+It checks if the hours are mising and removes the word althogethor in that case
+*/
     var ttlTimeHrs = $('.ttlTimeHrs').text()
     var ttlTimeSlctHrs = $('.ttlTimeSlctHrs')
     var ttlTimeMin = $('.ttlTimeMin').text()
@@ -154,6 +200,10 @@ $(document).ready(function(){
         $(ttlTimeSlctHrs).text('')
     }
 
+/*
+This function check if the reipce total time minutes is 1 and changes the word minutes to minutes
+It checks if the minutes are mising and removes the word althogethor in that case
+*/
     if(ttlTimeMin == 1){
         $(ttlTimeSlctMin).text('Minute')
     }else if(ttlTimeMin == ''){
