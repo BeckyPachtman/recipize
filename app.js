@@ -2,10 +2,10 @@ const bodyParser = require('body-parser'),
     //cookieParser = require('cookie-parser'),
     bcrypt = require('bcryptjs'),
     create = require('./modules/userCreate'),
-    session = require('express-session'),
+    express = require('express'),
+    fs = require('fs'),
     Grid = require('gridfs-stream'), //GridFs Stream
     GridFsStorage = require('multer-gridfs-storage'), //GridFs
-    express = require('express'),
     LocalStrategy = require('passport-local').Strategy,
     methodOverride = require('method-override'),
     mongoose = require('mongoose'),
@@ -14,6 +14,7 @@ const bodyParser = require('body-parser'),
     path = require('path'),
     passport = require('passport')
     recipe = require('./modules/recipe'),
+    session = require('express-session'),
     //require('./modules/passport')(passport)
     app = express();
 
@@ -102,12 +103,8 @@ passport.use(
     })
 );
 
-
 // passport.use(new LocalStrategy({usernameField: 'email', passwordField: 'password'}, (email, password, done) =>{
-
 //     create.findOne({email}, function(err, user){
-
-   
 //         if(!user){
 //             return done(null, false, { errors: { 'email or password': 'is invalid' } })
 //         }
@@ -115,7 +112,6 @@ passport.use(
 //             //console.log('no user');
 //             return done(null, false, { errors: { 'email or password': 'is invalid' } })
 //         }
-
 //         //match password
 //         bcrypt.compare(password, create.password, (err, isMatch) =>{
 //             if(err){
@@ -129,7 +125,7 @@ passport.use(
 //             }
 //         })
 //      })
-    
+
 //     // function(username, password, done) {
 //     //   create.findOne({ username: username }, function (err, user) {
 //     //     if (err) {
@@ -191,7 +187,6 @@ app.get('/', function(req, res){
                     file.isImage = false
                 }
             })
-            
             res.render('index', {
                 errMsg: '',
                 files: '',
@@ -200,6 +195,8 @@ app.get('/', function(req, res){
         }
     })
 })
+
+const log = fs.createWriteStream('log.txt', {flags: 'a'});
 
 app.get('/login', function(req, res){
     var errMsg = `  <style> .modal{opacity: 1; visibility: visible;} </style>`
@@ -228,8 +225,8 @@ app.post('/createUser', PhotoUpload.single('attachProfilePhoto'), function(req, 
 
     if(!firstName || !lastName || !email || !password){
         var errMsg =`<style> .modal{opacity: 1; visibility: visible;}
-                    .forms .formWrapper:nth-child(2){  display: none; }
-                    .forms .formWrapper:nth-child(3){  display: flex; } </style>
+                    .forms .formWrapper:nth-child(2){display: none;}
+                    .forms .formWrapper:nth-child(3){display: flex;} </style>
                     <strong class="errMsg">please fill in all fields</strong>
                     <script> document.getElementById('SignUpBtnWrpr').classList.add('active')
                     document.getElementById('loginBtnWrpr').classList.remove('active')
@@ -245,8 +242,8 @@ app.post('/createUser', PhotoUpload.single('attachProfilePhoto'), function(req, 
         }).then((user) => {
             if(user){
                 var errMsg = `<style> .modal{opacity: 1; visibility: visible;}
-                            .forms .formWrapper:nth-child(2){  display: none; }
-                            .forms .formWrapper:nth-child(3){  display: flex; } </style>
+                            .forms .formWrapper:nth-child(2){display: none;}
+                            .forms .formWrapper:nth-child(3){display: flex;} </style>
                             <strong class="errMsg">This user already exists, log in or choose a different email</strong>
                             <script> document.getElementById('SignUpBtnWrpr').classList.add('active')
                             document.getElementById('loginBtnWrpr').classList.remove('active')
@@ -278,15 +275,18 @@ app.post('/createUser', PhotoUpload.single('attachProfilePhoto'), function(req, 
                 bcrypt.genSalt(10, (err, salt) => 
                     bcrypt.hash(userCreate.password, salt, (err, hash) => {
                         if(err){
+                            log.write('Failed attempt at hashing\n')
                             console.log(err);
                         }
                         
                         userCreate.password = hash
                         create.create(userCreate, function(err){
                             if(err){
+                                log.write('Failed attempt at signing up \n')
                                 console.log(err);
                             }
                             else{
+                                log.write('New user successfully created\n')
                                 res.redirect('/loginAfterSignup');
                             }
                         })
@@ -318,6 +318,7 @@ app.post('/login',  function(req, res, next){
                 var errMsg = `  <style> .modal{opacity: 1; visibility: visible;} </style>
                                 <strong class="errMsg">Oops. This email is not found, please try again</strong>
                                 <script> document.getElementById('signUpErr').innerHTML = ""; </script> `
+                log.write('User not found at logging in\n')
                 res.render('index', {errMsg: errMsg, files: '', userName: '' })
             }else{
 
@@ -332,8 +333,10 @@ passport.authenticate('local', function(err, user, info){
         req.logIn(user, function(err) {
 
             if (err) {
+                log.write('Failed attempt at logging in\n')
                 return next(err);
             }
+            log.write('User successfully logged in\n')
             return res.redirect('/successfullLogin');
       });
         
@@ -354,17 +357,6 @@ passport.authenticate('local', function(err, user, info){
             }
     })
 })
-
-
-
-
-
-
-
-
-
-
-
 
 /*
 This function renders the page to add a new recipe
@@ -412,8 +404,10 @@ app.post('/newRecipeData', function(req, res) {
     }
     recipe.create(fullRecipe, function(err){
         if(err){
+            log.write('Failed attempt at adding a new recipe\n')
             console.log(err);
         }else{
+            log.write('New recipe successfully created\n')
             res.render('addRecipe', {submitSucessMsg: 'Recipe submitted Successfully', files: '', userName: '' }) 
         }
     })
@@ -474,8 +468,10 @@ app.put('/editRecipe/:id', function(req, res){
     }
     recipe.findByIdAndUpdate(req.params.id, fullRecipe, function(err){
         if(err){
+            log.write('Failed attempt at updating a recipe\n')
             console.log(err);
         }else{
+            log.write('Recipe successfully updated\n')
             res.redirect('/recipiesDisplay') 
         }
     })
@@ -503,8 +499,10 @@ This function delets one recipe when user chooses to
 app.delete('/recipe/:id', function(req, res) {
     recipe.findByIdAndRemove(req.params.id, function(err){
         if(err){
+            log.write('Failed attempt at deleting a recipe\n')
             res.send(err)
         }else{
+            log.write('Recipe successfully deleted\n')
             res.redirect('/recipiesDisplay')
         }
     })

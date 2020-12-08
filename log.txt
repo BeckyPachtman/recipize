@@ -1,0 +1,6 @@
+New user successfully created
+User not found at logging in
+User successfully logged in
+New recipe successfully created
+Recipe successfully deleted
+Recipe successfully deleted
