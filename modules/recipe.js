@@ -8,8 +8,6 @@ const newRecipeSchema = new mongoose.Schema({
     ckTimeSlct: String,
     ttlTimeHrs: String,
     ttlTimeMin: String,
-    ttlTimeSlctHrs: String,
-    ttlTimeSlctMin: String,
     img: String,
     yields: String,
     ingrdnts: Array,

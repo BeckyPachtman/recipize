@@ -94,7 +94,9 @@
                                         
                                             <div class="ingrdntListWrapper">
                                                 <ul class="edirRecIngrdntWrapper">
-                                                    
+                                                    <% recipe.ingrdnts.forEach(function(item){ %>
+                                                        <li><%= item %></li>
+                                                    <% }); %>
                                                 </ul>
                                             </div>
 
@@ -104,13 +106,16 @@
 
                                     <div class="addRecInputWrapper inputWrapper">
                                         <div class="addRecEachInput eachInput">
-                                            <input type="text" class="dirctnsInput" placeholder=" " value="<%= recipe.Direction %>">
+                                            <input type="text" class="dirctnsInput" placeholder=" " value="<%= recipe.dirctns %>">
                                             <label for="RecTitle">Directions</label>
                                             <span class="adDirToDirListBttn">&#43;</span>
 
                                             <div class="ingrdntListWrapper">
                                                 <ol>
-                                                   
+                                                    <% recipe.dirctns.forEach(function(item){ %>
+                                                        <li class="dirctnLiTxt"><%= item %></li>
+                                                        <input type="text" name="" id="" value="<%= item %>">
+                                                    <% }); %>
                                                 </ol>
                                             </div>
                                         </div>

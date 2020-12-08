@@ -1,21 +1,20 @@
-const { update } = require('./modules/userCreate');
-
 const bodyParser = require('body-parser'),
-    cookieParser = require('cookie-parser'),
+    //cookieParser = require('cookie-parser'),
+    bcrypt = require('bcryptjs'),
     create = require('./modules/userCreate'),
-    crypto = require('crypto'),
     session = require('express-session'),
     Grid = require('gridfs-stream'), //GridFs Stream
     GridFsStorage = require('multer-gridfs-storage'), //GridFs
     express = require('express'),
+    LocalStrategy = require('passport-local').Strategy,
     methodOverride = require('method-override'),
     mongoose = require('mongoose'),
-    MongoDBSession = require('connect-mongodb-session')(session),
+    //MongoDBSession = require('connect-mongodb-session')(session),
     multer = require('multer'),
     path = require('path'),
+    passport = require('passport')
     recipe = require('./modules/recipe'),
-    {check, validationResult} = require('express-validator'),
-    argon = require('argon2'),
+    //require('./modules/passport')(passport)
     app = express();
 
 mongoose.connect('mongodb://localhost/recipize', {
@@ -62,18 +61,6 @@ var storage = new GridFsStorage({
 
 const PhotoUpload = multer({storage})
 
-/*
-//get all photos
-app.get('/photos', function(req, res){
-    gfs.files.find().toArray(function(err, files){
-        if(!files || files.length === 0){
-            res.send('no photos found')
-        }else{
-            res.send(files)
-        }
-    })
-})*/
-
 app.get('/photos/:filename', function(req, res){
     gfs.files.findOne({filename: req.params.filename}, function(err, file){
         if(!file || file.length === 0){
@@ -90,69 +77,105 @@ app.get('/photos/:filename', function(req, res){
 
 /*----------------------------------------------------*/
 
+passport.use(
+    new LocalStrategy({usernameField: 'email', passwordField: 'password'}, (email, password, done) =>{
+        //match user
+        create.findOne({email:email})
+        .then(user => {
+            if(!user){
+                //console.log('no user');
+                return done(null, false, { message: 'email or password is invalid' })
+            }
+
+            //match password
+            bcrypt.compare(password, user.password, (err, isMatch) =>{
+                if(err) throw err;
+
+                if(isMatch){
+                    return done(null, user)
+                }else{
+                    return done(null, false, {message: 'Password incorrect'})
+                }
+            });
+        })
+        .catch(err => console.log(err))
+    })
+);
+
+
+// passport.use(new LocalStrategy({usernameField: 'email', passwordField: 'password'}, (email, password, done) =>{
+
+//     create.findOne({email}, function(err, user){
+
+   
+//         if(!user){
+//             return done(null, false, { errors: { 'email or password': 'is invalid' } })
+//         }
+//         else if(!user.validatePassword(password)){
+//             //console.log('no user');
+//             return done(null, false, { errors: { 'email or password': 'is invalid' } })
+//         }
+
+//         //match password
+//         bcrypt.compare(password, create.password, (err, isMatch) =>{
+//             if(err){
+//                 console.log(err);
+//                 throw err
+//             } else if(isMatch){
+//                 console.log(user)
+//                 return done(null, user)
+//             }else{
+//                 return done(null, false, console.log('password incorrect'))
+//             }
+//         })
+//      })
+    
+//     // function(username, password, done) {
+//     //   create.findOne({ username: username }, function (err, user) {
+//     //     if (err) {
+//     //        console.log(err);
+//     //         return done(err, {message: err})
+//     //     }
+//     //     if (!user) {
+//     //       return done(null, false, { message: 'Incorrect username.' });
+//     //     }
+//     //     if (!user.validPassword(password)) {
+//     //       return done(null, false, { message: 'Incorrect password.' });
+//     //     }
+//     //     return done(null, user);
+//     //   });
+//     // }
+
+// }
+// ));
+   
+passport.serializeUser( function(user, done){
+    done(null, user.id)
+})
+
+passport.deserializeUser( function(id, done){
+    create.findById(id, (err, user) =>{
+        done(err, user)
+    })
+})
+
 app.engine('html', require('ejs').renderFile)
 app.set('view engine', 'html')
 app.use(express.static('public'))
-var urlencodedParser = app.use(bodyParser.urlencoded({extended:false}))
+app.use(session({
+    secret: "cats",
+    resave: true,
+    saveUninitialized: true,
+    cookie: { maxAge: 8*60*60*1000 }
+}));
+app.use(bodyParser.urlencoded({extended:false})) //changed from false to true to se if will make passport work, chnged back to false according to Travery
 app.use(bodyParser.json()); 
 app.use(methodOverride('_method'))
-app.use(cookieParser());
-
-var store = new MongoDBSession({
-    uri: mongoURI,
-    collection: 'session'
-})
-
-app.use(session({
-    secret: 'workhardandwritesoestupifnon-sensestuffhere',
-    resave: false,
-    saveUninitialized: true,
-    store: store,
-    cookie: {
-        maxAge: 1000 * 60 * 60 * 24 * 7,
-        secure: true
-    }
-}));
-
-app.get('/test', function(req, res){
-    if (req.session.views) {
-        req.session.views++
-        res.setHeader('Content-Type', 'text/html')
-        res.write('<p>views: ' + req.session.views + '</p>')
-        res.write('<p>expires in: ' + (req.session.cookie.maxAge / 1000) + 's</p>')
-        res.end()
-      } else {
-        req.session.views = 1
-        res.end('welcome to the session demo. refresh!')
-      }
-})
-var isAuth = function(req, res, next){
-    if(req.session.user && req.cookies.user_sid){
-        next()
-    }else{
-        res.send('not logged in <a href="/login">login</a>')
-    }
-}
-
-
+//app.use(cookieParser());
+app.use(passport.initialize())
+app.use(passport.session());
 
 app.get('/', function(req, res){
-      /*  gfs.files.findOne({filename: req.params.filename}, function(err, file){
-        if(!file || file.length === 0){
-            res.render('index', {
-                errMsg: '',
-                files: false
-            })
-        }else if(file.contentType === 'image/png' || file.contentType === 'image/jpeg'){
-            var readStream = gfs.createReadStream(file.filename);
-            readStream.pipe(res)
-        }else{
-            res.render('index', {
-                errMsg: '',
-                files: files
-            });
-        }
-    })*/
     gfs.files.find().toArray(function(err, files){
         if(!files || files.length === 0){
             res.render('index', {
@@ -172,7 +195,7 @@ app.get('/', function(req, res){
             res.render('index', {
                 errMsg: '',
                 files: '',
-                userName: 'j'
+                userName: ''
             });
         }
     })
@@ -183,62 +206,96 @@ app.get('/login', function(req, res){
     res.render('index', {errMsg: errMsg, files: '', userName: '' })
 })
 
+
+app.get('/loginAfterSignup', function(req, res){
+    var errMsg = `<style> .modal{opacity: 1; visibility: visible;}
+                    .errMsg{color: green; background: #1997002a;}
+                    .forms .formWrapper:nth-child(3){  display: none; }</style>
+                    <strong class="errMsg">Signup successfull, please log in</strong>
+                    <script> document.getElementById('loginBtnWrpr').classList.add('active')
+                    document.getElementById('SignUpBtnWrpr').classList.remove('active')
+                    document.getElementById('signUpErr').innerHTML = ""; </script>`
+    res.render('index', {errMsg: errMsg, files: '', userName: '' })
+})
+
 /*
 This function adds a new user to the database.
 Before it does so it checks if this user already exists.
 */
-app.post('/createUser', PhotoUpload.single('attachProfilePhoto'), function(req, res){
-    var userCreate = {
-        firstName: req.body.firstName,
-        lastName: req.body.lastName,
-        email: req.body.email,
-        password: req.body.password
-    }
 
-    create.findOne({
-        email: req.body.email
-    }).then((user) => {
-        if(user){
-            var errMsg = `  <style> .modal{opacity: 1; visibility: visible;}
-                                .forms .formWrapper:nth-child(2){  display: none; }
-                                .forms .formWrapper:nth-child(3){  display: flex; } </style>
+app.post('/createUser', PhotoUpload.single('attachProfilePhoto'), function(req, res){
+    var userCreate = {firstName, lastName, email, password} =  req.body
+
+    if(!firstName || !lastName || !email || !password){
+        var errMsg =`<style> .modal{opacity: 1; visibility: visible;}
+                    .forms .formWrapper:nth-child(2){  display: none; }
+                    .forms .formWrapper:nth-child(3){  display: flex; } </style>
+                    <strong class="errMsg">please fill in all fields</strong>
+                    <script> document.getElementById('SignUpBtnWrpr').classList.add('active')
+                    document.getElementById('loginBtnWrpr').classList.remove('active')
+                    document.getElementById('loginErr').innerHTML = ""; </script> ` 
+        res.render('index', {
+            errMsg: errMsg,
+            userName: '',
+            files: ''
+        });             
+    }else{
+        create.findOne({
+            email: email
+        }).then((user) => {
+            if(user){
+                var errMsg = `<style> .modal{opacity: 1; visibility: visible;}
+                            .forms .formWrapper:nth-child(2){  display: none; }
+                            .forms .formWrapper:nth-child(3){  display: flex; } </style>
                             <strong class="errMsg">This user already exists, log in or choose a different email</strong>
                             <script> document.getElementById('SignUpBtnWrpr').classList.add('active')
-                                document.getElementById('loginBtnWrpr').classList.remove('active')
-                                document.getElementById('loginErr').innerHTML = ""; </script> `
+                            document.getElementById('loginBtnWrpr').classList.remove('active')
+                            document.getElementById('loginErr').innerHTML = ""; </script> `
 
-            gfs.files.find().toArray(function(err, files){
-                if(!files || files.length === 0){
-                    res.render('index', {
-                        errMsg: errMsg,
-                        files: false
-                    })
-                }else{
-                    files.map(function(file){
-                        if(file.contentType === 'image.png' || file.contentType === 'image/jpeg'){
-                            file.isImage = true
-                        }else{
-                            file.isImage = false
+                gfs.files.find().toArray(function(err, files){
+                    if(!files || files.length === 0){
+                        res.render('index', {
+                            errMsg: errMsg,
+                            userName: '',
+                            files: false
+                        })
+                    }else{
+                        files.map(function(file){
+                            if(file.contentType === 'image.png' || file.contentType === 'image/jpeg'){
+                                file.isImage = true
+                            }else{
+                                file.isImage = false
+                            }
+                        })
+                        res.render('index', {
+                            errMsg: errMsg,
+                            userName: '',
+                            files: files
+                        });
+                    }
+                })
+            }else{
+                bcrypt.genSalt(10, (err, salt) => 
+                    bcrypt.hash(userCreate.password, salt, (err, hash) => {
+                        if(err){
+                            console.log(err);
                         }
-                    })
-                    
-                    res.render('index', {
-                        errMsg: errMsg,
-                        files: files
-                    });
-                }
-            })
-        }else{
-            create.create(userCreate, function(err, user){
-                if(err){
-                    console.log(err);
-                }
-                req.session.user = user
-                res.redirect('/');
-            })
-            
-        }
-    })
+                        
+                        userCreate.password = hash
+                        create.create(userCreate, function(err){
+                            if(err){
+                                console.log(err);
+                            }
+                            else{
+                                res.redirect('/loginAfterSignup');
+                            }
+                        })
+
+                    }))
+//end of else
+            }
+        })
+    }
 })
 
 /*
@@ -246,50 +303,74 @@ This function logs a user to the system
 It checks if the email and password match to an exsisitng user
 It spits out an error accordingly
 */
-app.post('/login', function(req, res, user){
-    create.findOne({
-        email: req.body.email,
-    }).then((userLogin) => {
-        if(!userLogin){
-            var errMsg = `  <style> .modal{opacity: 1; visibility: visible;} </style>
-                            <strong class="errMsg">Oops. This email is not found, please try again</strong>
-                            <script> document.getElementById('signUpErr').innerHTML = ""; </script> `
-            res.render('index', {errMsg: errMsg, files: '', userName: '' })
-        }else{
-            create.findOne({
-                password: req.body.password
-            }).then((pass) => {
-                if(!pass){
-                    var errMsg = `  <style> .modal{ opacity: 1;visibility: visible;}</style>
-                                    <strong class="errMsg">Password incorrect, please try again</strong>
-                                    <script> document.getElementById('signUpErr').innerHTML = ""; </script> `
-                    res.render('index', {errMsg: errMsg, files: '', userName: '' })
-                }else{
-                    //var password = req.body.password
-                    //argon2.generateSalt().then(salt => {
-                    //    argon2.hash(password, salt).then(hash =>{
-                    //        console.log('successfully created argon2 hash:', hash);
-                    //    })
-                    //})
-                    req.session.user = user
-                    res.redirect('/')
-                }
-            })
+
+app.get('/successfullLogin', (req, res) =>{
+    res.render('index', {errMsg: '', files: '', userName: req.user})
+})
+
+app.post('/login',  function(req, res, next){
+    
+    // res.render('index', {errMsg: '', files: '', userName: create.firstName})
+        create.findOne({
+            email: req.body.email,
+        }).then((userLogin) => {
+            if(!userLogin){
+                var errMsg = `  <style> .modal{opacity: 1; visibility: visible;} </style>
+                                <strong class="errMsg">Oops. This email is not found, please try again</strong>
+                                <script> document.getElementById('signUpErr').innerHTML = ""; </script> `
+                res.render('index', {errMsg: errMsg, files: '', userName: '' })
+            }else{
+
+
+passport.authenticate('local', function(err, user, info){
+        if (err) {
+            return next(err);
         }
+        if (!user) {
+            return res.redirect('/login');
+        }
+        req.logIn(user, function(err) {
+
+            if (err) {
+                return next(err);
+            }
+            return res.redirect('/successfullLogin');
+      });
+        
+    })(req, res, next);
+
+                // create.findOne({
+                //     password: req.body.password
+                // }).then((pass) => {
+                //     if(!pass){
+                //         var errMsg = `  <style> .modal{ opacity: 1;visibility: visible;}</style>
+                //                         <strong class="errMsg">Password incorrect, please try again</strong>
+                //                         <script> document.getElementById('signUpErr').innerHTML = ""; </script> `
+                //         res.redirect('/successfullLogin')
+                //     }else{
+                //     //res.render('index', {errMsg: '', files: '', userName: create.firstName})
+                //     }
+                // })
+            }
     })
 })
+
+
+
+
+
+
+
+
+
+
+
 
 /*
 This function renders the page to add a new recipe
 */
 app.get('/AddNewRecipe', function(req, res){
-    // if(req.session.user){
-    //     
-    // }else{
-    //     res.redirect('/')
-    // }
     res.render('addRecipe', {files: '',  userName: '', submitSucessMsg: ''})
-    
 })
 
 /*
@@ -303,7 +384,7 @@ app.get('/recipiesDisplay', function(req, res){
             res.render('recipiesDisplay', {
                 recipe: allRecipies,
                 files: '',
-                userName: '' 
+                userName: 'hello' 
             })
         }
     })
@@ -314,21 +395,21 @@ This function takes the data that the user added to the add a new recipe page fo
 this function creates a new recipie (CREATE)
 */
 app.post('/newRecipeData', function(req, res) {
-     var fullRecipe = req.body.recipe
-    //     title: req.body.title,
-    //     prpTime: req.body.prpTime,
-    //     prpTimeSlct: req.body.select1,
-    //     ckTime: req.body.ckTime,
-    //     ckTimeSlct: req.body.select2,
-    //     ttlTimeHrs: req.body.ttlTimeHrs,
-    //     ttlTimeMin: req.body.ttlTimeMin,
-    //     ttlTimeSlctHrs: 'Hours',
-    //     ttlTimeSlctMin: 'Minutes',
-    //     yields: req.body.yields,
-    //     img: req.body.img,
-    //     ingrdnts: req.body.ingrdnts,
-    //     dirctns: req.body.dirctns
-    // }
+     var fullRecipe = {
+        title: req.body.title,
+        prpTime: req.body.prpTime,
+        prpTimeSlct: req.body.select1,
+        ckTime: req.body.ckTime,
+        ckTimeSlct: req.body.select2,
+        ttlTimeHrs: req.body.ttlTimeHrs,
+        ttlTimeMin: req.body.ttlTimeMin,
+        ttlTimeSlctHrs: 'Hours',
+        ttlTimeSlctMin: 'Minutes',
+        yields: req.body.yields,
+        img: req.body.img,
+        ingrdnts: req.body.ingrdnts,
+        dirctns: req.body.dirctns
+    }
     recipe.create(fullRecipe, function(err){
         if(err){
             console.log(err);

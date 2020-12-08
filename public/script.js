@@ -1,4 +1,4 @@
-$(document).ready(function(){
+$(document).ready(() =>{
 
 /*
 This function checks if the page you are currently on has the id of index page.
@@ -21,8 +21,9 @@ This function opens and closes the user login and signup modal window
             document.getElementById(modalId).classList.add(modalVisible)
         })
 
+
         for(const eachButton of close){
-            eachButton.addEventListener('click', function(){
+            eachButton.addEventListener('click', () =>{
                 document.getElementById('modal').classList.remove(modalVisible)
             })
         }
@@ -94,7 +95,7 @@ togethor with all the other ingredients until you submit
     function addIngrdntToList(){
         liStr = $(document.createElement('li')).text($(ingrdntsInput).val()).appendTo('.igUl');
 
-        var liStrToInput = $('<input type="text"/>').attr({
+        var liStrToInput = $('<input type="hidden"/>').attr({
             name: 'recipe[ingrdnts]'
         }).appendTo('form');
 
@@ -106,7 +107,7 @@ This function displays an x icon to delete an ingredient that we added to the li
         var deleteIng = $(document.createElement('span')).text('x').prependTo(liStr);
         $(deleteIng).addClass('deleteListItem')
 
-        $(deleteIng).on('click', function(){
+        $(deleteIng).on('click', () =>{
             $(this).parent().remove()
             $(liStrToInput).remove()
         })
@@ -194,6 +195,7 @@ It checks if the hours are mising and removes the word althogethor in that case
     var ttlTimeMin = $('.ttlTimeMin').text()
     var ttlTimeSlctMin = $('.ttlTimeSlctMin')
 
+    $(ttlTimeSlctHrs).text('Hours')
     if(ttlTimeHrs == 1){
         $(ttlTimeSlctHrs).text('Hour')
     }else if(ttlTimeHrs == ''){
@@ -204,11 +206,43 @@ It checks if the hours are mising and removes the word althogethor in that case
 This function check if the reipce total time minutes is 1 and changes the word minutes to minutes
 It checks if the minutes are mising and removes the word althogethor in that case
 */
+
+    $(ttlTimeSlctMin).text('Minutes')
     if(ttlTimeMin == 1){
         $(ttlTimeSlctMin).text('Minute')
     }else if(ttlTimeMin == ''){
         $(ttlTimeSlctMin).text('')
     }
+
+/*
+This function takes the select values and puts them into inputs so we ca get their values to the form easier
+*/
+    var prpTimeSelect = $('<input type="hidden"/>').attr({
+        name: 'recipe[prpTimeSlct]'
+    }).appendTo('form')
+
+    prpTimeSelect.val('Minutes')
+    $('.prpTimeSelect').on('click', function(){
+        prpTimeSelect.val($(this).val())
+    })
+
+    var ckTimeSelect = $('<input type="hidden"/>').attr({
+        name: 'recipe[ckTimeSlct]'
+    }).appendTo('form')
+
+    ckTimeSelect.val('Minutes')
+    $('.ckTimeSelect').on('click', function(){
+        ckTimeSelect.val($(this).val())
+    })
+    
+
+
+    var rToInput = $('<input type="hidden" />').attr({
+        name: 'recipe[dirctns]'
+    }).appendTo('form');
+
+    rToInput.val($('dirctnLiTxt').text())
+
 
 })
 

@@ -28,7 +28,7 @@
                             <button type="button"><a href="/AddNewRecipe"> Add Recipe</a></button>
                         </div>
                     </div>
-
+                    <%- userName.firstName %>
                     <div class="modalWrapper">
                         <div id="modal" class="modal">
                             <div class="modalMainContent">
@@ -58,7 +58,7 @@
                                                     </div>
                                                     
                                                     <div class="eachInput">
-                                                        <input type="password" name="password" class="password" placeholder=" " required>
+                                                        <input type="password" name="password" id="password" class="password" placeholder=" " required>
                                                         <span class="showHidePassIcon">
                                                             <img src="/resources/images/passwordVisibility.png" alt="password icon" class="showPassIcon">
                                                             <img src="/resources/images/passwordInvisible.png" alt="password icon" class="hidePassIcon">
