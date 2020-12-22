@@ -1,5 +1,4 @@
 const bodyParser = require('body-parser'),
-    //cookieParser = require('cookie-parser'),
     bcrypt = require('bcryptjs'),
     create = require('./modules/userCreate'),
     express = require('express'),
@@ -9,13 +8,11 @@ const bodyParser = require('body-parser'),
     LocalStrategy = require('passport-local').Strategy,
     methodOverride = require('method-override'),
     mongoose = require('mongoose'),
-    //MongoDBSession = require('connect-mongodb-session')(session),
     multer = require('multer'),
     path = require('path'),
     passport = require('passport')
     recipe = require('./modules/recipe'),
     session = require('express-session'),
-    //require('./modules/passport')(passport)
     app = express();
 
 mongoose.connect('mongodb://localhost/recipize', {
@@ -103,73 +100,13 @@ passport.use(
     })
 );
 
-// passport.use(new LocalStrategy({usernameField: 'email', passwordField: 'password'}, (email, password, done) =>{
-//     create.findOne({email}, function(err, user){
-//         if(!user){
-//             return done(null, false, { errors: { 'email or password': 'is invalid' } })
-//         }
-//         else if(!user.validatePassword(password)){
-//             //console.log('no user');
-//             return done(null, false, { errors: { 'email or password': 'is invalid' } })
-//         }
-//         //match password
-//         bcrypt.compare(password, create.password, (err, isMatch) =>{
-//             if(err){
-//                 console.log(err);
-//                 throw err
-//             } else if(isMatch){
-//                 console.log(user)
-//                 return done(null, user)
-//             }else{
-//                 return done(null, false, console.log('password incorrect'))
-//             }
-//         })
-//      })
-
-//     // function(username, password, done) {
-//     //   create.findOne({ username: username }, function (err, user) {
-//     //     if (err) {
-//     //        console.log(err);
-//     //         return done(err, {message: err})
-//     //     }
-//     //     if (!user) {
-//     //       return done(null, false, { message: 'Incorrect username.' });
-//     //     }
-//     //     if (!user.validPassword(password)) {
-//     //       return done(null, false, { message: 'Incorrect password.' });
-//     //     }
-//     //     return done(null, user);
-//     //   });
-//     // }
-
-// }
-// ));
-   
-passport.serializeUser( function(user, done){
-    done(null, user.id)
-})
-
-passport.deserializeUser( function(id, done){
-    create.findById(id, (err, user) =>{
-        done(err, user)
-    })
-})
 
 app.engine('html', require('ejs').renderFile)
 app.set('view engine', 'html')
 app.use(express.static('public'))
-app.use(session({
-    secret: "cats",
-    resave: true,
-    saveUninitialized: true,
-    cookie: { maxAge: 8*60*60*1000 }
-}));
 app.use(bodyParser.urlencoded({extended:false})) //changed from false to true to se if will make passport work, chnged back to false according to Travery
 app.use(bodyParser.json()); 
 app.use(methodOverride('_method'))
-//app.use(cookieParser());
-app.use(passport.initialize())
-app.use(passport.session());
 
 app.get('/', function(req, res){
     gfs.files.find().toArray(function(err, files){
@@ -320,39 +257,18 @@ app.post('/login',  function(req, res, next){
                 log.write('User not found at logging in\n')
                 res.render('index', {errMsg: errMsg, files: '', userName: '' })
             }else{
-
-
-passport.authenticate('local', function(err, user, info){
-        if (err) {
-            return next(err);
-        }
-        if (!user) {
-            return res.redirect('/login');
-        }
-        req.logIn(user, function(err) {
-
-            if (err) {
-                log.write('Failed attempt at logging in\n')
-                return next(err);
-            }
-            log.write('User successfully logged in\n')
-            return res.redirect('/successfullLogin');
-      });
-        
-    })(req, res, next);
-
-                // create.findOne({
-                //     password: req.body.password
-                // }).then((pass) => {
-                //     if(!pass){
-                //         var errMsg = `  <style> .modal{ opacity: 1;visibility: visible;}</style>
-                //                         <strong class="errMsg">Password incorrect, please try again</strong>
-                //                         <script> document.getElementById('signUpErr').innerHTML = ""; </script> `
-                //         res.redirect('/successfullLogin')
-                //     }else{
-                //     //res.render('index', {errMsg: '', files: '', userName: create.firstName})
-                //     }
-                // })
+                create.findOne({
+                    password: req.body.password
+                }).then((pass) => {
+                    if(!pass){
+                        var errMsg = `  <style> .modal{ opacity: 1;visibility: visible;}</style>
+                                        <strong class="errMsg">Password incorrect, please try again</strong>
+                                        <script> document.getElementById('signUpErr').innerHTML = ""; </script> `
+                        res.redirect('/successfullLogin')
+                    }else{
+                    //res.render('index', {errMsg: '', files: '', userName: create.firstName})
+                    }
+                })
             }
     })
 })
@@ -476,21 +392,6 @@ app.put('/editRecipe/:id', function(req, res){
     })
 
 })
-/*Testing new delete on seperate page 
-app.get('/testBook', function(req, res){
-    recipe.find({}, function(err, allRecipies){
-        if(err){
-            console.log(err);
-        }else{
-            res.render('testBook', {
-                recipe: allRecipies,
-                files: '',
-                userName: '' 
-            })
-            console.log({recipe: allRecipies});
-        }
-    })
-})*/
 
 /*
 This function delets one recipe when user chooses to
