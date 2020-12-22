@@ -175,7 +175,7 @@ original ercipe book<div id="cover" class="cover">
         <div class="backText">
             <h2><%= recipe.title %></h2>
             <hr>
-            <div class="recipeIngredeients">
+            <div class="recipeIngredients">
                 <h3>You will need the following:</h3>
                 <ul>
                     <% recipe.ingrdnts.forEach(function(item){ %>

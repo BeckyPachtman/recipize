@@ -10,7 +10,7 @@
     <title>Edit Recipe</title>
 </head>
 <body>
-    <div class="pageBody">
+    <div class="pageBody" id="editRecipe">
         <%- include('header.html')%>
         <div class="headerSection">
             <div class="mainContent">
@@ -22,12 +22,12 @@
                     </div>
                     <div class="rightSideContent addRecSideContent">
                         
-                            <h1>Add Your New Recipe</h1>
+                            <h1>Edit Recipe</h1>
                             <h3>Click add to submit an add new to add this on and a new one</h3>
 
                           
                             <div class="AddRecFormWrapper">
-                                <form action="/editRecipe/<%=recipe._id%>?_method=PUT" method="POST">
+                                <form action="/editRecipe/<%=recipe._id%>?_method=PUT" method="POST"  class="editRecipeForm">
 
                                     <div class="addRecInputWrapper inputWrapper">
                                         <div class="addRecEachInput eachInput recTitleWrapper">
@@ -88,42 +88,37 @@
 
                                     <div class="addRecInputWrapper inputWrapper ingrInputWrapper">
                                         <div class="addRecEachInput eachInput">
-                                            <input type="text" class="ingrdntsInput" placeholder=" " value="<%= recipe.ingrdnts %>">
-                                            <label for="RecTitle">Ingredients</label>
-                                            <span class="adIngrdntToListBttn">&#43;</span>
-                                        
-                                            <div class="ingrdntListWrapper">
-                                                <ul class="edirRecIngrdntWrapper">
-                                                    <% recipe.ingrdnts.forEach(function(item){ %>
-                                                        <li><%= item %></li>
-                                                    <% }); %>
-                                                </ul>
-                                            </div>
+                                            <input type="text" class="editAdIngrdntInpt" placeholder=" ">
+                                                
+                                            <% recipe.ingrdnts.forEach(function(item){ %>
+                                                <div class="parent">
+                                                    <span class="circle">○</span> <input type="text" name="ingrdnts" class="editInputs" placeholder=" " value="<%= item %>"><span class="removeEditItem">x</span>
+                                                </div>
+                                            <% }); %>
 
-                                            
+                                            <label for="RecTitle">Ingredients</label>
+                                            <span class="adIngrdntToListBttn adIngrdntToListBttnEdit">&#43;</span>
                                         </div>
                                     </div>
 
-                                    <div class="addRecInputWrapper inputWrapper">
+                                    <div class="addRecInputWrapper inputWrapper drctnInputWrapper">
                                         <div class="addRecEachInput eachInput">
-                                            <input type="text" class="dirctnsInput" placeholder=" " value="<%= recipe.dirctns %>">
+                                            <input type="text" class="editAdDirctnInpt" placeholder=" ">
+                                            
+                                            <% recipe.dirctns.forEach(function(item){ %>
+                                                <div class="parent">
+                                                    <span class="circle">○</span> <input type="text" name="dirctns" class="editInputs" placeholder=" " value="<%= item %>" ><span class="removeEditItem">x</span>
+                                                </div>
+                                            <% }); %>
+
                                             <label for="RecTitle">Directions</label>
                                             <span class="adDirToDirListBttn">&#43;</span>
-
-                                            <div class="ingrdntListWrapper">
-                                                <ol>
-                                                    <% recipe.dirctns.forEach(function(item){ %>
-                                                        <li class="dirctnLiTxt"><%= item %></li>
-                                                        <input type="text" name="" id="" value="<%= item %>">
-                                                    <% }); %>
-                                                </ol>
-                                            </div>
                                         </div>
                                     </div>
 
                                     <div class="addRecInputWrapper inputWrapper">
                                         <div class="addrecEachInput eachInput">
-                                            <button type="submit" class="loginPropmtButton">Add Recipe</button>
+                                            <button type="submit" class="loginPropmtButton">Edit Recipe</button>
                                         </div> 
                                     </div>
 
@@ -136,3 +131,6 @@
     </div>
 </body>
 </html>
+
+<script src="https://code.jquery.com/jquery-3.5.1.min.js""></script>
+<script src="../script.js"></script>

@@ -19,7 +19,7 @@
                 <div class="rightSideText">
                     <h2><%= recipe.title %></h2>
                     <hr>
-                    <div class="recipeIngredeients">
+                    <div class="recipeIngredients">
                         <h3>You will need the following:</h3>
                         <ul>
                             <% recipe.ingrdnts.forEach(function(item){ %>
@@ -55,6 +55,7 @@
             </div>
 
             <div class="leftSide">
+                
                 <div class="details leftSideText">
                     <h3>Directions:</h3>
                     <ol>
@@ -62,15 +63,17 @@
                                 <li><%= Direction %></li>
                         <% }); %>
                     </ol>
-
-                    <div class="viewImageWrapper">
-                        <div class="viewImage">
-                            <img src="../resources/images/image.png" alt="see more">
+                        <div class="iconWrapperSingleRec">
+                            <div>
+                                <img src="../resources/images/image.png" alt="see more" title="Recipe image" class="viewImage">
+                            </div>
+                            <div>
+                                <a href="/edit/<%= recipe._id%>"><img src="../resources/images/edit.png" class="editIcon" title="Edit"></a>
+                            </div>
+                            <div>
+                                <button type="button" id="delRec" title="Delete" class="deleteRecConfirm"><img src="../resources/images/delete.png"></button>
+                            </div>
                         </div>
-                    </div>
-                
-                    <button type="button" id="delRec" class="deleteRecConfirm"><img src="../resources/images/delete.png" alt=""></button>
-
                     <div class="dltRecWrrpModal">
                         <div class="modalDel">
                             <div class="dltRecModalMainCntnt">
@@ -92,13 +95,19 @@
                             </div>
                         </div>
                     </div>
-                    
                 </div>
+
+               
             </div>
             <div class="recipeImageModal">
                 <div class="recipeImage">
-                    <img src="<%= recipe.img %>" alt="">
+                    <% if(recipe.img == ''){ %>
+                        <img src="../resources/images/platesOfFood/34.jpg">
+                    <% }else{ %>
+                        <img src="<%= recipe.img %>">
+                    <% } %>
                 </div>
+                
             </div>
         </div>
     </div>

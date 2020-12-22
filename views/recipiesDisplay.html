@@ -26,17 +26,26 @@
                         
                         <div class="recipeDisplay">
                             <div class="plate">
-                                <img src="<%= rec.img %>" alt="Recipe image not found">
+                                <% if(rec.img == ''){ %>
+                                    <img src="../resources/images/platesOfFood/147.jpg" alt="Recipe image not found" class="defaultImage">
+                                <% }else{ %>
+                                    <img src="<%= rec.img %>" alt="Recipe image not found">
+                                <% } %>
                             </div>
                             <div class="text">
-                                <h3><a href="/recipe/<%= rec._id%>"><%= rec.title %></a></h3>
+                                <h3 class="recipeTitle"><a href="/recipe/<%= rec._id%>"><%= rec.title %></a></h3>
                             </div>
-                            <img src="../resources/images/saveToCollection.png" alt="save to collection" class="saveToCollectionImg">
+
+                            <div class="iconWrapper">
+
+                                <img src="../resources/images/saveToCollectionBig.png" alt="save to collection" class="saveToCollectionImg" title="Add to collection">
+
+                                <a href="/edit/<%= rec._id%>"><img src="../resources/images/edit.png" class="editIcon" title="Edit"> </a>
+
+                                <button type="button" id="delRec" title="Delete" class="deleteRecConfirm"><img src="../resources/images/delete.png"></button>
                         
-                            <button type="button" id="delRec" class="deleteRecConfirm"><img src="../resources/images/delete.png" alt=""></button>
-                        
-                           
-                            <a href="/edit/<%= rec._id%>">Edit</a>
+                            </div>
+                            
 
                             <div class="dltRecWrrpModal">
                                 <div class="modalDel">

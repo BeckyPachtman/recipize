@@ -203,7 +203,6 @@ app.get('/login', function(req, res){
     res.render('index', {errMsg: errMsg, files: '', userName: '' })
 })
 
-
 app.get('/loginAfterSignup', function(req, res){
     var errMsg = `<style> .modal{opacity: 1; visibility: visible;}
                     .errMsg{color: green; background: #1997002a;}
@@ -305,7 +304,7 @@ It spits out an error accordingly
 */
 
 app.get('/successfullLogin', (req, res) =>{
-    res.render('index', {errMsg: '', files: '', userName: req.user})
+    res.render('index', {errMsg: '', files: '', userName: req})
 })
 
 app.post('/login',  function(req, res, next){
@@ -408,7 +407,7 @@ app.post('/newRecipeData', function(req, res) {
             console.log(err);
         }else{
             log.write('New recipe successfully created\n')
-            res.render('addRecipe', {submitSucessMsg: 'Recipe submitted Successfully', files: '', userName: '' }) 
+            res.redirect('/recipiesDisplay') 
         }
     })
 })
@@ -472,7 +471,7 @@ app.put('/editRecipe/:id', function(req, res){
             console.log(err);
         }else{
             log.write('Recipe successfully updated\n')
-            res.redirect('/recipiesDisplay') 
+            res.redirect('/recipiesDisplay')
         }
     })
 
