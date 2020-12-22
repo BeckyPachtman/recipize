@@ -28,7 +28,7 @@
                             <button type="button"><a href="/AddNewRecipe"> Add Recipe</a></button>
                         </div>
                     </div>
-                    <%- userName.firstName %>
+                    <%- userName %>
                     <div class="modalWrapper">
                         <div id="modal" class="modal">
                             <div class="modalMainContent">
@@ -83,7 +83,7 @@
                                         
                                         <div class="formWrapper signUpFormWrapper" id="signUpFormWrapper">
 
-                                            <form action="/createUser" method="POST" id="signUp" class="signUpForm" enctype="multipart/form-data">
+                                            <form action="/createUser" method="POST" id="signUp" class="signUpForm">
                                                 
                                                 <div class="userFormWrapper">
                                                     
@@ -119,7 +119,7 @@
                                                         </div>
 
                                                         <div class="eachInput">
-                                                            <input type="file" name="attachProfilePhoto" id="profilePhoto" class="profilePhotoInpt" placeholder=" ">
+                                                            <input type="file" id="profilePhoto" class="profilePhotoInpt" placeholder=" ">
                                                             <label for="profilePhoto" class="profilePhotoLbl"><img src="../resources/images/upload.png" alt=""> <span>Profile Photo</span> </label>
                                                         </div>
                                                     </div>

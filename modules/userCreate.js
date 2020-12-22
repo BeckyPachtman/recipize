@@ -20,10 +20,6 @@ var userCreate = new mongoose.Schema({
     password: {
         type: String,
         //required: true
-    },
-    profilephoto: {
-        data: Buffer,
-        contentType: String
     }
 })
 

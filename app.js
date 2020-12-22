@@ -3,14 +3,8 @@ const bodyParser = require('body-parser'),
     create = require('./modules/userCreate'),
     express = require('express'),
     fs = require('fs'),
-    Grid = require('gridfs-stream'), //GridFs Stream
-    GridFsStorage = require('multer-gridfs-storage'), //GridFs
-    LocalStrategy = require('passport-local').Strategy,
     methodOverride = require('method-override'),
     mongoose = require('mongoose'),
-    multer = require('multer'),
-    path = require('path'),
-    passport = require('passport')
     recipe = require('./modules/recipe'),
     session = require('express-session'),
     app = express();
@@ -21,86 +15,6 @@ mongoose.connect('mongodb://localhost/recipize', {
     useFindAndModify: false
 });
 
-/*--------------------------------------------------------------*/
-var mongoURI = 'mongodb://localhost/recipize'
-var conn = mongoose.createConnection(mongoURI, {
-    useNewUrlParser: true,
-    useUnifiedTopology: true,
-});
-
-let gfs;
-
-conn.once('open', function(){
-    gfs = Grid(conn.db, mongoose.mongo)
-    gfs.collection('creates')
-})
-
-var storage = new GridFsStorage({
-    url: mongoURI,
-    file: (req, file) => {
-        return new Promise((resolve, reject) => {
-            crypto.randomBytes(16, (err, buf) => {
-                if(err){
-                    return reject(err)
-                }
-                const filename = buf.toString('hex') + path.extname(file.originalname)
-                const fileInfo = {
-                    filename: filename,
-                    bucketName: 'creates'
-                }
-                resolve(fileInfo)
-            })
-        })
-    },
-    options: {
-        useUnifiedTopology: true
-    }
-})
-
-const PhotoUpload = multer({storage})
-
-app.get('/photos/:filename', function(req, res){
-    gfs.files.findOne({filename: req.params.filename}, function(err, file){
-        if(!file || file.length === 0){
-            res.send('no photos found')
-        } 
-        else if(file.contentType === 'image/png' || file.contentType === 'image/jpeg'){
-            var readStream = gfs.createReadStream(file.filename);
-            readStream.pipe(res)
-        }else{
-            res.send('not a photo')
-        }
-    })
-})
-
-/*----------------------------------------------------*/
-
-passport.use(
-    new LocalStrategy({usernameField: 'email', passwordField: 'password'}, (email, password, done) =>{
-        //match user
-        create.findOne({email:email})
-        .then(user => {
-            if(!user){
-                //console.log('no user');
-                return done(null, false, { message: 'email or password is invalid' })
-            }
-
-            //match password
-            bcrypt.compare(password, user.password, (err, isMatch) =>{
-                if(err) throw err;
-
-                if(isMatch){
-                    return done(null, user)
-                }else{
-                    return done(null, false, {message: 'Password incorrect'})
-                }
-            });
-        })
-        .catch(err => console.log(err))
-    })
-);
-
-
 app.engine('html', require('ejs').renderFile)
 app.set('view engine', 'html')
 app.use(express.static('public'))
@@ -108,32 +22,11 @@ app.use(bodyParser.urlencoded({extended:false})) //changed from false to true to
 app.use(bodyParser.json()); 
 app.use(methodOverride('_method'))
 
-app.get('/', function(req, res){
-    gfs.files.find().toArray(function(err, files){
-        if(!files || files.length === 0){
-            res.render('index', {
-                errMsg: '',
-                files: false,
-                userName: ''
-            })
-        }else{
-            files.map(function(file){
-                if(file.contentType === 'image.png' || file.contentType === 'image/jpeg'){
-                    file.isImage = true
-                }else{
-                    file.isImage = false
-                }
-            })
-            res.render('index', {
-                errMsg: '',
-                files: '',
-                userName: ''
-            });
-        }
-    })
-})
-
 const log = fs.createWriteStream('log.txt', {flags: 'a'});
+
+app.get('/', function(req, res){
+    res.render('index', {errMsg: '',userName: ''})
+})
 
 app.get('/login', function(req, res){
     var errMsg = `  <style> .modal{opacity: 1; visibility: visible;} </style>`
@@ -148,7 +41,7 @@ app.get('/loginAfterSignup', function(req, res){
                     <script> document.getElementById('loginBtnWrpr').classList.add('active')
                     document.getElementById('SignUpBtnWrpr').classList.remove('active')
                     document.getElementById('signUpErr').innerHTML = ""; </script>`
-    res.render('index', {errMsg: errMsg, files: '', userName: '' })
+    res.render('index', {errMsg: errMsg, userName: '' })
 })
 
 /*
@@ -156,8 +49,8 @@ This function adds a new user to the database.
 Before it does so it checks if this user already exists.
 */
 
-app.post('/createUser', PhotoUpload.single('attachProfilePhoto'), function(req, res){
-    var userCreate = {firstName, lastName, email, password} =  req.body
+app.post('/createUser', function(req, res){
+    var userCreate = {firstName, lastName, email, password} = req.body
 
     if(!firstName || !lastName || !email || !password){
         var errMsg =`<style> .modal{opacity: 1; visibility: visible;}
@@ -169,8 +62,7 @@ app.post('/createUser', PhotoUpload.single('attachProfilePhoto'), function(req, 
                     document.getElementById('loginErr').innerHTML = ""; </script> ` 
         res.render('index', {
             errMsg: errMsg,
-            userName: '',
-            files: ''
+            userName: ''
         });             
     }else{
         create.findOne({
@@ -184,29 +76,10 @@ app.post('/createUser', PhotoUpload.single('attachProfilePhoto'), function(req, 
                             <script> document.getElementById('SignUpBtnWrpr').classList.add('active')
                             document.getElementById('loginBtnWrpr').classList.remove('active')
                             document.getElementById('loginErr').innerHTML = ""; </script> `
-
-                gfs.files.find().toArray(function(err, files){
-                    if(!files || files.length === 0){
-                        res.render('index', {
-                            errMsg: errMsg,
-                            userName: '',
-                            files: false
-                        })
-                    }else{
-                        files.map(function(file){
-                            if(file.contentType === 'image.png' || file.contentType === 'image/jpeg'){
-                                file.isImage = true
-                            }else{
-                                file.isImage = false
-                            }
-                        })
-                        res.render('index', {
-                            errMsg: errMsg,
-                            userName: '',
-                            files: files
-                        });
-                    }
-                })
+                res.render('index', {
+                    errMsg: errMsg,
+                    userName: ''
+                });
             }else{
                 bcrypt.genSalt(10, (err, salt) => 
                     bcrypt.hash(userCreate.password, salt, (err, hash) => {
@@ -227,8 +100,7 @@ app.post('/createUser', PhotoUpload.single('attachProfilePhoto'), function(req, 
                             }
                         })
 
-                    }))
-//end of else
+                }))
             }
         })
     }
@@ -241,12 +113,12 @@ It spits out an error accordingly
 */
 
 app.get('/successfullLogin', (req, res) =>{
-    res.render('index', {errMsg: '', files: '', userName: req})
+    res.render('index', {errMsg: '', userName: req})
 })
 
-app.post('/login',  function(req, res, next){
+app.post('/login', function(req, res){
     
-    // res.render('index', {errMsg: '', files: '', userName: create.firstName})
+    // res.render('index', {errMsg: '', userName: create.firstName})
         create.findOne({
             email: req.body.email,
         }).then((userLogin) => {
@@ -254,21 +126,33 @@ app.post('/login',  function(req, res, next){
                 var errMsg = `  <style> .modal{opacity: 1; visibility: visible;} </style>
                                 <strong class="errMsg">Oops. This email is not found, please try again</strong>
                                 <script> document.getElementById('signUpErr').innerHTML = ""; </script> `
+                
+                res.render('index', {errMsg: errMsg, userName: ''})
                 log.write('User not found at logging in\n')
-                res.render('index', {errMsg: errMsg, files: '', userName: '' })
             }else{
-                create.findOne({
-                    password: req.body.password
-                }).then((pass) => {
-                    if(!pass){
-                        var errMsg = `  <style> .modal{ opacity: 1;visibility: visible;}</style>
-                                        <strong class="errMsg">Password incorrect, please try again</strong>
-                                        <script> document.getElementById('signUpErr').innerHTML = ""; </script> `
-                        res.redirect('/successfullLogin')
+                bcrypt.compare(req.body.password, userLogin.password, function(err, isMatch){
+                    if(isMatch) {
+                        res.render('index', {errMsg: '', userName: create.firstName})
                     }else{
-                    //res.render('index', {errMsg: '', files: '', userName: create.firstName})
+                        var errMsg = `  <style> .modal{ opacity: 1;visibility: visible;}</style>
+                                         <strong class="errMsg">Password incorrect, please try again</strong>
+                                         <script> document.getElementById('signUpErr').innerHTML = ""; </script> `
+                        res.render('index', {errMsg: errMsg, userName: ''})
                     }
-                })
+                });
+
+                // create.findOne({
+                //     password: req.body.password
+                // }).then((pass) => {
+                //     if(!pass){
+                //         var errMsg = `  <style> .modal{ opacity: 1;visibility: visible;}</style>
+                //                         <strong class="errMsg">Password incorrect, please try again</strong>
+                //                         <script> document.getElementById('signUpErr').innerHTML = ""; </script> `
+                //         res.render('index', {errMsg: errMsg, userName: ''})
+                //     }else{
+                //         res.render('index', {errMsg: '', userName: create.firstName})
+                //     }
+                // })
             }
     })
 })
@@ -277,7 +161,7 @@ app.post('/login',  function(req, res, next){
 This function renders the page to add a new recipe
 */
 app.get('/AddNewRecipe', function(req, res){
-    res.render('addRecipe', {files: '',  userName: '', submitSucessMsg: ''})
+    res.render('addRecipe', {userName: '', submitSucessMsg: ''})
 })
 
 /*
@@ -290,7 +174,6 @@ app.get('/recipiesDisplay', function(req, res){
         }else{
             res.render('recipiesDisplay', {
                 recipe: allRecipies,
-                files: '',
                 userName: 'hello' 
             })
         }
@@ -337,7 +220,6 @@ app.get('/recipe/:id', function(req, res) {
         }else{
             res.render('viewRecipe', {
                 recipe: returningRec,
-                files: '',
                 userName: ''
             })
         }
@@ -354,7 +236,6 @@ app.get('/edit/:id', function(req, res) {
         }else{
             res.render('editRecipe', {
                 recipe: returningRec,
-                files: '',
                 userName: ''
             })
         }
