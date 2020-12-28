@@ -18,12 +18,12 @@ mongoose.connect('mongodb://localhost/recipize', {
 
 const cookieName = 'AuthenticationApp';
 const log = fs.createWriteStream('log.txt', {flags: 'a'});
-const profileMsg = `<style> #userLoggedIn{display: block;}</style>`
+const profileMsg = `<style> #userLoggedIn{display: flex;}</style>`
 
 app.engine('html', require('ejs').renderFile)
 app.set('view engine', 'html')
 app.use(express.static('public'))
-app.use(bodyParser.urlencoded({extended:false})) //changed from false to true to se if will make passport work, chnged back to false according to Travery
+app.use(bodyParser.urlencoded({extended: false})) //changed from false to true to se if will make passport work, changed back to false according to Travery
 app.use(bodyParser.json()); 
 app.use(methodOverride('_method'))
 app.use(session({
@@ -63,24 +63,20 @@ const redirectHome = (req, res, next) => {
     }
 }
 
-/*this function finds the current session
-according to an id in the database*/
-app.use((req, res, next) =>{
-    const {userId} =  req.session
-    if(userId){
-        res.locals.user = create.findById({_id : userId })
-    }
-    next()
-})
-
-
 
 app.get('/', function(req, res){
     const {userId} = req.session;
-    const {user} = res.locals
-
     if(userId){
-        res.render('index', {errMsg: '', userName: user.firstName, profile: profileMsg})
+        create.findById(userId, (err, loggedUser) =>{
+            const firstName  = loggedUser.firstName;
+            const lastName  = loggedUser.lastName;
+
+            const fNameInitial = firstName.charAt(0);
+            const lNameInitial = lastName.charAt(0);
+
+            const userName = fNameInitial + lNameInitial;
+            res.render('index', {errMsg: '', userName, profile: profileMsg})
+        })
     }else{
         var errMsg = 'You are not logged in'
             res.render('index', {
@@ -96,6 +92,7 @@ app.get('/login', redirectHome, function(req, res){
     var errMsg = `<style> .modal{opacity: 1; visibility: visible;} </style>`
     res.render('index', {errMsg: errMsg, files: '', userName: '', profile: profileMsg })
 })
+
 
 app.get('/loginAfterSignup', function(req, res){
     var errMsg = `<style> .modal{opacity: 1; visibility: visible;}
@@ -161,7 +158,7 @@ app.post('/createUser', redirectHome, function(req, res){
                                 console.log(err);
                             }
                             else{
-                                req.session.userId = newUser.id
+                                req.session.userId = userCreate.id
                                 log.write('New user successfully created\n')
                                 res.redirect('/loginAfterSignup');
                             }
@@ -185,8 +182,6 @@ app.get('/successfullLogin', (req, res) =>{
 })
 
 app.post('/login', redirectHome, function(req, res){
-    const {user} = res.locals
-
         create.findOne({
             email: req.body.email,
         }).then((userLogin) => {
@@ -206,7 +201,9 @@ app.post('/login', redirectHome, function(req, res){
                         var errMsg = `  <style> .modal{ opacity: 1;visibility: visible;}</style>
                                          <strong class="errMsg">Password incorrect, please try again</strong>
                                          <script> document.getElementById('signUpErr').innerHTML = ""; </script> `
-                        res.render('index', {errMsg: errMsg, userName: user.firstName, profile: ''})
+                        
+                        res.render('index', {errMsg: errMsg, userName: '', profile: ''})
+                        
                     }
                 });
             }
@@ -217,27 +214,30 @@ app.post('/login', redirectHome, function(req, res){
 This function renders the page to add a new recipe
 */
 app.get('/AddNewRecipe', redirectLogin, function(req, res){
-    const {user} = res.locals
-
-    res.render('addRecipe', {userName: user.firstName, submitSucessMsg: '', profile: profileMsg})
+    const {userId} = req.session;
+    create.findById(userId, (err, loggedUser) =>{
+        res.render('addRecipe', {userName: loggedUser.firstName, submitSucessMsg: '', profile: profileMsg})
+    })
 })
 
 /*
 This function renders the display page for all exsisiting recipes
 */
 app.get('/recipiesDisplay', redirectLogin, function(req, res){
-    const {user} = res.locals
+    const {userId} = req.session;
+    create.findById(userId, (err, loggedUser) =>{
 
-    recipe.find({}, function(err, allRecipies){
-        if(err){
-            console.log(err);
-        }else{
-            res.render('recipiesDisplay', {
-                recipe: allRecipies,
-                userName: user.firstName,
-                profile: profileMsg
-            })
-        }
+        recipe.find({}, function(err, allRecipies){
+            if(err){
+                console.log(err);
+            }else{
+                res.render('recipiesDisplay', {
+                    recipe: allRecipies,
+                    userName: loggedUser.firstName,
+                    profile: profileMsg
+                })
+            }
+        })
     })
 })
 
@@ -275,39 +275,41 @@ app.post('/newRecipeData', function(req, res) {
 /*
 This function displays one recipe when clicked on*/
 app.get('/recipe/:id', function(req, res) {
-    const {user} = res.locals
-
-    recipe.findById(req.params.id, function(err, returningRec){
-        if(err){
-            console.log(err); 
-        }else{
-            res.render('viewRecipe', {
-                recipe: returningRec,
-                userName: user.firstName,
-                profile: profileMsg
-            })
-        }
-    })
+    const {userId} = req.session;
+    create.findById(userId, (err, loggedUser) =>{
+        recipe.findById(req.params.id, function(err, returningRec){
+            if(err){
+                console.log(err); 
+            }else{
+                res.render('viewRecipe', {
+                    recipe: returningRec,
+                    userName: loggedUser.firstName,
+                    profile: profileMsg
+                })
+            }
+        })
+    })  
 })
 
 /*
 This function shows the edit recipe page wehn we want to edit a specific recipe  (EDIT)
 */
 app.get('/edit/:id', function(req, res) {
-    const {user} = res.locals
-    
-    recipe.findById(req.params.id, function(err, returningRec){
-        if(err){
-            console.log(err); 
-        }else{
-            res.render('editRecipe', {
-                recipe: returningRec,
-                userName: user.firstName,
-                profile: profileMsg
-            })
-        }
-    })
+    const {userId} = req.session;
+    create.findById(userId, (err, loggedUser) =>{
 
+        recipe.findById(req.params.id, function(err, returningRec){
+            if(err){
+                console.log(err); 
+            }else{
+                res.render('editRecipe', {
+                    recipe: returningRec,
+                    userName: loggedUser.firstName,
+                    profile: profileMsg
+                })
+            }
+        })
+    })
 })
 
 /*
@@ -366,7 +368,6 @@ app.get('/logout', redirectLogin, (req, res) =>{
         }
     })
 })
-
 
 /*
 This function will close the login modal window on clicking the close button

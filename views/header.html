@@ -15,13 +15,20 @@
                             <input type="search" name="searchRecipes" placeholder="Search Recipe" class="navSearchInput">
                         </span> 
                     </div>
-                       <%- profile %>   
-                       <%- userName %>      
+                       
                     <div id="userLoggedIn">
-
-                        <img src="../resources/images/profilePhoto.jpg" alt="profile photo">
-                        <a href="/logout">logout</a>
+                        <div class="user">
+                            <%- profile %>   
+                           <p class="userName" id="userName"><%- userName %> </p>
+                        </div>
+                        
+                        <div class="userOptions">
+                            <a href="/logout">log out</a>
+                            <p><%- userName %> </p>
+                        </div>
                     </div>
+                    
+                    
                 </ul>
             </nav>
         </div>

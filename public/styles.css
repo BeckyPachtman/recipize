@@ -92,7 +92,8 @@ input{
 }
 .navUl{
     display: flex;
-    align-items: center;
+    align-items: baseline;
+    /*border: solid 1px green;*/
 }
 .navUl a{
     font-size: .95em;
@@ -941,8 +942,47 @@ footer{
 }
 #userLoggedIn{
     display: none;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-end;
+    width: inherit;
+  /*  object-fit: cover;
+    position: relative;
+    white-space: nowrap;
+*/
 }
-#userLoggedIn img{
+.userName{
+    align-items: center;
+    background-color: var(--SecondaryGrayColor);
+    border-radius: 50%;
+    color: #fff;
+    display: none;
+    display: flex;
+    
+    font-size: .85em;
+    font-weight: 700;
+    justify-content: center;
+    padding: .6em .5em;
+    position: relative;
+    width: 2.4em;
+}
+/* #userLoggedIn img{
     height: 2em;
     width: 2em;
+} */
+.userOptions{
+    display: block;
+    
+    position: absolute;
+    /*position: absolute;*/
+    top: 2.8em;
+    background: #fff;
+    padding: .8em;
+    width: 8em;
+
+}
+.userOptions a{
+    padding: 0;
+    border: none;
 }

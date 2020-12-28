@@ -398,6 +398,19 @@ $(document).ready(() =>{
     //     console.log('none');
     // }
 
+    $('.userName').on('click', function(){
+        $('.userOptions').fadeToggle()
+    })
+    const userName = document.getElementById('userName')
+        // const firstName  = loggedUser.firstName;
+        // const lastName  = loggedUser.lastName;
 
+        // const fNameInitial = firstName.charAt(0);
+        // const lNameInitial = lastName.charAt(0);
+
+        // const userName = fNameInitial + lNameInitial;
+        myString = "Hello World!";
+
+        console.log(userName.charAt(0));
 })
 
