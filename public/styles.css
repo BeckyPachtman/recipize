@@ -939,3 +939,10 @@ footer{
     font-size: 1.1em;
     margin-right: .11em;
 }
+#userLoggedIn{
+    display: none;
+}
+#userLoggedIn img{
+    height: 2em;
+    width: 2em;
+}

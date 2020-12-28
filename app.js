@@ -7,6 +7,7 @@ const bodyParser = require('body-parser'),
     mongoose = require('mongoose'),
     recipe = require('./modules/recipe'),
     session = require('express-session'),
+    MongoStore = require('connect-mongo')(session),
     app = express();
 
 mongoose.connect('mongodb://localhost/recipize', {
@@ -15,22 +16,85 @@ mongoose.connect('mongodb://localhost/recipize', {
     useFindAndModify: false
 });
 
+const cookieName = 'AuthenticationApp';
+const log = fs.createWriteStream('log.txt', {flags: 'a'});
+const profileMsg = `<style> #userLoggedIn{display: block;}</style>`
+
 app.engine('html', require('ejs').renderFile)
 app.set('view engine', 'html')
 app.use(express.static('public'))
 app.use(bodyParser.urlencoded({extended:false})) //changed from false to true to se if will make passport work, chnged back to false according to Travery
 app.use(bodyParser.json()); 
 app.use(methodOverride('_method'))
+app.use(session({
+    secret: 'secretString',
+    resave: false,
+    saveUninitialized: false,
+    store: new MongoStore({ mongooseConnection: mongoose.connection }),
+    cookie: {
+        maxAge: 1000 * 60 * 60 * 24 * 7 * 2 // two weeks
+    },
+    name: cookieName
+}))
 
-const log = fs.createWriteStream('log.txt', {flags: 'a'});
+/*this function redirect a user to the login page
+if they try to accessa page they have ot be logged in to access*/
+const redirectLogin = (req, res, next) => {
+    if(!req.session.userId){
+    var errMsg = ` <style> .modal{opacity: 1; visibility: visible;} </style>
+    <strong class="errMsg">Log in to be able to access this feature</strong>
+    <script> document.getElementById('signUpErr').innerHTML = ""; </script>`
+            res.render('index', {
+                errMsg: errMsg,
+                userName: '',
+                profile: ''
+            });
+    } else{
+        next()
+    }
+}
+/*This function rediercts the uer to hte home page ig the try to access
+ the login page while they are already logged in */
+const redirectHome = (req, res, next) => {
+    if(req.session.userId){
+        res.redirect('/')
+    }else{
+        next()
+    }
+}
 
-app.get('/', function(req, res){
-    res.render('index', {errMsg: '',userName: ''})
+/*this function finds the current session
+according to an id in the database*/
+app.use((req, res, next) =>{
+    const {userId} =  req.session
+    if(userId){
+        res.locals.user = create.findById({_id : userId })
+    }
+    next()
 })
 
-app.get('/login', function(req, res){
-    var errMsg = `  <style> .modal{opacity: 1; visibility: visible;} </style>`
-    res.render('index', {errMsg: errMsg, files: '', userName: '' })
+
+
+app.get('/', function(req, res){
+    const {userId} = req.session;
+    const {user} = res.locals
+
+    if(userId){
+        res.render('index', {errMsg: '', userName: user.firstName, profile: profileMsg})
+    }else{
+        var errMsg = 'You are not logged in'
+            res.render('index', {
+                errMsg: errMsg,
+                userName: '',
+                profile: ''
+            });
+    }
+    
+})
+
+app.get('/login', redirectHome, function(req, res){
+    var errMsg = `<style> .modal{opacity: 1; visibility: visible;} </style>`
+    res.render('index', {errMsg: errMsg, files: '', userName: '', profile: profileMsg })
 })
 
 app.get('/loginAfterSignup', function(req, res){
@@ -41,7 +105,7 @@ app.get('/loginAfterSignup', function(req, res){
                     <script> document.getElementById('loginBtnWrpr').classList.add('active')
                     document.getElementById('SignUpBtnWrpr').classList.remove('active')
                     document.getElementById('signUpErr').innerHTML = ""; </script>`
-    res.render('index', {errMsg: errMsg, userName: '' })
+    res.render('index', {errMsg: errMsg, userName: '', profile: ''})
 })
 
 /*
@@ -49,7 +113,7 @@ This function adds a new user to the database.
 Before it does so it checks if this user already exists.
 */
 
-app.post('/createUser', function(req, res){
+app.post('/createUser', redirectHome, function(req, res){
     var userCreate = {firstName, lastName, email, password} = req.body
 
     if(!firstName || !lastName || !email || !password){
@@ -62,7 +126,8 @@ app.post('/createUser', function(req, res){
                     document.getElementById('loginErr').innerHTML = ""; </script> ` 
         res.render('index', {
             errMsg: errMsg,
-            userName: ''
+            userName: '',
+            profile: ''
         });             
     }else{
         create.findOne({
@@ -78,7 +143,8 @@ app.post('/createUser', function(req, res){
                             document.getElementById('loginErr').innerHTML = ""; </script> `
                 res.render('index', {
                     errMsg: errMsg,
-                    userName: ''
+                    userName: '',
+                    profile: ''
                 });
             }else{
                 bcrypt.genSalt(10, (err, salt) => 
@@ -95,6 +161,7 @@ app.post('/createUser', function(req, res){
                                 console.log(err);
                             }
                             else{
+                                req.session.userId = newUser.id
                                 log.write('New user successfully created\n')
                                 res.redirect('/loginAfterSignup');
                             }
@@ -113,12 +180,13 @@ It spits out an error accordingly
 */
 
 app.get('/successfullLogin', (req, res) =>{
-    res.render('index', {errMsg: '', userName: req})
+    const {user} = res.locals
+    res.render('index', {errMsg: '', userName: user.firstName, profile: profileMsg})
 })
 
-app.post('/login', function(req, res){
-    
-    // res.render('index', {errMsg: '', userName: create.firstName})
+app.post('/login', redirectHome, function(req, res){
+    const {user} = res.locals
+
         create.findOne({
             email: req.body.email,
         }).then((userLogin) => {
@@ -127,32 +195,20 @@ app.post('/login', function(req, res){
                                 <strong class="errMsg">Oops. This email is not found, please try again</strong>
                                 <script> document.getElementById('signUpErr').innerHTML = ""; </script> `
                 
-                res.render('index', {errMsg: errMsg, userName: ''})
+                res.render('index', {errMsg: errMsg, userName: '', profile: ''})
                 log.write('User not found at logging in\n')
             }else{
                 bcrypt.compare(req.body.password, userLogin.password, function(err, isMatch){
                     if(isMatch) {
-                        res.render('index', {errMsg: '', userName: create.firstName})
+                        req.session.userId = userLogin.id
+                        res.render('index', {userName: userLogin.firstName, errMsg: '', profile: profileMsg})
                     }else{
                         var errMsg = `  <style> .modal{ opacity: 1;visibility: visible;}</style>
                                          <strong class="errMsg">Password incorrect, please try again</strong>
                                          <script> document.getElementById('signUpErr').innerHTML = ""; </script> `
-                        res.render('index', {errMsg: errMsg, userName: ''})
+                        res.render('index', {errMsg: errMsg, userName: user.firstName, profile: ''})
                     }
                 });
-
-                // create.findOne({
-                //     password: req.body.password
-                // }).then((pass) => {
-                //     if(!pass){
-                //         var errMsg = `  <style> .modal{ opacity: 1;visibility: visible;}</style>
-                //                         <strong class="errMsg">Password incorrect, please try again</strong>
-                //                         <script> document.getElementById('signUpErr').innerHTML = ""; </script> `
-                //         res.render('index', {errMsg: errMsg, userName: ''})
-                //     }else{
-                //         res.render('index', {errMsg: '', userName: create.firstName})
-                //     }
-                // })
             }
     })
 })
@@ -160,21 +216,26 @@ app.post('/login', function(req, res){
 /*
 This function renders the page to add a new recipe
 */
-app.get('/AddNewRecipe', function(req, res){
-    res.render('addRecipe', {userName: '', submitSucessMsg: ''})
+app.get('/AddNewRecipe', redirectLogin, function(req, res){
+    const {user} = res.locals
+
+    res.render('addRecipe', {userName: user.firstName, submitSucessMsg: '', profile: profileMsg})
 })
 
 /*
 This function renders the display page for all exsisiting recipes
 */
-app.get('/recipiesDisplay', function(req, res){
+app.get('/recipiesDisplay', redirectLogin, function(req, res){
+    const {user} = res.locals
+
     recipe.find({}, function(err, allRecipies){
         if(err){
             console.log(err);
         }else{
             res.render('recipiesDisplay', {
                 recipe: allRecipies,
-                userName: 'hello' 
+                userName: user.firstName,
+                profile: profileMsg
             })
         }
     })
@@ -214,13 +275,16 @@ app.post('/newRecipeData', function(req, res) {
 /*
 This function displays one recipe when clicked on*/
 app.get('/recipe/:id', function(req, res) {
+    const {user} = res.locals
+
     recipe.findById(req.params.id, function(err, returningRec){
         if(err){
             console.log(err); 
         }else{
             res.render('viewRecipe', {
                 recipe: returningRec,
-                userName: ''
+                userName: user.firstName,
+                profile: profileMsg
             })
         }
     })
@@ -230,13 +294,16 @@ app.get('/recipe/:id', function(req, res) {
 This function shows the edit recipe page wehn we want to edit a specific recipe  (EDIT)
 */
 app.get('/edit/:id', function(req, res) {
+    const {user} = res.locals
+    
     recipe.findById(req.params.id, function(err, returningRec){
         if(err){
             console.log(err); 
         }else{
             res.render('editRecipe', {
                 recipe: returningRec,
-                userName: ''
+                userName: user.firstName,
+                profile: profileMsg
             })
         }
     })
@@ -288,6 +355,18 @@ app.delete('/recipe/:id', function(req, res) {
         }
     })
 })
+
+app.get('/logout', redirectLogin, (req, res) =>{
+    req.session.destroy(err => {
+        if(err){
+            console.log(err);
+        }else{
+            res.clearCookie(cookieName)
+            res.redirect('/')
+        }
+    })
+})
+
 
 /*
 This function will close the login modal window on clicking the close button

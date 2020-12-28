@@ -812,3 +812,6 @@ app.get('/closeModal', (req, res) =>{
 })
 
 app.listen(3000)
+
+removed form index
+<%- userName %>
