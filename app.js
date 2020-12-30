@@ -258,15 +258,16 @@ app.get('/edit/:id', function(req, res) {
             if(err){
                 console.log(err); 
             }else{
-                if(loggedUser.firstName + ' ' + loggedUser.lastName != returningRec.author){
+                //if(loggedUser.firstName + ' ' + loggedUser.lastName != returningRec.author){
                     if(err){
                         console.log(err);
-                    }else{
-                        res.redirect('/notAuthor')
-                    }
-                }else 
+                    //}//else{
+                        //res.redirect('/notAuthor')
+                    //}
+                }else {
                     res.render('editRecipe', {recipe: returningRec, userName: userName, profile: profileMsg})
                 }
+            }
         })
     }) 
 })
