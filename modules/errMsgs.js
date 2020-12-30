@@ -26,6 +26,9 @@ const wrongPassword = `<style> .modal{ opacity: 1;visibility: visible;}</style>
 const recFieldEmpty = `<strong>Please fill in all fields</strong>
 <style>.msg{padding: .4em .7em}</style>`
 
+const notRecAuthor = `<strong>Only the author of this recipe can edit this recipe</strong>
+<style>.authorMsg{padding: .4em .7em}</style>`
+
 const userLoginAfterSignup = `<style> .modal{opacity: 1; visibility: visible;}
 .errMsg{color: green; background: #1997002a;}
 .forms .formWrapper:nth-child(3){display: none;}</style>
@@ -39,4 +42,4 @@ const loginAfterSignup = userLoginAfterSignup + reuse3;
 const userNotFound = loginUserNotFound + reuse3;
 const password = wrongPassword + reuse3;
 
-module.exports = {loginReAttempt, loginAfterSignup, fieldEmpty, userExists, userNotFound, password, recFieldEmpty};
+module.exports = {loginReAttempt, loginAfterSignup, fieldEmpty, userExists, userNotFound, password, recFieldEmpty, notRecAuthor};

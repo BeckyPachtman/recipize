@@ -815,3 +815,7 @@ app.listen(3000)
 
 removed form index
 <%- userName %>
+
+pretty color combo, pink and white
+background: #e7aaaa;
+color: #fff;

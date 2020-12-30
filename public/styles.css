@@ -20,7 +20,8 @@ a{
 button:not(cancelDeleteBttn){
     background-color: var(--mainRedishColor);
     border: none;
-    color: #D9CCCC;
+    color: #d9cccc;
+    color: #fff;
     cursor: pointer;
     font-size: 1.3em;
     font-weight: 600;
@@ -172,7 +173,7 @@ input{
     padding: 0;
 }
 .rightSideContent .visibleContent a{
-    color: #d9cccc;
+    color: #fff;
     display: block;
     padding: .5em .7em;
 }
@@ -487,6 +488,13 @@ input{
     display: none;
 }
 /*all recipe view page*/
+.authorMsg{
+    background: #FFE0E0;
+    color: red;
+    display: inline-block;
+    font-size: 1em;
+    margin-bottom: 1.3em;
+}
 .recipeDisplayBody{
     background: linear-gradient(rgba(219, 208, 208, 0.897), rgba(219, 208, 208, 0.897)), url(resources/images/foodBackground2.jpg) no-repeat;
     background-size: cover;
@@ -500,7 +508,6 @@ input{
 .recipeDisplayWrapper{
     display: flex;
     flex-wrap: wrap;
-   /* justify-content: space-between;*/
     margin: 3em auto 0;
     max-width: 75vw;
 }
@@ -513,6 +520,8 @@ input{
 .recipeDisplay{
     align-items: center;
     background-color: rgba(211, 166, 166, 0.753);
+    background-color: rgb(211, 166, 166);
+   /* background-color: #e7aaaa;*/
     border-top-right-radius: 1.8em;
     border-bottom-right-radius: 1.8em;
     border-top-left-radius: 5em;
@@ -538,7 +547,6 @@ input{
 .dynamicImage{
     height: 100%;
 }
-
 .defaultImage{
     background: url('../resources/images/platesOfFood/125.jpg');
     background-size: cover;
@@ -552,10 +560,16 @@ input{
 }
 .text{
     flex: 1;
-    text-decoration: underline;
+}
+.text a{
+    color: #5c0a0a;
+    padding: .4em 0;
+    transition: color .1s ease-in-out;
 }
 .text a:hover{
-    color: rgb(121, 121, 121);
+    color: #ffffff;
+    text-decoration: underline;
+    transition: color .1s ease-in-out;
 }
 .text h3{
     text-transform: lowercase;  
@@ -674,6 +688,9 @@ input{
     height: 100%;
     overflow-y: scroll;
     padding-left: .5em;
+}
+.detailsScrollbarImgVsbl{
+    overflow-y: hidden;
 }
 .recipeBook ul li{
     padding: .6em;

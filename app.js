@@ -28,6 +28,7 @@ const errUserExists = errMsg.userExists;
 const errUserNotFound = errMsg.userNotFound;
 const errPassword = errMsg.password;
 const errRecFieldEmpty = errMsg.recFieldEmpty;
+const errNotRecAuthor = errMsg.notRecAuthor;
 
 app.engine('html', require('ejs').renderFile)
 app.set('view engine', 'html')
@@ -72,7 +73,6 @@ const redirectHome = (req, res, next) => {
         next()
     }
 }  
-
 function createUserName (loggedUser) {
         const firstName  = loggedUser.firstName;
         const lastName  = loggedUser.lastName;
@@ -81,8 +81,6 @@ function createUserName (loggedUser) {
         return(fNameInitial + lNameInitial);
 }
 
-
-//<script> document.getElementById('SignUpBtnWrpr').classList.add('cursorNone')</script>
 app.get('/',  function(req, res){
     const {userId} = req.session;
     if(userId){    
@@ -196,16 +194,11 @@ app.get('/recipiesDisplay', redirectLogin, function(req, res){
             if(err){
                 console.log(err);
             }else{
-                res.render('recipiesDisplay', {
-                    recipe: allRecipies,
-                    userName: userName,
-                    profile: profileMsg
-                })
+                res.render('recipiesDisplay', {recipe: allRecipies, userName: userName, profile: profileMsg, msg: ''})
             }
         })
     })
 })
-
 /*
 This function takes the data that the user added to the add a new recipe page form and submits it to the database
 this function creates a new recipie (CREATE)
@@ -248,11 +241,7 @@ app.get('/recipe/:id', function(req, res) {
             if(err){
                 console.log(err); 
             }else{
-                res.render('viewRecipe', {
-                    recipe: returningRec,
-                    userName: userName,
-                    profile: profileMsg
-                })
+                res.render('viewRecipe', {recipe: returningRec, userName: userName, profile: profileMsg})
             }
         })
     })  
@@ -269,12 +258,32 @@ app.get('/edit/:id', function(req, res) {
             if(err){
                 console.log(err); 
             }else{
-                res.render('editRecipe', {recipe: returningRec, userName: userName, profile: profileMsg})
+                if(loggedUser.firstName + ' ' + loggedUser.lastName != returningRec.author){
+                    if(err){
+                        console.log(err);
+                    }else{
+                        res.redirect('/notAuthor')
+                    }
+                }else 
+                    res.render('editRecipe', {recipe: returningRec, userName: userName, profile: profileMsg})
+                }
+        })
+    }) 
+})
+
+app.get('/notAuthor', function(req, res){
+    const {userId} = req.session;
+    create.findById(userId, (err, loggedUser) =>{
+    const userName =  createUserName(loggedUser);
+        recipe.find({}, function(err, allRecipies){
+            if(err){
+                console.log(err);
+            }else{
+                res.render('recipiesDisplay', {recipe: allRecipies, userName: userName, profile: profileMsg, msg: errNotRecAuthor})
             }
         })
     })
 })
-
 /*
 This function updates the recipe data to whatever we added in the edit page (UPDATE)
 */
@@ -297,7 +306,6 @@ app.put('/editRecipe/:id', function(req, res){
             res.redirect('/recipiesDisplay')
         }
     })
-
 })
 
 /*

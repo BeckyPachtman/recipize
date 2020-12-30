@@ -20,13 +20,16 @@
                     <h2><%= recipe.title %></h2>
                     <hr>
                     <div class="author">By: <%= recipe.author %></div>
-                    <div class="recipeIngredients">                        
-                        <h3>You will need the following:</h3>
-                        <ul>
-                            <% recipe.ingrdnts.forEach(function(item){ %>
-                                <li><%= item %></li>
-                            <% }); %>  
-                        </ul> 
+                    <div class="recipeIngredients"> 
+                        <div class="recIng">
+                            <h3>You will need the following:</h3>
+                            <ul>
+                                <% recipe.ingrdnts.forEach(function(item){ %>
+                                    <li><%= item %></li>
+                                <% }); %>  
+                            </ul> 
+                        </div>                       
+                        
                     </div>
                     <div class="timings">
                         <h3>Timings</h3>

@@ -7,7 +7,6 @@ $(document).ready(() =>{
     if(document.getElementById('indexPage')!=null){
         openClosemodal()
     }
-
     /*
     This function opens and closes the user login and signup modal window
     */
@@ -21,14 +20,12 @@ $(document).ready(() =>{
             document.getElementById(modalId).classList.add(modalVisible)
         })
 
-
         for(const eachButton of close){
             eachButton.addEventListener('click', () =>{
                 document.getElementById('modal').classList.remove(modalVisible)
             })
         }
     }
-
     /*
     This function allows you to switch between both the login and signup form in the modal window.
     It will dispaly the appropiate form acording to what you specify
@@ -37,7 +34,6 @@ $(document).ready(() =>{
     $('.tab a').on('click', function(){   
         $(this).parent().addClass('active')
         $(this).parent().siblings().removeClass('active')
-
         var href = $(this).attr('href')
         $('.formWrapper').hide()
         $(href).fadeIn(500)
@@ -46,11 +42,9 @@ $(document).ready(() =>{
     $('.signUpButton').on('click', function(){
         $('.signUpFormWrapper').css('display', 'flex')
     })
-
     $('.loginButton').on('click', function(){
         $('.loginFormWrapper').css('display', 'flex')
     })
-
     /*
     This function clears the appropiate form when the reset button on the form is clicked
     */
@@ -58,7 +52,6 @@ $(document).ready(() =>{
         $('.eachInput input').val('')
         $('.errMsg').css('display', 'none')
     })
-
     /*
     This function toggles the forms' password visiblity
     */
@@ -68,12 +61,16 @@ $(document).ready(() =>{
         passwordField.attr('type', passAtr)
         $('.showHidePassIcon img').toggle()
     })
-
     /*
     This function adds a scrollbar when viewing one recipe and the directions get longer than a specified height
     */
-    if($('.details').height() > 700){
+    if($('.details').height() > 750){
         $('.details').addClass('detailsScrollbar')
+        $('.leftSide').addClass('leftSideScrollbarVisible')
+    }
+
+    if($('.recIng').height() > 300){
+        $('.recipeIngredients').addClass('recipeIngrScrollbar')
     }
 
     /*
@@ -85,6 +82,7 @@ $(document).ready(() =>{
        $('.recipeBook hr').fadeToggle()
        $('.viewImage').toggleClass('viewImgLighter')
        $('.iconWrapperSingleRec div button, .iconWrapperSingleRec div a').toggleClass('recImageVisible')
+       $('.details').toggleClass('detailsScrollbarImgVsbl')
     })
 
     /*
@@ -212,14 +210,6 @@ $(document).ready(() =>{
     }
 
 
-    // var ingrdntLi = $('.recipeIngredients li');
-    // if(ingrdntLi.text == ''){
-    //     console.log('emtyp');
-    //     //$(ingrdntLi).remove()
-    //     $(ingrdntLi).css('display', 'none')
-    // }else{
-    //     $(ingrdntLi).css('display', 'block')
-    // }
     /*
     This function takes the select values and puts them into inputs so we ca get their values to the form easier
     */
@@ -357,7 +347,7 @@ $(document).ready(() =>{
     
         
   //  }) 
-  
+
 
 
     var arr = [];
