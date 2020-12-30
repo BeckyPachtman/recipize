@@ -1,8 +1,7 @@
-const { resolve } = require('path');
-
 const bodyParser = require('body-parser'),
     bcrypt = require('bcryptjs'),
     create = require('./modules/userCreate'),
+    errMsg = require('./modules/errMsgs'),
     express = require('express'),
     fs = require('fs'),
     methodOverride = require('method-override'),
@@ -22,6 +21,13 @@ const cookieName = 'AuthenticationApp';
 const log = fs.createWriteStream('log.txt', {flags: 'a'});
 const profileMsg = `<style> #userLoggedIn{display: flex;}</style>`
 const profileHidden = `<style> #userLoggedIn{display: none;}</style>`
+const errLoginReAttempt = errMsg.loginReAttempt;
+const loginAfterSignupMsg = errMsg.loginAfterSignup;
+const errFieldEmpty = errMsg.fieldEmpty;
+const errUserExists = errMsg.userExists;
+const errUserNotFound = errMsg.userNotFound;
+const errPassword = errMsg.password;
+const errRecFieldEmpty = errMsg.recFieldEmpty;
 
 app.engine('html', require('ejs').renderFile)
 app.set('view engine', 'html')
@@ -57,17 +63,6 @@ const redirectLogin = (req, res, next) => {
     }
 }
 
-function createUserName (loggedUser) {
-        const firstName  = loggedUser.firstName;
-        const lastName  = loggedUser.lastName;
-
-        const fNameInitial = firstName.charAt(0);
-        const lNameInitial = lastName.charAt(0);
-
-        return(fNameInitial + lNameInitial);
-
-}
-
 /*This function rediercts the uer to hte home page ig the try to access
  the login page while they are already logged in */
 const redirectHome = (req, res, next) => {
@@ -76,59 +71,45 @@ const redirectHome = (req, res, next) => {
     }else{
         next()
     }
+}  
+
+function createUserName (loggedUser) {
+        const firstName  = loggedUser.firstName;
+        const lastName  = loggedUser.lastName;
+        const fNameInitial = firstName.charAt(0);
+        const lNameInitial = lastName.charAt(0);
+        return(fNameInitial + lNameInitial);
 }
+
+
 //<script> document.getElementById('SignUpBtnWrpr').classList.add('cursorNone')</script>
 app.get('/',  function(req, res){
     const {userId} = req.session;
     if(userId){    
-        var errMsg = `
-            <script> document.getElementById('loginErr').innerHTML = "<strong class='errMsg'> You can not login or signup, you are already logged in</strong>"; </script>
-            <style> .signUpButton{pointer-events: none} #SignUpBtnWrpr:hover{cursor:not-allowed;}</style>
-            <script> var allElem = document.querySelectorAll('.eachInput input');        
-            for(var i = 0; i < allElem.length; i += 1){allElem[i].disabled = true};</script>`
-            
-            create.findById(userId, (err, loggedUser) =>{
-                const userName =  createUserName(loggedUser);
-                res.render('index', {errMsg: errMsg, userName: userName, profile: profileMsg});
-            });
+        create.findById(userId, (err, loggedUser) =>{
+            const userName =  createUserName(loggedUser);
+            res.render('index', {errMsg: errLoginReAttempt, userName: userName, profile: profileMsg});
+        });
     }else{
         var errMsg = 'You are not logged in'
-            res.render('index', {
-                errMsg: errMsg,
-                userName: '',
-                profile: profileHidden
-            });
+            res.render('index', {errMsg: errMsg, userName: '', profile: profileHidden});
     }
-    
 })
 
 app.get('/login', function(req, res){
     if(req.session.userId){
-        var errMsg = `<style> .modal{opacity: 1; visibility: visible;} </style>
-            <style> .modal{opacity: 1; visibility: visible;} </style>
-            <strong class="errMsg">You can not log in again, you are already logged in</strong>
-            <script> document.getElementById('signUpErr').innerHTML = ""; </script> `
-
-        res.render('index', {errMsg: errMsg, files: '', userName: '', profile: profileMsg })
+        var errMsg = `<style> .modal{opacity: 1; visibility: visible;} </style>`
+        res.render('index', {errMsg: errLoginReAttempt + errMsg, files: '', userName: '', profile: profileMsg })
     }else{
         var errMsg = `<style> .modal{opacity: 1; visibility: visible;} </style>`
         res.render('index', {errMsg: errMsg, files: '', userName: '', profile: profileMsg })
     }
 
-    
 })
 
 app.get('/loginAfterSignup', function(req, res){
-    var errMsg = `<style> .modal{opacity: 1; visibility: visible;}
-                    .errMsg{color: green; background: #1997002a;}
-                    .forms .formWrapper:nth-child(3){  display: none; }</style>
-                    <strong class="errMsg">Signup successfull, please log in</strong>
-                    <script> document.getElementById('loginBtnWrpr').classList.add('active')
-                    document.getElementById('SignUpBtnWrpr').classList.remove('active')
-                    document.getElementById('signUpErr').innerHTML = ""; </script>`
-    res.render('index', {errMsg: errMsg, userName: '', profile: ''})
+    res.render('index', {errMsg: loginAfterSignupMsg, userName: '', profile: ''})
 })
-
 /*
 This function adds a new user to the database.
 Before it does so it checks if this user already exists.
@@ -136,37 +117,13 @@ Before it does so it checks if this user already exists.
 
 app.post('/createUser', redirectHome, function(req, res){
     var userCreate = {firstName, lastName, email, password} = req.body
-
     if(!firstName || !lastName || !email || !password){
-        var errMsg =`<style> .modal{opacity: 1; visibility: visible;}
-                    .forms .formWrapper:nth-child(2){display: none;}
-                    .forms .formWrapper:nth-child(3){display: flex;} </style>
-                    <strong class="errMsg">please fill in all fields</strong>
-                    <script> document.getElementById('SignUpBtnWrpr').classList.add('active')
-                    document.getElementById('loginBtnWrpr').classList.remove('active')
-                    document.getElementById('loginErr').innerHTML = ""; </script> ` 
         res.render('index', {
-            errMsg: errMsg,
-            userName: '',
-            profile: ''
-        });             
+            errMsg: errFieldEmpty, userName: '', profile: ''});             
     }else{
-        create.findOne({
-            email: email
-        }).then((user) => {
+        create.findOne({email: email}).then((user) => {
             if(user){
-                var errMsg = `<style> .modal{opacity: 1; visibility: visible;}
-                            .forms .formWrapper:nth-child(2){display: none;}
-                            .forms .formWrapper:nth-child(3){display: flex;} </style>
-                            <strong class="errMsg">This user already exists, log in or choose a different email</strong>
-                            <script> document.getElementById('SignUpBtnWrpr').classList.add('active')
-                            document.getElementById('loginBtnWrpr').classList.remove('active')
-                            document.getElementById('loginErr').innerHTML = ""; </script> `
-                res.render('index', {
-                    errMsg: errMsg,
-                    userName: '',
-                    profile: ''
-                });
+                res.render('index', {errMsg: errUserExists, userName: '', profile: ''});
             }else{
                 bcrypt.genSalt(10, (err, salt) => 
                     bcrypt.hash(userCreate.password, salt, (err, hash) => {
@@ -174,7 +131,6 @@ app.post('/createUser', redirectHome, function(req, res){
                             log.write('Failed attempt at hashing\n')
                             console.log(err);
                         }
-                        
                         userCreate.password = hash
                         create.create(userCreate, function(err){
                             if(err){
@@ -187,47 +143,31 @@ app.post('/createUser', redirectHome, function(req, res){
                                 res.redirect('/loginAfterSignup');
                             }
                         })
-
                 }))
             }
         })
     }
 })
-
 /*
 This function logs a user to the system
 It checks if the email and password match to an exsisitng user
 It spits out an error accordingly
 */
 
-/*app.get('/successfullLogin', (req, res) =>{
-    const {user} = res.locals
-    res.render('index', {errMsg: '', userName: user.firstName, profile: profileMsg})
-})*/
-
 app.post('/login', redirectHome, function(req, res){
         create.findOne({
             email: req.body.email,
         }).then((userLogin) => {
-            if(!userLogin){
-                var errMsg = `  <style> .modal{opacity: 1; visibility: visible;} </style>
-                                <strong class="errMsg">Oops. This email is not found, please try again</strong>
-                                <script> document.getElementById('signUpErr').innerHTML = ""; </script> `
-                
-                res.render('index', {errMsg: errMsg, userName: '', profile: ''})
+            if(!userLogin){                
+                res.render('index', {errMsg: errUserNotFound, userName: '', profile: ''})
                 log.write('User not found at logging in\n')
             }else{
                 bcrypt.compare(req.body.password, userLogin.password, function(err, isMatch){
                     if(isMatch) {
                         req.session.userId = userLogin.id
-                        res.render('index', {userName: userLogin.firstName, errMsg: '', profile: profileMsg})
+                            res.render('index', {userName: userLogin.firstName.charAt(0)+userLogin.lastName.charAt(0), errMsg: errLoginReAttempt, profile: profileMsg})
                     }else{
-                        var errMsg = `  <style> .modal{ opacity: 1;visibility: visible;}</style>
-                                         <strong class="errMsg">Password incorrect, please try again</strong>
-                                         <script> document.getElementById('signUpErr').innerHTML = ""; </script> `
-                        
-                        res.render('index', {errMsg: errMsg, userName: '', profile: ''})
-                        
+                        res.render('index', {errMsg: errPassword, userName: '', profile: ''})
                     }
                 });
             }
@@ -274,26 +214,16 @@ app.post('/newRecipeData', function(req, res) {
     const {userId} = req.session;
     create.findById(userId, (err, loggedUser) =>{
         var fullRecipe = {
-            title: req.body.title,
-            prpTime: req.body.prpTime,
-            prpTimeSlct: req.body.select1,
-            ckTime: req.body.ckTime,
-            ckTimeSlct: req.body.select2,
-            ttlTimeHrs: req.body.ttlTimeHrs,
-            ttlTimeMin: req.body.ttlTimeMin,
-            ttlTimeSlctHrs: 'Hours',
-            ttlTimeSlctMin: 'Minutes',
-            yields: req.body.yields,
-            img: req.body.img,
-            ingrdnts: req.body.ingrdnts,
-            dirctns: req.body.dirctns,
-            author: loggedUser.firstName + ' ' + loggedUser.lastName
+            title: req.body.title,              prpTime: req.body.prpTime,
+            prpTimeSlct: req.body.select1,      ckTime: req.body.ckTime,
+            ckTimeSlct: req.body.select2,       ttlTimeHrs: req.body.ttlTimeHrs,
+            ttlTimeMin: req.body.ttlTimeMin,    ttlTimeSlctHrs: 'Hours',
+            ttlTimeSlctMin: 'Minutes',          yields: req.body.yields,
+            img: req.body.img,                  ingrdnts: req.body.ingrdnts,
+            dirctns: req.body.dirctns,          author: loggedUser.firstName + ' ' + loggedUser.lastName
         }
         if(!fullRecipe.ingrdnts || !fullRecipe.dirctns){
-            const msg = ` 
-                <strong>Please fill in all fields</strong>
-                <style>.msg{padding: .4em .7em}</style>`
-            res.render('addRecipe', {msg: msg, userName: '', profile: profileMsg});        
+            res.render('addRecipe', {msg: errRecFieldEmpty, userName: '', profile: profileMsg});        
         }else{
             recipe.create(fullRecipe, function(err){
                 if(err){
@@ -305,7 +235,7 @@ app.post('/newRecipeData', function(req, res) {
                 }
             })
         }
-     })
+    })
 })
 
 /*
@@ -339,11 +269,7 @@ app.get('/edit/:id', function(req, res) {
             if(err){
                 console.log(err); 
             }else{
-                res.render('editRecipe', {
-                    recipe: returningRec,
-                    userName: userName,
-                    profile: profileMsg
-                })
+                res.render('editRecipe', {recipe: returningRec, userName: userName, profile: profileMsg})
             }
         })
     })
@@ -354,18 +280,12 @@ This function updates the recipe data to whatever we added in the edit page (UPD
 */
 app.put('/editRecipe/:id', function(req, res){
     var fullRecipe = {
-        title: req.body.title,
-        prpTime: req.body.prpTime,
-        prpTimeSlct: req.body.select1,
-        ckTime: req.body.ckTime,
-        ckTimeSlct: req.body.select2,
-        ttlTimeHrs: req.body.ttlTimeHrs,
-        ttlTimeMin: req.body.ttlTimeMin,
-        ttlTimeSlctHrs: 'Hours',
-        ttlTimeSlctMin: 'Minutes',
-        yields: req.body.yields,
-        img: req.body.img,
-        ingrdnts: req.body.ingrdnts,
+        title: req.body.title,              prpTime: req.body.prpTime,
+        prpTimeSlct: req.body.select1,      ckTime: req.body.ckTime,
+        ckTimeSlct: req.body.select2,       ttlTimeHrs: req.body.ttlTimeHrs,
+        ttlTimeMin: req.body.ttlTimeMin,    ttlTimeSlctHrs: 'Hours',
+        ttlTimeSlctMin: 'Minutes',          yields: req.body.yields,
+        img: req.body.img,                  ingrdnts: req.body.ingrdnts,
         dirctns: req.body.dirctns
     }
     recipe.findByIdAndUpdate(req.params.id, fullRecipe, function(err){
@@ -395,6 +315,8 @@ app.delete('/recipe/:id', function(req, res) {
     })
 })
 
+/*
+This function kils the session and cookie therefore loggin the user out */
 app.get('/logout', redirectLogin, (req, res) =>{
     req.session.destroy(err => {
         if(err){
