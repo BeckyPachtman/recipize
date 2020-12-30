@@ -27,9 +27,9 @@
                         <div class="recipeDisplay">
                             <div class="plate">
                                 <% if(rec.img == ''){ %>
-                                    <img src="../resources/images/platesOfFood/147.jpg" alt="Recipe image not found" class="defaultImage">
+                                    <img class="defaultImage">
                                 <% }else{ %>
-                                    <img src="<%= rec.img %>" alt="Recipe image not found">
+                                    <img class="dynamicImage" src="<%= rec.img %>" alt="Recipe image not found">
                                 <% } %>
                             </div>
                             <div class="text">

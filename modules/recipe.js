@@ -11,7 +11,8 @@ const newRecipeSchema = new mongoose.Schema({
     img: String,
     yields: String,
     ingrdnts: Array,
-    dirctns: Array
+    dirctns: Array,
+    author: String
 })
 
 module.exports = mongoose.model('Recipe', newRecipeSchema);

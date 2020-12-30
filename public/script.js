@@ -84,6 +84,7 @@ $(document).ready(() =>{
        $('.pageBody, .recipeBook').toggleClass('imageVisble')
        $('.recipeBook hr').fadeToggle()
        $('.viewImage').toggleClass('viewImgLighter')
+       $('.iconWrapperSingleRec div button, .iconWrapperSingleRec div a').toggleClass('recImageVisible')
     })
 
     /*
@@ -320,9 +321,7 @@ $(document).ready(() =>{
     //console.log(splitTitle);
 
     var searchInput = $('.navSearchInput');
-    
-
-    
+       
     
     // splitTitle.forEach(function(){
     //     console.log($(this));
@@ -358,6 +357,8 @@ $(document).ready(() =>{
     
         
   //  }) 
+  
+
 
     var arr = [];
     for (i = 0; i < recipeTitle2.length; i++) {
@@ -366,31 +367,22 @@ $(document).ready(() =>{
         var iterator = arr.values()
 
         for (const value of iterator) {
-            console.log(value);
+                //console.log(value);
         
- 
-        $(searchInput).on('keyup', function(e){
-            var searchInputText = e.target.value;
-        
+            $(searchInput).on('keyup', function(e){
+                var searchInputText = e.target.value;
+            
 
-        var filteredTitles = arr.filter(function(){
-            return(
-                value.includes(searchInputText)
-            )
-        })
-    
-
-            //console.log(arr);
-            console.log(filteredTitles);
-        })
-  }
-
-   
-  }
-
-
-//console.log(arr);
-    
+            var filteredTitles = arr.filter(function(){
+                return(
+                    value.includes(searchInputText)
+                )
+            })
+                //console.log(arr);
+                //console.log(filteredTitles);
+            })
+        }
+    }
     //this worked originally
     // if(recipeTitle.toLowerCase().includes(searchInputText)){
     //     console.log(searchInputText);
@@ -398,19 +390,10 @@ $(document).ready(() =>{
     //     console.log('none');
     // }
 
+    $('.userOptions').hide()
     $('.userName').on('click', function(){
         $('.userOptions').fadeToggle()
     })
-    const userName = document.getElementById('userName')
-        // const firstName  = loggedUser.firstName;
-        // const lastName  = loggedUser.lastName;
-
-        // const fNameInitial = firstName.charAt(0);
-        // const lNameInitial = lastName.charAt(0);
-
-        // const userName = fNameInitial + lNameInitial;
-        myString = "Hello World!";
-
-        console.log(userName.charAt(0));
+        
 })
 

@@ -1,3 +1,5 @@
+const { resolve } = require('path');
+
 const bodyParser = require('body-parser'),
     bcrypt = require('bcryptjs'),
     create = require('./modules/userCreate'),
@@ -19,6 +21,7 @@ mongoose.connect('mongodb://localhost/recipize', {
 const cookieName = 'AuthenticationApp';
 const log = fs.createWriteStream('log.txt', {flags: 'a'});
 const profileMsg = `<style> #userLoggedIn{display: flex;}</style>`
+const profileHidden = `<style> #userLoggedIn{display: none;}</style>`
 
 app.engine('html', require('ejs').renderFile)
 app.set('view engine', 'html')
@@ -47,12 +50,24 @@ const redirectLogin = (req, res, next) => {
             res.render('index', {
                 errMsg: errMsg,
                 userName: '',
-                profile: ''
+                profile: profileHidden
             });
     } else{
         next()
     }
 }
+
+function createUserName (loggedUser) {
+        const firstName  = loggedUser.firstName;
+        const lastName  = loggedUser.lastName;
+
+        const fNameInitial = firstName.charAt(0);
+        const lNameInitial = lastName.charAt(0);
+
+        return(fNameInitial + lNameInitial);
+
+}
+
 /*This function rediercts the uer to hte home page ig the try to access
  the login page while they are already logged in */
 const redirectHome = (req, res, next) => {
@@ -62,37 +77,46 @@ const redirectHome = (req, res, next) => {
         next()
     }
 }
-
-
-app.get('/', function(req, res){
+//<script> document.getElementById('SignUpBtnWrpr').classList.add('cursorNone')</script>
+app.get('/',  function(req, res){
     const {userId} = req.session;
-    if(userId){
-        create.findById(userId, (err, loggedUser) =>{
-            const firstName  = loggedUser.firstName;
-            const lastName  = loggedUser.lastName;
-
-            const fNameInitial = firstName.charAt(0);
-            const lNameInitial = lastName.charAt(0);
-
-            const userName = fNameInitial + lNameInitial;
-            res.render('index', {errMsg: '', userName, profile: profileMsg})
-        })
+    if(userId){    
+        var errMsg = `
+            <script> document.getElementById('loginErr').innerHTML = "<strong class='errMsg'> You can not login or signup, you are already logged in</strong>"; </script>
+            <style> .signUpButton{pointer-events: none} #SignUpBtnWrpr:hover{cursor:not-allowed;}</style>
+            <script> var allElem = document.querySelectorAll('.eachInput input');        
+            for(var i = 0; i < allElem.length; i += 1){allElem[i].disabled = true};</script>`
+            
+            create.findById(userId, (err, loggedUser) =>{
+                const userName =  createUserName(loggedUser);
+                res.render('index', {errMsg: errMsg, userName: userName, profile: profileMsg});
+            });
     }else{
         var errMsg = 'You are not logged in'
             res.render('index', {
                 errMsg: errMsg,
                 userName: '',
-                profile: ''
+                profile: profileHidden
             });
     }
     
 })
 
-app.get('/login', redirectHome, function(req, res){
-    var errMsg = `<style> .modal{opacity: 1; visibility: visible;} </style>`
-    res.render('index', {errMsg: errMsg, files: '', userName: '', profile: profileMsg })
-})
+app.get('/login', function(req, res){
+    if(req.session.userId){
+        var errMsg = `<style> .modal{opacity: 1; visibility: visible;} </style>
+            <style> .modal{opacity: 1; visibility: visible;} </style>
+            <strong class="errMsg">You can not log in again, you are already logged in</strong>
+            <script> document.getElementById('signUpErr').innerHTML = ""; </script> `
 
+        res.render('index', {errMsg: errMsg, files: '', userName: '', profile: profileMsg })
+    }else{
+        var errMsg = `<style> .modal{opacity: 1; visibility: visible;} </style>`
+        res.render('index', {errMsg: errMsg, files: '', userName: '', profile: profileMsg })
+    }
+
+    
+})
 
 app.get('/loginAfterSignup', function(req, res){
     var errMsg = `<style> .modal{opacity: 1; visibility: visible;}
@@ -176,10 +200,10 @@ It checks if the email and password match to an exsisitng user
 It spits out an error accordingly
 */
 
-app.get('/successfullLogin', (req, res) =>{
+/*app.get('/successfullLogin', (req, res) =>{
     const {user} = res.locals
     res.render('index', {errMsg: '', userName: user.firstName, profile: profileMsg})
-})
+})*/
 
 app.post('/login', redirectHome, function(req, res){
         create.findOne({
@@ -216,8 +240,9 @@ This function renders the page to add a new recipe
 app.get('/AddNewRecipe', redirectLogin, function(req, res){
     const {userId} = req.session;
     create.findById(userId, (err, loggedUser) =>{
-        res.render('addRecipe', {userName: loggedUser.firstName, submitSucessMsg: '', profile: profileMsg})
-    })
+        const userName =  createUserName(loggedUser);
+        res.render('addRecipe', {userName: userName, submitSucessMsg: '', profile: profileMsg, msg: ''})
+    });
 })
 
 /*
@@ -226,14 +251,14 @@ This function renders the display page for all exsisiting recipes
 app.get('/recipiesDisplay', redirectLogin, function(req, res){
     const {userId} = req.session;
     create.findById(userId, (err, loggedUser) =>{
-
+    const userName =  createUserName(loggedUser);
         recipe.find({}, function(err, allRecipies){
             if(err){
                 console.log(err);
             }else{
                 res.render('recipiesDisplay', {
                     recipe: allRecipies,
-                    userName: loggedUser.firstName,
+                    userName: userName,
                     profile: profileMsg
                 })
             }
@@ -246,30 +271,41 @@ This function takes the data that the user added to the add a new recipe page fo
 this function creates a new recipie (CREATE)
 */
 app.post('/newRecipeData', function(req, res) {
-     var fullRecipe = {
-        title: req.body.title,
-        prpTime: req.body.prpTime,
-        prpTimeSlct: req.body.select1,
-        ckTime: req.body.ckTime,
-        ckTimeSlct: req.body.select2,
-        ttlTimeHrs: req.body.ttlTimeHrs,
-        ttlTimeMin: req.body.ttlTimeMin,
-        ttlTimeSlctHrs: 'Hours',
-        ttlTimeSlctMin: 'Minutes',
-        yields: req.body.yields,
-        img: req.body.img,
-        ingrdnts: req.body.ingrdnts,
-        dirctns: req.body.dirctns
-    }
-    recipe.create(fullRecipe, function(err){
-        if(err){
-            log.write('Failed attempt at adding a new recipe\n')
-            console.log(err);
-        }else{
-            log.write('New recipe successfully created\n')
-            res.redirect('/recipiesDisplay') 
+    const {userId} = req.session;
+    create.findById(userId, (err, loggedUser) =>{
+        var fullRecipe = {
+            title: req.body.title,
+            prpTime: req.body.prpTime,
+            prpTimeSlct: req.body.select1,
+            ckTime: req.body.ckTime,
+            ckTimeSlct: req.body.select2,
+            ttlTimeHrs: req.body.ttlTimeHrs,
+            ttlTimeMin: req.body.ttlTimeMin,
+            ttlTimeSlctHrs: 'Hours',
+            ttlTimeSlctMin: 'Minutes',
+            yields: req.body.yields,
+            img: req.body.img,
+            ingrdnts: req.body.ingrdnts,
+            dirctns: req.body.dirctns,
+            author: loggedUser.firstName + ' ' + loggedUser.lastName
         }
-    })
+        if(!fullRecipe.ingrdnts || !fullRecipe.dirctns){
+            const msg = ` 
+                <strong>Please fill in all fields</strong>
+                <style>.msg{padding: .4em .7em}</style>`
+            res.render('addRecipe', {msg: msg, userName: '', profile: profileMsg});        
+        }else{
+            recipe.create(fullRecipe, function(err){
+                if(err){
+                    log.write('Failed attempt at adding a new recipe\n')
+                    console.log(err);
+                }else{
+                    log.write('New recipe successfully created\n')
+                    res.redirect('/recipiesDisplay') 
+                }
+            })
+        }
+     })
 })
 
 /*
@@ -277,13 +313,14 @@ This function displays one recipe when clicked on*/
 app.get('/recipe/:id', function(req, res) {
     const {userId} = req.session;
     create.findById(userId, (err, loggedUser) =>{
+        const userName =  createUserName(loggedUser);
         recipe.findById(req.params.id, function(err, returningRec){
             if(err){
                 console.log(err); 
             }else{
                 res.render('viewRecipe', {
                     recipe: returningRec,
-                    userName: loggedUser.firstName,
+                    userName: userName,
                     profile: profileMsg
                 })
             }
@@ -297,14 +334,14 @@ This function shows the edit recipe page wehn we want to edit a specific recipe 
 app.get('/edit/:id', function(req, res) {
     const {userId} = req.session;
     create.findById(userId, (err, loggedUser) =>{
-
+        const userName =  createUserName(loggedUser);
         recipe.findById(req.params.id, function(err, returningRec){
             if(err){
                 console.log(err); 
             }else{
                 res.render('editRecipe', {
                     recipe: returningRec,
-                    userName: loggedUser.firstName,
+                    userName: userName,
                     profile: profileMsg
                 })
             }
@@ -313,7 +350,7 @@ app.get('/edit/:id', function(req, res) {
 })
 
 /*
-This function epdaes the recipe data to whatever we added in the edit page (UPDATE)
+This function updates the recipe data to whatever we added in the edit page (UPDATE)
 */
 app.put('/editRecipe/:id', function(req, res){
     var fullRecipe = {
@@ -364,7 +401,7 @@ app.get('/logout', redirectLogin, (req, res) =>{
             console.log(err);
         }else{
             res.clearCookie(cookieName)
-            res.redirect('/')
+            res.render('index', {errMsg: '', userName: '', profile: profileHidden})
         }
     })
 })

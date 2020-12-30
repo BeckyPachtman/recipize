@@ -11,6 +11,7 @@
     --mainGrayColor: #463e3e;
     --SecondaryGrayColor: #2e2828;
     --border: solid 1px blue;
+    --zindex: -1;
 }
 a{
     color: var(--mainGrayColor);
@@ -117,9 +118,10 @@ input{
     background-color: #f8f8f8;
     
 }
+/*
 .navSearchInputWrapper input::placeholder{
-    /*color: #fff;*/
-}
+    color: #fff;
+}*/
 .userProfile{
     background-color: #fff;
     border-radius: 100%;
@@ -523,18 +525,26 @@ input{
     width: 80%;
 }
 .plate{
-    background-color: rgb(177, 171, 168);
+    background-color: rgb(228, 228, 228);
     border-radius: 50%;
     cursor: default;    
     height: 130px;
     overflow: hidden;
     width: 130px;
+    display: flex;
+    justify-content: center;
+    align-items: center; 
 }
-.plate img{
-    width: 100%;    
+.dynamicImage{
+    height: 100%;
 }
+
 .defaultImage{
-    margin-top: -2.1em;
+    background: url('../resources/images/platesOfFood/125.jpg');
+    background-size: cover;
+    background-position: center;
+    width: inherit;
+    height: inherit;
 }
 .recipeDisplay .text{
     font-size: .9em;
@@ -601,9 +611,11 @@ input{
     flex: 1;
     padding: 1.5em 2.5em;
     position: relative;
-/**/
-    border: solid 1px gray;
-    overflow: hidden;
+}
+.author{
+    font-size: .8em;
+    text-align: center;
+    padding: 1.2em 0;
 }
 .recipeBook hr{
     background: #d6cccc;
@@ -637,13 +649,10 @@ input{
    text-align: center;
 }
 .recipeIngredients{
-    padding: 1.5em;
+    padding: 0 0 1.5em;
 }
 .recipeTips ul{
     list-style-type: circle;
-}
-.details{
-    /*position: relative;*/
 }
 .details ol li{
     padding: .6em;
@@ -686,17 +695,13 @@ input{
     filter: invert(35%);
     position: relative;
     right: 0;
-    /*position: absolute;
-    bottom: 0;
-    right: 0;
-    align-self: flex-end;*/
 }
 .viewImgLighter{
     filter: invert(80%);
 }
 .recipeImageModal{
     display: none;
-    height: 600px;
+    height: 575px;
     left: 50%;
     position: absolute;
     top: 50%;
@@ -740,8 +745,17 @@ input{
     margin-bottom: -.05em;
     padding: 0; 
     position: relative;
-} 
+}
+.recImageVisible{
+    display: none;
+}
 /*Add Recipe Page*/
+.msg{
+    background: #FFE0E0;
+    color: red;
+    display: inline-block;
+    margin-bottom: 1.3em;
+}
 .addRecSideContent{
     padding-top: 5.5em;
 }
@@ -750,7 +764,6 @@ input{
     position: relative;
     top: 6em;
 }
-
 .AddRecFormWrapper form{
     margin: 1em 0;
     width: 85%;
@@ -874,17 +887,43 @@ ol.dirOl li{
     font-size: 1em;
 }
 footer{
-    text-align: center;
+    align-items: center;
+    background-color: #D5B1B1;
+    color: #fff;
+    display: flex;
+    flex-direction: column;
+    font-size: .9em;
+    height: 9em;
+    justify-content: space-between;
+    line-height: 1.4em;
     padding: 1em;
-    /*background-color: #ff2e2e;*/
 }
-
-
+footer a{
+    color: #fff;
+}
+footer a:hover{
+    color: var(--SecondaryGrayColor);
+}
+.socialLinkSection img{
+    color: #fff;
+    cursor: pointer;
+    filter: opacity(85%);
+    height: 2em;
+    margin: .4em .8em;
+}
+.socialLinkSection img:hover{
+    filter: opacity(100%);
+}
+.twtr{
+    /*height: 35px;*/
+    position: relative;
+    top: .2em
+}
 .tooltip {
     position: relative;
     display: inline-block;
-  }
-  .tooltip .tooltiptext {
+}
+.tooltip .tooltiptext {
     visibility: hidden;
     width: 120px;
     background-color: #555;
@@ -972,8 +1011,6 @@ footer{
     width: 2em;
 } */
 .userOptions{
-    display: block;
-    
     position: absolute;
     /*position: absolute;*/
     top: 2.8em;

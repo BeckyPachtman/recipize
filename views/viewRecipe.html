@@ -19,7 +19,8 @@
                 <div class="rightSideText">
                     <h2><%= recipe.title %></h2>
                     <hr>
-                    <div class="recipeIngredients">
+                    <div class="author">By: <%= recipe.author %></div>
+                    <div class="recipeIngredients">                        
                         <h3>You will need the following:</h3>
                         <ul>
                             <% recipe.ingrdnts.forEach(function(item){ %>
@@ -65,13 +66,14 @@
                     </ol>
                         <div class="iconWrapperSingleRec">
                             <div>
-                                <img src="../resources/images/image.png" alt="see more" title="Recipe image" class="viewImage">
+                                <button type="button" id="delRec" title="Delete" class="deleteRecConfirm"><img src="../resources/images/delete.png"></button>
                             </div>
                             <div>
                                 <a href="/edit/<%= recipe._id%>"><img src="../resources/images/edit.png" class="editIcon" title="Edit"></a>
                             </div>
+                            
                             <div>
-                                <button type="button" id="delRec" title="Delete" class="deleteRecConfirm"><img src="../resources/images/delete.png"></button>
+                                <img src="../resources/images/image.png" alt="see more" title="Recipe image" class="viewImage">
                             </div>
                         </div>
                     <div class="dltRecWrrpModal">

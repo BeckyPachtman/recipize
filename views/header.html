@@ -8,8 +8,8 @@
                 <ul class="navUl">
                     <li><a href="/">Home</a></li>
                     <li><a href="/login">Login/Sign up</a></li>
-                    <li><a href="/AddNewRecipe">Add New Recipe</a></li>
                     <li><a href="/recipiesDisplay">View All Recipies</a></li>
+                    <li><a href="/AddNewRecipe">Add New Recipe</a></li>
                     <div class="searchInputIconWrapper">
                         <span class="navSearchInputWrapper">
                             <input type="search" name="searchRecipes" placeholder="Search Recipe" class="navSearchInput">
@@ -19,12 +19,11 @@
                     <div id="userLoggedIn">
                         <div class="user">
                             <%- profile %>   
-                           <p class="userName" id="userName"><%- userName %> </p>
+                           <p class="userName" id="userName"><%- userName %></p>
                         </div>
                         
                         <div class="userOptions">
                             <a href="/logout">log out</a>
-                            <p><%- userName %> </p>
                         </div>
                     </div>
                     
