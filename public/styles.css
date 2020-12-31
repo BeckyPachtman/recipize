@@ -52,29 +52,38 @@ input{
     color: #b6b6b6;
 }
 .pageBody{
-    background-color: #d9cccc;
+    /*background-color: #d9cccc;
     background: #ee9ca7;
-    background: #fff0fd;
-    /*/background: #ffffff;
-    background: #d1b4b48c;*/
+    background: #fff0fd;*/
     color: var(--mainGrayColor);
     font-family: 'Montserrat', sans-serif;
     font-size: 16px;
-    height: 100%;
-    min-height: 100vh;
+    /*height: 100%;
+    min-height: 100vh;*/
     transition: background 1s ease;
 }
-.headerSection{
+/*.headerSection{
     display: flex;
     flex-direction: column;
-}
+}*/
 .navWrapper{
-    flex: auto;
+    display: flex;
+    justify-content: center;
+}
+.sticky{
+    background-color: #eecccc;
+    transition: all .2s ease-in-out;
 }
 .nav{
+    align-items: center;
     display: flex;
+    height: 4em;
     justify-content: flex-end;
-    padding: 1.7em 4em;
+    padding: 0 10em;
+    position: fixed;
+    top: 0;
+    width: 100%;
+    z-index: 1;
 }
 .nav li{
     list-style: none;
@@ -84,14 +93,9 @@ input{
 }
 .logoWrapper img{
     display: block;
-    height: 3em;
-    position: fixed;
-    user-select: none;
+    height: 2.5em;
 }
-.navItemsWrapper{
-    padding-top: .4em;
-    position: fixed;
-}
+
 .navUl{
     display: flex;
     align-items: baseline;
@@ -135,10 +139,9 @@ input{
     height: 100%;
     width: 100%;
 }
-.mainContent{
-    /*position: relative;*/
+/* .mainContent{
     margin-top: 5em;
-}
+} */
 .contentWrapper{
     display: flex;
     /*overflow: hidden;
@@ -180,7 +183,7 @@ input{
 .modalWrapper{
     align-items: center;
     display: flex;
-    height: 100vh;
+    /*height: 100vh;*/
     justify-content: center;
 }
 .modal{
@@ -212,7 +215,7 @@ input{
     position: relative;
     text-align: center;
     width: 35%;
-}
+} 
 .closeModalForm{
     position: relative;
 }
@@ -1060,4 +1063,43 @@ footer a:hover{
 .userOptions a{
     padding: 0;
     border: none;
+}
+
+/*new styles*/
+
+
+.pageBody{
+    color: var(--mainGrayColor);
+    font-family: 'Montserrat', sans-serif;
+    font-size: 16px;
+    transition: background 1s ease;
+    
+}
+
+.contentWrapper{
+    display: flex;
+    height: inherit;
+    justify-content: center;
+    
+}
+.content{
+    display: flex;
+    height: 0%;
+   /* background-color: lavender;
+    justify-content: center;
+    align-items: center;*/
+    min-height: 86.6vh;
+}
+.content > div{
+    height: 60%;
+    
+    text-align: center;
+    margin: 10em auto;
+    /*border: solid 1px red;*/
+}
+.secendaryContent{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+    margin-top: .5em;
 }

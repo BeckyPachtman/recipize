@@ -819,3 +819,33 @@ removed form index
 pretty color combo, pink and white
 background: #e7aaaa;
 color: #fff;
+
+changes in styles
+commented ou:
+.headerSection{
+    display: flex;
+    flex-direction: column;
+}
+deleted cpommented backgounds
+/*.pageBody{
+    background-color: #d9cccc;
+    background: #ee9ca7;
+    background: #fff0fd;
+    /*background: #ffffff;
+    background: #d1b4b48c;*/
+    color: var(--mainGrayColor);
+    font-family: 'Montserrat', sans-serif;
+    font-size: 16px;
+    height: 100%;
+    min-height: 100vh;
+    transition: background 1s ease;
+}*/
+
+.mainContent{
+    /*position: relative;*/
+    margin-top: 5em;
+}
+
+.navWrapper{
+    /*flex: auto;*/
+}

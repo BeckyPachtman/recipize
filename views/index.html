@@ -15,7 +15,7 @@
             <%- include('header.html')%>
              <div class="mainContent">
                  <div class="contentWrapper">
-                    <div class="leftSideContent">
+                  <!--   <div class="leftSideContent">
                         <div class="imageWrapper">
                             <img src="/resources/images/whitePlateWFood (2).png" alt="Main Content Plate">
                         </div>
@@ -27,8 +27,22 @@
                             <button type="button" class="loginPropmtButton" data-open='modal'>Login/Sign Up</button>
                             <button type="button"><a href="/AddNewRecipe"> Add Recipe</a></button>
                         </div>
+                    </div> -->
+                    <div class="content">
+                        <div>
+                            <h1>Welcome to Recipeze</h1>
+                            <h3>Enter, edit, share, update recipes easily, quickly, and effortlessly.</h3>
+                            
+
+                            <div class="secendaryContent">
+                                <button type="button" class="loginPropmtButton" data-open='modal'>Login/Sign Up</button>
+                                <button type="button"><a href="/AddNewRecipe"> Add Recipe</a></button>
+                            </div>
+                            
+                        </div>
                     </div>
                     
+
                     <div class="modalWrapper">
                         <div id="modal" class="modal">
                             <div class="modalMainContent">
@@ -78,36 +92,27 @@
                                             <form action="/closeModal" method="GET" class="closeModalForm">
                                                 <button type="submit" class="closeModal" data-close>✕</button>
                                             </form>
-
                                         </div>
                                         
                                         <div class="formWrapper signUpFormWrapper" id="signUpFormWrapper">
-
                                             <form action="/createUser" method="POST" id="signUp" class="signUpForm">
-                                                
                                                 <div class="userFormWrapper">
-                                                    
                                                     <h3>Sign Up to Recipize</h3>
                                                     <span class="errMsgWrpr" id="signUpErr"><%- errMsg %></span>
-
                                                     <div class="firstLastRowInputs">
                                                         <div class="eachInput">
                                                             <input class="frmInpt" type="text" name="firstName" id="firstName" placeholder=" " required>
                                                             <label for="firstName">First Name</label>
                                                         </div>
-
                                                         <div class="eachInput">
                                                             <input class="frmInpt" type="text" name="lastName" id="lastName" placeholder=" " required>
                                                             <label for="lastName">Last Name</label>
                                                         </div>
                                                     </div>
-
                                                     <div class="eachInput">
                                                         <input class="frmInpt" type="email" name="email" id="signUpEmail" placeholder=" " required>
                                                         <label for="email">Email address</label>
                                                     </div>
-                                                    
-
                                                     <div class="firstLastRowInputs">
                                                         <div class="eachInput">
                                                             <input class="frmInpt" type="password" name="password" class="password" placeholder=" " required>
@@ -117,27 +122,21 @@
                                                             </span>
                                                             <label for="password">Password</label>
                                                         </div>
-
                                                         <div class="eachInput">
                                                             <input class="frmInpt" type="file" id="profilePhoto" class="profilePhotoInpt" placeholder=" ">
                                                             <label for="profilePhoto" class="profilePhotoLbl"><img src="../resources/images/upload.png" alt=""> <span>Profile Photo</span> </label>
                                                         </div>
                                                     </div>
-                                                    
-                                                
                                                     <div class="userFormButtons">
                                                         <button type="submit" class="modalButton">Sigup</button>
                                                         <button type="button" class="reset">Reset</button>
                                                     </div>
-
                                                 </div>
                                             </form>
-
                                             <form action="/closeModal" method="GET" class="closeModalForm">
                                                 <button type="submit" class="closeModal" data-close>✕</button>
                                             </form>
                                         </div>
-                                       
                                     </div>
                                 </div>
                             </div>
@@ -152,5 +151,5 @@
 </body>
 </html>
 
-<script src="https://code.jquery.com/jquery-3.5.1.min.js""></script>
+<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
 <script src="script.js"></script>

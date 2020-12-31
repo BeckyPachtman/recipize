@@ -350,29 +350,29 @@ $(document).ready(() =>{
 
 
 
-    var arr = [];
-    for (i = 0; i < recipeTitle2.length; i++) {
-        arr.push(recipeTitle2[i]);
+    // var arr = [];
+    // for (i = 0; i < recipeTitle2.length; i++) {
+    //     arr.push(recipeTitle2[i]);
         
-        var iterator = arr.values()
+    //     var iterator = arr.values()
 
-        for (const value of iterator) {
-                //console.log(value);
+    //     for (const value of iterator) {
+    //             //console.log(value);
         
-            $(searchInput).on('keyup', function(e){
-                var searchInputText = e.target.value;
+    //         $(searchInput).on('keyup', function(e){
+    //             var searchInputText = e.target.value;
             
 
-            var filteredTitles = arr.filter(function(){
-                return(
-                    value.includes(searchInputText)
-                )
-            })
-                //console.log(arr);
-                //console.log(filteredTitles);
-            })
-        }
-    }
+    //         var filteredTitles = arr.filter(function(){
+    //             return(
+    //                 value.includes(searchInputText)
+    //             )
+    //         })
+    //             //console.log(arr);
+    //             //console.log(filteredTitles);
+    //         })
+    //     }
+    // }
     //this worked originally
     // if(recipeTitle.toLowerCase().includes(searchInputText)){
     //     console.log(searchInputText);
@@ -384,6 +384,22 @@ $(document).ready(() =>{
     $('.userName').on('click', function(){
         $('.userOptions').fadeToggle()
     })
-        
+
+    ///sticky nav
+    var stickyNavTop = $('.nav').offset().top;
+    //var stickyNavTop = 50;
+    var stickyNav = function(){
+        var scrollTop = $(window).scrollTop();
+        if (scrollTop > stickyNavTop) { 
+            $('.nav').addClass('sticky');
+            
+        } else {
+            $('.nav').removeClass('sticky'); 
+        }
+    };
+    stickyNav();
+    $(window).scroll(function() {
+        stickyNav();
+    });
 })
 
