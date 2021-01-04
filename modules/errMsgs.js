@@ -18,7 +18,7 @@ const SignupUserExists = `<style> .modal{opacity: 1; visibility: visible;}
 <strong class="errMsg">This user already exists, log in or choose a different email</strong>`
 
 const loginUserNotFound = `<style> .modal{opacity: 1; visibility: visible;} </style>
-<strong class="errMsg">Oops. This user email is not found, please try again</strong>`
+<strong class="errMsg">Oops. This email is not found, please try again</strong>`
 
 const wrongPassword = `<style> .modal{ opacity: 1;visibility: visible;}</style>
 <strong class="errMsg">Password incorrect, please try again</strong>`

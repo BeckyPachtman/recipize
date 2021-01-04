@@ -1,3 +1,148 @@
+<form action="/editRecipe/<%=recipe._id%>?_method=PUT" method="POST" class="recipeForm">
+    
+
+    <fieldset id="first">
+      
+        
+        <div class="inputGroup">
+            <div>
+                <input type="text" name="title" value="<%= recipe.title %>" placeholder=" " required>
+                <label>Recipe Title</label>
+            </div>
+
+            <div class="moreOptionsColumn">
+                <div>
+                    <input type="number" min="0" name="prpTimeHrs" value="<%= recipe.prpTimeHrs %>" placeholder=" ">
+                    <label>Prep Time Hours</label>
+                </div>
+                <div>
+                    <input type="number" min="0" name="prpTimeMin" value="<%= recipe.prpTimeMin %>" placeholder=" ">
+                    <label>Prep Time Minutes</label>
+                </div>
+            </div>
+            
+            <div class="moreOptionsColumn">
+                <div>
+                    <input type="number" min="0" name="ckTimeHrs" value="<%= recipe.ckTimeHrs %>" placeholder=" ">
+                    <label>Cook Time Hours</label>
+                </div>
+                <div>
+                    <input type="number" min="0" name="ckTimeMin" value="<%= recipe.ckTimeMin %>" placeholder=" ">
+                    <label>Cook Time Minutes</label>
+                </div>
+            </div>
+
+            <div class="moreOptionsColumn">
+                <div>
+                    <input type="number" min="0" name="ttlTimeHrs" value="<%= recipe.ttlTimeHrs %>" placeholder=" ">
+                    <label>Total Time Hours</label>
+                </div>
+                <div>
+                    <input type="number" min="0" name="ttlTimeMin" value="<%= recipe.ttlTimeMin %>" placeholder=" " title="">
+                    <label>Total Time Minutes</label>
+                </div>
+            </div>
+        </div>
+
+        <div class="btnWrpr">
+            <button type="button" class="next_btn frstNxtBtn">Next</button>
+        </div>  
+    </fieldset>
+
+    <fieldset>
+        <div>
+            <h2 class="title">Edit recipe</h2>
+            <p class="subTitle">Step 2 - Edit more details</p>
+        </div>
+        
+        <div class="inputGroup">
+
+            <div class="moreOptions">
+                <input type="number" min="0" name="yieldInput" value="<%= recipe.yieldInput %>" placeholder=" ">
+                <!-- <select name="yieldSelect">
+                    <option value="Minutes">Servings</option>
+                    <option value="Hours">Other</option>
+                </select> -->
+                <input type="number" min="0" name="yieldInput" value="<%= recipe.yieldSelect %>" placeholder=" ">
+                <label>Yields</label>
+            </div>
+
+            <div class="moreOptionsColumn">
+                <div>
+                    <input type="file" class="uploadRecPhotoInpt" placeholder=" " title="Upload image from device">
+                    <label class="uploadRecPhotoLbl"><img src="../resources/images/upload.png" alt=""> <span>Upload from device</span>  </label>
+                </div>
+                    <span class="or">Or</span>
+                <div>
+                    <input type="text" name="img" placeholder=" " value="<%= recipe.img %>" title="Enter image url">
+                    <label>Enter Image Url</label> 
+                </div>
+            </div>
+            
+            <div class="plusIconParent">
+                <input type="text" class="tipsInput" placeholder=" " required>
+
+                <% recipe.tips.forEach(function(item){ %>
+                    <div class="parent">
+                        <span class="circle">○</span> <input type="text" name="ingrdnts" class="editInputs" placeholder=" " value="<%= item %>"><span class="removeEditItem">x</span>
+                    </div>
+                <% }); %>
+
+                <label>Recipe Tips</label>
+                <strong class="plusIcon addTiptoListBttn" title="click to add item to the list">&#43;</strong>
+
+            </div>
+        </div>
+        
+        <div class="btnWrpr">
+            <button type="button" class="pre_btn">Previous</button>
+            <button type="button" class="next_btn" title="Continue to ingredients and directions">Next</button>
+        </div>
+    </fieldset>
+
+    <fieldset>
+        <div>
+            <h2 class="title">Edit recipe</h2>
+            <p class="subTitle">step 3 - Edit ingredients, directions and Update!</p>
+        </div>
+        
+        <div class="inputGroup">
+            <div class="plusIconParent">
+                <input type="text" class="ingrdntsInput" placeholder=" " required>
+
+                <% recipe.ingrdnts.forEach(function(item){ %>
+                    <div class="parent">
+                        <span class="circle">○</span> <input type="text" name="ingrdnts" class="editInputs" placeholder=" " value="<%= item %>"><span class="removeEditItem">x</span>
+                    </div>
+                <% }); %>
+
+                <label>Recipe Ingredients</label>
+                <strong class="plusIcon adIngrdntToListBttn" title="Click to add item to the list">&#43;</strong>
+            </div>
+
+            <div class="plusIconParent">
+                <input type="text" class="dirctnsInput" placeholder=" " required>
+
+                <% recipe.dirctns.forEach(function(item){ %>
+                    <div class="parent">
+                        <span class="circle">○</span> <input type="text" name="dirctns" class="editInputs" placeholder=" " value="<%= item %>" ><span class="removeEditItem">x</span>
+                    </div>
+                <% }); %>
+
+
+                <label>Recipe Directions</label>
+                <strong class="plusIcon adDirToDirListBttn" title="Click to add item to the list">&#43;</strong>
+
+            </div>
+        </div>
+        <div class="btnWrpr">
+            <button type="button" class="pre_btn">Previous</button>
+            <button type="submit" class="submit_btn">Submit</button>
+        </div>
+    </fieldset>
+</form>
+
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -15,7 +160,7 @@
             <div class="mainContent recMainContent">
                 <div class="content">
                     <div class="main">
-                        <span class="msg"></span>
+                            
                         <form action="/editRecipe/<%=recipe._id%>?_method=PUT" method="POST" class="recipeForm">
                             <ul class="progressbar">
                                 <li class="active">Step 1</li>

@@ -11,23 +11,9 @@
 </head>
 <body>
      <div id="indexPage" class="pageBody showModal">
-         <div class="headerSection">
             <%- include('header.html')%>
              <div class="mainContent">
                  <div class="contentWrapper">
-                  <!--   <div class="leftSideContent">
-                        <div class="imageWrapper">
-                            <img src="/resources/images/whitePlateWFood (2).png" alt="Main Content Plate">
-                        </div>
-                    </div>
-                    <div class="rightSideContent">
-                        <div class="visibleContent">
-                            <h1>Welcome to Recipeze</h1>
-                            <h3>Enter, edit, share, update recipes easily, quickly, and effortlessly.</h3>
-                            <button type="button" class="loginPropmtButton" data-open='modal'>Login/Sign Up</button>
-                            <button type="button"><a href="/AddNewRecipe"> Add Recipe</a></button>
-                        </div>
-                    </div> -->
                     <div class="content">
                         <div>
                             <h1>Welcome to Recipeze</h1>
@@ -36,7 +22,7 @@
 
                             <div class="secendaryContent">
                                 <button type="button" class="loginPropmtButton" data-open='modal'>Login/Sign Up</button>
-                                <button type="button"><a href="/AddNewRecipe"> Add Recipe</a></button>
+                                <button type="button"><a href="/AddNewRecipe" class="mainPageAddRec">Add Recipe</a></button>
                             </div>
                             
                         </div>
@@ -143,10 +129,8 @@
                         </div>
                     </div>
                 </div>
-         </div>
-         <%- include('footer.html')%>
-    </div>
-    
+        </div>
+    <%- include('footer.html')%>
 
 </body>
 </html>

@@ -182,3 +182,13 @@ New recipe successfully created
 New recipe successfully created
 New recipe successfully created
 New recipe successfully created
+Failed attempt at adding a new recipe
+New recipe successfully created
+New recipe successfully created
+Recipe successfully deleted
+New recipe successfully created
+New recipe successfully created
+User not found at logging in
+User not found at logging in
+User not found at logging in
+New user successfully created

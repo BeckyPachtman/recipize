@@ -2,15 +2,17 @@ var mongoose = require('mongoose')
 
 const newRecipeSchema = new mongoose.Schema({
     title: String,
-    prpTime: String,
-    prpTimeSlct: String,
-    ckTime: String,
-    ckTimeSlct: String,
+    prpTimeHrs: String,
+    prpTimeMin: String,
+    ckTimeHrs: String,
+    ckTimeMin: String,
     ttlTimeHrs: String,
     ttlTimeMin: String,
     img: String,
-    yields: String,
+    yieldInput: String,
+    yieldSelect: String,
     ingrdnts: Array,
+    tips: Array,
     dirctns: Array,
     author: String
 })

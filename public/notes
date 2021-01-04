@@ -822,7 +822,7 @@ color: #fff;
 
 changes in styles
 commented ou:
-.headerSection{
+. {
     display: flex;
     flex-direction: column;
 }

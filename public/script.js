@@ -91,8 +91,25 @@ $(document).ready(() =>{
     togethor with all the other ingredients until you submit
     */
 
+    /*Activats next/previous buttons on form*/
+    $('.next_btn').click(function(){
+        $(this).parent().parent().next().css({'display': 'flex'})
+        $(this).parent().parent().css({'display': 'none'})
+    
+        $('.active').next().addClass('active')
+    })
+
+    $('.pre_btn').click(function(){
+        $(this).parent().parent().prev().css({'display': 'flex'})
+        $(this).parent().parent().css({'display': 'none'})
+        
+        $('.active:last').removeClass('active')
+    })
+
+    /*Add items to tips, ingredients, directions list */
     var ingrdntsInput = $('.ingrdntsInput');
     var dirctnsInput = $('.dirctnsInput');
+    var tipsInput = $('.tipsInput');
 
     function addIngrdntToList(){
         liStr = $(document.createElement('li')).text($(ingrdntsInput).val()).appendTo('.igUl');
@@ -100,10 +117,16 @@ $(document).ready(() =>{
         var liStrToInput = $('<input type="hidden"/>').attr({
             name: 'ingrdnts'
         }).appendTo('form');
-
         $(liStrToInput).val(liStr.text());
+        
+        /*
+        This part of the function empties the ingredient field
+        every time you add the current ingredient to the ingredient list in the form 
+        */
+        $(ingrdntsInput).val(' ')
+        $(ingrdntsInput).focus();
 
-        /* TRY TO MOVE THIS AFTER ALL FUNCTIONS FOR THIS THING
+        /*
         This function displays an x icon to delete an ingredient that we added to the list but decided to remove
         */
         var deleteIng = $(document.createElement('span')).text('x').prependTo(liStr);
@@ -113,19 +136,8 @@ $(document).ready(() =>{
             $(this).parent().remove()
             $(liStrToInput).remove()
         })
-
-        /*
-        This part of the function empties the ingredient field
-        every time you add the current ingredient to the ingredient list in the form 
-        */
-        $(ingrdntsInput).val(' ')
-        $(ingrdntsInput).focus()
     }
 
-    /*
-    These functions runs the above function when the enter key
-    is pressed or when the plus buttn on the input is clicked
-    */
     $('.adIngrdntToListBttn').on('click', function(){
         addIngrdntToList();
     });
@@ -136,12 +148,12 @@ $(document).ready(() =>{
             e.preventDefault()
         }
     })
-
     /*
     This function takes each recipe direction as you add it to a new recipe and let's 
     you click enter to let the new direction be displayed as a list undernath the field
     togethor with all the other directions specified until you submit
     */
+
     function addLDirToDirList(){
         DirLiStr = $(document.createElement('li')).text($(dirctnsInput).val()).appendTo('.dirOl');
 
@@ -165,9 +177,41 @@ $(document).ready(() =>{
     $('.adDirToDirListBttn').on('click', function(){
         addLDirToDirList();
     });
+    
     $(dirctnsInput).keydown(function(e){
         if(e.keyCode == 13){
             addLDirToDirList()
+            e.preventDefault()
+        }
+    })
+
+    function addTipstoTipsList(){
+        tipsList = $(document.createElement('li')).text($(tipsInput).val()).appendTo('.tipUl');
+
+        var tipsListToInput = $('<input type="hidden" />').attr({
+            name: 'tips'
+        }).appendTo('form');
+
+        $(tipsListToInput).val(tipsList.text());
+
+        var deleteIng = $(document.createElement('span')).text('x').prependTo(tipsList);
+        $(deleteIng).addClass('deleteListItem')
+
+        $(deleteIng).on('click', function(){
+            $(this).parent().remove()
+            $(tipsListToInput).remove()
+        })
+        $(tipsInput).val(' ')
+        $(tipsInput).focus()
+    }
+
+    $('.addTiptoListBttn').on('click', function(){
+        addTipstoTipsList();
+    });
+    
+    $(tipsInput).keydown(function(e){
+        if(e.keyCode == 13){
+            addTipstoTipsList()
             e.preventDefault()
         }
     })
@@ -184,7 +228,7 @@ $(document).ready(() =>{
     It checks if the hours are mising and removes the word althogethor in that case
     */
     var ttlTimeHrs = $('.ttlTimeHrs').text()
-    var ttlTimeSlctHrs = $('.ttlTimeSlctHrs')
+    var ttlTimeSlctHrs = $('.ttlTimeHrs')
     var ttlTimeMin = $('.ttlTimeMin').text()
     var ttlTimeSlctMin = $('.ttlTimeSlctMin')
 
@@ -386,15 +430,22 @@ $(document).ready(() =>{
     })
 
     ///sticky nav
-    var stickyNavTop = $('.nav').offset().top;
-    //var stickyNavTop = 50;
+   // var stickyNavTop = $('.nav').offset().top;
+    var stickyNavTop = 50;
     var stickyNav = function(){
         var scrollTop = $(window).scrollTop();
         if (scrollTop > stickyNavTop) { 
             $('.nav').addClass('sticky');
+            $('.nav a').addClass('stickyLinks');
+            $('.nav img:first-child').css('display', 'none');
+            $('.nav img:last-child').css('display', 'block');
             
         } else {
             $('.nav').removeClass('sticky'); 
+            $('.nav a').removeClass('stickyLinks'); 
+            $('.nav img').removeClass('stickyLogo');
+            $('.nav img:first-child').css('display', 'block');
+            $('.nav img:last-child').css('display', 'none');
         }
     };
     stickyNav();

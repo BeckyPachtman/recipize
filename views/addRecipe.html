@@ -10,132 +10,154 @@
     <title>Recipize</title>
 </head>
 <body>
-    <div class="pageBody showModal">
-        <div class="headerSection">
-            <%- include('header.html')%>
-             <div class="mainContent">
-                <div class="contentWrapper">
-                    <div class="content">
-                        <div>
-                            <span class="msg"><%- msg %></span>
-                       
-                            <h1>Add Your New Recipe</h1>
-                            <h3>Click add to submit an add new to add this on and a new one</h3>
-                            
-
-                            <div class="secendaryContent">
-                                <div class="AddRecFormWrapper">
-                                    <form action="/newRecipeData" method="POST">
-        
-                                        <div class="addRecInputWrapper inputWrapper">
-                                            <div class="addRecEachInput eachInput recTitleWrapper">
-                                                <input type="text" name="title" placeholder=" " required>
-                                                <label>Recipe Title</label>
-                                            </div>
-                                        </div>
-        
-                                        <div class="addRecInputWrapper inputWrapper recTimingWrapper">
-                                            <div class="addRecEachInput eachInput">
-                                                <input type="number" min="0" name="prpTime" placeholder=" ">
-                                                <select name="select1" class="prpTimeSelect">
-                                                    <option value="Minutes">Minutes</option>
-                                                    <option value="Hours">Hours</option>
-                                                </select>
-                                                <label>Prep Time</label>
-                                            </div>
-                                            
-                                            <div class="addRecEachInput eachInput">
-                                                <input type="number" min="0" name="ckTime" placeholder=" ">
-                                                <select name="select2" class="ckTimeSelect">
-                                                    <option value="Minutes">Minutes</option>
-                                                    <option value="Hours">Hours</option>
-                                                </select>
-                                                <label>Cook Time</label>
-                                            </div>
-        
-                                            <div class="addRecEachInput eachInput ttlTimeInputs">
-                                                <input type="number" min="0" name="ttlTimeHrs" placeholder=" ">
-                                                <input type="text" name="ttlTimeSlctHrs" placeholder="Hours" readonly="readonly" class="readonlyHours">
-                                                
-                                                
-                                                <input type="number" min="0" name="ttlTimeMin" placeholder=" ">
-                                                <input type="text" name="ttlTimeSlctMin" placeholder="Minutes" readonly="readonly" class="readonlyHours">
-        
-                                                <label>Total</label>
-                                            </div>
-                                        </div>
-        
-                                        <div class="addRecInputWrapper inputWrapper recYielImageWrapper">
-                                            <!-- <div class="addRecEachInput eachInput">
-                                            <input type="number" name="" placeholder=" " >
-                                                <label></label>
-                                            </div> -->
-        
-                                            <div class="addRecEachInput eachInput imageOptions">
-                                                <div class="urlOption option">
-                                                    <input type="number" name="yields" placeholder=" " min="1">
-                                                    <label>Yields</label>
-                                                </div>
-        
-                                                <div class="fromDeviceOption option">
-                                                    <input type="file" class="uploadRecPhotoInpt" placeholder=" ">
-                                                    <label class="uploadRecPhotoLbl"><img src="../resources/images/upload.png" alt=""> <span>Upload form device</span> </label>
-                                                </div>
-                                                
-                                            </div>
-        
-                                            <div class="addRecEachInput eachInput imageOptions">
-                                                <div class="urlOption option">
-                                                    <input type="text" name="img" placeholder=" ">
-                                                    <label>Enter Image Url</label>
-                                                </div>
-                                                <span class="orOption">or</span>
-                                                <div class="fromDeviceOption option">
-                                                    <input type="file" class="uploadRecPhotoInpt" placeholder=" ">
-                                                    <label class="uploadRecPhotoLbl"><img src="../resources/images/upload.png" alt=""> <span>Upload form device</span> </label>
-                                                </div>
-                                                
-                                            </div>
-                                        </div>
-        
-                                        <div class="addRecInputWrapper inputWrapper ingrInputWrapper">
-                                            <div class="addRecEachInput eachInput">
-                                                <input type="text" class="ingrdntsInput" placeholder=" ">
-                                                <label>Ingredients</label>
-                                                <span class="adIngrdntToListBttn">&#43;</span>
-                                            
-                                                <div class="ingrdntListWrapper">
-                                                    <ul class="igUl"></ul>
-                                                </div>
-                                            </div>
-                                        </div>
-        
-                                        <div class="addRecInputWrapper inputWrapper">
-                                            <div class="addRecEachInput eachInput">
-                                                <input type="text" class="dirctnsInput" placeholder=" ">
-                                                <label>Directions</label>
-                                                <span class="adDirToDirListBttn">&#43;</span>
-        
-                                                <div class="ingrdntListWrapper">
-                                                    <ol class="dirOl"></ol>
-                                                </div>
-                                            </div>
-                                        </div>
-        
-                                        <div class="addRecInputWrapper inputWrapper">
-                                            <div class="addrecEachInput eachInput">
-                                                <button type="submit" class="loginPropmtButton">Add Recipe</button>
-                                            </div> 
-                                        </div>
-        
-                                    </form>
+    <div class="pageBody">
+        <%- include('header.html')%>
+            <div class="mainContent recMainContent">
+                <div class="content">
+                    <div class="main">
+                        <span class="msg"><%- msg %></span>
+                        <form action="/newRecipeData" method="POST" class="recipeForm">
+                            <ul class="progressbar">
+                                <li class="active">Step 1</li>
+                                <li>Step 2</li>
+                                <li>Step 3</li>
+                            </ul>
+            
+                            <fieldset id="first">
+                                <div>
+                                    <h2 class="title">Create new recipe </h2>
+                                    <p class="subTitle">step 1 - Add details</p>
                                 </div>
-                            </div>
-                        </div>
+                                
+                                <div class="inputGroup">
+                                    <div>
+                                        <input type="text" name="title" placeholder=" " required>
+                                        <label>Recipe Title</label>
+                                    </div>
+            
+                                    <div class="moreOptionsColumn">
+                                        <div>
+                                            <input type="number" min="0" name="prpTimeHrs" placeholder=" ">
+                                            <label>Prep Time Hours</label>
+                                        </div>
+                                        <div>
+                                            <input type="number" min="0" name="prpTimeMin" placeholder=" ">
+                                            <label>Prep Time Minutes</label>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="moreOptionsColumn">
+                                        <div>
+                                            <input type="number" min="0" name="ckTimeHrs" placeholder=" ">
+                                            <label>Cook Time Hours</label>
+                                        </div>
+                                        <div>
+                                            <input type="number" min="0" name="ckTimeMin" placeholder=" ">
+                                            <label>Cook Time Minutes</label>
+                                        </div>
+                                    </div>
+            
+                                    <div class="moreOptionsColumn">
+                                        <div>
+                                            <input type="number" min="0" name="ttlTimeHrs" placeholder=" ">
+                                            <label>Total Time Hours</label>
+                                        </div>
+                                        <div>
+                                            <input type="number" min="0" name="ttlTimeMin" placeholder=" " title="">
+                                            <label>Total Time Minutes</label>
+                                        </div>
+                                    </div>
+                                </div>
+            
+                                <div class="btnWrpr">
+                                    <button type="button" class="next_btn frstNxtBtn">Next</button>
+                                </div>  
+                            </fieldset>
+            
+                            <fieldset>
+                                <div>
+                                    <h2 class="title">Create new recipe</h2>
+                                    <p class="subTitle">Step 2 - Add more details</p>
+                                </div>
+                                
+                                <div class="inputGroup">
+            
+                                    <div class="moreOptions">
+                                        <input type="number" min="0" name="yieldInput" placeholder=" ">
+                                        <select name="yieldSelect">
+                                            <option value="Minutes">Servings</option>
+                                            <option value="Hours">Other</option>
+                                        </select>
+                                        <label>Yields</label>
+                                    </div>
+            
+                                    <div class="moreOptionsColumn">
+                                        <div>
+                                            <input type="file" class="uploadRecPhotoInpt" placeholder=" " title="Upload image from device">
+                                            <label class="uploadRecPhotoLbl"><img src="../resources/images/upload.png" alt=""> <span>Upload from device</span>  </label>
+                                        </div>
+                                            <span class="or">Or</span>
+                                        <div>
+                                            <input type="text" name="img" placeholder=" " title="Enter image url">
+                                            <label>Enter Image Url</label> 
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="plusIconParent">
+                                        <input type="text" class="tipsInput" placeholder=" " required>
+                                        <label>Recipe Tips</label>
+                                        <strong class="plusIcon addTiptoListBttn" title="click to add item to the list">&#43;</strong>
+            
+                                        <div class="listWrappr">
+                                            <ol class="tipUl"></ol>
+                                        </div>
+                                    </div>
+                                    
+                                </div>
+                                
+                                <div class="btnWrpr">
+                                    <button type="button" class="pre_btn">Previous</button>
+                                    <button type="button" class="next_btn" title="Continue to ingredients and directions">Next</button>
+                                </div>
+                            </fieldset>
+            
+                            <fieldset>
+                                <div>
+                                    <h2 class="title">Create new recipe</h2>
+                                    <p class="subTitle">step 3 - Add ingredients, directions and submit!</p>
+                                </div>
+                                
+                                <div class="inputGroup">
+                                    <div class="plusIconParent">
+                                        <input type="text" class="ingrdntsInput" placeholder=" " required>
+                                        <label>Recipe Ingredients</label>
+                                        <strong class="plusIcon adIngrdntToListBttn" title="Click to add item to the list">&#43;</strong>
+            
+                                        <div class="listWrappr">
+                                            <ul class="igUl"></ul>
+                                        </div>
+                                    </div>
+            
+                                    <div class="plusIconParent">
+                                        <input type="text" class="dirctnsInput" placeholder=" " required>
+                                        <label>Recipe Directions</label>
+                                        <strong class="plusIcon adDirToDirListBttn" title="Click to add item to the list">&#43;</strong>
+            
+                                        <div class="listWrappr">
+                                            <ol class="dirOl"></ol>
+                                        </div>
+                                    </div>
+                                    
+                                </div>
+                                <div class="btnWrpr">
+                                    <button type="button" class="pre_btn">Previous</button>
+                                    <button type="submit" class="submit_btn">Submit</button>
+                                </div>
+                            </fieldset>
+                        </form>
                     </div>
                 </div>
             </div>
-         </div>
         <%- include('footer.html')%>
     </div>
 </body>

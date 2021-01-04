@@ -203,15 +203,16 @@ app.get('/recipiesDisplay', redirectLogin, function(req, res){
 This function takes the data that the user added to the add a new recipe page form and submits it to the database
 this function creates a new recipie (CREATE)
 */
+
 app.post('/newRecipeData', function(req, res) {
     const {userId} = req.session;
     create.findById(userId, (err, loggedUser) =>{
         var fullRecipe = {
-            title: req.body.title,              prpTime: req.body.prpTime,
-            prpTimeSlct: req.body.select1,      ckTime: req.body.ckTime,
-            ckTimeSlct: req.body.select2,       ttlTimeHrs: req.body.ttlTimeHrs,
-            ttlTimeMin: req.body.ttlTimeMin,    ttlTimeSlctHrs: 'Hours',
-            ttlTimeSlctMin: 'Minutes',          yields: req.body.yields,
+            title: req.body.title,              prpTimeHrs: req.body.prpTimeHrs,
+            prpTimeMin: req.body.prpTimeMin,    ckTimeHrs: req.body.ckTimeHrs,
+            ckTimeMin: req.body.ckTimeMin,      ttlTimeHrs: req.body.ttlTimeHrs,
+            ttlTimeMin: req.body.ttlTimeMin,    yieldInput: req.body.yieldInput,
+            yieldSelect: req.body.yieldSelect,  tips: req.body.tips,
             img: req.body.img,                  ingrdnts: req.body.ingrdnts,
             dirctns: req.body.dirctns,          author: loggedUser.firstName + ' ' + loggedUser.lastName
         }
@@ -290,13 +291,13 @@ This function updates the recipe data to whatever we added in the edit page (UPD
 */
 app.put('/editRecipe/:id', function(req, res){
     var fullRecipe = {
-        title: req.body.title,              prpTime: req.body.prpTime,
-        prpTimeSlct: req.body.select1,      ckTime: req.body.ckTime,
-        ckTimeSlct: req.body.select2,       ttlTimeHrs: req.body.ttlTimeHrs,
-        ttlTimeMin: req.body.ttlTimeMin,    ttlTimeSlctHrs: 'Hours',
-        ttlTimeSlctMin: 'Minutes',          yields: req.body.yields,
+        title: req.body.title,              prpTimeHrs: req.body.prpTimeHrs,
+        prpTimeMin: req.body.prpTimeMin,    ckTimeHrs: req.body.ckTimeHrs,
+        ckTimeMin: req.body.ckTimeMin,      ttlTimeHrs: req.body.ttlTimeHrs,
+        ttlTimeMin: req.body.ttlTimeMin,    yieldInput: req.body.yieldInput,
+        yieldSelect: req.body.yieldSelect,  tips: req.body.tips,
         img: req.body.img,                  ingrdnts: req.body.ingrdnts,
-        dirctns: req.body.dirctns
+        dirctns: req.body.dirctns,
     }
     recipe.findByIdAndUpdate(req.params.id, fullRecipe, function(err){
         if(err){
