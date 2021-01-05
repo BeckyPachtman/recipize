@@ -7,7 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="keywords" content="HTML, CSS, JavaScript, Node.js, Food, Recipes, Organization">
     <link rel="stylesheet" href="../styles.css">
-    <title>Recipize</title>
+    <title>Recipize - Edit recipe</title>
 </head>
 <body>
     <div class="pageBody">
@@ -133,7 +133,7 @@
                                         <input type="text" class="ingrdntsInput" placeholder=" " required>
                                         <% recipe.ingrdnts.forEach(function(item){ %>
                                             <div class="parent">
-                                                <span class="circle">○</span> <input type="text" name="ingrdnts" class="editInputs" placeholder=" " value="<%= item %>"><span class="removeEditItem">x</span>
+                                                <span class="circle">○</span> <input type="text" name="ingrdnts" class="ingrdntEditList" placeholder=" " value="<%= item %>"><span class="removeEditItem">x</span>
                                             </div>
                                         <% }); %>
                                         <label>Recipe Ingredients</label>

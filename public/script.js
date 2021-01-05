@@ -452,5 +452,13 @@ $(document).ready(() =>{
     $(window).scroll(function() {
         stickyNav();
     });
+
+    if(/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)) {
+        var device = 'api'
+    }else{
+           device = 'web'
+    }
+    $('a.footerWhApp').attr('href', 'https://'+device+'.whatsapp.com/send?phone=972533402859&text&source&data&app_absent');
+      
 })
 

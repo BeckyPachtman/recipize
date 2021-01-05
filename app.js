@@ -22,6 +22,7 @@ const log = fs.createWriteStream('log.txt', {flags: 'a'});
 const profileMsg = `<style> #userLoggedIn{display: flex;}</style>`
 const profileHidden = `<style> #userLoggedIn{display: none;}</style>`
 const errLoginReAttempt = errMsg.loginReAttempt;
+const removeLoginBttn = errMsg.removeLoginBttn
 const loginAfterSignupMsg = errMsg.loginAfterSignup;
 const errFieldEmpty = errMsg.fieldEmpty;
 const errUserExists = errMsg.userExists;
@@ -81,12 +82,14 @@ function createUserName (loggedUser) {
         return(fNameInitial + lNameInitial);
 }
 
+module.exports = createUserName;
+
 app.get('/',  function(req, res){
     const {userId} = req.session;
     if(userId){    
         create.findById(userId, (err, loggedUser) =>{
             const userName =  createUserName(loggedUser);
-            res.render('index', {errMsg: errLoginReAttempt, userName: userName, profile: profileMsg});
+            res.render('index', {errMsg: removeLoginBttn, userName: userName, profile: profileMsg});
         });
     }else{
         var errMsg = 'You are not logged in'
@@ -153,22 +156,22 @@ It spits out an error accordingly
 */
 
 app.post('/login', redirectHome, function(req, res){
-        create.findOne({
-            email: req.body.email,
-        }).then((userLogin) => {
-            if(!userLogin){                
-                res.render('index', {errMsg: errUserNotFound, userName: '', profile: ''})
-                log.write('User not found at logging in\n')
-            }else{
-                bcrypt.compare(req.body.password, userLogin.password, function(err, isMatch){
-                    if(isMatch) {
-                        req.session.userId = userLogin.id
-                            res.render('index', {userName: userLogin.firstName.charAt(0)+userLogin.lastName.charAt(0), errMsg: errLoginReAttempt, profile: profileMsg})
-                    }else{
-                        res.render('index', {errMsg: errPassword, userName: '', profile: ''})
-                    }
-                });
-            }
+    create.findOne({
+        email: req.body.email,
+    }).then((userLogin) => {
+        if(!userLogin){                
+            res.render('index', {errMsg: errUserNotFound, userName: '', profile: ''})
+            log.write('User not found at logging in\n')
+        }else{
+            bcrypt.compare(req.body.password, userLogin.password, function(err, isMatch){
+                if(isMatch) {
+                    req.session.userId = userLogin.id
+                        res.render('index', {userName: userLogin.firstName.charAt(0)+userLogin.lastName.charAt(0), errMsg: removeLoginBttn, profile: profileMsg})
+                }else{
+                    res.render('index', {errMsg: errPassword, userName: '', profile: ''})
+                }
+            });
+        }
     })
 })
 

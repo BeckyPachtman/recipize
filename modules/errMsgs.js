@@ -9,6 +9,8 @@ const loginReAttempt = `<script> document.getElementById('loginErr').innerHTML =
 <script> var allElem = document.querySelectorAll('.eachInput input');        
 for(var i = 0; i < allElem.length; i += 1){allElem[i].disabled = true};</script>`
 
+const removeLoginBttn = `<style>.loginPropmtButton{display:none}</style>`;
+
 const emailFieldEmpty = `<style> .modal{opacity: 1; visibility: visible;}
 .forms .formWrapper:nth-child(2){display: none;}</style>
 <strong class="errMsg">please fill in all fields</strong>`
@@ -42,4 +44,4 @@ const loginAfterSignup = userLoginAfterSignup + reuse3;
 const userNotFound = loginUserNotFound + reuse3;
 const password = wrongPassword + reuse3;
 
-module.exports = {loginReAttempt, loginAfterSignup, fieldEmpty, userExists, userNotFound, password, recFieldEmpty, notRecAuthor};
+module.exports = {loginReAttempt, removeLoginBttn, loginAfterSignup, fieldEmpty, userExists, userNotFound, password, recFieldEmpty, notRecAuthor};
