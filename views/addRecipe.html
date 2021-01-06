@@ -38,33 +38,33 @@
                                     <div class="moreOptionsColumn">
                                         <div>
                                             <input type="number" min="0" name="prpTimeHrs" placeholder=" " >
-                                            <label><img src="../resources/images/hourglass.png">Prep Time Hours</label>
+                                            <label><img class="timeIcon" src="../resources/images/hourglass.png">Prep Time Hours</label>
                                         </div>
                                         <div>
                                             <input type="number" min="0" name="prpTimeMin" placeholder=" ">
-                                            <label><img src="../resources/images/hourglass.png">Prep Time Minutes</label>
+                                            <label><img class="timeIcon" src="../resources/images/hourglass.png">Prep Time Minutes</label>
                                         </div>
                                     </div>
                                     
                                     <div class="moreOptionsColumn">
                                         <div>
                                             <input type="number" min="0" name="ckTimeHrs" placeholder=" ">
-                                            <label><img src="../resources/images/clockBlack.png">Cook Time Hours</label>
+                                            <label><img class="timeIcon" src="../resources/images/clockBlack.png">Cook Time Hours</label>
                                         </div>
                                         <div>
                                             <input type="number" min="0" name="ckTimeMin" placeholder=" ">
-                                            <label><img src="../resources/images/clockBlack.png">Cook Time Minutes</label>
+                                            <label><img class="timeIcon" src="../resources/images/clockBlack.png">Cook Time Minutes</label>
                                         </div>
                                     </div>
             
                                     <div class="moreOptionsColumn">
                                         <div>
                                             <input type="number" min="0" name="ttlTimeHrs" placeholder=" ">
-                                            <label><img src="../resources/images/timer.png">Total Time Hours</label>
+                                            <label><img class="timeIcon" src="../resources/images/timer.png">Total Time Hours</label>
                                         </div>
                                         <div>
                                             <input type="number" min="0" name="ttlTimeMin" placeholder=" " title="">
-                                            <label><img src="../resources/images/timer.png">Total Time Minutes</label>
+                                            <label><img class="timeIcon" src="../resources/images/timer.png">Total Time Minutes</label>
                                         </div>
                                     </div>
                                 </div>
@@ -85,19 +85,19 @@
                                     <div class="moreOptions">
                                         <input type="number" min="0" name="yieldInput" placeholder=" ">
                                         <select name="yieldSelect">
-                                            <option value="Minutes">Servings</option>
-                                            <option value="Hours">Other</option>
+                                            <option value="Servings">Servings</option>
+                                            <option value="Other">Other</option>
                                         </select>
                                         <label>Yields</label>
                                     </div>
             
                                     <div class="moreOptionsColumn">
-                                        <div>
-                                            <input type="file" class="uploadRecPhotoInpt" placeholder=" " title="Upload image from device">
-                                            <label class="uploadRecPhotoLbl"><img src="../resources/images/upload.png" alt=""> <span>Upload from device</span>  </label>
+                                        <div class="imgWapper">
+                                            <input type="file" placeholder=" " title="Upload image from device">
+                                            <label class="uploadRecPhotoLbl"><img src="../resources/images/upload.png" alt=""><span>Upload from device</span></label>
                                         </div>
                                             <span class="or">Or</span>
-                                        <div>
+                                        <div class="imgUrlWrppr">
                                             <input type="text" name="img" placeholder=" " title="Enter image url">
                                             <label>Enter Image Url</label> 
                                         </div>
