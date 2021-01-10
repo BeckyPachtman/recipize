@@ -6,69 +6,83 @@
     <meta name="description" content="Recipe Manager Platform">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="keywords" content="HTML, CSS, JavaScript, Node.js, Food, Recipes, Organization">
-    <link rel="stylesheet" href="styles.css">
-    <title>TestBook Page</title>
+    <link rel="stylesheet" href="../public/testBook.css">
+    <title>Recipize - Edit recipe</title>
 </head>
 <body>
-    <div class="pageBody recipeDisplayBody">
+    <div class="pageBody">
+            <div class="mainContent recMainContent">
+                <div class="content">
+                    <div class="main">
+                        <span class="msg"></span>
+                        <form action="/editRecipe/<%=recipe._id%>?_method=PUT" method="POST" class="recipeForm">
+            
+                            <fieldset id="first">
+                                <div>
+                                    <h2 class="title">Edit recipe</h2>
+                                    <p class="subTitle">step 3 - Edit ingredients, directions and update!</p>
+                                </div>
+                                
+                                <div class="inputGroup">
+                                    <div class="plusIconParent">
+                                        <input type="text" class="ingrdntsInput" placeholder=" " required>
+                                        
 
-        <!DOCTYPE html>
-<html>
-<style>
-.tooltip {
-  position: relative;
-  display: inline-block;
-  border-bottom: 1px dotted black;
-}
-.tooltip .tooltiptext {
-  visibility: hidden;
-  width: 120px;
-  background-color: #555;
-  color: #fff;
-  text-align: center;
-  border-radius: 6px;
-  padding: 5px 0;
-  position: absolute;
-  z-index: 1;
-  bottom: 125%;
-  left: 50%;
-  margin-left: -60px;
-  opacity: 0;
-  transition: opacity 0.3s;
-}
-.tooltip .tooltiptext::after {
-  content: "";
-  position: absolute;
-  top: 100%;
-  left: 50%;
-  margin-left: -5px;
-  border-width: 5px;
-  border-style: solid;
-  border-color: #555 transparent transparent transparent;
-}
+                                            <div class="parent editListItem">
+                                                <span class="circle">○</span> <textarea id="ingrdntEditList" class="ingrdntEditList" name="ingrdnts" rows="1">Lorem ipsum dolLorem ipsum dolL</textarea> <span class="removeEditItem">x</span>
+                                                <span class="circle">○</span> <textarea id="ingrdntEditList" class="ingrdntEditList" name="ingrdnts" rows="1">Lorem ipsum dolLorem ipsum dolLorem ipsum dol Lorem ipsum dol vLorem ipsum dolLorem ipsum dolLorem ipsum dol Lorem ipsum dolLorem ipl</textarea> <span class="removeEditItem">x</span>
+                                            </div>
 
-.tooltip:hover .tooltiptext {
-  visibility: visible;
-  opacity: 1;
-}
-</style>
-<body style="text-align:center;">
+                                        
+                                        <label>Recipe Ingredients</label>
+                                        <strong class="plusIcon adIngrdntToListBttn" title="Click to add item to the list">&#43;</strong>
+                                    </div>
+                        
+                                </div>
+                                <div class="btnWrpr">
+                                    <button type="button" class="pre_btn">Previous</button>
+                                    <button type="button" class="next_btn">Next</button>
+                                </div>
+                            </fieldset>
 
-<h2>Tooltip</h2>
+                            <fieldset>
+                                <div>
+                                    <h2 class="title">Edit recipe</h2>
+                                    <p class="subTitle">step 4 - Edit Directions and update!</p>
+                                </div>
+                                
+                                <div class="inputGroup">
+                                    
+                                    <div class="plusIconParent">
+                                        <input type="text" class="dirctnsInput" placeholder=" " required>
+                                       
+                                         
 
-<div class="tooltip">
-	<p>Hover over me</p>
-  <span class="tooltiptext">View Image recipe</span>
-</div>
-
-
-
+                                            <div class="parent editListItem">
+                                                <span class="circle">○</span> <textarea class="editInputs" name="dirctns" rows="1"></textarea><span class="removeEditItem">x</span>
+                                            </div>
 
 
-
-
-    
+                                       
+                                        <label>Recipe Directions</label>
+                                        <strong class="plusIcon adDirToDirListBttn" title="Click to add item to the list">&#43;</strong>
+                        
+                                    </div>
+                                    
+                                </div>
+                                <div class="btnWrpr">
+                                    <button type="button" class="pre_btn">Previous</button>
+                                    <button type="submit" class="submit_btn">Submit</button>
+                                </div>
+                            </fieldset>
+                        </form>
+                    </div>
+                </div>
+            </div>
+    </div>
 </body>
 </html>
 <script src="https://code.jquery.com/jquery-3.5.1.min.js""></script>
-<script src="script.js"></script>
+<script src="../public/script.js">
+  
+</script>

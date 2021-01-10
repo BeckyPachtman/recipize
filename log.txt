@@ -194,3 +194,27 @@ User not found at logging in
 New user successfully created
 User not found at logging in
 New user successfully created
+Recipe successfully deleted
+New recipe successfully created
+New recipe successfully created
+Recipe successfully deleted
+New recipe successfully created
+New recipe successfully created
+Recipe successfully deleted
+New recipe successfully created
+New recipe successfully created
+New recipe successfully created
+New recipe successfully created
+Recipe successfully deleted
+Recipe successfully deleted
+Recipe successfully deleted
+Recipe successfully deleted
+Recipe successfully deleted
+Recipe successfully deleted
+Recipe successfully deleted
+Recipe successfully deleted
+Recipe successfully deleted
+Recipe successfully deleted
+Recipe successfully deleted
+Recipe successfully deleted
+Recipe successfully deleted

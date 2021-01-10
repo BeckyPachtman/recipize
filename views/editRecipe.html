@@ -6,7 +6,13 @@
     <meta name="description" content="Recipe Manager Platform">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="keywords" content="HTML, CSS, JavaScript, Node.js, Food, Recipes, Organization">
-    <link rel="stylesheet" href="../styles.css">
+     <link rel="stylesheet" href="../headerFooter.css">
+    <link rel="stylesheet" href="../modalStyles.css">
+    <link rel="stylesheet" href="../generalStyles.css">
+    <link rel="stylesheet" href="../recipesDisplay.css">
+    <link rel="stylesheet" href="../viewOneRec.css"> 
+    <link rel="stylesheet" href="../addEditRec.css">
+   
     <title>Recipize - Edit recipe</title>
 </head>
 <body>
@@ -76,7 +82,7 @@
             
                             <fieldset>
                                 <div>
-                                    <h2 class="title">Edit new recipe</h2>
+                                    <h2 class="title">Edit recipe</h2>
                                     <p class="subTitle">Step 2 - Edit other details</p>
                                 </div>
                                 
@@ -84,20 +90,21 @@
             
                                     <div class="moreOptions">
                                         <input type="number" min="0" name="yieldInput" value="<%= recipe.yieldInput %>" placeholder=" ">
-                                        <!-- <select name="yieldSelect">
-                                            <option value="Minutes">Servings</option>
-                                            <option value="Hours">Other</option>
-                                        </select> -->
+                                         <select name="yieldSelect" value="" class="editSelectValue">
+                                            <option value="<%= recipe.yieldSelect %>"><%= recipe.yieldSelect %></option>
+                                            <option class="selectServings" value="Servings">Servings</option>
+                                            <option class="selectOther" value="Other">Other</option>
+                                        </select> 
                                         <label>Yields</label>
                                     </div>
             
                                     <div class="moreOptionsColumn">
-                                        <div>
-                                            <input type="file" class="uploadRecPhotoInpt" placeholder=" " title="Upload image from device">
-                                            <label class="uploadRecPhotoLbl"><img src="../resources/images/upload.png" alt=""> <span>Upload from device</span>  </label>
+                                        <div class="imgWapper">
+                                            <input type="file" placeholder=" " title="Upload image from device">
+                                            <label class="uploadRecPhotoLbl"><img src="../resources/images/upload.png" alt=""><span>Upload from device</span></label>
                                         </div>
                                             <span class="or">Or</span>
-                                        <div>
+                                        <div class="imgUrlWrppr">
                                             <input type="text" name="img" placeholder=" " value="<%= recipe.img %>" title="Enter image url">
                                             <label>Enter Image Url</label> 
                                         </div>
@@ -106,8 +113,9 @@
                                     <div class="plusIconParent">
                                         <input type="text" class="tipsInput" placeholder=" " required>
                                         <% recipe.tips.forEach(function(item){ %>
-                                            <div class="parent">
-                                                <span class="circle">○</span> <input type="text" name="ingrdnts" class="editInputs" placeholder=" " value="<%= item %>"><span class="removeEditItem">x</span>
+                                            <div class="parent editListItem">
+                                                <span class="circle">○</span>
+                                                <input type="text" name="tips" class="tipEditList" placeholder=" " value="<%= item.trim() %>"><span class="removeEditItem">x</span>
                                             </div>
                                         <% }); %>
                                         <label>Recipe Tips</label>
@@ -132,20 +140,46 @@
                                     <div class="plusIconParent">
                                         <input type="text" class="ingrdntsInput" placeholder=" " required>
                                         <% recipe.ingrdnts.forEach(function(item){ %>
-                                            <div class="parent">
-                                                <span class="circle">○</span> <input type="text" name="ingrdnts" class="ingrdntEditList" placeholder=" " value="<%= item %>"><span class="removeEditItem">x</span>
+                                            <!-- <div class="parent editListItem">
+                                                <span class="circle">○</span> <input type="text" name="ingrdnts" class="ingrdntEditList" placeholder=" " value="<%= item.trim() %>"><span class="removeEditItem">x</span>
+                                            </div> -->
+
+                                            <div class="parent editListItem">
+                                                <span class="circle">○</span> <textarea id="ingrdntEditList" class="ingrdntEditList" name="ingrdnts" rows="1"><%= item.trim() %></textarea> <span class="removeEditItem">x</span>
                                             </div>
+
                                         <% }); %>
                                         <label>Recipe Ingredients</label>
                                         <strong class="plusIcon adIngrdntToListBttn" title="Click to add item to the list">&#43;</strong>
                                     </div>
                         
+                                </div>
+                                <div class="btnWrpr">
+                                    <button type="button" class="pre_btn">Previous</button>
+                                    <button type="button" class="next_btn">Next</button>
+                                </div>
+                            </fieldset>
+
+                            <fieldset>
+                                <div>
+                                    <h2 class="title">Edit recipe</h2>
+                                    <p class="subTitle">step 4 - Edit Directions and update!</p>
+                                </div>
+                                
+                                <div class="inputGroup">
+                                    
                                     <div class="plusIconParent">
                                         <input type="text" class="dirctnsInput" placeholder=" " required>
                                         <% recipe.dirctns.forEach(function(item){ %>
-                                            <div class="parent">
-                                                <span class="circle">○</span> <input type="text" name="dirctns" class="editInputs" placeholder=" " value="<%= item %>" ><span class="removeEditItem">x</span>
+                                             <!--<div class="parent editListItem">
+                                                <span class="circle">○</span> <input type="text" name="dirctns" class="editInputs" placeholder=" " value="<%= item.trim() %>" ><span class="removeEditItem">x</span>
+                                            </div> -->
+
+                                            <div class="parent editListItem">
+                                                <span class="circle">○</span> <textarea class="editInputs" name="dirctns" rows="1"><%= item.trim()%></textarea><span class="removeEditItem">x</span>
                                             </div>
+
+
                                         <% }); %>
                                         <label>Recipe Directions</label>
                                         <strong class="plusIcon adDirToDirListBttn" title="Click to add item to the list">&#43;</strong>

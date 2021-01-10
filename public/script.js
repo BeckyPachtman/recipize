@@ -73,6 +73,27 @@ $(document).ready(() =>{
         $('.recipeIngredients').addClass('recipeIngrScrollbar')
     }
 
+    //This function adds a scrollbar to the add new form at tips, ifredients, and tips
+    $('.addTiptoListBttn').on('click', function(){
+        if($('.tipUl').height() > 80){
+            $('.tipUl').addClass('listWrapprScrollbar listWrapprTipScrollbar')
+        }
+    })
+
+    $('.adIngrdntToListBttn').on('click', function(){
+        if($('.igUl').height() > 250){
+            $('.igUl').addClass('listWrapprScrollbar')
+        }
+    })
+       
+    $('.adDirToDirListBttn').on('click', function(){
+        if($('.dirOl').height() > 250){
+            $('.dirOl').addClass('listWrapprScrollbar')
+        }
+    })
+
+    
+
     /*
     This function toggles a recipe's image visibilty
     */
@@ -117,6 +138,7 @@ $(document).ready(() =>{
         var liStrToInput = $('<input type="hidden"/>').attr({
             name: 'ingrdnts'
         }).appendTo('form');
+
         $(liStrToInput).val(liStr.text());
         
         /*
@@ -460,5 +482,88 @@ $(document).ready(() =>{
     }
     $('a.footerWhApp').attr('href', 'https://'+device+'.whatsapp.com/send?phone=972533402859&text&source&data&app_absent');
       
+     //const editSelectValue = $().val
+    // if(editSelectValue === 'Servings'){
+    //     console.log('ser' + editSelectValue.value);
+    // }else{
+    //     console.log('not ser' + editSelectValue);
+    // }
+    
+    var selectName = $('.editSelectValue').find(":selected").text();
+    if(selectName === 'Servings'){
+        $('.selectServings').css('display', 'none')
+    }else if(selectName === 'Other' || selectName === 'Minutes'){
+        $('.selectOther').css('display', 'none')
+    }
+  
+    
+    // $('.editInputs textarea').each(function(){
+    //     this.setAttribute('style', 'height:' + (this.scrollHeight) + 'px:overflow-y:hidden')
+    // }).on('input', function(){
+    //     this.style.height = 'auto';
+    //     this.style.height = (this.scrollHeight + 'px')
+    // })
+
+
+    
+//     $('textarea').each(function(){
+       
+//     //     var txt = $(this).val(); 
+//     //    console.log(txt);
+
+
+//       // console.log(this);
+//        //console.log($(txt).length());
+    
+
+
+//         var maxlength = 8;
+//         var currentLength = $(this).val().length;
+    
+//         if( currentLength >= maxlength ){
+//           //  console.log("You have reached the maximum number of characters.");
+//             //$(this).css({'overflow-wrap': 'break-word'})
+//             //$(this).css('overflow', 'visible')
+//             //$(this).html += '</br>';
+
+// document.createElement('input');
+//           //  var extra = currentLength-maxlength;
+//           //  console.log(extra);
+//            // console.log(extra.val().length);
+//             $(this).css('color', 'red')
+//             $(this).height('2em')
+//        $(currentLength).remove()
+//           console.log(this.innerHTML);
+//           ///var so = 
+
+//             //$("<h1>you</h1>").insertAfter(maxlength);
+//         }else{
+//             //console.log(maxlength - currentLength + " chars left");
+
+//         }
+
+        
+        
+        
+//     })
+
+$(function() {
+    $('.editListItem textarea').each(function() {
+        $(this).height($(this).prop('scrollHeight'));
+    });
+
+    $('.editInpits').each(function() {
+        $(this).height($(this).prop('scrollHeight'));
+    });
+});
+
+
+$(function() {
+    $('textarea').each(function() {
+        $(this).height($(this).prop('scrollHeight'));
+    });
+});
+
+
 })
 

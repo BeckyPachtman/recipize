@@ -34,8 +34,8 @@ const errNotRecAuthor = errMsg.notRecAuthor;
 app.engine('html', require('ejs').renderFile)
 app.set('view engine', 'html')
 app.use(express.static('public'))
-app.use(bodyParser.urlencoded({extended: false})) //changed from false to true to se if will make passport work, changed back to false according to Travery
-app.use(bodyParser.json()); 
+app.use(bodyParser.urlencoded({extended: false}))
+app.use(bodyParser.json());
 app.use(methodOverride('_method'))
 app.use(session({
     secret: 'secretString',
@@ -43,7 +43,7 @@ app.use(session({
     saveUninitialized: false,
     store: new MongoStore({ mongooseConnection: mongoose.connection }),
     cookie: {
-        maxAge: 1000 * 60 * 60 * 24 * 7 * 2 // two weeks
+        maxAge: 1000 * 60 * 60 * 24 * 7 //one week
     },
     name: cookieName
 }))

@@ -6,9 +6,15 @@
     <meta name="description" content="Recipe Manager Platform">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="keywords" content="HTML, CSS, JavaScript, Node.js, Food, Recipes, Organization">
-    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="headerFooter.css">
+    <link rel="stylesheet" href="generalStyles.css">
+    <link rel="stylesheet" href="modalStyles.css">
+    <link rel="stylesheet" href="recipesDisplay.css">
+    <link rel="stylesheet" href="viewOneRec.css">
+    <link rel="stylesheet" href="addEditRec.css">
     <title>Recipize - Add new recipe</title>
 </head>
+
 <body>
     <div class="pageBody">
         <%- include('header.html')%>
@@ -117,14 +123,14 @@
                                 
                                 <div class="btnWrpr">
                                     <button type="button" class="pre_btn">Previous</button>
-                                    <button type="button" class="next_btn" title="Continue to ingredients and directions">Next</button>
+                                    <button type="button" class="next_btn" title="Continue to ingredients">Next</button>
                                 </div>
                             </fieldset>
             
                             <fieldset>
                                 <div>
                                     <h2 class="title">Create new recipe</h2>
-                                    <p class="subTitle">step 3 - Add ingredients, directions and submit!</p>
+                                    <p class="subTitle">step 3 - Add ingredients</p>
                                 </div>
                                 
                                 <div class="inputGroup">
@@ -133,22 +139,37 @@
                                         <label>Recipe Ingredients</label>
                                         <strong class="plusIcon adIngrdntToListBttn" title="Click to add item to the list">&#43;</strong>
             
-                                        <div class="listWrappr">
+                                        <div class="listWrappr listWrappr2">
                                             <ul class="igUl"></ul>
                                         </div>
                                     </div>
+                                    
+                                </div>
+                                <div class="btnWrpr">
+                                    <button type="button" class="pre_btn">Previous</button>
+                                    <button type="button" class="next_btn" title="Continue to directions">Next</button>
+                                </div>
+                            </fieldset>
+
+                            <fieldset>
+                                <div>
+                                    <h2 class="title">Create new recipe</h2>
+                                    <p class="subTitle">step 4 - Add Directions and submit!</p>
+                                </div>
             
+                                <div class="inputGroup">
                                     <div class="plusIconParent">
                                         <input type="text" class="dirctnsInput" placeholder=" " required>
                                         <label>Recipe Directions</label>
                                         <strong class="plusIcon adDirToDirListBttn" title="Click to add item to the list">&#43;</strong>
             
-                                        <div class="listWrappr">
+                                        <div class="listWrappr listWrappr2">
                                             <ol class="dirOl"></ol>
                                         </div>
                                     </div>
-                                    
-                                </div>
+
+                                </div>    
+                            
                                 <div class="btnWrpr">
                                     <button type="button" class="pre_btn">Previous</button>
                                     <button type="submit" class="submit_btn">Submit</button>
