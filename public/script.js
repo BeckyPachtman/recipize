@@ -52,16 +52,44 @@ $(document).ready(() =>{
         $('.recipeIngredients').addClass('recipeIngrScrollbar')
     }
 
-    //This function adds a scrollbar to the add new form at tips, ifredients, and tips
+    //This function adds a scrollbar to the add new form at tips, ingredients, and tips
+    var ingrdntsInput = $('.ingrdntsInput');
+    var dirctnsInput = $('.dirctnsInput');
+    var tipsInput = $('.tipsInput');
+
+    /*
+    This function cheks the height of the tip textarea when cre
+    */
+    $(tipsInput).keydown(function(e){
+        if(e.keyCode == 13 && $('.tipUl').height() > 80){
+            e.preventDefault()
+            $('.tipUl').addClass('listWrapprScrollbar listWrapprTipScrollbar')
+        }
+    })   
     $('.addTiptoListBttn').on('click', function(){
         if($('.tipUl').height() > 80){
             $('.tipUl').addClass('listWrapprScrollbar listWrapprTipScrollbar')
         }
     })
 
+    $(ingrdntsInput).keydown(function(e){
+        if(e.keyCode == 13 && $('.igUl').height() > 250){
+            e.preventDefault()
+            $('.igUl').addClass('listWrapprScrollbar')
+        }
+    })
     $('.adIngrdntToListBttn').on('click', function(){
         if($('.igUl').height() > 250){
             $('.igUl').addClass('listWrapprScrollbar')
+        }
+    })
+
+    $(dirctnsInput).keydown(function(e){
+        if(e.keyCode == 13){
+            e.preventDefault()
+            if($('.dirOl').height() > 250){
+                $('.dirOl').addClass('listWrapprScrollbar')
+            }
         }
     })
     
@@ -138,31 +166,47 @@ $(document).ready(() =>{
     This function check if the reipce total time hours is 1 and changes the word hours to hour.
     It checks if the hours are mising and removes the word all togethor in that case
     */
-    var ttlTimeHrs = $('.ttlTimeHrs').text()
-    var ttlTimeSlctHrs = $('.ttlTimeHrs')
-    var ttlTimeMin = $('.ttlTimeMin').text()
-    var ttlTimeSlctMin = $('.ttlTimeSlctMin')
-
-    $(ttlTimeSlctHrs).text('Hours')
-
-    if(ttlTimeHrs == 1){
-        $(ttlTimeSlctHrs).text('Hour')
-    }else if(ttlTimeHrs == ''){
-        $(ttlTimeSlctHrs).text('')
+   var viewRecTimes = {
+        prpTimeHrs: $('.prpTimeHrs').text(),
+        prpTimeMin: $('.prpTimeMin').text(),
+        ckTimeHrs :$('.ckTimeHrs').text(),
+        ckTimeMin :$('.ckTimeMin').text(),
+        ttlTimeHrs: $('.ttlTimeHrs').text(),
+        ttlTimeMin: $('.ttlTimeMin').text()
     }
+
+    if(viewRecTimes.prpTimeHrs == ' ' || viewRecTimes.prpTimeMin === '' || viewRecTimes.ckTimeHrs === '' || viewRecTimes.ckTimeMin === '' || viewRecTimes.ttlTimeHrs === '' || viewRecTimes.ttlTimeMin === ''){
+        console.log('ethy');
+    }
+ 
+// console.log({
+//     'prpHrs': prpTimeHrs,
+//     'prpMin':prpTimeMin,
+//     'ckHrs': ckTimeHrs,
+//     'ckMin': ckTimeMin ,
+//     'ttlHrs': ttlTimeHrs,
+//     'ttlMin': ttlTimeMin
+// })
+    // $(ttlTimeSlctHrs).text('Hours')
+
+    // if(ttlTimeHrs == 1){
+    //     $(ttlTimeSlctHrs).text('Hour')
+    // }else if(ttlTimeHrs == ''){
+    //     $(ttlTimeSlctHrs).text('')
+    // }
 
     /*
     This function check if the recipe total time minutes is 1 and changes the word minutes to minutes
     It checks if the minutes are mising and removes the word althogethor in that case
     */
 
-    $(ttlTimeSlctMin).text('Minutes')
+    // $(ttlTimeSlctMin).text('Minutes')
 
-    if(ttlTimeMin == 1){
-        $(ttlTimeSlctMin).text('Minute')
-    }else if(ttlTimeMin == ''){
-        $(ttlTimeSlctMin).text('')
-    }
+    // if(ttlTimeMin == 1){
+    //     $(ttlTimeSlctMin).text('Minute')
+    // }else if(ttlTimeMin == ''){
+    //     $(ttlTimeSlctMin).text('')
+    // }
 
 
     /*
