@@ -162,51 +162,57 @@ $(document).ready(() =>{
         $(this).parent().parent().children('.dltRecWrrpModal').children('.modalDel').addClass('modalDelVisible');
     })
 
+    $('.dltRecCnfrmSngleRec').on('click', function(){
+        $(this).parent().parent().siblings('.dltRecWrrpModal').children('.modalDel').addClass('modalDelVisible');
+    })
+
     /*
     This function check if the reipce total time hours is 1 and changes the word hours to hour.
     It checks if the hours are mising and removes the word all togethor in that case
     */
-   var viewRecTimes = {
-        prpTimeHrs: $('.prpTimeHrs').text(),
-        prpTimeMin: $('.prpTimeMin').text(),
-        ckTimeHrs :$('.ckTimeHrs').text(),
-        ckTimeMin :$('.ckTimeMin').text(),
-        ttlTimeHrs: $('.ttlTimeHrs').text(),
-        ttlTimeMin: $('.ttlTimeMin').text()
+    var prpTimeHrs = $('.prpTimeHrs').text()
+    var prpTimeMin = $('.prpTimeMin').text()
+    var ckTimeHrs = $('.ckTimeHrs').text()
+    var ckTimeMin = $('.ckTimeMin').text()
+    var ttlTimeHrs = $('.ttlTimeHrs').text()
+    var ttlTimeMin = $('.ttlTimeMin').text()
+
+    if(prpTimeHrs === ' ' || prpTimeHrs == 0){
+        $('.prpTimeHrs').css('display', 'none')
+        $('.prpTmeHrsSpan').css('display', 'none')
+    }
+    if(prpTimeMin === '' || prpTimeMin == 0){
+        $('.prpTimeMin').css('display', 'none')
+        $('.prpTmeMinSpan').css('display', 'none')
     }
 
-    if(viewRecTimes.prpTimeHrs == ' ' || viewRecTimes.prpTimeMin === '' || viewRecTimes.ckTimeHrs === '' || viewRecTimes.ckTimeMin === '' || viewRecTimes.ttlTimeHrs === '' || viewRecTimes.ttlTimeMin === ''){
-        console.log('ethy');
+    if(ckTimeHrs === '' || ckTimeHrs == 0){
+        $('.ckTimeHrs').css('display', 'none')
+        $('.ckTmeHrsSpan').css('display', 'none')
     }
- 
-// console.log({
-//     'prpHrs': prpTimeHrs,
-//     'prpMin':prpTimeMin,
-//     'ckHrs': ckTimeHrs,
-//     'ckMin': ckTimeMin ,
-//     'ttlHrs': ttlTimeHrs,
-//     'ttlMin': ttlTimeMin
-// })
-    // $(ttlTimeSlctHrs).text('Hours')
+     if(ckTimeMin === '' || ckTimeMin == 0){
+        $('.ckTimeMin').css('display', 'none')
+        $('.ckTmeMinSpan').css('display', 'none')
+    }
 
-    // if(ttlTimeHrs == 1){
-    //     $(ttlTimeSlctHrs).text('Hour')
-    // }else if(ttlTimeHrs == ''){
-    //     $(ttlTimeSlctHrs).text('')
-    // }
+    if(ttlTimeHrs === ' ' || ttlTimeHrs == 0){
+        $('.ttlTimeHrs').css('display', 'none')
+        $('.ttlTmeHrsSpan').css('display', 'none')
+    }
+     if(ttlTimeMin === '' || ttlTimeMin == 0){
+        $('.ttlTimeMin').css('display', 'none')
+        $('.ttlTmeMinSpan').css('display', 'none')
+    }
+
+
 
     /*
     This function check if the recipe total time minutes is 1 and changes the word minutes to minutes
     It checks if the minutes are mising and removes the word althogethor in that case
     */
 
-    // $(ttlTimeSlctMin).text('Minutes')
 
-    // if(ttlTimeMin == 1){
-    //     $(ttlTimeSlctMin).text('Minute')
-    // }else if(ttlTimeMin == ''){
-    //     $(ttlTimeSlctMin).text('')
-    // }
+ 
 
 
     /*
