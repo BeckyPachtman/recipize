@@ -118,10 +118,7 @@ $(document).ready(() =>{
 
     if($('.ingInputGroup').height() > 270){
         $('.ingInputGroup').addClass('recipeIngDirEditScrlbr')
-    }
-
-console.log($('.ingInputGroup2').height());
-  
+    }  
 
     if($('.ingInputGroup2').height() > 250){
         $('.ingInputGroup2').css('overflow-y', 'scroll')         
@@ -134,12 +131,12 @@ console.log($('.ingInputGroup2').height());
     This function displays the 'delete a recipe confirmation window' when clicking the delete a recipe icon
     */
     $('.deleteRecConfirm').on('click', function(){
-      $('.dltRecWrrpModal').children('.modalDel').addClass('modalDelVisible'); 
+        $(this).parent().parent().children('.dltRecWrrpModal').children('.modalDel').addClass('modalDelVisible');
     })
 
     /*
     This function check if the reipce total time hours is 1 and changes the word hours to hour.
-    It checks if the hours are mising and removes the word althogethor in that case
+    It checks if the hours are mising and removes the word all togethor in that case
     */
     var ttlTimeHrs = $('.ttlTimeHrs').text()
     var ttlTimeSlctHrs = $('.ttlTimeHrs')

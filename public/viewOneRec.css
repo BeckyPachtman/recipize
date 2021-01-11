@@ -104,16 +104,16 @@
 }
 .details::-webkit-scrollbar-track,
 .recipeIngredients::-webkit-scrollbar-track{
-    box-shadow: inset 0 0 12px rgba(0,0,0,0.3);
-    -webkit-box-shadow: inset 0 0 12px rgba(0,0,0,0.3);
+    box-shadow: inset 0 0 .8em #c5d1cf;
+    -webkit-box-shadow: inset 0 0 .8em #c5d1cf;
 }
 .details::-webkit-scrollbar-thumb,
 .recipeIngredients::-webkit-scrollbar-thumb{
-    background-color: #ac5757;
+    background-color: rgba(0, 90, 100, 0.376);
 }
 .details::-webkit-scrollbar-thumb:hover,
 .recipeIngredients::-webkit-scrollbar-thumb:hover{
-    background-color: #9c4444;
+    background-color: rgba(0, 90, 100, 0.603);
 }
 .imageVisble{
     background: rgba(0, 0, 0, 0.45);

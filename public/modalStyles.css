@@ -102,14 +102,15 @@
     padding: 1em;
     transition: all .35s ease-in;
     visibility: hidden; 
+    position: relative;
 }
 .modalDelVisible{
-    height: 100vh;
+    height: 100%;
     left: 0;
-    opacity: 1;
     position: fixed;
     top: 0;
-    visibility: visible;
+    opacity: 1;
+    visibility: visible; 
     width: 100vw;
 }
 .dltRecModalMainCntnt{

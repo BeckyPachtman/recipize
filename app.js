@@ -329,7 +329,7 @@ app.delete('/recipe/:id', function(req, res) {
 })
 
 /*
-This function kils the session and cookie therefore loggin the user out */
+This function kills the session and cookie therefore loggin the user out */
 app.get('/logout', redirectLogin, (req, res) =>{
     req.session.destroy(err => {
         if(err){
