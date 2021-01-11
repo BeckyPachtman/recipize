@@ -211,13 +211,13 @@ app.post('/newRecipeData', function(req, res) {
     const {userId} = req.session;
     create.findById(userId, (err, loggedUser) =>{
         var fullRecipe = {
-            title: req.body.title,              prpTimeHrs: req.body.prpTimeHrs,
-            prpTimeMin: req.body.prpTimeMin,    ckTimeHrs: req.body.ckTimeHrs,
-            ckTimeMin: req.body.ckTimeMin,      ttlTimeHrs: req.body.ttlTimeHrs,
-            ttlTimeMin: req.body.ttlTimeMin,    yieldInput: req.body.yieldInput,
-            yieldSelect: req.body.yieldSelect,  tips: req.body.tips,
-            img: req.body.img,                  ingrdnts: req.body.ingrdnts,
-            dirctns: req.body.dirctns,          author: loggedUser.firstName + ' ' + loggedUser.lastName
+        title: req.body.title,                           prpTimeHrs: req.body.prpTimeHrs+' '+'Hours',
+        prpTimeMin: req.body.prpTimeMin+' '+'Minutes',   ckTimeHrs: req.body.ckTimeHrs+' '+'Hours',
+        ckTimeMin: req.body.ckTimeMin+' '+'Minutes',     ttlTimeHrs: req.body.ttlTimeHrs+' '+'Hours',
+        ttlTimeMin: req.body.ttlTimeMin+' '+'Minutes',   yieldInput: req.body.yieldInput,
+        yieldSelect: req.body.yieldSelect,               tips: req.body.tips,
+        img: req.body.img,                               ingrdnts: req.body.ingrdnts,
+        dirctns: req.body.dirctns,                       author: loggedUser.firstName + ' ' + loggedUser.lastName
         }
         if(!fullRecipe.ingrdnts || !fullRecipe.dirctns){
             res.render('addRecipe', {msg: errRecFieldEmpty, userName: '', profile: profileMsg});        
