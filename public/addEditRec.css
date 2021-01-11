@@ -35,7 +35,9 @@ fieldset{
     display: none;
     flex-direction: column; 
     justify-content: flex-start;
-    height: 100%;
+    /* height: 100%;
+    height: 575px; */
+    height: 35.93em;
     margin: 2em 2em 0;
     width: 100%; 
 }
@@ -58,11 +60,17 @@ fieldset > div:last-child{
     justify-content: space-between;
     width: 80%;
 }
-fieldset#first > div:last-child{
+fieldset.visibleFieldset > div:last-child{
     justify-content: flex-end;
 }
-#first{
+.visibleFieldset{
     display: flex;
+} 
+.ingDirFieldsWrrpr{
+   display: flex;
+   height: 0;
+   overflow: hidden;
+   visibility: hidden;
 }
 .inputGroup{
     display: flex;
@@ -159,7 +167,9 @@ fieldset#first > div:last-child{
 .plusIconParent{
     align-items: center;
     flex-direction: column;
-    position: relative;    
+    position: relative;   
+    
+    bordeR: solid 1px green;
 }
 .plusIcon{
     color: #414141;
@@ -256,25 +266,24 @@ label .timeIcon{
     background-color: #43E8D2;
 }
 /*Edit page*/
-
 .editListItem{
     align-items: center;
     display: flex;
     justify-content: center;
-    width: 95%;
-    /*border: solid 1px darkkhaki;*/
+    width: 97%;   
 }
-.inputGroup .plusIconParent .editListItem input{
-    background: none;
-    margin: 0;
-    padding: 0;
-    border: solid 1px gold;
-    
+.tipsInputGroup,
+.ingInputGroup{
+    width: 100%;
 }
-
+.ingInputGroup2{
+    width: 100%;
+    max-height: 260px;
+    overflow-y: auto;
+}
 .inputGroup .plusIconParent .editListItem textarea{
-    /* background: none;
-    margin: 0;
+   /*background: #ccc;
+      margin: 0;
     padding: 0;
     margin: .5em 0;
     min-height: 4em;
@@ -283,19 +292,32 @@ label .timeIcon{
     resize: none;
     outline: none; */
     
-/* 
-    width:800px;
-    min-height: 60px;
-    max-height: 500px;
-    height: auto;  */
-
-
-    
+    margin: .5em 0;
+    width: 100%;
+    min-height: 1.5em;
+    max-height: 250px;
+    height: auto;
+    border: none;
+    resize: none;
 }
-
-/* .circle{
+.recipeTipEditScrlbr{
+    height: 120px;
+    overflow-y: scroll;
+    padding-left: .5em;
+}
+.recipeIngDirEditScrlbr{
+    height: 260px;
+    overflow-y: scroll;
+    padding-left: .5em;
+}
+.recipedirEditScrlbr{
+    height: 260px;
+    overflow-y: scroll;
+    padding-left: .5em;
+}
+.circle{
     font-size: .9em;
-    margin-right: .4em;
+    margin: 0 .5em 0 1em;
 }
 .removeEditItem{
     cursor: pointer;
@@ -304,5 +326,7 @@ label .timeIcon{
 .removeEditItemFromJs{
     float: right;
     font-size: 1.1em;
-    margin-right: .11em;
-} */
+    /*margin-right: .11em;
+    margin-left: 1em;*/
+   
+}

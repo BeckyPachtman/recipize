@@ -258,9 +258,9 @@ label .timeIcon{
 /*Edit page*/
 
 .editListItem{
-    align-items: center;
+    /* align-items: center;
     display: flex;
-    justify-content: center;
+    justify-content: center; */
     width: 95%;
     /*border: solid 1px darkkhaki;*/
 }

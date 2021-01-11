@@ -6,83 +6,94 @@
     <meta name="description" content="Recipe Manager Platform">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="keywords" content="HTML, CSS, JavaScript, Node.js, Food, Recipes, Organization">
-    <link rel="stylesheet" href="../public/testBook.css">
+    <link rel="stylesheet" href="../public/headerFooter.css">
+    <link rel="stylesheet" href="../public/modalStyles.css">
+    <link rel="stylesheet" href="../public/generalStyles.css">
+    <link rel="stylesheet" href="../public/recipesDisplay.css">
+    <link rel="stylesheet" href="../public/viewOneRec.css"> 
+    <link rel="stylesheet" href="../public/addEditRec.css">
     <title>Recipize - Edit recipe</title>
 </head>
 <body>
-    <div class="pageBody">
-            <div class="mainContent recMainContent">
-                <div class="content">
-                    <div class="main">
-                        <span class="msg"></span>
-                        <form action="/editRecipe/<%=recipe._id%>?_method=PUT" method="POST" class="recipeForm">
-            
-                            <fieldset id="first">
-                                <div>
-                                    <h2 class="title">Edit recipe</h2>
-                                    <p class="subTitle">step 3 - Edit ingredients, directions and update!</p>
-                                </div>
-                                
-                                <div class="inputGroup">
-                                    <div class="plusIconParent">
-                                        <input type="text" class="ingrdntsInput" placeholder=" " required>
-                                        
+<div class="pageBody">
+    <div class="mainContent recMainContent">
+        <div class="content">
+            <div class="main">
+                <span class="msg"></span>
+                <form action="/editRecipe/<%=recipe._id%>?_method=PUT" method="POST" class="recipeForm">
+    
+                    <fieldset class="visibleFieldset">
 
-                                            <div class="parent editListItem">
-                                                <span class="circle">○</span> <textarea id="ingrdntEditList" class="ingrdntEditList" name="ingrdnts" rows="1">Lorem ipsum dolLorem ipsum dolL</textarea> <span class="removeEditItem">x</span>
-                                                <span class="circle">○</span> <textarea id="ingrdntEditList" class="ingrdntEditList" name="ingrdnts" rows="1">Lorem ipsum dolLorem ipsum dolLorem ipsum dol Lorem ipsum dol vLorem ipsum dolLorem ipsum dolLorem ipsum dol Lorem ipsum dolLorem ipl</textarea> <span class="removeEditItem">x</span>
-                                            </div>
+                        first one
 
-                                        
-                                        <label>Recipe Ingredients</label>
-                                        <strong class="plusIcon adIngrdntToListBttn" title="Click to add item to the list">&#43;</strong>
-                                    </div>
+                        <div class="btnWrpr">
+                            <button type="button" class="pre_btn">Previous</button>
+                            <button type="button" class="next_btn btnToIngrdnts">Next</button>
+                        </div>
+                    </fieldset>
+                    <fieldset class="ingFieldsWrrpr">
+                        <div>
+                            <h2 class="title">Edit recipe</h2>
+                            <p class="subTitle">step 3 - Edit ingredients</p>
+                        </div>
                         
-                                </div>
-                                <div class="btnWrpr">
-                                    <button type="button" class="pre_btn">Previous</button>
-                                    <button type="button" class="next_btn">Next</button>
-                                </div>
-                            </fieldset>
-
-                            <fieldset>
-                                <div>
-                                    <h2 class="title">Edit recipe</h2>
-                                    <p class="subTitle">step 4 - Edit Directions and update!</p>
-                                </div>
+                        <div class="inputGroup">
+                            <div class="plusIconParent">
+                                <input type="text" class="ingrdntsInput" placeholder=" " required>
                                 
-                                <div class="inputGroup">
-                                    
-                                    <div class="plusIconParent">
-                                        <input type="text" class="dirctnsInput" placeholder=" " required>
-                                       
-                                         
 
-                                            <div class="parent editListItem">
-                                                <span class="circle">○</span> <textarea class="editInputs" name="dirctns" rows="1"></textarea><span class="removeEditItem">x</span>
-                                            </div>
+                                    <div class="parent editListItem">
+                                        <span class="circle">○</span> <textarea class="ingrdntEditList" name="ingrdnts" rows="1">Lorem ipsuolL</textarea> <span class="removeEditItem">x</span>
+                                        
+                                        <span class="circle">○</span> <textarea class="ingrdntEditList" name="ingrdnts" rows="1">Lorem ipsum dolLorem ipsum dolL</textarea> <span class="removeEditItem">x</span>
 
+                                        <span class="circle">○</span> <textarea class="ingrdntEditList" name="ingrdnts" rows="1">Lorem ipsum dolLorem ipsum dolLorem ipsum dol Lorem ipsum dol vLorem ipsum dolLorem ipsum dolLorem ipsum dol Lorem ipsum dolLorem ipl</textarea> <span class="removeEditItem">x</span>
 
-                                       
-                                        <label>Recipe Directions</label>
-                                        <strong class="plusIcon adDirToDirListBttn" title="Click to add item to the list">&#43;</strong>
-                        
+                                        <span class="circle">○</span> <textarea class="ingrdntEditList" name="ingrdnts" rows="1">Lorem ipsum dolLorem ipsum dolLorem ipsum dol Lorem ipsum dol vLorem ipsum dolLorem ipsum dolLorem ipsum  dol Lorem ipsum dolLorem dol Lorem ipsum dolLorem dol Lorem ipsum dolLorem ipl</textarea> <span class="removeEditItem">x</span>
                                     </div>
-                                    
-                                </div>
-                                <div class="btnWrpr">
-                                    <button type="button" class="pre_btn">Previous</button>
-                                    <button type="submit" class="submit_btn">Submit</button>
-                                </div>
-                            </fieldset>
-                        </form>
-                    </div>
-                </div>
+
+                                
+                                <label>Recipe Ingredients</label>
+                                <strong class="plusIcon adIngrdntToListBttn" title="Click to add item to the list">&#43;</strong>
+                            </div>
+                
+                        </div>
+                        <div class="btnWrpr">
+                            <button type="button" class="pre_btn">Previous</button>
+                            <button type="button" class="next_btn">Next</button>
+                        </div>
+                    </fieldset>
+
+                    <fieldset>
+                        <div>
+                            <h2 class="title">Edit recipe</h2>
+                            <p class="subTitle">step 4 - Edit Directions and update!</p>
+                        </div>
+                        
+                        <div class="inputGroup">
+                            
+                            <div class="plusIconParent">
+                                <input type="text" class="dirctnsInput" placeholder=" " required>
+                                    <div class="parent editListItem">
+                                        <span class="circle">○</span> <textarea class="editInputs" name="dirctns" rows="1">Loiet tempore tempora molestias unde, volupta!</textarea><span class="removeEditItem">x</span>
+                                    </div>                                
+                                <label>Recipe Directions</label>
+                                <strong class="plusIcon adDirToDirListBttn" title="Click to add item to the list">&#43;</strong>
+                
+                            </div>
+                            
+                        </div>
+                        <div class="btnWrpr">
+                            <button type="button" class="pre_btn">Previous</button>
+                            <button type="submit" class="submit_btn">Submit</button>
+                        </div>
+                    </fieldset>
+                </form>
             </div>
+        </div>
     </div>
+</div>
 </body>
 </html>
 <script src="https://code.jquery.com/jquery-3.5.1.min.js""></script>
-<script src="../public/script.js">
-  
-</script>
+<script src="../public/script.js"></script>

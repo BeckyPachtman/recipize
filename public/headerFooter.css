@@ -137,6 +137,7 @@ footer p{
     filter: opacity(85%);
     height: 2em;
     margin: .4em .8em;
+    outline: none;
 }
 .socialLinkSection img:hover{
     filter: opacity(50%);

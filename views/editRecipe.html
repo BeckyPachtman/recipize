@@ -6,13 +6,12 @@
     <meta name="description" content="Recipe Manager Platform">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="keywords" content="HTML, CSS, JavaScript, Node.js, Food, Recipes, Organization">
-     <link rel="stylesheet" href="../headerFooter.css">
+    <link rel="stylesheet" href="../headerFooter.css">
     <link rel="stylesheet" href="../modalStyles.css">
     <link rel="stylesheet" href="../generalStyles.css">
     <link rel="stylesheet" href="../recipesDisplay.css">
     <link rel="stylesheet" href="../viewOneRec.css"> 
     <link rel="stylesheet" href="../addEditRec.css">
-   
     <title>Recipize - Edit recipe</title>
 </head>
 <body>
@@ -29,9 +28,9 @@
                                 <li>Step 3</li>
                             </ul>
             
-                            <fieldset id="first">
+                            <fieldset class="visibleFieldset">
                                 <div>
-                                    <h2 class="title">Edit recipe </h2>
+                                    <h2 class="title">Edit &ldquo;<%= recipe.title %>&rdquo; </h2>
                                     <p class="subTitle">step 1 - Edit details</p>
                                 </div>
                                 
@@ -76,13 +75,13 @@
                                 </div>
             
                                 <div class="btnWrpr">
-                                    <button type="button" class="next_btn frstNxtBtn">Next</button>
+                                    <button type="button" class="next_btn frstNxtBtn btnToIng">Next</button>
                                 </div>  
                             </fieldset>
             
-                            <fieldset>
+                            <fieldset class="ingDirFieldsWrrpr">
                                 <div>
-                                    <h2 class="title">Edit recipe</h2>
+                                    <h2 class="title">Edit &ldquo;<%= recipe.title %>&rdquo;</h2>
                                     <p class="subTitle">Step 2 - Edit other details</p>
                                 </div>
                                 
@@ -110,45 +109,64 @@
                                         </div>
                                     </div>
                                     
-                                    <div class="plusIconParent">
+                                    <!-- <div class="plusIconParent">
                                         <input type="text" class="tipsInput" placeholder=" " required>
-                                        <% recipe.tips.forEach(function(item){ %>
-                                            <div class="parent editListItem">
-                                                <span class="circle">○</span>
-                                                <input type="text" name="tips" class="tipEditList" placeholder=" " value="<%= item.trim() %>"><span class="removeEditItem">x</span>
+                                            <div class="tipsInputGroup">
+                                                <% recipe.tips.forEach(function(item){ %>
+                                                <div class="parent editListItem">
+                                                    <span class="circle">○</span>
+                                                    <textarea name="tips" rows="1"><%= item.trim() %></textarea>
+                                                    <span class="removeEditItem">x</span>
+                                                </div>
+                                                <% }); %>
                                             </div>
-                                        <% }); %>
                                         <label>Recipe Tips</label>
                                         <strong class="plusIcon addTiptoListBttn" title="click to add item to the list">&#43;</strong>
+                                    </div> -->
+
+                                    <div class="plusIconParent">
+                                        <input type="text" class="ingrdntsInput" placeholder=" " required>
+                                            <div class="tipsInputGroup">
+                                                <% recipe.tips.forEach(function(item){ %>
+                                                    <div class="parent editListItem">
+                                                        <span class="circle">○</span>
+                                                        <textarea name="tips" rows="1"><%= item.trim() %></textarea>
+                                                        <span class="removeEditItem">x</span>
+                                                    </div>
+
+                                                <% }); %>
+                                            </div>
+                                        <label>Recipe Tips</label>
+                                        <strong class="plusIcon adIngrdntToListBttn" title="Click to add item to the list">&#43;</strong>
                                     </div>
+
                                     
                                 </div>
                                 
                                 <div class="btnWrpr">
                                     <button type="button" class="pre_btn">Previous</button>
-                                    <button type="button" class="next_btn" title="Continue to ingredients and directions">Next</button>
+                                    <button type="button" class="next_btn btnToIng" title="Continue to ingredients and directions">Next</button>
                                 </div>
                             </fieldset>
             
-                            <fieldset>
+                            <fieldset class="ingDirFieldsWrrpr">
                                 <div>
-                                    <h2 class="title">Edit recipe</h2>
-                                    <p class="subTitle">step 3 - Edit ingredients, directions and update!</p>
+                                    <h2 class="title">Edit &ldquo;<%= recipe.title %>&rdquo;</h2>
+                                    <p class="subTitle">step 3 - Edit ingredients</p>
                                 </div>
-                                
                                 <div class="inputGroup">
                                     <div class="plusIconParent">
                                         <input type="text" class="ingrdntsInput" placeholder=" " required>
-                                        <% recipe.ingrdnts.forEach(function(item){ %>
-                                            <!-- <div class="parent editListItem">
-                                                <span class="circle">○</span> <input type="text" name="ingrdnts" class="ingrdntEditList" placeholder=" " value="<%= item.trim() %>"><span class="removeEditItem">x</span>
-                                            </div> -->
+                                            <div class="ingInputGroup">
+                                                <% recipe.ingrdnts.forEach(function(item){ %>
+                                                    <div class="parent editListItem">
+                                                        <span class="circle">○</span>
+                                                        <textarea class="ingrdntEditList" name="ingrdnts" rows="1"><%= item.trim() %></textarea>
+                                                        <span class="removeEditItem">x</span>
+                                                    </div>
 
-                                            <div class="parent editListItem">
-                                                <span class="circle">○</span> <textarea id="ingrdntEditList" class="ingrdntEditList" name="ingrdnts" rows="1"><%= item.trim() %></textarea> <span class="removeEditItem">x</span>
+                                                <% }); %>
                                             </div>
-
-                                        <% }); %>
                                         <label>Recipe Ingredients</label>
                                         <strong class="plusIcon adIngrdntToListBttn" title="Click to add item to the list">&#43;</strong>
                                     </div>
@@ -156,31 +174,27 @@
                                 </div>
                                 <div class="btnWrpr">
                                     <button type="button" class="pre_btn">Previous</button>
-                                    <button type="button" class="next_btn">Next</button>
+                                    <button type="button" class="next_btn btnToDir">Next</button>
                                 </div>
                             </fieldset>
 
-                            <fieldset>
+                            <fieldset class="ingDirFieldsWrrpr">
                                 <div>
-                                    <h2 class="title">Edit recipe</h2>
+                                    <h2 class="title">Edit &ldquo;<%= recipe.title %>&rdquo;</h2>
                                     <p class="subTitle">step 4 - Edit Directions and update!</p>
                                 </div>
-                                
                                 <div class="inputGroup">
-                                    
                                     <div class="plusIconParent">
-                                        <input type="text" class="dirctnsInput" placeholder=" " required>
-                                        <% recipe.dirctns.forEach(function(item){ %>
-                                             <!--<div class="parent editListItem">
-                                                <span class="circle">○</span> <input type="text" name="dirctns" class="editInputs" placeholder=" " value="<%= item.trim() %>" ><span class="removeEditItem">x</span>
-                                            </div> -->
-
-                                            <div class="parent editListItem">
-                                                <span class="circle">○</span> <textarea class="editInputs" name="dirctns" rows="1"><%= item.trim()%></textarea><span class="removeEditItem">x</span>
+                                        <input type="text" class="ingrdntsInput" placeholder=" " required>
+                                            <div class="ingInputGroup2">
+                                                <% recipe.dirctns.forEach(function(item){ %>
+                                                    <div class="parent editListItem">
+                                                        <span class="circle">○</span>
+                                                        <textarea class="editInputs" name="dirctns" rows="1"><%= item.trim()%></textarea>
+                                                        <span class="removeEditItem">x</span>
+                                                    </div>
+                                                <% }); %>
                                             </div>
-
-
-                                        <% }); %>
                                         <label>Recipe Directions</label>
                                         <strong class="plusIcon adDirToDirListBttn" title="Click to add item to the list">&#43;</strong>
                         
@@ -188,7 +202,7 @@
                                     
                                 </div>
                                 <div class="btnWrpr">
-                                    <button type="button" class="pre_btn">Previous</button>
+                                    <button type="button" class="pre_btn preToIng">Previous</button>
                                     <button type="submit" class="submit_btn">Submit</button>
                                 </div>
                             </fieldset>

@@ -218,3 +218,7 @@ Recipe successfully deleted
 Recipe successfully deleted
 Recipe successfully deleted
 Recipe successfully deleted
+New user successfully created
+New recipe successfully created
+New recipe successfully created
+New recipe successfully created

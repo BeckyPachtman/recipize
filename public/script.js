@@ -1,66 +1,45 @@
 $(document).ready(() =>{
 
-    /*
-    This function checks if the page you are currently on has the id of index page.
-    It will only run the open and close modal function if it indeed finds the id on that page
-    */
-    if(document.getElementById('indexPage')!=null){
-        openClosemodal()
-    }
-    /*
-    This function opens and closes the user login and signup modal window
-    */
-    function openClosemodal(){
-        const open = document.querySelector('[data-open]');
-        const close = document.querySelectorAll('[data-close]');
-        const modalVisible = 'modalVisible';
+    //only this on editRecipe page works fine
+    //if add id first to other filedset with this on works fine
 
-        open.addEventListener('click', function(){
-            const modalId = this.dataset.open;
-            document.getElementById(modalId).classList.add(modalVisible)
-        })
+    $(function() {
+        $('textarea').each(function() {
+            $(this).height($(this).prop('scrollHeight'));
+        });
+    });
 
-        for(const eachButton of close){
-            eachButton.addEventListener('click', () =>{
-                document.getElementById('modal').classList.remove(modalVisible)
-            })
+
+    //nav and footer functions
+    $('.userOptions').hide()
+    $('.userName').on('click', function(){
+        $('.userOptions').fadeToggle()
+    })
+
+    ///sticky nav
+   // var stickyNavTop = $('.nav').offset().top;
+    var stickyNavTop = 50;
+    var stickyNav = function(){
+        var scrollTop = $(window).scrollTop();
+        if (scrollTop > stickyNavTop) { 
+            $('.nav').addClass('sticky');
+            $('.nav a').addClass('stickyLinks');
+            $('.nav img:first-child').css('display', 'none');
+            $('.nav img:last-child').css('display', 'block');
+         
+        } else {
+            $('.nav').removeClass('sticky'); 
+            $('.nav a').removeClass('stickyLinks'); 
+            $('.nav img').removeClass('stickyLogo');
+            $('.nav img:first-child').css('display', 'block');
+            $('.nav img:last-child').css('display', 'none');
         }
-    }
-    /*
-    This function allows you to switch between both the login and signup form in the modal window.
-    It will dispaly the appropiate form acording to what you specify
-    */
-
-    $('.tab a').on('click', function(){   
-        $(this).parent().addClass('active')
-        $(this).parent().siblings().removeClass('active')
-        var href = $(this).attr('href')
-        $('.formWrapper').hide()
-        $(href).fadeIn(500)
-    })
-
-    $('.signUpButton').on('click', function(){
-        $('.signUpFormWrapper').css('display', 'flex')
-    })
-    $('.loginButton').on('click', function(){
-        $('.loginFormWrapper').css('display', 'flex')
-    })
-    /*
-    This function clears the appropiate form when the reset button on the form is clicked
-    */
-    $('.reset').on('click', function(){
-        $('.eachInput input').val('')
-        $('.errMsg').css('display', 'none')
-    })
-    /*
-    This function toggles the forms' password visiblity
-    */
-    $('.showHidePassIcon').on('click', function(){
-        var passwordField = $('.password');
-        var passAtr = passwordField.attr('type') === 'password' ? 'text' : 'password'
-        passwordField.attr('type', passAtr)
-        $('.showHidePassIcon img').toggle()
-    })
+    };
+    stickyNav();
+    $(window).scroll(function() {
+        stickyNav();
+    });
+    
     /*
     This function adds a scrollbar when viewing one recipe and the directions get longer than a specified height
     */
@@ -85,15 +64,12 @@ $(document).ready(() =>{
             $('.igUl').addClass('listWrapprScrollbar')
         }
     })
-       
+    
     $('.adDirToDirListBttn').on('click', function(){
         if($('.dirOl').height() > 250){
             $('.dirOl').addClass('listWrapprScrollbar')
         }
     })
-
-    
-
     /*
     This function toggles a recipe's image visibilty
     */
@@ -105,139 +81,55 @@ $(document).ready(() =>{
        $('.iconWrapperSingleRec div button, .iconWrapperSingleRec div a').toggleClass('recImageVisible')
        $('.details').toggleClass('detailsScrollbarImgVsbl')
     })
-
-    /*
-    This function takes each recipe ingredient as you add it to a new recipe and let's 
-    you click enter to let the new ingredient be displayed as a list undernath the field
-    togethor with all the other ingredients until you submit
-    */
-
-    /*Activats next/previous buttons on form*/
-    $('.next_btn').click(function(){
-        $(this).parent().parent().next().css({'display': 'flex'})
-        $(this).parent().parent().css({'display': 'none'})
     
-        $('.active').next().addClass('active')
+
+    /*Activats next/previous buttons on form .*/
+    $('button[class^="next_btn"]:not(.btnToIngrdnts)').click(function(){
+        $(this).parent().parent().next().css('display', 'flex')
+        $(this).parent().parent().css('display', 'none')
+       $('.active').next().addClass('active')
+    })
+
+    $('.btnToIng').on('click', function(){
+        $(this).parent().parent().next().css({'visibility': 'visible', 'overflow': 'visible', 'height': 574})
+        $(this).parent().parent().css('display', 'none')
+    })
+
+    $('.btnToDir').on('click', function(){
+        $(this).parent().parent().next().css({'visibility': 'visible', 'overflow': 'visible', 'height': 574})
+        $(this).parent().parent().css('visibility', 'hidden')
+    })
+
+    $('.preToIng').on('click', function(){
+        $(this).parent().parent().prev().css({'visibility': 'visible', 'overflow': 'visible', 'height': 574})
+        $(this).parent().parent().css('display', 'none')
     })
 
     $('.pre_btn').click(function(){
-        $(this).parent().parent().prev().css({'display': 'flex'})
-        $(this).parent().parent().css({'display': 'none'})
-        
+        $(this).parent().parent().prev().css('display', 'flex')
+        $(this).parent().parent().css('display', 'none')
         $('.active:last').removeClass('active')
     })
 
-    /*Add items to tips, ingredients, directions list */
-    var ingrdntsInput = $('.ingrdntsInput');
-    var dirctnsInput = $('.dirctnsInput');
-    var tipsInput = $('.tipsInput');
-
-    function addIngrdntToList(){
-        liStr = $(document.createElement('li')).text($(ingrdntsInput).val()).appendTo('.igUl');
-
-        var liStrToInput = $('<input type="hidden"/>').attr({
-            name: 'ingrdnts'
-        }).appendTo('form');
-
-        $(liStrToInput).val(liStr.text());
-        
-        /*
-        This part of the function empties the ingredient field
-        every time you add the current ingredient to the ingredient list in the form 
-        */
-        $(ingrdntsInput).val(' ')
-        $(ingrdntsInput).focus();
-
-        /*
-        This function displays an x icon to delete an ingredient that we added to the list but decided to remove
-        */
-        var deleteIng = $(document.createElement('span')).text('x').prependTo(liStr);
-        $(deleteIng).addClass('deleteListItem')
-
-        $(deleteIng).on('click', function(){
-            $(this).parent().remove()
-            $(liStrToInput).remove()
-        })
-    }
-
-    $('.adIngrdntToListBttn').on('click', function(){
-        addIngrdntToList();
-    });
-
-    $(ingrdntsInput).keydown(function(e){
-        if(e.keyCode == 13){
-            addIngrdntToList()
-            e.preventDefault()
-        }
-    })
-    /*
-    This function takes each recipe direction as you add it to a new recipe and let's 
-    you click enter to let the new direction be displayed as a list undernath the field
-    togethor with all the other directions specified until you submit
-    */
-
-    function addLDirToDirList(){
-        DirLiStr = $(document.createElement('li')).text($(dirctnsInput).val()).appendTo('.dirOl');
-
-        var DirliStrToInput = $('<input type="hidden" />').attr({
-            name: 'dirctns'
-        }).appendTo('form');
-
-        $(DirliStrToInput).val(DirLiStr.text());
-
-        var deleteIng = $(document.createElement('span')).text('x').prependTo(DirLiStr);
-        $(deleteIng).addClass('deleteListItem')
-
-        $(deleteIng).on('click', function(){
-            $(this).parent().remove()
-            $(DirliStrToInput).remove()
-        })
-        $(dirctnsInput).val(' ')
-        $(dirctnsInput).focus()
-    }
-
-    $('.adDirToDirListBttn').on('click', function(){
-        addLDirToDirList();
-    });
     
-    $(dirctnsInput).keydown(function(e){
-        if(e.keyCode == 13){
-            addLDirToDirList()
-            e.preventDefault()
+    if($('.tipsInputGroup').height() > 100){
+            $('.tipsInputGroup').addClass('recipeTipEditScrlbr')
         }
-    })
 
-    function addTipstoTipsList(){
-        tipsList = $(document.createElement('li')).text($(tipsInput).val()).appendTo('.tipUl');
-
-        var tipsListToInput = $('<input type="hidden" />').attr({
-            name: 'tips'
-        }).appendTo('form');
-
-        $(tipsListToInput).val(tipsList.text());
-
-        var deleteIng = $(document.createElement('span')).text('x').prependTo(tipsList);
-        $(deleteIng).addClass('deleteListItem')
-
-        $(deleteIng).on('click', function(){
-            $(this).parent().remove()
-            $(tipsListToInput).remove()
-        })
-        $(tipsInput).val(' ')
-        $(tipsInput).focus()
+    if($('.ingInputGroup').height() > 270){
+        $('.ingInputGroup').addClass('recipeIngDirEditScrlbr')
     }
 
-    $('.addTiptoListBttn').on('click', function(){
-        addTipstoTipsList();
-    });
-    
-    $(tipsInput).keydown(function(e){
-        if(e.keyCode == 13){
-            addTipstoTipsList()
-            e.preventDefault()
-        }
-    })
+console.log($('.ingInputGroup2').height());
+  
 
+    if($('.ingInputGroup2').height() > 250){
+        $('.ingInputGroup2').css('overflow-y', 'scroll')         
+    }
+    
+    if($('.ingInputGroup2').height() < 50){
+        $('.ingInputGroup2').css('overflow-y', 'hidden')         
+    }
     /*
     This function displays the 'delete a recipe confirmation window' when clicking the delete a recipe icon
     */
@@ -277,8 +169,8 @@ $(document).ready(() =>{
 
 
     /*
-    This function takes the select values and puts them into inputs so we ca get their values to the form easier
-    */
+    This function takes the select values and puts them into inputs so we can get their values to the form easier
+    
     var prpTimeSelect = $('<input type="hidden"/>').attr({
         name: 'recipe[prpTimeSlct]'
     }).appendTo('form')
@@ -302,17 +194,17 @@ $(document).ready(() =>{
         name: 'recipe[dirctns]'
     }).appendTo('form');
 
-    rToInput.val($('dirctnLiTxt').text())
+    rToInput.val($('dirctnLiTxt').text())*/
 
-     var deleteItm = $('.removeEditItem');
 
-     $(deleteItm).on('click', function(){
-         $(this).parent().children().remove()
-     })
+    var deleteItm = $('.removeEditItem');
+        $(deleteItm).on('click', function(){
+            $(this).parent().children().remove()
+    })
 
     /*
     This function helps add ingredients to the list to edit an then update the recipe
-    */
+    
     var editAdIngrdntInpt = $('.editAdIngrdntInpt')
    
     function editAddNewItem(){
@@ -337,11 +229,11 @@ $(document).ready(() =>{
             editAddNewItem()
             e.preventDefault()
         }
-    })
+    })*/
 
     /*
     This function helps add ingredients to the list to edit an then update the recipe
-    */
+    */    
     var editAdDirctnInpt = $('.editAdDirctnInpt')
    
     function editAddNewItemDrctn(){
@@ -368,202 +260,20 @@ $(document).ready(() =>{
         }
     })
 
-    var recipeTitle = $('.recipeTitle').text()
-    var recipeTitle2 = document.querySelectorAll('.recipeTitle')
-
-    
-    //var splitTitle = recipeTitle.split(',')
-    
-    //console.log(splitTitle);
-
-    var searchInput = $('.navSearchInput');
-       
-    
-    // splitTitle.forEach(function(){
-    //     console.log($(this));
-    // })
-
-//     $(searchInput).on('keyup', function(e){
-
-//     var recTitle = document.querySelectorAll('.recipeTitle')
-
-//     for(var i = 0; i < recTitle.length; i++){
-//         //console.log(recTitle[i]);
-//     var splitRecipe = recTitle[i]
-// console.log(splitRecipe);
-
-
-//         var searchInputText = e.target.value.toLowerCase();
-
-//         if($(recTitle).toLowerCase().includes(searchInputText)){
-//             console.log(searchInputText);
-//             console.log(recipeTitle[i]);
-//         }else{
-//             console.log('none');
-//         }
-
-//      }   
-
-        // var filteredTitles = splitTitle.filter(function(){
-        //     return(
-        //         recipeTitle.toLowerCase().includes(searchInputText)
-        //     )
-        // })
-        // console.log(filteredTitles);
-    
-        
-  //  }) 
-
-
-
-    // var arr = [];
-    // for (i = 0; i < recipeTitle2.length; i++) {
-    //     arr.push(recipeTitle2[i]);
-        
-    //     var iterator = arr.values()
-
-    //     for (const value of iterator) {
-    //             //console.log(value);
-        
-    //         $(searchInput).on('keyup', function(e){
-    //             var searchInputText = e.target.value;
-            
-
-    //         var filteredTitles = arr.filter(function(){
-    //             return(
-    //                 value.includes(searchInputText)
-    //             )
-    //         })
-    //             //console.log(arr);
-    //             //console.log(filteredTitles);
-    //         })
-    //     }
-    // }
-    //this worked originally
-    // if(recipeTitle.toLowerCase().includes(searchInputText)){
-    //     console.log(searchInputText);
-    // }else{
-    //     console.log('none');
-    // }
-
-    $('.userOptions').hide()
-    $('.userName').on('click', function(){
-        $('.userOptions').fadeToggle()
-    })
-
-    ///sticky nav
-   // var stickyNavTop = $('.nav').offset().top;
-    var stickyNavTop = 50;
-    var stickyNav = function(){
-        var scrollTop = $(window).scrollTop();
-        if (scrollTop > stickyNavTop) { 
-            $('.nav').addClass('sticky');
-            $('.nav a').addClass('stickyLinks');
-            $('.nav img:first-child').css('display', 'none');
-            $('.nav img:last-child').css('display', 'block');
-            
-        } else {
-            $('.nav').removeClass('sticky'); 
-            $('.nav a').removeClass('stickyLinks'); 
-            $('.nav img').removeClass('stickyLogo');
-            $('.nav img:first-child').css('display', 'block');
-            $('.nav img:last-child').css('display', 'none');
-        }
-    };
-    stickyNav();
-    $(window).scroll(function() {
-        stickyNav();
-    });
+    var selectName = $('.editSelectValue').find(":selected").text();
+        if(selectName === 'Servings'){
+            $('.selectServings').css('display', 'none')
+        }else if(selectName === 'Other' || selectName === 'Minutes'){
+            $('.selectOther').css('display', 'none')
+    }
 
     if(/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)) {
         var device = 'api'
-    }else{
-           device = 'web'
-    }
+        }else{
+            device = 'web'
+        }
     $('a.footerWhApp').attr('href', 'https://'+device+'.whatsapp.com/send?phone=972533402859&text&source&data&app_absent');
-      
-     //const editSelectValue = $().val
-    // if(editSelectValue === 'Servings'){
-    //     console.log('ser' + editSelectValue.value);
-    // }else{
-    //     console.log('not ser' + editSelectValue);
-    // }
-    
-    var selectName = $('.editSelectValue').find(":selected").text();
-    if(selectName === 'Servings'){
-        $('.selectServings').css('display', 'none')
-    }else if(selectName === 'Other' || selectName === 'Minutes'){
-        $('.selectOther').css('display', 'none')
-    }
-  
-    
-    // $('.editInputs textarea').each(function(){
-    //     this.setAttribute('style', 'height:' + (this.scrollHeight) + 'px:overflow-y:hidden')
-    // }).on('input', function(){
-    //     this.style.height = 'auto';
-    //     this.style.height = (this.scrollHeight + 'px')
-    // })
-
-
-    
-//     $('textarea').each(function(){
-       
-//     //     var txt = $(this).val(); 
-//     //    console.log(txt);
-
-
-//       // console.log(this);
-//        //console.log($(txt).length());
-    
-
-
-//         var maxlength = 8;
-//         var currentLength = $(this).val().length;
-    
-//         if( currentLength >= maxlength ){
-//           //  console.log("You have reached the maximum number of characters.");
-//             //$(this).css({'overflow-wrap': 'break-word'})
-//             //$(this).css('overflow', 'visible')
-//             //$(this).html += '</br>';
-
-// document.createElement('input');
-//           //  var extra = currentLength-maxlength;
-//           //  console.log(extra);
-//            // console.log(extra.val().length);
-//             $(this).css('color', 'red')
-//             $(this).height('2em')
-//        $(currentLength).remove()
-//           console.log(this.innerHTML);
-//           ///var so = 
-
-//             //$("<h1>you</h1>").insertAfter(maxlength);
-//         }else{
-//             //console.log(maxlength - currentLength + " chars left");
-
-//         }
 
         
-        
-        
-//     })
-
-$(function() {
-    $('.editListItem textarea').each(function() {
-        $(this).height($(this).prop('scrollHeight'));
-    });
-
-    $('.editInpits').each(function() {
-        $(this).height($(this).prop('scrollHeight'));
-    });
-});
-
-
-$(function() {
-    $('textarea').each(function() {
-        $(this).height($(this).prop('scrollHeight'));
-    });
-});
-
-
 })
 
