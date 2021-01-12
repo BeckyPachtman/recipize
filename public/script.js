@@ -1,14 +1,10 @@
 $(document).ready(() =>{
 
-    //only this on editRecipe page works fine
-    //if add id first to other filedset with this on works fine
-
     $(function() {
         $('textarea').each(function() {
             $(this).height($(this).prop('scrollHeight'));
         });
     });
-
 
     //nav and footer functions
     $('.userOptions').hide()
@@ -63,39 +59,57 @@ $(document).ready(() =>{
     $(tipsInput).keydown(function(e){
         if(e.keyCode == 13 && $('.tipUl').height() > 80){
             e.preventDefault()
-            $('.tipUl').addClass('listWrapprScrollbar listWrapprTipScrollbar')
+            $('.addTipUl').addClass('listWrapprScrollbar listWrapprTipScrollbar')
+            $('.editTipsInputGroup').addClass('recipeEditScrlbr')
         }
     })   
+
     $('.addTiptoListBttn').on('click', function(){
         if($('.tipUl').height() > 80){
-            $('.tipUl').addClass('listWrapprScrollbar listWrapprTipScrollbar')
+            $('.addTipUl').addClass('listWrapprScrollbar listWrapprTipScrollbar')
+            $('.editTipsInputGroup').addClass('recipeEditScrlbr')
         }
     })
+
 
     $(ingrdntsInput).keydown(function(e){
         if(e.keyCode == 13 && $('.igUl').height() > 250){
             e.preventDefault()
-            $('.igUl').addClass('listWrapprScrollbar')
+            $('.addIgUl').addClass('listWrapprScrollbar')
         }
+
+        if(e.keyCode == 13 && $('.igUl').height() > 50){
+            e.preventDefault()
+            $('.editTipsInputGroup').addClass('listWrapprScrollbar')
+        }
+
     })
+
     $('.adIngrdntToListBttn').on('click', function(){
         if($('.igUl').height() > 250){
-            $('.igUl').addClass('listWrapprScrollbar')
+            $('.addIgUl').addClass('listWrapprScrollbar')
         }
+
+        if($('.igUl').height() > 50){
+            $('.editTipsInputGroup').addClass('listWrapprScrollbar')
+        }
+
     })
 
     $(dirctnsInput).keydown(function(e){
         if(e.keyCode == 13){
             e.preventDefault()
             if($('.dirOl').height() > 250){
-                $('.dirOl').addClass('listWrapprScrollbar')
+                $('.addDirOl').addClass('listWrapprScrollbar')
+                $('.editTipsInputGroup').addClass('recipeEditScrlbr')
             }
         }
     })
     
     $('.adDirToDirListBttn').on('click', function(){
         if($('.dirOl').height() > 250){
-            $('.dirOl').addClass('listWrapprScrollbar')
+            $('.addDirOl').addClass('listWrapprScrollbar')
+            $('.editTipsInputGroup').addClass('recipeEditScrlbr')
         }
     })
     /*
@@ -139,7 +153,7 @@ $(document).ready(() =>{
         $('.active:last').removeClass('active')
     })
 
-    
+   
     if($('.tipsInputGroup').height() > 100){
             $('.tipsInputGroup').addClass('recipeTipEditScrlbr')
         }
@@ -204,13 +218,44 @@ $(document).ready(() =>{
         $('.ttlTmeMinSpan').css('display', 'none')
     }
 
+    //recipeTitle
+//$('.oneRecipeDisplayWrapper').css('width', 'auto')
+    $(".searchRecipes").on("keyup", function() {
+        var value = $(this).val().toLowerCase();
+
+        $(".recipeDisplay").filter(function() {
+          //$(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+          //$(this).css('width', '100%')
+          
+        });
+
+        console.log($(this).val().toLowerCase());
+    });
 
 
-    /*
-    This function check if the recipe total time minutes is 1 and changes the word minutes to minutes
-    It checks if the minutes are mising and removes the word althogethor in that case
-    */
+      $(".searchRecipes").on("keyup", function () {
+        var v = $(this).val();
 
+        console.log(v);
+        $(".searchResult").removeClass("searchResult");
+        $('.recipeDisplay .recipeTitle').parent().parent().removeClass('searchNotResult')
+        $('.recipeDisplay .recipeTitle').parent().parent().parent().removeClass('resultRecipeWrapper')
+        $('.recipeDisplay .recipeTitle').parent().parent().removeClass('resultRecipe')
+
+
+        $(".recipeDisplay .recipeTitle").each(function () {
+            if (v != "" && $(this).text().search(new RegExp(v,'gi')) != -1) {
+               // $('.recipeDisplay .recipeTitle').not($(this))
+                $('.recipeDisplay .recipeTitle').not($(this)).parent().parent().addClass('searchNotResult')
+                $(this).addClass("searchResult");
+
+                $(this).parent().parent().parent().addClass('resultRecipeWrapper')
+                $(this).parent().parent().addClass('resultRecipe')
+
+                console.log($('.recipeDisplay .recipeTitle').not($(this)));
+            }
+        });
+    });
 
  
 

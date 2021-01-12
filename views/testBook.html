@@ -15,80 +15,49 @@
     <title>Recipize - Edit recipe</title>
 </head>
 <body>
+<style>
+.on-page-search {
+    width: 100%;
+    font-size: 14px;
+    line-height: 26px;
+    color: #787d85;
+    background-color: #fcfcfc;
+    border: 1px solid #e0e1e1;
+    padding: 5px 15px;
+}
+
+/* Style the list */
+.demo-links {
+    border-bottom: none;
+    padding: 5px 5px;
+    line-height: 36px;
+}
+
+/* Style the results */
+.results {
+    background: #de1919;
+    color: white;
+}
+
+.searchNotResult{
+    display: none;
+}
+</style>
 <div class="pageBody">
     <div class="mainContent recMainContent">
         <div class="content">
             <div class="main">
-                <span class="msg"></span>
-                <form action="/editRecipe/<%=recipe._id%>?_method=PUT" method="POST" class="recipeForm">
-    
-                    <fieldset class="visibleFieldset">
 
-                        first one
+                <input class="on-page-search"></input>
 
-                        <div class="btnWrpr">
-                            <button type="button" class="pre_btn">Previous</button>
-                            <button type="button" class="next_btn btnToIngrdnts">Next</button>
-                        </div>
-                    </fieldset>
-                    <fieldset class="ingFieldsWrrpr">
-                        <div>
-                            <h2 class="title">Edit recipe</h2>
-                            <p class="subTitle">step 3 - Edit ingredients</p>
-                        </div>
-                        
-                        <div class="inputGroup">
-                            <div class="plusIconParent">
-                                <input type="text" class="ingrdntsInput" placeholder=" " required>
-                                
+                <div>
+                    <p class="demo-links res">Lorem Home ipsum dolor sit amet consectetur adipisicing elit. Earum, ex.</p>
+                    <p class="demo-links res">Lorem Street ipsum dolor sit amet.</p>
+                    <p class="demo-links res">Lorem, Pachtman ipsum dolor sit amet consectetur adipisicing elit.</p>
+                    <p class="demo-links res">Lorem Bracha  ipsum dolor sit amet consectetur adipisicing elit. Fugit distinctio architecto aliquam facilis quasi eligendi</p>
+                    <p class="demo-links res">Garden</p>
+                </div>
 
-                                    <div class="parent editListItem">
-                                        <span class="circle">○</span> <textarea class="ingrdntEditList" name="ingrdnts" rows="1">Lorem ipsuolL</textarea> <span class="removeEditItem">x</span>
-                                        
-                                        <span class="circle">○</span> <textarea class="ingrdntEditList" name="ingrdnts" rows="1">Lorem ipsum dolLorem ipsum dolL</textarea> <span class="removeEditItem">x</span>
-
-                                        <span class="circle">○</span> <textarea class="ingrdntEditList" name="ingrdnts" rows="1">Lorem ipsum dolLorem ipsum dolLorem ipsum dol Lorem ipsum dol vLorem ipsum dolLorem ipsum dolLorem ipsum dol Lorem ipsum dolLorem ipl</textarea> <span class="removeEditItem">x</span>
-
-                                        <span class="circle">○</span> <textarea class="ingrdntEditList" name="ingrdnts" rows="1">Lorem ipsum dolLorem ipsum dolLorem ipsum dol Lorem ipsum dol vLorem ipsum dolLorem ipsum dolLorem ipsum  dol Lorem ipsum dolLorem dol Lorem ipsum dolLorem dol Lorem ipsum dolLorem ipl</textarea> <span class="removeEditItem">x</span>
-                                    </div>
-
-                                
-                                <label>Recipe Ingredients</label>
-                                <strong class="plusIcon adIngrdntToListBttn" title="Click to add item to the list">&#43;</strong>
-                            </div>
-                
-                        </div>
-                        <div class="btnWrpr">
-                            <button type="button" class="pre_btn">Previous</button>
-                            <button type="button" class="next_btn">Next</button>
-                        </div>
-                    </fieldset>
-
-                    <fieldset>
-                        <div>
-                            <h2 class="title">Edit recipe</h2>
-                            <p class="subTitle">step 4 - Edit Directions and update!</p>
-                        </div>
-                        
-                        <div class="inputGroup">
-                            
-                            <div class="plusIconParent">
-                                <input type="text" class="dirctnsInput" placeholder=" " required>
-                                    <div class="parent editListItem">
-                                        <span class="circle">○</span> <textarea class="editInputs" name="dirctns" rows="1">Loiet tempore tempora molestias unde, volupta!</textarea><span class="removeEditItem">x</span>
-                                    </div>                                
-                                <label>Recipe Directions</label>
-                                <strong class="plusIcon adDirToDirListBttn" title="Click to add item to the list">&#43;</strong>
-                
-                            </div>
-                            
-                        </div>
-                        <div class="btnWrpr">
-                            <button type="button" class="pre_btn">Previous</button>
-                            <button type="submit" class="submit_btn">Submit</button>
-                        </div>
-                    </fieldset>
-                </form>
             </div>
         </div>
     </div>
@@ -96,4 +65,21 @@
 </body>
 </html>
 <script src="https://code.jquery.com/jquery-3.5.1.min.js""></script>
-<script src="../public/script.js"></script>
+<script type='text/javascript'>
+jQuery(document).ready(function($) {
+    $(".on-page-search").on("keyup", function () {
+        var v = $(this).val();
+
+        $(".results").removeClass("results");
+        $('.demo-links').removeClass('searchNotResult')
+
+        $(".demo-links").each(function () {
+            if (v != "" && $(this).text().search(new RegExp(v,'gi')) != -1) {
+                $('.demo-links').not($(this)).addClass('searchNotResult')
+                $(this).addClass("results");
+            }
+        });
+    });
+});
+    
+    </script>

@@ -15,7 +15,6 @@ $(document).ready(() =>{
         $(tipsListToInput).val(tipsList.text());
 
         var deleteIng = $(document.createElement('span')).text('x').prependTo(tipsList);
-        $(deleteIng).addClass('deleteListItem')
 
         $(deleteIng).on('click', function(){
             $(this).parent().remove()
@@ -58,7 +57,6 @@ $(document).ready(() =>{
         /*This function displays an x icon to delete an ingredient that we added to the list but decided to remove*/
 
         var deleteIng = $(document.createElement('span')).text('x').prependTo(liStr);
-        $(deleteIng).addClass('deleteListItem')
 
         $(deleteIng).on('click', function(){
             $(this).parent().remove()
@@ -91,7 +89,6 @@ $(document).ready(() =>{
         $(DirliStrToInput).val(DirLiStr.text());
 
         var deleteIng = $(document.createElement('span')).text('x').prependTo(DirLiStr);
-        $(deleteIng).addClass('deleteListItem')
 
         $(deleteIng).on('click', function(){
             $(this).parent().remove()

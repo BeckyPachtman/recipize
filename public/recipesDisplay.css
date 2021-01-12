@@ -19,6 +19,8 @@
     flex-wrap: wrap;
     margin: 3em auto 0;
     max-width: 75vw;
+
+    position: relative;
 }
 .oneRecipeDisplayWrapper{
     align-items: center;
@@ -104,4 +106,34 @@
 .iconWrapper a img{
     height: 1.15em;
     margin: .2em 0 0 .12em;
+}
+.resultRecipeWrapper{
+    display: flex;
+    /* justify-content: center; 
+    align-items: center;*/
+    margin: 0 auto;
+    position: absolute;
+    top: 0em; 
+    min-height: 10px;
+
+    border: solid 1px red;
+
+    display: flex;
+    flex-wrap: nowrap;
+    /* width: 75vw; */
+
+}
+.resultRecipe{
+    width: 350.34px;
+    border: solid 1px green;
+    /* position: relative; */
+}
+.searchResult {
+    
+    color: white;
+   
+    
+}
+.searchNotResult{
+    visibility: hidden;
 }

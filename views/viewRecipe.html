@@ -32,17 +32,29 @@
                                     <div class="timingSpecific">
                                         <div>
                                             <h4>Prep Time</h4>
-                                            <p><span class="prpTimeHrs"><%= recipe.prpTimeHrs %></span> <span class="prpTimeMin"><%= recipe.prpTimeMin %></span></p>
+                                            <p>
+                                                <span class="prpTimeHrs"><%= recipe.prpTimeHrs %></span>
+                                                <span class="prpTmeHrsSpan">Hours</span>
+                                                <span class="prpTimeMin"><%= recipe.prpTimeMin %></span>
+                                                <span class="prpTmeMinSpan">Minutes</span> 
+                                            </p>
                                         </div>
                                         <div>
                                             <h4>Cook Time</h4>
-                                            <p><span class="ckTimeHrs"><%= recipe.ckTimeHrs %></span> <span class="ckTimeMin"><%= recipe.ckTimeMin %></span></p>
+                                            <p>
+                                                <span class="ckTimeHrs"><%= recipe.ckTimeHrs %></span>
+                                                <span class="ckTmeHrsSpan">Hours</span>
+                                                <span class="ckTimeMin"><%= recipe.ckTimeMin %></span>
+                                                <span class="ckTmeMinSpan">Minutes</span>
+                                            </p>
                                         </div>
                                         <div>
                                             <h4>Total Time</h4>
                                             <p>
-                                                <span class="ttlTimeHrs"><%= recipe.ttlTimeHrs %></span></span>
-                                                <span class="ttlTimeMin"><%= recipe.ttlTimeMin %></span></span>
+                                                <span class="ttlTimeHrs"><%= recipe.ttlTimeHrs %></span>
+                                                <span class="ttlTmeHrsSpan">Hours</span>
+                                                <span class="ttlTimeMin"><%= recipe.ttlTimeMin %></span>
+                                                <span class="ttlTmeMinSpan">Minutes</span>
                                             </p>
                                         </div>
                                     </div>
@@ -65,7 +77,7 @@
                                     <ul>
                                         <% recipe.tips.forEach(function(tip){ %>
                                             <li><%= tip %></li>
-                                    <% }); %>
+                                        <% }); %>
                                     </ul>
                                 </div>
                             </div>
@@ -79,18 +91,18 @@
                                             <li><%= Direction %></li>
                                     <% }); %>
                                 </ol>
-                                    <div class="iconWrapperSingleRec">
-                                        <div>
-                                            <button type="button" id="delRec" title="Delete" class="deleteRecConfirm"><img src="../resources/images/delete.png"></button>
-                                        </div>
-                                        <div>
-                                            <a href="/edit/<%= recipe._id%>"><img src="../resources/images/edit.png" class="editIcon" title="Edit"></a>
-                                        </div>
-                                        
-                                        <div>
-                                            <img src="../resources/images/image.png" alt="see more" title="Recipe image" class="viewImage">
-                                        </div>
+                                <div class="iconWrapperSingleRec">
+                                    <div>
+                                        <button type="button" id="delRec" title="Delete" class="deleteRecConfirm dltRecCnfrmSngleRec"><img src="../resources/images/delete.png"></button>
                                     </div>
+                                    <div>
+                                        <a href="/edit/<%= recipe._id%>"><img src="../resources/images/edit.png" class="editIcon" title="Edit"></a>
+                                    </div>
+                                    <div>
+                                        <img src="../resources/images/image.png" alt="see more" title="Recipe image" class="viewImage">
+                                    </div>
+                                </div>
+
                                 <div class="dltRecWrrpModal">
                                     <div class="modalDel">
                                         <div class="dltRecModalMainCntnt">
