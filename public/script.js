@@ -243,11 +243,44 @@ $(document).ready(() =>{
     $('#searchRecipes').on('keyup', function(){
 
         var searchInput = document.getElementById("searchRecipes");
-        var filterValue = searchInput.value.toUpperCase();
-        var titleParent = document.getElementById("recipeDisplay");
-        var title = titleParent.getElementsByTagName("h3");
-        
+        var filterValue = searchInput.value.toUpperCase().trim();
+        var title = $(".recipeTitle")
+
         for (var i = 0 ; i < title.length ; i++){
+            var a = title[i].getElementsByTagName("a")[0];
+
+            //title[i].parentElement.parentElement.classList.add('recipeDisplay')
+            title[i].parentElement.parentElement.classList.remove('searchNotResult');
+            //title[i].parentElement.parentElement.parentElement.classList.remove('resultRecipeWrapper')
+            title[i].parentElement.parentElement.parentElement.classList.remove('oneRecipeDisplayWrapperResult')
+            title[i].parentElement.parentElement.parentElement.classList.add('oneRecipeDisplayWrapper')
+            
+
+            if(a.innerHTML.toUpperCase().indexOf(filterValue) > -1){
+                //title[i].parentElement.parentElement.parentElement.classList.add('resultRecipeWrapper')
+                
+                }else{
+                    title[i].parentElement.parentElement.classList.add('searchNotResult');
+                    title[i].parentElement.parentElement.parentElement.classList.remove('oneRecipeDisplayWrapper')
+                    title[i].parentElement.parentElement.parentElement.classList.add('oneRecipeDisplayWrapperResult')
+            }
+        }
+
+        // $( title ).each(function(  ) {
+        //     if(a.innerHTML.toUpperCase().indexOf(filterValue) > -1){
+        //         //title[i].style.display = "";
+                
+        //     }else{
+        //        // title[i].style.display = "none";
+        //     }
+        //   });
+
+    
+    })
+
+//this works but need to read display noe items after
+/*
+ for (var i = 0 ; i < title.length ; i++){
             var a = title[i].getElementsByTagName("a")[0];
             if(a.innerHTML.toUpperCase().indexOf(filterValue) > -1){
                 title[i].style.display = "";
@@ -255,11 +288,7 @@ $(document).ready(() =>{
             }else{
                 title[i].parentElement.parentElement.style.display = "none";
             }
-        }
-    
-    })
-
-
+        }*/
 
 
 // var titles = new Set(document.querySelectorAll('.recipeDisplay'))
