@@ -220,42 +220,84 @@ $(document).ready(() =>{
 
     //recipeTitle
 //$('.oneRecipeDisplayWrapper').css('width', 'auto')
-    $(".searchRecipes").on("keyup", function() {
-        var value = $(this).val().toLowerCase();
+    // $(".searchRecipes").on("keyup", function() {
+    //     var v = $(this).val();
 
-        $(".recipeDisplay").filter(function() {
-          //$(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
-          //$(this).css('width', '100%')
-          
-        });
-
-        console.log($(this).val().toLowerCase());
-    });
+    //    //$(".searchResult").removeClass("searchResult");
+    //    $('.recipeDisplay').parent().removeClass('searchNotResult')
+    //    $('.recipeDisplay').parent().parent().parent().removeClass('resultRecipeWrapper')
+    //    $('.recipeDisplay').parent().parent().removeClass('resultRecipe')
 
 
-      $(".searchRecipes").on("keyup", function () {
-        var v = $(this).val();
-
-        console.log(v);
-        $(".searchResult").removeClass("searchResult");
-        $('.recipeDisplay .recipeTitle').parent().parent().removeClass('searchNotResult')
-        $('.recipeDisplay .recipeTitle').parent().parent().parent().removeClass('resultRecipeWrapper')
-        $('.recipeDisplay .recipeTitle').parent().parent().removeClass('resultRecipe')
+    //     $(".recipeDisplay").filter(function() {
+    //         if (v != "" && $(this).text().search(new RegExp(v,'gi')) != -1) {
+    //             $('.recipeDisplay').not($(this)).parent().addClass('searchNotResult')
+    //             $(this).parent().parent().parent().addClass('resultRecipeWrapper')
+    //             //$(this).addClass("searchResult");
+    //         }
 
 
-        $(".recipeDisplay .recipeTitle").each(function () {
-            if (v != "" && $(this).text().search(new RegExp(v,'gi')) != -1) {
-               // $('.recipeDisplay .recipeTitle').not($(this))
-                $('.recipeDisplay .recipeTitle').not($(this)).parent().parent().addClass('searchNotResult')
-                $(this).addClass("searchResult");
+    //     });
+    // });
 
-                $(this).parent().parent().parent().addClass('resultRecipeWrapper')
-                $(this).parent().parent().addClass('resultRecipe')
+    $('#searchRecipes').on('keyup', function(){
 
-                console.log($('.recipeDisplay .recipeTitle').not($(this)));
+        var searchInput = document.getElementById("searchRecipes");
+        var filterValue = searchInput.value.toUpperCase();
+        var titleParent = document.getElementById("recipeDisplay");
+        var title = titleParent.getElementsByTagName("h3");
+        
+        for (var i = 0 ; i < title.length ; i++){
+            var a = title[i].getElementsByTagName("a")[0];
+            if(a.innerHTML.toUpperCase().indexOf(filterValue) > -1){
+                title[i].style.display = "";
+                
+            }else{
+                title[i].parentElement.parentElement.style.display = "none";
             }
-        });
-    });
+        }
+    
+    })
+
+
+
+
+// var titles = new Set(document.querySelectorAll('.recipeDisplay'))
+// console.log(titles);
+// var arr = Array.from(titles)
+
+// arr.map(function(x, i){
+//    return x == 3 ? i : null;
+// }).filter(Number); // get indexes
+
+
+// document.getElementById("result").innerHTML= arr//.join("<br />");
+
+
+
+    //   $(".searchRecipes").on("keyup", function () {
+    //     var v = $(this).val();
+
+    //     console.log(v);
+    //     $(".searchResult").removeClass("searchResult");
+    //     $('.recipeDisplay .recipeTitle').parent().parent().removeClass('searchNotResult')
+    //     $('.recipeDisplay .recipeTitle').parent().parent().parent().removeClass('resultRecipeWrapper')
+    //     $('.recipeDisplay .recipeTitle').parent().parent().removeClass('resultRecipe')
+
+
+    //     $(".recipeDisplay .recipeTitle").each(function () {
+    //         if (v != "" && $(this).text().search(new RegExp(v,'gi')) != -1) {
+    //            // $('.recipeDisplay .recipeTitle').not($(this))
+    //             $('.recipeDisplay .recipeTitle').not($(this)).parent().parent().addClass('searchNotResult')
+    //             $(this).addClass("searchResult");
+
+    //             $(this).parent().parent().parent().addClass('resultRecipeWrapper')
+    //             $(this).parent().parent().addClass('resultRecipe')
+
+    //             console.log($('.recipeDisplay .recipeTitle').not($(this)));
+    //         }
+    //     });
+    // });
 
  
 
