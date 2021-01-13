@@ -57,7 +57,7 @@ $(document).ready(() =>{
     This function cheks the height of the tip textarea when cre
     */
     $(tipsInput).keydown(function(e){
-        if(e.keyCode == 13 && $('.tipUl').height() > 80){
+        if(e.keyCode == 13 && $('.tipUl').height() > 100){
             e.preventDefault()
             $('.addTipUl').addClass('listWrapprScrollbar listWrapprTipScrollbar')
             $('.editTipsInputGroup').addClass('recipeEditScrlbr')
@@ -65,7 +65,7 @@ $(document).ready(() =>{
     })   
 
     $('.addTiptoListBttn').on('click', function(){
-        if($('.tipUl').height() > 80){
+        if($('.tipUl').height() > 100){
             $('.addTipUl').addClass('listWrapprScrollbar listWrapprTipScrollbar')
             $('.editTipsInputGroup').addClass('recipeEditScrlbr')
         }
@@ -153,10 +153,9 @@ $(document).ready(() =>{
         $('.active:last').removeClass('active')
     })
 
-   
-    if($('.tipsInputGroup').height() > 100){
-            $('.tipsInputGroup').addClass('recipeTipEditScrlbr')
-        }
+    if($('.tipsInputGroup').height() > 90){
+        $('.tipsInputGroup').addClass('editListItemScrol')
+    } 
 
     if($('.ingInputGroup').height() > 270){
         $('.ingInputGroup').addClass('recipeIngDirEditScrlbr')
@@ -218,30 +217,7 @@ $(document).ready(() =>{
         $('.ttlTmeMinSpan').css('display', 'none')
     }
 
-    //recipeTitle
-//$('.oneRecipeDisplayWrapper').css('width', 'auto')
-    // $(".searchRecipes").on("keyup", function() {
-    //     var v = $(this).val();
-
-    //    //$(".searchResult").removeClass("searchResult");
-    //    $('.recipeDisplay').parent().removeClass('searchNotResult')
-    //    $('.recipeDisplay').parent().parent().parent().removeClass('resultRecipeWrapper')
-    //    $('.recipeDisplay').parent().parent().removeClass('resultRecipe')
-
-
-    //     $(".recipeDisplay").filter(function() {
-    //         if (v != "" && $(this).text().search(new RegExp(v,'gi')) != -1) {
-    //             $('.recipeDisplay').not($(this)).parent().addClass('searchNotResult')
-    //             $(this).parent().parent().parent().addClass('resultRecipeWrapper')
-    //             //$(this).addClass("searchResult");
-    //         }
-
-
-    //     });
-    // });
-
     $('#searchRecipes').on('keyup', function(){
-
         var searchInput = document.getElementById("searchRecipes");
         var filterValue = searchInput.value.toUpperCase().trim();
         var title = $(".recipeTitle")
@@ -249,15 +225,11 @@ $(document).ready(() =>{
         for (var i = 0 ; i < title.length ; i++){
             var a = title[i].getElementsByTagName("a")[0];
 
-            //title[i].parentElement.parentElement.classList.add('recipeDisplay')
             title[i].parentElement.parentElement.classList.remove('searchNotResult');
-            //title[i].parentElement.parentElement.parentElement.classList.remove('resultRecipeWrapper')
             title[i].parentElement.parentElement.parentElement.classList.remove('oneRecipeDisplayWrapperResult')
             title[i].parentElement.parentElement.parentElement.classList.add('oneRecipeDisplayWrapper')
-            
 
             if(a.innerHTML.toUpperCase().indexOf(filterValue) > -1){
-                //title[i].parentElement.parentElement.parentElement.classList.add('resultRecipeWrapper')
                 
                 }else{
                     title[i].parentElement.parentElement.classList.add('searchNotResult');
@@ -265,134 +237,12 @@ $(document).ready(() =>{
                     title[i].parentElement.parentElement.parentElement.classList.add('oneRecipeDisplayWrapperResult')
             }
         }
-
-        // $( title ).each(function(  ) {
-        //     if(a.innerHTML.toUpperCase().indexOf(filterValue) > -1){
-        //         //title[i].style.display = "";
-                
-        //     }else{
-        //        // title[i].style.display = "none";
-        //     }
-        //   });
-
-    
     })
-
-//this works but need to read display noe items after
-/*
- for (var i = 0 ; i < title.length ; i++){
-            var a = title[i].getElementsByTagName("a")[0];
-            if(a.innerHTML.toUpperCase().indexOf(filterValue) > -1){
-                title[i].style.display = "";
-                
-            }else{
-                title[i].parentElement.parentElement.style.display = "none";
-            }
-        }*/
-
-
-// var titles = new Set(document.querySelectorAll('.recipeDisplay'))
-// console.log(titles);
-// var arr = Array.from(titles)
-
-// arr.map(function(x, i){
-//    return x == 3 ? i : null;
-// }).filter(Number); // get indexes
-
-
-// document.getElementById("result").innerHTML= arr//.join("<br />");
-
-
-
-    //   $(".searchRecipes").on("keyup", function () {
-    //     var v = $(this).val();
-
-    //     console.log(v);
-    //     $(".searchResult").removeClass("searchResult");
-    //     $('.recipeDisplay .recipeTitle').parent().parent().removeClass('searchNotResult')
-    //     $('.recipeDisplay .recipeTitle').parent().parent().parent().removeClass('resultRecipeWrapper')
-    //     $('.recipeDisplay .recipeTitle').parent().parent().removeClass('resultRecipe')
-
-
-    //     $(".recipeDisplay .recipeTitle").each(function () {
-    //         if (v != "" && $(this).text().search(new RegExp(v,'gi')) != -1) {
-    //            // $('.recipeDisplay .recipeTitle').not($(this))
-    //             $('.recipeDisplay .recipeTitle').not($(this)).parent().parent().addClass('searchNotResult')
-    //             $(this).addClass("searchResult");
-
-    //             $(this).parent().parent().parent().addClass('resultRecipeWrapper')
-    //             $(this).parent().parent().addClass('resultRecipe')
-
-    //             console.log($('.recipeDisplay .recipeTitle').not($(this)));
-    //         }
-    //     });
-    // });
-
- 
-
-
-    /*
-    This function takes the select values and puts them into inputs so we can get their values to the form easier
-    
-    var prpTimeSelect = $('<input type="hidden"/>').attr({
-        name: 'recipe[prpTimeSlct]'
-    }).appendTo('form')
-
-    prpTimeSelect.val('Minutes')
-    $('.prpTimeSelect').on('click', function(){
-        prpTimeSelect.val($(this).val())
-    })
-
-    var ckTimeSelect = $('<input type="hidden"/>').attr({
-        name: 'recipe[ckTimeSlct]'
-    }).appendTo('form')
-
-    ckTimeSelect.val('Minutes')
-    $('.ckTimeSelect').on('click', function(){
-        ckTimeSelect.val($(this).val())
-    })
-    
-
-    var rToInput = $('<input type="hidden" />').attr({
-        name: 'recipe[dirctns]'
-    }).appendTo('form');
-
-    rToInput.val($('dirctnLiTxt').text())*/
-
 
     var deleteItm = $('.removeEditItem');
         $(deleteItm).on('click', function(){
             $(this).parent().children().remove()
     })
-
-    /*
-    This function helps add ingredients to the list to edit an then update the recipe
-    
-    var editAdIngrdntInpt = $('.editAdIngrdntInpt')
-   
-    function editAddNewItem(){
-        var newItemVal = $(editAdIngrdntInpt).val()
-        var newEditItem = $(`<span class="circle">○</span><input type="text" name="ingrdnts" class="editInputs" value='${newItemVal}'>`)
-        $(newEditItem).appendTo('.ingrInputWrapper .eachInput')
-        $(editAdIngrdntInpt).val(' ')
-
-        var deleteIng = $('<span class="removeEditItem removeEditItemFromJs">x</span>').appendTo(newEditItem);
-        $(deleteIng).on('click', function(){
-            $(this).parent().remove()
-            $(newEditItem).remove()
-        })
-
-     }
-
-    $('.adIngrdntToListBttnEdit').on('click', function(){
-        editAddNewItem()
-    });
-    $(editAdIngrdntInpt).keydown(function(e){
-        if(e.keyCode == 13){
-            editAddNewItem()
-            e.preventDefault()
-        }
-    })*/
 
     /*
     This function helps add ingredients to the list to edit an then update the recipe
@@ -423,6 +273,35 @@ $(document).ready(() =>{
         }
     })
 
+    console.log($('.recipeTips li').height());
+
+    function isOverflown(element) {
+        return element.scrollHeight > element.clientHeight || element.scrollWidth > element.clientWidth;
+      }
+      
+      var els = document.querySelectorAll('.recipeTips li'); //li
+      for (var i = 0; i < els.length; i++) {
+        var el = els[i];
+        el.style.borderColor = (isOverflown(el) ? 'red' : 'green');
+        console.log("Element #" + i + " is " + (isOverflown(el) ? '' : 'not ') + "overflown.");
+      }
+
+
+
+
+
+    var yieldSelect = $('.yieldSelect');
+    var otherOptionText = $('.otherOptionText')
+
+    $(yieldSelect).on('change', function(){
+        if(yieldSelect.val('Other')){
+            $(otherOptionText).attr({type: 'text', name: 'yieldSelect'})
+            $(otherOptionText).focus()
+            $(this).attr('name', '')
+        }
+    })
+
+
     var selectName = $('.editSelectValue').find(":selected").text();
         if(selectName === 'Servings'){
             $('.selectServings').css('display', 'none')
@@ -436,7 +315,5 @@ $(document).ready(() =>{
             device = 'web'
         }
     $('a.footerWhApp').attr('href', 'https://'+device+'.whatsapp.com/send?phone=972533402859&text&source&data&app_absent');
-
-        
 })
 
