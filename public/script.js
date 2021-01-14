@@ -36,17 +36,20 @@ $(document).ready(() =>{
         stickyNav();
     });
     
+    $('.settings > img').on('click', function(){
+        $('.iconWrapperSingleRec').fadeToggle()
+    })
     /*
     This function adds a scrollbar when viewing one recipe and the directions get longer than a specified height
     */
-    if($('.details').height() > 750){
-        $('.details').addClass('detailsScrollbar')
-        $('.leftSide').addClass('leftSideScrollbarVisible')
-    }
+    // if($('.details').height() > 750){
+    //     $('.details').addClass('detailsScrollbar')
+    //     $('.leftSide').addClass('leftSideScrollbarVisible')
+    // }
 
-    if($('.recIng').height() > 300){
-        $('.recipeIngredients').addClass('recipeIngrScrollbar')
-    }
+    // if($('.recIng').height() > 300){
+    //     $('.recipeIngredients').addClass('recipeIngrScrollbar')
+    // }
 
     //This function adds a scrollbar to the add new form at tips, ingredients, and tips
     var ingrdntsInput = $('.ingrdntsInput');
@@ -183,39 +186,56 @@ $(document).ready(() =>{
     This function check if the reipce total time hours is 1 and changes the word hours to hour.
     It checks if the hours are mising and removes the word all togethor in that case
     */
+   var list = [];
+
     var prpTimeHrs = $('.prpTimeHrs').text()
+    list.push({key:'prpTimeHrs', value: prpTimeHrs});
+
     var prpTimeMin = $('.prpTimeMin').text()
+    list.push({key:'prpTimeMin', value:prpTimeMin});
+
     var ckTimeHrs = $('.ckTimeHrs').text()
+    list.push({key:'ckTimeHrs', value: ckTimeHrs});
+
     var ckTimeMin = $('.ckTimeMin').text()
+    list.push({key:'ckTimeMin', value: ckTimeMin});
+
     var ttlTimeHrs = $('.ttlTimeHrs').text()
+    list.push({key:'ttlTimeHrs', value: ttlTimeHrs});
+
     var ttlTimeMin = $('.ttlTimeMin').text()
+    list.push({key:'ttlTimeMin', value: ttlTimeMin});
 
-    if(prpTimeHrs === ' ' || prpTimeHrs == 0){
-        $('.prpTimeHrs').css('display', 'none')
-        $('.prpTmeHrsSpan').css('display', 'none')
-    }
-    if(prpTimeMin === '' || prpTimeMin == 0){
-        $('.prpTimeMin').css('display', 'none')
-        $('.prpTmeMinSpan').css('display', 'none')
-    }
+    $.each(list, function(i,obj){
+        if(obj.value === ' ' || obj.value == 0){
+            $('.'+obj.key).css('display', 'none')
 
-    if(ckTimeHrs === '' || ckTimeHrs == 0){
-        $('.ckTimeHrs').css('display', 'none')
-        $('.ckTmeHrsSpan').css('display', 'none')
-    }
-     if(ckTimeMin === '' || ckTimeMin == 0){
-        $('.ckTimeMin').css('display', 'none')
-        $('.ckTmeMinSpan').css('display', 'none')
-    }
+            if(obj.key ==='prpTimeHrs'){
+                $('.prpTmeHrsSpan').css('display', 'none')
+            }
 
-    if(ttlTimeHrs === ' ' || ttlTimeHrs == 0){
-        $('.ttlTimeHrs').css('display', 'none')
-        $('.ttlTmeHrsSpan').css('display', 'none')
-    }
-     if(ttlTimeMin === '' || ttlTimeMin == 0){
-        $('.ttlTimeMin').css('display', 'none')
-        $('.ttlTmeMinSpan').css('display', 'none')
-    }
+            else if(obj.key ==='prpTimeMin'){
+                $('.prpTmeMinSpan').css('display', 'none')
+            }
+
+            else if(obj.key ==='ckTimeHrs' ){
+                $('.ckTmeHrsSpan').css('display', 'none')
+            }
+
+            else if(obj.key ==='ckTimeMin' ){
+                $('.ckTmeMinSpan').css('display', 'none')
+            }
+
+            else if(obj.key ==='ttlTimeHrs' ){
+                $('.ttlTmeHrsSpan').css('display', 'none')
+            }
+
+            else if(obj.key ==='ttlTimeMin' ){
+                $('.ttlTmeMinSpan').css('display', 'none')
+            }
+        }
+    });
+
 
     $('#searchRecipes').on('keyup', function(){
         var searchInput = document.getElementById("searchRecipes");
@@ -273,21 +293,6 @@ $(document).ready(() =>{
         }
     })
 
-    console.log($('.recipeTips li').height());
-
-    function isOverflown(element) {
-        return element.scrollHeight > element.clientHeight || element.scrollWidth > element.clientWidth;
-      }
-      
-      var els = document.querySelectorAll('.recipeTips li'); //li
-      for (var i = 0; i < els.length; i++) {
-        var el = els[i];
-        el.style.borderColor = (isOverflown(el) ? 'red' : 'green');
-        console.log("Element #" + i + " is " + (isOverflown(el) ? '' : 'not ') + "overflown.");
-      }
-
-
-
 
 
     var yieldSelect = $('.yieldSelect');
@@ -300,6 +305,11 @@ $(document).ready(() =>{
             $(this).attr('name', '')
         }
     })
+
+    if(yieldSelect.val('Servings')){
+        
+        $('.yieldSelectViewRec').hide()
+    }
 
 
     var selectName = $('.editSelectValue').find(":selected").text();

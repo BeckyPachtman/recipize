@@ -20,9 +20,7 @@
     --secendaryColor: #00a063;
     --tertiaryColor: #3e6077;
     --color: #00a9d3;
-    --iconColor: #004B53; /*004B54*/
-    /* --mainColor: rgb(0, 90, 150); */
-    /* --mainColor: rgb(0, 42, 77); */
+    --iconColor: #004B53;
 }
 a{
     color: var(--mainGrayColor);

@@ -12,127 +12,158 @@
     <link rel="stylesheet" href="../recipesDisplay.css">
     <link rel="stylesheet" href="../viewOneRec.css">
     <link rel="stylesheet" href="../addEditRec.css">
-    <link rel="stylesheet" href="../styles.css">
     <title>Recipize | <%= recipe.title %></title>
 </head>
 <body>
-    <div class="pageBody">
-        <%- include('header.html')%>
-                <div class="bookWrapper">
-                    <div class="recipeBook">
-                        <div class="rightSide">
-                            <div class="rightSideText">
-                                <h2><%= recipe.title %></h2>
-                                <hr>
-                                <div class="author">By: <%= recipe.author %></div>
+<div class="pageBody viewRecPageBody">
+    <%- include('header.html')%>
+            <div class="recipeBook">
+                    <div class="topSection">
+                        <div class="settings">
+                            <img src="../resources/images/settings.png" alt="">
+                        
+                            <div class="iconWrapperSingleRec">
+                                    <button type="button" id="delRec" title="Delete" class="dltRecCnfrmSngleRec"><img src="../resources/images/deleteBigger.png"></button>
 
-                                <div class="timings">
-                                    <div class="timingSpecific">
-                                        <div>
-                                            <h4>Prep Time</h4>
-                                            <p>
-                                                <span class="prpTimeHrs"><%= recipe.prpTimeHrs %></span>
-                                                <span class="prpTmeHrsSpan">Hours</span>
-                                                <span class="prpTimeMin"><%= recipe.prpTimeMin %></span>
-                                                <span class="prpTmeMinSpan">Minutes</span> 
-                                            </p>
-                                        </div>
-                                        <div>
-                                            <h4>Cook Time</h4>
-                                            <p>
-                                                <span class="ckTimeHrs"><%= recipe.ckTimeHrs %></span>
-                                                <span class="ckTmeHrsSpan">Hours</span>
-                                                <span class="ckTimeMin"><%= recipe.ckTimeMin %></span>
-                                                <span class="ckTmeMinSpan">Minutes</span>
-                                            </p>
-                                        </div>
-                                        <div>
-                                            <h4>Total Time</h4>
-                                            <p>
-                                                <span class="ttlTimeHrs"><%= recipe.ttlTimeHrs %></span>
-                                                <span class="ttlTmeHrsSpan">Hours</span>
-                                                <span class="ttlTimeMin"><%= recipe.ttlTimeMin %></span>
-                                                <span class="ttlTmeMinSpan">Minutes</span>
-                                            </p>
-                                        </div>
-                                        <div>
-                                            <h4>Yields</h4>
-                                            <p>
-                                                <span class="yieldInput"><%= recipe.yieldInput %></span>
-                                                <span class="yieldSelect"><%= recipe.yieldSelect %></span>
-                                            </p>
-                                        </div>
-                                    </div>
-                                </div>
+                                    <button type="button" class="viewImage" title="Recipe image"><img src="../resources/images/image (1).png"></button>
+                               
+                                    <button>
+                                        <a href="/edit/<%= recipe._id%>"><img src="../resources/images/pencil.png" class="editIcon" title="Edit"></a>
+                                    </button>
+                                    
+                                    <!-- <img src="../resources/images/image.png" alt="see more" title="" > -->
+                            </div>
+                        </div>
+                        <div class="title">
+                            <h2><%= recipe.title %></h2>
+                            <hr>
+                            <div class="author">By: <%= recipe.author %></div>
+                        </div>
 
-                                <div class="recipeIngredients"> 
-                                    <div class="recIng">
-                                        <h3>You will need the following:</h3>
-                                        <ul>
-                                            <% recipe.ingrdnts.forEach(function(item){ %>
-                                                <li><%= item %></li>
-                                            <% }); %>  
-                                        </ul> 
-                                    </div>                       
+                        <div class="timings">
+                            <div class="timingSpecific">
+                                <div>
+                                    <img src="../resources/images/time.png" alt="">
+                                    <h4>Prep Time</h4>
+                                    <p>
+                                        <span class="prpTimeHrs"><%= recipe.prpTimeHrs %></span>
+                                        <span class="prpTmeHrsSpan">Hours</span>
+                                        <span class="prpTimeMin"><%= recipe.prpTimeMin %></span>
+                                        <span class="prpTmeMinSpan">Min</span> 
+                                    </p>
                                     
                                 </div>
-                                
-                                <div class="recipeTips">
-                                    <h3>Tips for this recipe</h3>
-                                    <ul>
-                                        <% recipe.tips.forEach(function(tip){ %>
-                                            <li><%= tip %></li>
-                                        <% }); %>
-                                    </ul>
-                                    <a href="javascript();;">Read more</a>
+                                <div>
+                                    <img src="../resources/images/time.png" alt="">
+                                    <h4>Cook Time</h4>                      
+                                    <p>
+                                        <span class="ckTimeHrs"><%= recipe.ckTimeHrs %></span>
+                                        <span class="ckTmeHrsSpan">Hours</span>
+                                        <span class="ckTimeMin"><%= recipe.ckTimeMin %></span>
+                                        <span class="ckTmeMinSpan">Min</span>
+                                    </p>
+                                    
+                                </div>
+                                <div>
+                                    <img src="../resources/images/time.png" alt="">
+                                    <h4>Total Time</h4>                                       
+                                    <p>
+                                        <span class="ttlTimeHrs"><%= recipe.ttlTimeHrs %></span>
+                                        <span class="ttlTmeHrsSpan">Hours</span>
+                                        <span class="ttlTimeMin"><%= recipe.ttlTimeMin %></span>
+                                        <span class="ttlTmeMinSpan">Min</span>
+                                    </p>
+                                    
+                                </div>
+                                <div>
+                                    <img src="../resources/images/cutlery.png" alt="">
+                                    <h4>Yields</h4>                                  
+                                    <p>
+                                        <span class="yieldInput"><%= recipe.yieldInput %></span>
+                                        <span class="yieldSelectViewRec"><%= recipe.yieldSelect %></span>
+                                    </p>
+                                   
                                 </div>
                             </div>
                         </div>
+                    </div>
 
+                    <div class="bottomSection">
                         <div class="leftSide">
-                            <div class="details leftSideText">
+                            <div class="image">
+
+                                
+                                    <div class="recipeImage">
+                                        <% if(recipe.img == ''){ %>
+                                            <img src="../resources/images/platesOfFood/34.jpg">
+                                        <% }else{ %>
+                                            <img src="<%= recipe.img %>">
+                                        <% } %>
+                                    </div>
+                                
+
+                            </div>
+                            <div class="leftSideTxt">
+                                <h3>You will need the following:</h3>
+                                <ul>
+                                    <% recipe.ingrdnts.forEach(function(item){ %>
+                                        <li><%= item %></li>
+                                    <% }); %>  
+                                </ul> 
+                            </div>
+                        
+                        </div>
+                        <div class="rightSide">
+                            <div>
                                 <h3>Directions:</h3>
                                 <ol>
                                     <% recipe.dirctns.forEach(function(Direction){ %>
                                             <li><%= Direction %></li>
                                     <% }); %>
                                 </ol>
-                                <div class="iconWrapperSingleRec">
-                                    <div>
-                                        <button type="button" id="delRec" title="Delete" class="deleteRecConfirm dltRecCnfrmSngleRec"><img src="../resources/images/delete.png"></button>
-                                    </div>
-                                    <div>
-                                        <a href="/edit/<%= recipe._id%>"><img src="../resources/images/edit.png" class="editIcon" title="Edit"></a>
-                                    </div>
-                                    <div>
-                                        <img src="../resources/images/image.png" alt="see more" title="Recipe image" class="viewImage">
-                                    </div>
-                                </div>
-
-                                <div class="dltRecWrrpModal">
-                                    <div class="modalDel">
-                                        <div class="dltRecModalMainCntnt">
-
-                                            <div class="confirmDeleteCard">
-                                                <div class="confirmDeleteCardTxt">
-                                                    <h1>&#33;</h1>
-                                                    <h4>Are you sure you want to permanently delete "<%= recipe.title %>" recipe?</h4>
-                                                </div>
-                                                
-                                                <div class="confirmBttns">
-                                                    <button type="submit" class="cancelDeleteBttn"><a href="/recipe/<%= recipe._id%>">Cancel</a></button> 
-                                                    <form action="/recipe/<%= recipe._id %>?_method=DELETE" method="POST">
-                                                        <button type="submit" class="deleterecipe">Delete</button>
-                                                    </form>
-                                                </div>
-                                            </div>
-
-                                        </div>
-                                    </div>
-                                </div>
                             </div>
-                        </div>
+                            
+                             
 
+                            <!-- <div class="dltRecWrrpModal">
+                                <div class="modalDel">
+                                    <div class="dltRecModalMainCntnt">
+
+                                        <div class="confirmDeleteCard">
+                                            <div class="confirmDeleteCardTxt">
+                                                <h1>&#33;</h1>
+                                                <h4>Are you sure you want to permanently delete "<%= recipe.title %>" recipe?</h4>
+                                            </div>
+                                            
+                                            <div class="confirmBttns">
+                                                <button type="submit" class="cancelDeleteBttn"><a href="/recipe/<%= recipe._id%>">Cancel</a></button> 
+                                                <form action="/recipe/<%= recipe._id %>?_method=DELETE" method="POST">
+                                                    <button type="submit" class="deleterecipe">Delete</button>
+                                                </form>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div> -->
+                        </div>
+                    </div>
+                        <!--
+                            bullet point
+                            bigger fone
+                             -->
+
+                        
+                        <!-- <div class="recipeTips">
+                            <h3>Tips for this recipe</h3>
+                            <ul>
+                                <% recipe.tips.forEach(function(tip){ %>
+                                    <li><%= tip %></li>
+                                <% }); %>
+                            </ul>
+                            <a href="javascript();;">Read more</a>
+                        </div>
+                    
                         <div class="recipeImageModal">
                             <div class="recipeImage">
                                 <% if(recipe.img == ''){ %>
@@ -141,12 +172,12 @@
                                     <img src="<%= recipe.img %>">
                                 <% } %>
                             </div>
-                        </div>
-                    </div>
-                </div>
-            
-        <%- include('footer.html')%>     
-    </div>
+                        </div> -->
+        </div>
+    <%- include('footer.html')%>  
+</div>
+   
+
        
 
 </body>
