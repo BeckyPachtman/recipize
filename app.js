@@ -83,6 +83,22 @@ function createUserName (loggedUser) {
 }
 
 module.exports = createUserName;
+/*TO REMOVE */
+
+app.get('/recipe/:id', function(req, res) {
+    const {userId} = req.session;
+    create.findById(userId, (err, loggedUser) =>{
+        const userName =  createUserName(loggedUser);
+        recipe.findById(req.params.id, function(err, returningRec){
+            if(err){
+                console.log(err); 
+            }else{
+                res.render('bookTesting', {recipe: returningRec, userName: userName, profile: profileMsg})
+            }
+        })
+    })  
+})
+
 
 app.get('/',  function(req, res){
     const {userId} = req.session;
@@ -237,7 +253,7 @@ app.post('/newRecipeData', function(req, res) {
 
 /*
 This function displays one recipe when clicked on*/
-app.get('/recipe/:id', function(req, res) {
+/*app.get('/recipe/:id', function(req, res) {
     const {userId} = req.session;
     create.findById(userId, (err, loggedUser) =>{
         const userName =  createUserName(loggedUser);
@@ -249,7 +265,7 @@ app.get('/recipe/:id', function(req, res) {
             }
         })
     })  
-})
+})*/
 
 /*
 This function shows the edit recipe page wehn we want to edit a specific recipe  (EDIT)

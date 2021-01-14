@@ -15,7 +15,7 @@
     <title>Recipize | <%= recipe.title %></title>
 </head>
 <body>
-<div class="pageBody viewRecPageBody">
+<div class="pageBody viewRecPageBody bookTesting">
     <%- include('header.html')%>
             <div class="recipeBook">
                     <div class="topSection">
@@ -97,12 +97,15 @@
                             <div class="overlay">
                                 <div class="recImgModal">
                                     <% if(recipe.img == ''){ %>
-                                        <img class="recImg" src="../resources/images/platesOfFood/34.jpg">
+                                        <img src="../resources/images/platesOfFood/34.jpg">
                                     <% }else{ %>
-                                        <img class="recImg" src="<%= recipe.img %>">
+                                        <img src="<%= recipe.img %>">
                                     <% } %>
                                 </div>
                             </div>
+
+
+
 
 
                             <div class="leftSideTxt">
@@ -126,51 +129,38 @@
                             </div>
                         </div>
                     </div>
-                        <!--
-                            bullet point
-                            bigger fone
-                             -->
-                        <!-- <div class="recipeTips">
-                            <h3>Tips for this recipe</h3>
-                            <ul>
-                                <% recipe.tips.forEach(function(tip){ %>
-                                    <li><%= tip %></li>
-                                <% }); %>
-                            </ul>
-                            <a href="javascript();;">Read more</a>
-                        </div> -->
+                      
+                    <div class="dltRecWrrpModal">
+                        <div class="modalDel">
+                            <div class="dltRecModalMainCntnt">
 
-                        <div class="dltRecWrrpModal">
-                            <div class="modalDel">
-                                <div class="dltRecModalMainCntnt">
-
-                                    <div class="confirmDeleteCard">
-                                        <div class="confirmDeleteCardTxt">
-                                            <h1>&#33;</h1>
-                                            <h4>Are you sure you want to permanently delete "<%= recipe.title %>" recipe?</h4>
-                                        </div>
-                                        
-                                        <div class="confirmBttns">
-                                            <button type="submit" class="cancelDeleteBttn"><a href="/recipe/<%= recipe._id%>">Cancel</a></button> 
-                                            <form action="/recipe/<%= recipe._id %>?_method=DELETE" method="POST">
-                                                <button type="submit" class="deleterecipe">Delete</button>
-                                            </form>
-                                        </div>
+                                <div class="confirmDeleteCard">
+                                    <div class="confirmDeleteCardTxt">
+                                        <h1>&#33;</h1>
+                                        <h4>Are you sure you want to permanently delete "<%= recipe.title %>" recipe?</h4>
                                     </div>
-
+                                    
+                                    <div class="confirmBttns">
+                                        <button type="submit" class="cancelDeleteBttn"><a href="/recipe/<%= recipe._id%>">Cancel</a></button> 
+                                        <form action="/recipe/<%= recipe._id %>?_method=DELETE" method="POST">
+                                            <button type="submit" class="deleterecipe">Delete</button>
+                                        </form>
+                                    </div>
                                 </div>
+
                             </div>
                         </div>
-
-
+                    </div>
         </div>
     <%- include('footer.html')%>  
 </div>
-   
-
-       
 
 </body>
 </html>
 <script src="https://code.jquery.com/jquery-3.5.1.min.js""></script>
 <script src="../script.js"></script>
+
+
+
+
+        

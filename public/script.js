@@ -35,6 +35,10 @@ $(document).ready(() =>{
     $(window).scroll(function() {
         stickyNav();
     });
+
+    /*
+    This function show and hides the setting options on the view-one recipe page
+    */
     
     $('.settings > img').on('click', function(){
         $('.iconWrapperSingleRec').fadeToggle()
@@ -118,14 +122,42 @@ $(document).ready(() =>{
     /*
     This function toggles a recipe's image visibilty
     */
-    $('.viewImage').on('click', function(){
-       $('.recipeImageModal').fadeToggle()
-       $('.pageBody, .recipeBook').toggleClass('imageVisble')
-       $('.recipeBook hr').fadeToggle()
-       $('.viewImage').toggleClass('viewImgLighter')
-       $('.iconWrapperSingleRec div button, .iconWrapperSingleRec div a').toggleClass('recImageVisible')
-       $('.details').toggleClass('detailsScrollbarImgVsbl')
-    })
+    // $('.recImg').on('click', function(){
+    //    $('.recipeImageModal').fadeToggle()
+    //    $('.pageBody, .recipeBook').toggleClass('imageVisble')
+    //    //$('.recipeBook hr').fadeToggle()
+    //    $('.viewImage').toggleClass('viewImgLighter')
+    //    $('.iconWrapperSingleRec div button, .iconWrapperSingleRec div a').toggleClass('recImageVisible')
+    //    $('.details').toggleClass('detailsScrollbarImgVsbl')
+    // })
+
+    var modal = $('.recImgModal'),
+    overlay = $('.overlay'),
+    showModal = $('.recImg'),
+    close = $('.close');
+    
+/*show modal and set dimensions based on window */
+$(showModal).on('click', function(e){
+  e.preventDefault();
+  var windowWidth = $(window).width();
+
+
+  $(overlay).show();
+  $(overlay).addClass('overlayVisible')
+  $(modal).css({});
+  $('.viewRecPageBody').css('position', 'fixed')
+});
+/*close on click of 'x' */
+$(close).on('click', function(){
+  $(overlay).hide();
+});
+/* close on click outside of modal */
+$(overlay).on('click', function(e) {
+  if (e.target !== this) return;
+  $(overlay).hide();
+});
+
+
     
 
     /*Activats next/previous buttons on form .*/
@@ -179,9 +211,19 @@ $(document).ready(() =>{
     })
 
     $('.dltRecCnfrmSngleRec').on('click', function(){
-        $(this).parent().parent().siblings('.dltRecWrrpModal').children('.modalDel').addClass('modalDelVisible');
+        $(this).parent().parent().parent().parent().children('.dltRecWrrpModal').children('.modalDel').addClass('modalDelVisible');
     })
 
+
+    //$('.recImg').on('click', function(){
+        // $(this).css({
+        //     'height': '100%',
+        //     'margin': '0',
+        // })
+        //$(this).toggleClass('recImgBig')
+        
+        //console.log('clicked');
+    //})
     /*
     This function check if the reipce total time hours is 1 and changes the word hours to hour.
     It checks if the hours are mising and removes the word all togethor in that case

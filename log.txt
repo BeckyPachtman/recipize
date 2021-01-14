@@ -314,3 +314,5 @@ Recipe successfully deleted
 Recipe successfully deleted
 Recipe successfully deleted
 Recipe successfully updated
+New recipe successfully created
+Recipe successfully deleted
