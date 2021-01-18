@@ -1,0 +1,98 @@
+@media only screen and (max-width: 1620px){
+    .modalMainContent{
+        width: 50%; 
+    }
+    .main{
+        min-width: 60vw; 
+    }
+    .recipeDisplay{
+        margin: 0 0 7em 0;
+        width: 85%;
+    }
+}
+@media only screen and (max-width: 990px){
+    .modalMainContent{
+        width: 70%; 
+    }
+    .main{
+        width: 85vw; 
+    }
+    .inputGroup{
+        width: 90%;
+    }
+    .recipeDisplayWrapper{
+        width: 98vw;
+    }
+}
+@media only screen and (max-width: 600px){
+    .modalMainContent{
+        min-height: 50vh;
+        width: 90%;
+    } 
+    .secendaryContent.mainButtons{
+        display: flex;
+        flex-direction: column;
+        margin: 1em auto;
+        width: 45%;
+    }
+    .secendaryContent.mainButtons button{
+        margin: .5em 0;
+    }
+    .recipeDisplay{
+        width: 90%;
+    }
+    .inputGroup{
+        display: flex;
+        flex-direction: column;
+        min-height: 25em;
+        width: 80%;
+    }
+    .inputGroup .moreOptionsColumn{
+        display: block;
+        padding:  0; 
+        width: 100%;
+    }
+    .or{
+        top: 0em;
+    }
+    .inputGroup .moreOptionsColumn div input,
+    .inputGroup .plusIconParent input,
+    .inputGroup > div input,
+    .inputGroup > div select{
+        margin: 0;
+    }
+    .inputGroup > div label,
+    .inputGroup > .moreOptionsColumn div label{
+        top: .7em;
+    }
+    .imgWapper label{
+        margin-top: .9em;
+    }
+    .imgUrlWrppr label{
+        margin-top: 0em;
+    }
+    .inputGroup .moreOptions input{
+        width: 73%;
+    }
+    .plusIcon{
+        top: .5em;
+        
+    }
+
+}
+@media only screen and (max-width: 400px){
+    .modalMainContent{
+        min-height: 60vh;
+    }
+    .secendaryContent.mainButtons{
+        display: flex;
+        flex-direction: column;
+        margin: 1em auto;
+        width: 55%;
+    }
+    .oneRecipeDisplayWrapper{
+        position: relative;
+        right: 1.5em;
+        width: 100%;
+    }
+}

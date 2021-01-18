@@ -83,21 +83,6 @@ function createUserName (loggedUser) {
 }
 
 module.exports = createUserName;
-/*TO REMOVE */
-
-app.get('/recipe/:id', function(req, res) {
-    const {userId} = req.session;
-    create.findById(userId, (err, loggedUser) =>{
-        const userName =  createUserName(loggedUser);
-        recipe.findById(req.params.id, function(err, returningRec){
-            if(err){
-                console.log(err); 
-            }else{
-                res.render('bookTesting', {recipe: returningRec, userName: userName, profile: profileMsg})
-            }
-        })
-    })  
-})
 
 
 app.get('/',  function(req, res){
@@ -108,8 +93,7 @@ app.get('/',  function(req, res){
             res.render('index', {errMsg: removeLoginBttn, userName: userName, profile: profileMsg});
         });
     }else{
-        var errMsg = 'You are not logged in'
-            res.render('index', {errMsg: errMsg, userName: '', profile: profileHidden});
+        res.render('index', {errMsg: '', userName: '', profile: profileHidden});
     }
 })
 
@@ -170,7 +154,6 @@ This function logs a user to the system
 It checks if the email and password match to an exsisitng user
 It spits out an error accordingly
 */
-
 app.post('/login', redirectHome, function(req, res){
     create.findOne({
         email: req.body.email,
@@ -222,7 +205,6 @@ app.get('/recipiesDisplay', redirectLogin, function(req, res){
 This function takes the data that the user added to the add a new recipe page form and submits it to the database
 this function creates a new recipie (CREATE)
 */
-
 app.post('/newRecipeData', function(req, res) {
     const {userId} = req.session;
     create.findById(userId, (err, loggedUser) =>{
@@ -252,8 +234,9 @@ app.post('/newRecipeData', function(req, res) {
 })
 
 /*
-This function displays one recipe when clicked on*/
-/*app.get('/recipe/:id', function(req, res) {
+This function displays one recipe when clicked on
+*/
+app.get('/recipe/:id', function(req, res) {
     const {userId} = req.session;
     create.findById(userId, (err, loggedUser) =>{
         const userName =  createUserName(loggedUser);
@@ -265,7 +248,7 @@ This function displays one recipe when clicked on*/
             }
         })
     })  
-})*/
+})
 
 /*
 This function shows the edit recipe page wehn we want to edit a specific recipe  (EDIT)

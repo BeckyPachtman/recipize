@@ -1,7 +1,6 @@
 .modalWrapper{
     align-items: center;
     display: flex;
-    /*height: 100vh;*/
     justify-content: center;
 }
 .modal{
@@ -10,7 +9,6 @@
     display: flex;
     justify-content: center;
     opacity: 0;
-    padding: 1em;
     position: fixed;
     bottom: 0;
     left: 0;
@@ -28,11 +26,16 @@
     cursor: default;
     display: flex;
     flex-direction: column;
-    height: 47vh;
+    /*height: auto;
+    height: 47vh;*/
+    min-height: 47vh; 
     overflow: auto;
     position: relative;
     text-align: center;
-    width: 35%;
+    /*width: 35%;*/
+
+    width: auto;
+    min-width: 35%; 
 } 
 .closeModalForm{
     position: relative;
@@ -215,7 +218,7 @@
     display: none;
 }
 .userFormWrapper{
-    margin: .5em 0;
+    margin: 2.5em 0 0;
     width: 70%;
 }
 .userFormWrapper .eachInput{

@@ -6,7 +6,8 @@
     margin-bottom: 1.3em;
 }
 .main{
-    width: 45%;
+    width: auto;
+    min-width: 45%;
 }
 .progressbar{
     margin: 0;
@@ -26,7 +27,7 @@
     align-items: center;
     display: flex;
     flex-direction: column;
-    height: 65vh;
+    min-height: 65vh;
 }
 fieldset{
     align-items: center;
@@ -37,7 +38,7 @@ fieldset{
     justify-content: flex-start;
     height: 35.93em;
     margin: 2em 2em 0;
-    width: 100%; 
+    width: 100%;
 }
 fieldset > div h2{
     padding-bottom: .2em;

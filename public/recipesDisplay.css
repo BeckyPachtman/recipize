@@ -9,21 +9,21 @@
 .recPageBody{
     background: url('../resources/images/backgrndColorsLight2.svg'); 
     background-size: cover;
+    overflow: hidden;
 }
 .welcomeText{
     padding: 1em 0;
     text-align: center;
 }
 .recipeDisplayWrapper{
-    display: flex;
-    flex-wrap: wrap;
+    display: block;
     margin: 3em auto 0;
-    max-width: 75vw;
+    width: 85vw;    
 }
 .oneRecipeDisplayWrapper{
-    align-items: center;
-    display: flex;
-    min-width: 28em;
+    display: inline-flex;
+    align-self: flex-start;
+    min-width: 25em;
     justify-content: center;
     width: 33%;
 }
@@ -36,9 +36,9 @@
     border-bottom-left-radius: 5em;
     display: flex;
     height: 100px;
-    margin-bottom: 8em;
+    margin: 0 0 7em 4em;
     position: relative;
-    width: 80%;
+    width: 75%;
 }
 .plate{
     background-color: rgb(228, 228, 228);
