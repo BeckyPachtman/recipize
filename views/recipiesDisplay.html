@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="author" content="Bracha Pachtman">
+    <meta name="description" content="Recipe Manager Platform">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="keywords" content="HTML, CSS, JavaScript, Node.js, Food, Recipes, Organization">
+    <link rel="stylesheet" href="headerFooter.css">
+    <link rel="stylesheet" href="modalStyles.css">
+    <link rel="stylesheet" href="generalStyles.css">
+    <link rel="stylesheet" href="recipesDisplay.css">
+    <link rel="stylesheet" href="viewOneRec.css">
+    <link rel="stylesheet" href="addEditRec.css">
+    <link rel="stylesheet" href="mediaQueries.css">
+    <title>Recipize</title>
+</head>
+<body>
+<div class="pageBody recPageBody">
+    <%- include('header.html')%>
+        <div class="contentWrapper recContentWrapper">
+            <div class="content">
+                <div>
+                    <h1>Recipe Gallery</h1>
+                    <h3>Browse through to view and edit all of your existing recipes</h3>
+                    <span class="authorMsg "><%- msg %></span> 
+                    
+            <div id="result">
+
+            </div>
+                    <div class="secendaryContent">
+                        <div class="recipeDisplayWrapper">
+                            <% recipe.forEach(function(rec){ %>
+                                <div class="oneRecipeDisplayWrapper">
+                                    <div class="recipeDisplay">
+                                        <div class="plate">
+                                            <% if(rec.img == ''){ %>
+                                                <img class="defaultImage">
+                                            <% }else{ %>
+                                                <img class="dynamicImage" src="<%= rec.img %>" alt="Recipe image not found">
+                                            <% } %>
+                                        </div>
+                                        <div class="text">
+                                            <h3 class="recipeTitle"><a href="/recipe/<%= rec._id %>"><%= rec.title %></a></h3>
+                                        </div>
+            
+                                        <div class="iconWrapper">
+                                            <img src="../resources/images/saveToCollectionBlue.png" alt="save to collection" class="saveToCollectionImg" title="Add to collection">
+                                            <a href="/edit/<%= rec._id %>"><img src="../resources/images/editBlue3.png" class="editIcon" title="Edit"></a>
+                                            <img id="delRec" title="Delete" class="deleteRecConfirm" src="../resources/images/delete1.png">
+                                        </div>
+                                        
+            
+                                        <div class="dltRecWrrpModal">
+                                            <div class="modalDel">
+                                                <div class="dltRecModalMainCntnt">
+                    
+                                                    <div class="confirmDeleteCard">
+                                                        <div class="confirmDeleteCardTxt">
+                                                            <h1>&#33;</h1>
+                                                            <h4>Are you sure you want to permanently delete "<%= rec.title %>" recipe?</h4>
+                                                        </div>
+                                                        
+                                                        <div class="confirmBttns">
+                                                            <button type="submit" class="cancelDeleteBttn"><a href="/recipiesDisplay">Cancel</a></button> 
+                                                            <form action="/recipe/<%= rec._id %>?_method=DELETE" method="POST">
+                                                                <button type="submit" class="deleterecipe">Delete</button>
+                                                            </form>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            <% }) %>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    <%- include('footer.html')%>
+</div>
+<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+<script src="script.js"></script>
+
+</body>
+</html>

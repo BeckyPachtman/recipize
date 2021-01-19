@@ -1,0 +1,148 @@
+/*Header*/
+.navWrapper{
+    display: flex;
+    justify-content: center;
+}
+.sticky{
+    background-color: #eecccc;
+    background-color: var(--mainColor);
+    transition: all .2s ease-in-out;
+}
+.stickyLinks{
+    color: #fff;
+}
+.stickyLogo{
+    filter: opacity(70%);
+}
+.nav{
+    align-items: center;
+    display: flex;
+    height: 4em;
+    justify-content: flex-end;
+    padding: 0 10em;
+    position: fixed;
+    top: 0;
+    width: 100%;
+    z-index: 1;
+}
+.nav li{
+    list-style: none;
+}
+.logoWrapper{
+    flex: 1;
+}
+.logoWrapper img{
+    display: block;
+    height: 2.5em;
+}
+.logoWrapper img:last-child{
+    display: none;
+}
+.navUl{
+    display: flex;
+    align-items: baseline;
+}
+.navUl a{
+    font-size: .95em;
+    padding: 0 1em;
+}
+.navUl a:hover{
+    color: var(--mainRedishColor);
+}
+.searchInputIconWrapper{
+    margin-left: 1em;
+    position: relative;
+}
+.navSearchInputWrapper::after{
+    content: url('resources/images/search.png');
+    filter: invert(.5);
+    left: -1.8em;
+    position: relative;
+    top: .2em;
+}
+.navSearchInputWrapper input{
+    background-color: #f8f8f8;
+}
+.navSearchInputWrapper input::placeholder{
+    color: #8a8a8a;
+}
+.userProfile{
+    background-color: #fff;
+    border-radius: 100%;
+    height: 3em;
+    margin-left: .5em;
+    width: 3em;
+}
+.userProfile img{
+    border-radius: 100%;
+    height: 100%;
+    width: 100%;
+}
+#userLoggedIn{
+    display: none;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-end;
+    width: inherit;
+}
+.userName{
+    align-items: center;
+    background-color: var(--SecondaryGrayColor);
+    border-radius: 50%;
+    color: #fff;
+   /* display: none;*/
+    display: flex;
+    font-size: .85em;
+    font-weight: 700;
+    justify-content: center;
+    padding: .6em .5em;
+    position: relative;
+    width: 2.4em;
+}
+/* #userLoggedIn img{
+    height: 2em;
+    width: 2em;
+} */
+.userOptions{
+    position: absolute;
+    top: 2.8em;
+    background: #fff;
+    padding: .8em;
+    width: 8em;
+}
+.userOptions a{
+    padding: 0;
+    border: none;
+}
+
+/*Footer*/
+footer{
+    align-items: center;
+    background-color: var(--tertiaryColor);
+    color: #fff;
+    display: flex;
+    flex-direction: column;
+    font-size: .9em;
+    height: 9em;
+    justify-content: space-between;
+    line-height: 1.4em;
+    padding: 1em;
+}
+footer p{
+    text-align: center;
+}
+.socialLinkSection img{
+    cursor: pointer;
+    filter: opacity(85%);
+    height: 2em;
+    margin: .4em .8em;
+    outline: none;
+}
+.socialLinkSection img:hover{
+    filter: opacity(50%);
+}
+.twtr{
+    position: relative;
+    top: .2em
+}

@@ -1,0 +1,851 @@
+Questions for Hadas:
+
+Search inputs starts at the center just like thw other nav items but because it is bigger it ends lower than the other links and is therefore not alignd properly with the other items
+solved!
+Do I have to rewrite my links in all web pages, is here a way of grabbig all of them at once?
+
+My notes and research required:
+
+search icon source from image is able to be copied into the input field, fixed that. added as after to input wrapper
+
+Reference code:
+popup window like original login modal
+/*Login Page
+.loginFormWrapper{
+    /*background: linear-gradient(to right, #ffdde1, #e9acb4); /*in between
+    background:   #e9acb4; /*in between
+    display: none;
+    padding: 1em 0;
+    position: absolute;
+    text-align: center;
+    top: 0;
+    width: 70%;
+}
+.loginFormWrapper h3{
+    width: 100%;
+}
+.loginFormWrapper form{
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+}
+.loginFormWrapper form input{
+    margin: .5em 0 1.2em;
+    max-width: 50%;
+}
+.loginFormWrapper form label{
+    font-size: .9em;
+    align-self: flex-start;
+}
+.loginFormWrapper button{
+    margin-right: 0;
+}
+*/
+
+backup if I want to bring back the recipeCoverPage div under the cover div
+.book .cover{
+    height: 100%;
+    position: relative;
+    transform-origin: left;
+    transition: 1.2s;
+    width: 100%;
+    z-index: 1;
+}
+.book:hover .cover{
+    transform: rotateY(-165deg);
+}
+.recipeCoverPage{
+    background-color: #007a83;
+    height: 100%;
+    left: 0;
+    object-fit: cover;
+    position: absolute;
+    top: 0;
+    width: 100%;
+}
+/***************/
+Looks like you can't use transform in js, toggle a class to get that effect
+
+/*
+click on functions to open and close recipe book, it will only open and close one time
+$('#recipeBook').on('click', function(){
+All the HTML CSS JS functions needed to make the recipe book open and close
+
+The close button and it's CSS
+<div  class="closeRecipe">
+        <img src="resources/images/close.png" alt="Close Recipe" id="closeRecipe">
+</div>
+.closeRecipe{
+    cursor: pointer;
+    position: relative;
+    height: 10px;
+   /* top: 7em;
+    left: 47em;*/
+    z-index: 5;
+}
+.closeRecipe img{
+    height: 1.5em;
+}
+
+the JS for the cover animation
+var recipeBook = $('#recipeBook');
+$(recipeBook).on('click', function(){
+   $(this).addClass('bookOpened');
+   $('.cover').addClass('openRecipeBook')
+});
+
+$('#closeRecipe').on('click', function(){
+    $('.cover').addClass('closeRecipeBook');
+    $('#recipeBook').addClass('bookClosed')
+})
+
+css to go with this function
+    $(recipeBook).addClass('bookClosed')
+})
+
+It's CSS
+.openRecipeBook{
+    transform: rotateY(-180deg);
+}
+.bookOpened{
+    left: 50%;
+}
+.closeRecipeBook{
+    transform: rotateY(0deg);
+}
+.bookClosed{
+    left: 0%;
+}
+
+the x for closing the recipe book
+<div  class="closeRecipe">
+    <img src="resources/images/close.png" alt="Close Recipe" id="closeRecipe">
+</div>
+
+the css to go with the closing button and div
+.closeRecipe{
+    cursor: pointer;
+    position: relative;
+    height: 10px;
+    z-index: 5;
+}
+
+.closeRecipe img{
+    height: 1.5em;
+}
+*/
+
+need for form:
+rec title
+prep time
+cook time
+total time
+yields
+ingredients
+directions
+image
+
+old and crappy version of saving recipe - line 47
+
+app.post('/newRecipeData', (req, res) => {
+    const title = req.body.title,
+    prpTime = req.body.prpTime,
+    ckTime = req.body.ckTime,
+    ttlTime = req.body.ttlTime,
+    yields = req.body.yields,
+    ingrdnts = req.body.ingrdnts,
+    dirctns = req.body.dirctns;
+
+    var newRecipe = {title, prpTime, ckTime, ttlTime, yields, ingrdnts, dirctns};
+
+    recipe.create(newRecipe, function(err){
+        if(err){
+            console.log(err);
+        }else{
+            res.redirect('/recipiesDisplay') 
+        }
+    })
+})
+
+original ercipe book<div id="cover" class="cover">
+<div id="front" class="front">
+        <h2></h2>
+    </div>
+    <div class="back">
+        <div class="backText">
+            <h2><%= recipe.title %></h2>
+            <hr>
+            <div class="recipeIngredients">
+                <h3>You will need the following:</h3>
+                <ul>
+                    <% recipe.ingrdnts.forEach(function(item){ %>
+                        <li><%= item %></li>
+                    <% }); %>  
+                </ul> 
+            </div>
+            
+            <div class="timings">
+                <h3>Timings</h3>
+                <h4>Prep Time</h4>
+                <p><%= recipe.prpTime %></p>
+                <h4>Cook Time</h4>
+                <p><%= recipe.ckTime %></p>
+                <h4>Total Time</h4>
+                <p><%= recipe.ttlTime %></p>
+            </div>
+            <div class="recipeTips">
+                <h3>Tips for this recipe</h3>
+                <ul>
+                    <li>You would want to be generous with the kosher salt, It might look like too much but it isn't</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+
+/*hashing and authenticating:*/
+hashing = a hash is a function that coverts one value to another.
+it wil encrypt the password and save t like that so humans can't read the value
+salt = salt hashing is a technique in which we take the user entered password and a random string of charachters called as salt hash the combined string with a suitable hashing algorithm and store the results in the database
+
+/*different ful page backgrounds, lighter and darkeer*/
+ /*background: -webkit-linear-gradient(to right, #ffdde1, #ee9ca7);*/
+    /* /*darkest*/background: linear-gradient(to right, #f8cbd1, #ee9ca7);
+    /*background: linear-gradient(to right, #ffdde1, #ee9ca7); /*darkest*/
+    /*background: linear-gradient(to right, #ffdde1, #e9a2ab); /*lightest*/
+    /*background: linear-gradient(to right, #ffdde1, #e9acb4); /*in between*/
+
+
+/*validate email didn't work in login should work indipendatly*/
+    app.post('/login', urlencodedParser, [
+    check('email', 'email not valid')
+    .isEmail()
+    .normalizeEmail()
+    
+], function(req, res){
+
+    const errors = validationResult(req)
+    if(!errors.isEmpty()){
+        const alert = errors.array()
+            res.redirect('/', {
+                alert
+            })
+    }
+    create.findOne({
+        email: req.body.email,
+    }).then((userLogin) => {
+        if(!userLogin){
+            console.log('not found');
+            res.redirect('/', '{user not found}')
+        }
+        else{
+            create.findOne({
+                password: req.body.password
+            }).then((pass) => {
+                if(!pass){
+                    console.log('wrong password')
+                }
+                else{
+                    res.redirect('/recipiesDisplay')
+                }
+            })
+        }
+    })
+})
+
+
+
+<!--<span class="errMsgWrpr" id="loginErr">
+<% messages.forEach(function(mes) { %>
+<li><%= mes.output %></li>
+<% }); %></span>-->
+
+
+
+<span class="errMsgWrpr" id="signUpErr">
+    <% messages.forEach(function(mes) { %>
+        <li><%= mes.signUpErr %></li>
+        <% }); %></span>
+</span>
+
+
+
+Password hashing
+/*
+async function starts(){
+    let hash;
+    let userPassword = 'bracha PachtmanIsTringStuffHErr';
+    try{
+        hash = await argon2.hash(userPassword)
+        console.log(hash);
+        
+    }catch (err) {
+        console.log(err); 
+    }
+    try{
+        if(await argon2.verify(hash, 'hfiuhgiuhf')){
+            console.log('matched');
+        }else{
+            console.log('not a match');
+        }
+    }catch(err) {
+        console.log(err)
+    }
+}
+starts()
+*/
+
+//worked on this password hashing jut to read afterwardds that it's very bad practice
+function logger(errr){
+    console.log(errr);
+}
+
+var generateSalt = function(rounds){
+    if(rounds >= 15){
+        console.log(rounds + 'is greater than 15');
+    }else if(typeof rounds !== 'number'){
+        console.log('rounds must be a number');
+    }else if(rounds == null){
+        rounds = 12
+    }
+    return crypto.randomBytes(Math.ceil(rounds / 2)).toString('hex').slice(0, rounds)
+}
+
+logger(generateSalt(10))
+
+var hasher = function(password, salt){
+    var hash = crypto.createHmac('sha512', salt)
+    hash.update(password)
+    let value = hash.digest('hex')
+    return{
+        salt: salt,
+        hashedPassword: value
+    }
+}
+
+var hash = function(password, salt){
+    if(password == null || salt == null){
+        console.log('provide password and salt values');
+    }else if(typeof password !== 'string' || typeof salt !=='string'){
+        console.log('password must be a string and salt must either be a salt string or a number of rounds');
+    }
+    return hasher(password, salt)
+}
+
+logger(hash('Wisdom', generateSalt(12)))
+
+ <% if(files){ %>
+                            <% files.forEach(function(file){ %>
+                                <% if(file.isImage){ %>
+                                    <div class="userProfile">
+                                        <img src="photos/<%= file.filename %>" alt="profile photo">
+                                    </div>
+                                <% } %>
+                            <% }) %>
+                        <% }  %>
+
+delete correct recipe nly works either when
+oly last of the 3 divs is in the html (deleete the other ones)
+ot when the last div name is as the first then 2 divs with no classes
+
+being that modal is a child of the page not of this specific recipe when I call delete the first collection item on the page will be deleted, if modal is child o this specif recipe t will dlete this specific ecipe
+
+/*lateset versoin*/
+
+<div class="confirmDeleteCard">
+                                        <div class="confirmDeleteCardTxt">
+                                            <h1>&#33;</h1>
+                                            <h4>Are you sure you want to permanently delete this recipe?</h4>
+                                        </div>
+                                        
+                                        <div class="confirmBttns">
+                                            <button type="submit"><a href="/testBook">Cancel</a></button> 
+                                            <form action="/recipe/<%= rec._id %>?_method=DELETE" method="POST">
+                                                <button type="submit" class="deleterecipe">Delete</button>
+                                            </form>
+                                        </div>
+                                    </div>
+                                    
+                                    
+    background: transparent;
+    border-radius: 0;
+    border-bottom: 1px solid #535353;
+    color: #535353;
+    display: block;
+    font-size: 1em;
+    margin-bottom: 30px;
+    outline: none;
+    padding: 10px 0;
+    width: 100%;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    const bodyParser = require('body-parser'),
+    cookieParser = require('cookie-parser'),
+    create = require('./modules/userCreate'),
+    crypto = require('crypto'),
+    session = require('express-session'),
+    Grid = require('gridfs-stream'), //GridFs Stream
+    GridFsStorage = require('multer-gridfs-storage'), //GridFs
+    express = require('express'),
+    methodOverride = require('method-override'),
+    mongoose = require('mongoose'),
+    MongoDBSession = require('connect-mongodb-session')(session),
+    multer = require('multer'),
+    path = require('path'),
+    recipe = require('./modules/recipe'),
+    {check, validationResult} = require('express-validator'),
+    argon = require('argon2'),
+    app = express();
+
+mongoose.connect('mongodb://localhost/recipize', {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+    useFindAndModify: false
+});
+
+/*--------------------------------------------------------------*/
+const mongoURI = 'mongodb://localhost/recipize'
+const conn = mongoose.createConnection(mongoURI, {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+});
+
+let gfs;
+
+conn.once('open', () => {
+    gfs = Grid(conn.db, mongoose.mongo)
+    gfs.collection('creates')
+})
+
+const storage = new GridFsStorage({
+    url: mongoURI,
+    file: (req, file) => {
+        return new Promise((resolve, reject) => {
+            crypto.randomBytes(16, (err, buf) => {
+                if(err){
+                    return reject(err)
+                }
+                const filename = buf.toString('hex') + path.extname(file.originalname)
+                const fileInfo = {
+                    filename: filename,
+                    bucketName: 'creates'
+                }
+                resolve(fileInfo)
+            })
+        })
+    },
+    options: {
+        useUnifiedTopology: true
+    }
+})
+
+const PhotoUpload = multer({storage})
+
+/*
+//get all photos
+app.get('/photos', (req, res) =>{
+    gfs.files.find().toArray(function(err, files){
+        if(!files || files.length === 0){
+            res.send('no photos found')
+        }else{
+            res.send(files)
+        }
+    })
+})*/
+app.get('/photos/:filename', (req, res) =>{
+    gfs.files.findOne({filename: req.params.filename}, (err, file) => {
+        if(!file || file.length === 0){
+            res.send('no photos found')
+        } 
+        else if(file.contentType === 'image/png' || file.contentType === 'image/jpeg'){
+            const readStream = gfs.createReadStream(file.filename);
+            readStream.pipe(res)
+        }else{
+            res.send('not a photo')
+        }
+    })
+})
+
+/*----------------------------------------------------*/
+
+app.engine('html', require('ejs').renderFile)
+app.set('view engine', 'html')
+app.use(express.static('public'))
+app.use(bodyParser.urlencoded({extended:true}))
+//app.use(bodyParser.json()); 
+app.use(methodOverride('_method'))
+app.use(cookieParser());
+
+const store = new MongoDBSession({
+    uri: mongoURI,
+    collection: 'session'
+})
+
+app.use(session({
+    secret: 'workhardandwritesoestupifnon-sensestuffhere',
+    resave: false,
+    saveUninitialized: true,
+    store: store,
+    cookie: {
+        maxAge: 1000 * 60 * 60 * 24 * 7,
+        secure: true
+    }
+}));
+
+app.get('/test', (req, res) =>{
+    if (req.session.views) {
+        req.session.views++
+        res.setHeader('Content-Type', 'text/html')
+        res.write('<p>views: ' + req.session.views + '</p>')
+        res.write('<p>expires in: ' + (req.session.cookie.maxAge / 1000) + 's</p>')
+        res.end()
+      } else {
+        req.session.views = 1
+        res.end('welcome to the session demo. refresh!')
+      }
+})
+const isAuth = (req, res, next) => {
+    if(req.session.user && req.cookies.user_sid){
+        next()
+    }else{
+        res.send('not logged in <a href="/login">login</a>')
+    }
+}
+
+app.get('/', (req, res) =>{
+      /*  gfs.files.findOne({filename: req.params.filename}, function(err, file){
+        if(!file || file.length === 0){
+            res.render('index', {
+                errMsg: '',
+                files: false
+            })
+        }else if(file.contentType === 'image/png' || file.contentType === 'image/jpeg'){
+            const readStream = gfs.createReadStream(file.filename);
+            readStream.pipe(res)
+        }else{
+            res.render('index', {
+                errMsg: '',
+                files: files
+            });
+        }
+    })*/
+    gfs.files.find().toArray((err, files) => {
+        if(!files || files.length === 0){
+            res.render('index', {
+                errMsg: '',
+                files: false,
+                userName: ''
+            })
+        }else{
+            files.map((file) => {
+                if(file.contentType === 'image.png' || file.contentType === 'image/jpeg'){
+                    file.isImage = true
+                }else{
+                    file.isImage = false
+                }
+            })
+            
+            res.render('index', {
+                errMsg: '',
+                files: '',
+                userName: ''
+            });
+        }
+    })
+})
+
+app.get('/login', (req, res) =>{
+    const errMsg = `  <style> .modal{opacity: 1; visibility: visible;} </style>`
+    res.render('index', {errMsg: errMsg, files: '', userName: '' })
+})
+
+/*
+This function adds a new user to the database.
+Before it does so it checks if this user already exists.
+*/
+app.post('/createUser', PhotoUpload.single('attachProfilePhoto'), (req, res) =>{
+    const userCreate = {
+        firstName: req.body.firstName,
+        lastName: req.body.lastName,
+        email: req.body.email,
+        password: req.body.password
+    }
+
+    create.findOne({
+        email: req.body.email
+    }).then((user) => {
+        if(user){
+            const errMsg = `  <style> .modal{opacity: 1; visibility: visible;}
+                                .forms .formWrapper:nth-child(2){  display: none; }
+                                .forms .formWrapper:nth-child(3){  display: flex; } </style>
+                            <strong class="errMsg">This user already exists, log in or choose a different email</strong>
+                            <script> document.getElementById('SignUpBtnWrpr').classList.add('active')
+                                document.getElementById('loginBtnWrpr').classList.remove('active')
+                                document.getElementById('loginErr').innerHTML = ""; </script> `
+
+            gfs.files.find().toArray((err, files) => {
+                if(!files || files.length === 0){
+                    res.render('index', {
+                        errMsg: errMsg,
+                        files: false
+                    })
+                }else{
+                    files.map((file) => {
+                        if(file.contentType === 'image.png' || file.contentType === 'image/jpeg'){
+                            file.isImage = true
+                        }else{
+                            file.isImage = false
+                        }
+                    })
+                    
+                    res.render('index', {
+                        errMsg: errMsg,
+                        files: files
+                    });
+                }
+            })
+        }else{
+            create.create(userCreate, (err, user) => {
+                if(err){
+                    console.log(err);
+                }
+                req.session.user = user
+                res.redirect('/');
+            })
+            
+        }
+    })
+})
+
+/*
+This function logs a user to the system
+It checks if the email and password match to an exsisitng user
+It spits out an error accordingly
+*/
+app.post('/login', (req, res, user) => {
+    create.findOne({
+        email: req.body.email,
+    }).then((userLogin) => {
+        if(!userLogin){
+            const errMsg = `  <style> .modal{opacity: 1; visibility: visible;} </style>
+                            <strong class="errMsg">Oops. This email is not found, please try again</strong>
+                            <script> document.getElementById('signUpErr').innerHTML = ""; </script> `
+            res.render('index', {errMsg: errMsg, files: '', userName: '' })
+        }else{
+            create.findOne({
+                password: req.body.password
+            }).then((pass) => {
+                if(!pass){
+                    const errMsg = `  <style> .modal{ opacity: 1;visibility: visible;}</style>
+                                    <strong class="errMsg">Password incorrect, please try again</strong>
+                                    <script> document.getElementById('signUpErr').innerHTML = ""; </script> `
+                    res.render('index', {errMsg: errMsg, files: '', userName: '' })
+                }else{
+                    //const password = req.body.password
+                    //argon2.generateSalt().then(salt => {
+                    //    argon2.hash(password, salt).then(hash =>{
+                    //        console.log('successfully created argon2 hash:', hash);
+                    //    })
+                    //})
+                    req.session.user = user
+                    res.redirect('/')
+                }
+            })
+        }
+    })
+})
+
+/*
+This function renders the page to add a new recipe
+*/
+app.get('/AddNewRecipe', (req, res) =>{
+    // if(req.session.user){
+    //     
+    // }else{
+    //     res.redirect('/')
+    // }
+    res.render('addRecipe', {files: '',  userName: '', submitSucessMsg: ''})
+    
+})
+
+/*
+This function renders the display page for all exsisiting recipes
+*/
+app.get('/recipiesDisplay', (req, res) =>{
+    recipe.find({}, (err, allRecipies) => {
+        if(err){
+            console.log(err);
+        }else{
+            res.render('recipiesDisplay', {
+                recipe: allRecipies,
+                files: '',
+                userName: '' 
+            })
+        }
+    })
+})
+
+/*
+This function takes the data that the user added to the add a new recipe page form and submits it to the database
+this function creates a new recipie (CREATE)
+*/
+app.post('/newRecipeData', (req, res) => {
+     const fullRecipe = req.body.recipe
+    //     title: req.body.title,
+    //     prpTime: req.body.prpTime,
+    //     prpTimeSlct: req.body.select1,
+    //     ckTime: req.body.ckTime,
+    //     ckTimeSlct: req.body.select2,
+    //     ttlTimeHrs: req.body.ttlTimeHrs,
+    //     ttlTimeMin: req.body.ttlTimeMin,
+    //     ttlTimeSlctHrs: 'Hours',
+    //     ttlTimeSlctMin: 'Minutes',
+    //     yields: req.body.yields,
+    //     img: req.body.img,
+    //     ingrdnts: req.body.ingrdnts,
+    //     dirctns: req.body.dirctns
+    // }
+    recipe.create(fullRecipe, (err) => {
+        if(err){
+            console.log(err);
+        }else{
+            res.redirect('/recipiesDisplay')
+        }
+    })
+})
+
+/*
+This function displays one recipe when clicked on*/
+app.get('/recipe/:id', (req, res) => {
+    recipe.findById(req.params.id, (err, returningRec) => {
+        if(err){
+            console.log(err); 
+        }else{
+            res.render('viewRecipe', {
+                recipe: returningRec,
+                files: '',
+                userName: ''
+            })
+        }
+    })
+})
+
+/*
+This function shows the edit recipe page wehn we want to edit a specific recipe  (EDIT)
+*/
+app.get('/edit/:id', (req, res) => {
+    recipe.findById(req.params.id, (err, returningRec) => {
+        if(err){
+            console.log(err); 
+        }else{
+            res.render('editRecipe', {
+                recipe: returningRec,
+                files: '',
+                userName: ''
+            })
+        }
+    })
+
+})
+
+/*
+This function epdaes the recipe data to whatever we added in the edit page (UPDATE)
+*/
+app.put('/editRecipe/:id', (req, res) =>{
+
+    recipe.findByIdAndUpdate(req.params.id, req.body.recipe, (err) => {
+        if(err){
+            console.log(err);
+        }else{
+            res.redirect('/recipiesDisplay') 
+        }
+    })
+
+})
+/*Testing new delete on seperate page 
+app.get('/testBook', (req, res) =>{
+    recipe.find({}, function(err, allRecipies){
+        if(err){
+            console.log(err);
+        }else{
+            res.render('testBook', {
+                recipe: allRecipies,
+                files: '',
+                userName: '' 
+            })
+            console.log({recipe: allRecipies});
+        }
+    })
+})*/
+
+/*
+This function delets one recipe when user chooses to
+*/
+app.delete('/recipe/:id', (req, res) => {
+    recipe.findByIdAndRemove(req.params.id, (err) => {
+        if(err){
+            res.send(err)
+        }else{
+            res.redirect('/recipiesDisplay')
+        }
+    })
+})
+
+/*
+This function will close the login modal window on clicking the close button
+*/
+app.get('/closeModal', (req, res) =>{
+    res.redirect('/')
+})
+
+app.listen(3000)
+
+removed form index
+<%- userName %>
+
+pretty color combo, pink and white
+background: #e7aaaa;
+color: #fff;
+
+changes in styles
+commented ou:
+. {
+    display: flex;
+    flex-direction: column;
+}
+deleted cpommented backgounds
+/*.pageBody{
+    background-color: #d9cccc;
+    background: #ee9ca7;
+    background: #fff0fd;
+    /*background: #ffffff;
+    background: #d1b4b48c;*/
+    color: var(--mainGrayColor);
+    font-family: 'Montserrat', sans-serif;
+    font-size: 16px;
+    height: 100%;
+    min-height: 100vh;
+    transition: background 1s ease;
+}*/
+
+.mainContent{
+    /*position: relative;*/
+    margin-top: 5em;
+}
+
+.navWrapper{
+    /*flex: auto;*/
+}

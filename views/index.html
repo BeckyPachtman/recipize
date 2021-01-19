@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="author" content="Bracha Pachtman">
+    <meta name="description" content="Recipe Manager Platform">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="keywords" content="HTML, CSS, JavaScript, Node.js, Food, Recipes, Organization">
+    <link rel="stylesheet" href="headerFooter.css">
+    <link rel="stylesheet" href="modalStyles.css">
+    <link rel="stylesheet" href="generalStyles.css">
+    <link rel="stylesheet" href="recipesDisplay.css">
+    <link rel="stylesheet" href="viewOneRec.css">
+    <link rel="stylesheet" href="addEditRec.css">
+    <link rel="stylesheet" href="mediaQueries.css">
+    <title>Recipize</title>
+</head>
+<body>
+     <div id="indexPage" class="pageBody showModal">
+            <%- include('header.html')%>
+             <div class="mainContent">
+                 <div class="contentWrapper">
+                    <div class="content">
+                        <div>
+                            <h1>Welcome to Recipeze</h1>
+                            <h3>Enter, edit, share, update recipes easily, quickly, and effortlessly.</h3>
+                            
+                            <div class="secendaryContent mainButtons">
+                                <button type="button" id="loginPropmtButton" class="loginPropmtButton" data-open='modal'>Login/Sign Up</button>
+                                <button type="button"><a href="AddNewRecipe" class="mainPageAddRec">Add Recipe</a></button>
+                            </div>
+                            
+                        </div>
+                    </div>
+                    
+
+                    <div class="modalWrapper">
+                        <div id="modal" class="modal">
+                            <div class="modalMainContent">
+                                    <div class="forms">
+                                        <ul class="tabs">
+                                            <li class="tab active" id="loginBtnWrpr">
+                                                <a href="javascript:void(0)" class="loginButton">Login</a>
+                                            </li>
+                                            <li class="tab" id="SignUpBtnWrpr">
+                                                <a href="javascript:void(0)" class="signUpButton">Signup</a>
+                                            </li>
+                                        </ul>
+                                        
+                                        <div class="formWrapper loginFormWrapper">
+                                      
+                                            <form action="/login" method="POST" id="login">
+                                               
+                                                <div class="userFormWrapper">
+                                                    
+                                                    <h3>Login to your account</h3>    
+                                                    <span class="errMsgWrpr" id="loginErr"><%- errMsg %></span>
+
+                                                    <div class="eachInput">
+                                                        <input type="email" name="email" id="email" placeholder=" " required>
+                                                        <label for="email">Email address</label>
+                                                    </div>
+                                                    
+                                                    <div class="eachInput">
+                                                        <input type="password" name="password" class="password" placeholder=" " required>
+                                                        <span class="showHidePassIcon">
+                                                            <img src="/resources/images/passwordVisibility.png" alt="password icon" class="showPassIcon">
+                                                            <img src="/resources/images/passwordInvisible.png" alt="password icon" class="hidePassIcon">
+                                                        </span>
+                                                      
+                                                        <label for="password">Password</label>
+                                                            <a href="#">Forgot password?</a>
+                                                    </div>
+
+                                                    <div class="userFormButtons">
+                                                        <button type="submit" class="modalButton">Login</button>
+                                                        <button type="button" class="reset">Reset</button>
+                                                        
+                                                    </div>
+                                                </div>
+                                            </form>
+
+                                            <form action="/closeModal" method="GET" class="closeModalForm">
+                                                <button type="submit" class="closeModal" data-close>✕</button>
+                                            </form>
+                                        </div>
+                                        
+                                        <div class="formWrapper signUpFormWrapper" id="signUpFormWrapper">
+                                            <form action="/createUser" method="POST" id="signUp" class="signUpForm">
+                                                <div class="userFormWrapper">
+                                                    <h3>Sign Up to Recipize</h3>
+                                                    <span class="errMsgWrpr" id="signUpErr"><%- errMsg %></span>
+                                                    <div class="firstLastRowInputs">
+                                                        <div class="eachInput">
+                                                            <input class="frmInpt" type="text" name="firstName" id="firstName" placeholder=" " required>
+                                                            <label for="firstName">First Name</label>
+                                                        </div>
+                                                        <div class="eachInput">
+                                                            <input class="frmInpt" type="text" name="lastName" id="lastName" placeholder=" " required>
+                                                            <label for="lastName">Last Name</label>
+                                                        </div>
+                                                    </div>
+                                                    <div class="eachInput">
+                                                        <input class="frmInpt" type="email" name="email" id="signUpEmail" placeholder=" " required>
+                                                        <label for="email">Email address</label>
+                                                    </div>
+                                                    <div class="eachInput">
+                                                        <input class="frmInpt" type="password" name="password" class="password" placeholder=" " required>
+                                                        <span class="showHidePassIcon">
+                                                            <img src="/resources/images/passwordVisibility.png" alt="password icon" class="showPassIcon">
+                                                            <img src="/resources/images/passwordInvisible.png" alt="password icon" class="hidePassIcon">
+                                                        </span>
+                                                        <label for="password">Password</label>
+                                                    </div>
+                                                    <div class="userFormButtons">
+                                                        <button type="submit" class="modalButton">Sigup</button>
+                                                        <button type="button" class="reset">Reset</button>
+                                                    </div>
+                                                </div>
+                                            </form>
+                                            <form action="/closeModal" method="GET" class="closeModalForm">
+                                                <button type="submit" class="closeModal" data-close>✕</button>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div><%- include('footer.html')%>
+        </div>
+    
+
+</body>
+</html>
+
+<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+<script src="loginSigupForm.js"></script>
+<script src="script.js"></script>
