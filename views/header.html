@@ -1,36 +1,48 @@
-<div class="navWrapper">
-    <div class="nav">
+<div class="nav">
         <div class="logoWrapper">
-            <img src="../resources/images/logoCopy.png" alt="recipeze logo">
-            <img src="../resources/images/logoWhite.png" alt="recipeze logo">
+            <img src="../resources/images/logoNew2Clear.png" alt="recipeze logo">
+            <img src="../resources/images/logoStickyClear.png" alt="recipeze logo">
         </div> 
         <div class="navItemsWrapper"> 
             <nav>
+                <div class="hamburger">
+                    <div class="line"></div>
+                    <div class="line"></div>
+                    <div class="line"></div>
+                  </div>
                 <ul class="navUl">
-                    <li><a href="/">Home</a></li>
-                    <li><a href="/login">Login/Sign up</a></li>
-                    <li><a href="/recipiesDisplay">View All Recipies</a></li>
-                    <li><a href="/AddNewRecipe">Add New Recipe</a></li>
-                    <div class="searchInputIconWrapper">
-                        <span class="navSearchInputWrapper">
-                            <input class="searchRecipes" id="searchRecipes" type="search" name="searchRecipes" placeholder="Search Recipe" class="navSearchInput">
-                        </span>
-                    </div>
-                       
-                    <div id="userLoggedIn">
-                        <div class="user">
-                            <%- profile %>   
-                           <p class="userName" id="userName"><%- userName %></p>
-                        </div>
-                        
-                        <div class="userOptions">
-                            <a href="/logout">log out</a>
-                        </div>
-                    </div>
+                    <div class="lis">
+                        <li><a href="/">Home</a></li>
+                        <li><a href="/login">Login/Sign up</a></li>
+                        <li><a href="/recipiesDisplay">View All Recipies</a></li>
+                        <li><a href="/AddNewRecipe">Add New Recipe</a></li>
                     
-                    
+                        <div class="searOptionWrrpr">
+                            <div class="navSearchInputWrapper">
+                                <input class="searchRecipes" id="searchRecipes" type="search" name="searchRecipes" placeholder="Search Recipe" class="navSearchInput">
+                                <small class="icn"><img src="../resources/images/search.png" alt=""></small>
+                            </div>
+                        </div>
+                   </div>
                 </ul>
+                <div id="userLoggedIn">
+                    <div class="user">
+                        <%- profile %>   
+                    <p class="userName" id="userName"><%- userName %></p>
+                    </div>
+                    
+                    <div class="userOptions">
+                        <a href="/logout">log out</a>
+                    </div>
+
+                </div>
+                
             </nav>
+
+            
+            
         </div>
-    </div>
+        
 </div>
+
+<!-- removed wrapper div of navWrapper -->

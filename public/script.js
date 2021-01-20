@@ -20,21 +20,41 @@ $(document).ready(() =>{
         if (scrollTop > stickyNavTop) { 
             $('.nav').addClass('sticky');
             $('.nav a').addClass('stickyLinks');
-            $('.nav img:first-child').css('display', 'none');
-            $('.nav img:last-child').css('display', 'block');
+            $('.logoWrapper img:first-child').css('display', 'none');
+            $('.logoWrapper img:last-child').css('display', 'block');
          
         } else {
             $('.nav').removeClass('sticky'); 
             $('.nav a').removeClass('stickyLinks'); 
             $('.nav img').removeClass('stickyLogo');
-            $('.nav img:first-child').css('display', 'block');
-            $('.nav img:last-child').css('display', 'none');
+            $('.logoWrapper img:first-child').css('display', 'block');
+            $('.logoWrapper img:last-child').css('display', 'none');
         }
     };
     stickyNav();
     $(window).scroll(function() {
         stickyNav();
     });
+
+
+    /*let navWrapper = document.querySelector('nav'),
+    navToogler =  document.querySelector('.navToggler')
+
+    $(navToogler).on('click', function(){
+        $(navWrapper).toggleClass('active navActive')
+    })*/
+
+const hamburger = document.querySelector(".hamburger");
+const navLinks = document.querySelector(".navUl");
+const links = document.querySelectorAll(".navUl li");
+
+hamburger.addEventListener("click", () => {
+  navLinks.classList.toggle("open");
+  links.forEach(link => {
+    link.classList.toggle("fade");
+  });
+});
+
 
     /*
     This function show and hides the setting options on the view-one recipe page

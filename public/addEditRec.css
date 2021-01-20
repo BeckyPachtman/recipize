@@ -39,6 +39,8 @@ fieldset{
     height: 35.93em;
     margin: 2em 2em 0;
     width: 100%;
+
+    max-width: 52em;
 }
 fieldset > div h2{
     padding-bottom: .2em;
