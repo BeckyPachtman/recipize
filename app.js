@@ -21,7 +21,8 @@ const cookieName = 'AuthenticationApp';
 const log = fs.createWriteStream('log.txt', {flags: 'a'});
 const profileMsg = `<style> #userLoggedIn{display: flex;}</style>`
 const profileHidden = `<style> #userLoggedIn{display: none;}</style>`
-const errLoginReAttempt = errMsg.loginReAttempt;
+const errLoginReAttempt = errMsg.reattempLogin;
+const errloginForAccess = errMsg.loginForAccess
 const removeLoginBttn = errMsg.removeLoginBttn;
 const loginAfterSignupMsg = errMsg.loginAfterSignup;
 const errFieldEmpty = errMsg.fieldEmpty;
@@ -43,20 +44,18 @@ app.use(session({
     saveUninitialized: false,
     store: new MongoStore({ mongooseConnection: mongoose.connection }),
     cookie: {
-        maxAge: 1000 * 60 * 60 * 24 * 7 //one week
+        maxAge: 1000 * 60 * 60 * 24 * 7
     },
     name: cookieName
 }))
 
-/*this function redirect a user to the login page
-if they try to accessa page they have ot be logged in to access*/
+/*this function redirects a user to the login page
+if they try to access a page they have to be logged in to be able to  access*/
+
 const redirectLogin = (req, res, next) => {
     if(!req.session.userId){
-    var errMsg = ` <style> .modal{opacity: 1; visibility: visible;} </style>
-    <strong class="errMsg">Log in to access this feature</strong>
-    <script> document.getElementById('signUpErr').innerHTML = ""; </script>`
             res.render('index', {
-                errMsg: errMsg,
+                errMsg: errloginForAccess,
                 userName: '',
                 profile: profileHidden
             });
@@ -65,15 +64,15 @@ const redirectLogin = (req, res, next) => {
     }
 }
 
-/*This function rediercts the uer to hte home page ig the try to access
- the login page while they are already logged in */
-const redirectHome = (req, res, next) => {
-    if(req.session.userId){
-        res.redirect('/')
-    }else{
-        next()
-    }
-}  
+/*This function rediercts the user to home home page if the try to access
+the login page while they are already logged in */
+// const redirectHome = (req, res, next) => {
+//     if(req.session.userId){
+//         res.redirect('/')
+//     }else{
+//         next()
+//     }
+// }  
 
 function createUserName (loggedUser) {
         const firstName  = loggedUser.firstName;
@@ -88,7 +87,7 @@ module.exports = createUserName;
 
 app.get('/',  function(req, res){
     const {userId} = req.session;
-    if(userId){    
+    if(userId){ 
         create.findById(userId, (err, loggedUser) =>{
             const userName =  createUserName(loggedUser);
             res.render('index', {errMsg: removeLoginBttn, userName: userName, profile: profileMsg});
@@ -99,24 +98,31 @@ app.get('/',  function(req, res){
 })
 
 app.get('/login', function(req, res){
-    if(req.session.userId){
-        var errMsg = `<style> .modal{opacity: 1; visibility: visible;} </style>`
-        res.render('index', {errMsg: errLoginReAttempt + errMsg, files: '', userName: '', profile: profileMsg })
+    const {userId} = req.session;
+    if(userId){ 
+        create.findById(userId, (err, loggedUser) =>{
+            const userName =  createUserName(loggedUser);
+            var errMsg = `<style> .modal{opacity: 1; visibility: visible;} </style>`
+            res.render('index', {errMsg: errLoginReAttempt + errMsg, userName: userName, profile: profileMsg});
+        });
     }else{
-        var errMsg = `<style> .modal{opacity: 1; visibility: visible;} </style>`
-        res.render('index', {errMsg: errMsg, files: '', userName: '', profile: profileMsg })
+        var errMsg = `<style> .modal{opacity: 1; visibility: visible;} </style>
+        <script>document.getElementById('closeModalForm').style.display = 'block';
+        document.getElementById('closeModal').style.display = 'none';</script>`
+        res.render('index', {errMsg: errMsg, userName: '', profile: profileHidden })
     }
 })
 
 app.get('/loginAfterSignup', function(req, res){
     res.render('index', {errMsg: loginAfterSignupMsg, userName: '', profile: ''})
 })
+
 /*
 This function adds a new user to the database.
 Before it does so it checks if this user already exists.
 */
-
-app.post('/createUser', redirectHome, function(req, res){
+// , redirectHome
+app.post('/createUser', function(req, res){
     var userCreate = {firstName, lastName, email, password} = req.body
     if(!firstName || !lastName || !email || !password){
         res.render('index', {
@@ -153,8 +159,9 @@ app.post('/createUser', redirectHome, function(req, res){
 This function logs a user to the system
 It checks if the email and password match to an exsisitng user
 It spits out an error accordingly
-*/
-app.post('/login', redirectHome, function(req, res){
+ */
+//, redirectHome
+app.post('/login', function(req, res){
     create.findOne({
         email: req.body.email,
     }).then((userLogin) => {
@@ -384,7 +391,7 @@ app.get('/closeModal', function(req, res){
             res.render('index', {errMsg: removeLoginBttn, userName: userName, profile: profileMsg});
         });
     }else{
-        res.render('index', {errMsg: '', userName: '', profile: profileHidden});
+        res.render('index', {errMsg: '', userName: '', profile: profileHidden});   
     }
 
  
