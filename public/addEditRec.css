@@ -140,19 +140,23 @@ fieldset.visibleFieldset > div:last-child{
 .inputGroup .moreOptionsColumn .imgUrlWrppr input{
     font-size: .9em;
 }
+
 .inputGroup .moreOptionsColumn .imgUrlWrppr input:not(:placeholder-shown) ~ label,
-.inputGroup > div input:focus ~ label,
-.inputGroup > div input:not(:placeholder-shown) ~ label{    
+.inputGroup .moreOptionsColumn .imgUrlWrppr input:not(:placeholder-shown) ~ label,
+.inputGroup > div input:focus ~ label:not(.uploadRecPhotoLbl),
+.inputGroup > div input:not(:placeholder-shown) ~ label:not(.uploadRecPhotoLbl){    
     font-size: .8em;
     left: .5em;
-    top: 0 !important;
+    top: .5em;
+    background-color: white;
+    padding: .3em .7em .3em .5em;
 }
 .imgWapper label{
     background-color: #F0F5F8;
-    width: 95%;
-    margin-left: .1em;
-    margin-top: 1.3em;
     height: 57%;
+    margin-left: -.5em;
+    padding: 0;
+    width: 95%;
 }
 .imgWapper img{
     margin-left: .6em

@@ -26,8 +26,12 @@
                             <h3>Enter, edit, share, update recipes easily, quickly, and effortlessly.</h3>
                             
                             <div class="secendaryContent mainButtons">
-                                <button type="button" id="loginPropmtButton" class="loginPropmtButton" data-open='modal'>Login/Sign Up</button>
-                                <button type="button"><a href="AddNewRecipe" class="mainPageAddRec">Add Recipe</a></button>
+                                <div class="loginPropmtButtonWrrpr">
+                                    <button type="button" id="loginPropmtButton" class="loginPropmtButton" data-open='modal'>Login</button>
+                                    <span>or sign up</span>
+                                </div>
+                                <button type="button" class="mainPageRecDisply"><a href="recipiesDisplay" class="mainPageAddRec ">View All Recipes</a></button>
+                                <button type="button" class="mainPageAddRec"><a href="AddNewRecipe" class="">Add Recipe</a></button>
                             </div>
                             
                         </div>
@@ -48,7 +52,6 @@
                                         </ul>
                                         
                                         <div class="formWrapper loginFormWrapper">
-                                      
                                             <form action="/login" method="POST" id="login">
                                                
                                                 <div class="userFormWrapper">
@@ -80,9 +83,12 @@
                                                 </div>
                                             </form>
 
-                                            <form action="/closeModal" method="GET" class="closeModalForm">
+                                            <form action="/closeModal" method="GET" id="closeModalForm">
                                                 <button type="submit" class="closeModal" data-close>✕</button>
                                             </form>
+
+                                            <button type="submit" id="closeModal" class="closeModal" data-close>✕</button>
+                                            
                                         </div>
                                         
                                         <div class="formWrapper signUpFormWrapper" id="signUpFormWrapper">

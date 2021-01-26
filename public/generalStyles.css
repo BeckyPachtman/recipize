@@ -27,7 +27,6 @@ a{
     text-decoration: none;
 }
 button:not(cancelDeleteBttn){
-    /* background-color: var(--mainRedishColor); */
     background-color: var(--color);
     border: none;
     color: #fff;
@@ -90,3 +89,4 @@ input{
     justify-content: space-evenly;
     margin-top: .5em;
 }
+

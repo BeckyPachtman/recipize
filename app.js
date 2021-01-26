@@ -22,7 +22,7 @@ const log = fs.createWriteStream('log.txt', {flags: 'a'});
 const profileMsg = `<style> #userLoggedIn{display: flex;}</style>`
 const profileHidden = `<style> #userLoggedIn{display: none;}</style>`
 const errLoginReAttempt = errMsg.loginReAttempt;
-const removeLoginBttn = errMsg.removeLoginBttn
+const removeLoginBttn = errMsg.removeLoginBttn;
 const loginAfterSignupMsg = errMsg.loginAfterSignup;
 const errFieldEmpty = errMsg.fieldEmpty;
 const errUserExists = errMsg.userExists;
@@ -53,14 +53,14 @@ if they try to accessa page they have ot be logged in to access*/
 const redirectLogin = (req, res, next) => {
     if(!req.session.userId){
     var errMsg = ` <style> .modal{opacity: 1; visibility: visible;} </style>
-    <strong class="errMsg">Log in to be able to access this feature</strong>
+    <strong class="errMsg">Log in to access this feature</strong>
     <script> document.getElementById('signUpErr').innerHTML = ""; </script>`
             res.render('index', {
                 errMsg: errMsg,
                 userName: '',
                 profile: profileHidden
             });
-    } else{
+    }else{
         next()
     }
 }
@@ -74,6 +74,7 @@ const redirectHome = (req, res, next) => {
         next()
     }
 }  
+
 function createUserName (loggedUser) {
         const firstName  = loggedUser.firstName;
         const lastName  = loggedUser.lastName;
@@ -105,7 +106,6 @@ app.get('/login', function(req, res){
         var errMsg = `<style> .modal{opacity: 1; visibility: visible;} </style>`
         res.render('index', {errMsg: errMsg, files: '', userName: '', profile: profileMsg })
     }
-
 })
 
 app.get('/loginAfterSignup', function(req, res){
@@ -261,12 +261,12 @@ app.get('/edit/:id', function(req, res) {
             if(err){
                 console.log(err); 
             }else{
-                //if(loggedUser.firstName + ' ' + loggedUser.lastName != returningRec.author){
+                if(loggedUser.firstName + ' ' + loggedUser.lastName != returningRec.author){
                     if(err){
                         console.log(err);
-                    //}//else{
-                        //res.redirect('/notAuthor')
-                    //}
+                    }else{
+                      res.redirect('/notAuthor')
+                    }
                 }else {
                     res.render('editRecipe', {recipe: returningRec, userName: userName, profile: profileMsg})
                 }
@@ -316,16 +316,46 @@ app.put('/editRecipe/:id', function(req, res){
 This function delets one recipe when user chooses to
 */
 app.delete('/recipe/:id', function(req, res) {
-    recipe.findByIdAndRemove(req.params.id, function(err){
-        if(err){
-            log.write('Failed attempt at deleting a recipe\n')
-            res.send(err)
-        }else{
-            log.write('Recipe successfully deleted\n')
-            res.redirect('/recipiesDisplay')
-        }
+
+   
+       
+        // recipe.findById(req.params.id, function(err, returningRec){
+        //     if(err){
+        //         console.log(err); 
+        //     }else{
+        //         if(loggedUser.firstName + ' ' + loggedUser.lastName != returningRec.author){
+        //             if(err){
+        //                 console.log(err);
+        //             }else{
+        //               res.redirect('/notAuthor')
+        //             }
+        //         }else{
+        //             res.render('editRecipe', {recipe: returningRec, userName: userName, profile: profileMsg})
+        //         }
+        //     }
+        // })
+     
+
+    const {userId} = req.session;
+    create.findById(userId, (err, loggedUser) =>{        
+        recipe.findById(req.params.id, function(err, recipeToDelete){
+            if(loggedUser.firstName + ' ' + loggedUser.lastName == recipeToDelete.author){
+                    if(err){
+                    log.write('Failed attempt at deleting a recipe\n')
+                    res.send(err)
+                }else{
+                    recipe.findByIdAndRemove(req.params.id, () =>{
+                        log.write('Recipe successfully deleted\n')
+                        res.redirect('/recipiesDisplay')
+                    })
+                }
+            }else{
+                res.redirect('/notAuthor')
+            }
+       })
     })
 })
+
 
 /*
 This function kills the session and cookie therefore loggin the user out */
@@ -344,7 +374,21 @@ app.get('/logout', redirectLogin, (req, res) =>{
 This function will close the login modal window on clicking the close button
 */
 app.get('/closeModal', function(req, res){
-    res.redirect('/')
+   //res.redirect('/')
+   // res.render('index', {errMsg: removeLoginBttn, userName: userName, profile: profileMsg});
+
+    const {userId} = req.session;
+    if(userId){
+        create.findById(userId, (err, loggedUser) =>{
+            const userName =  createUserName(loggedUser);
+            res.render('index', {errMsg: removeLoginBttn, userName: userName, profile: profileMsg});
+        });
+    }else{
+        res.render('index', {errMsg: '', userName: '', profile: profileHidden});
+    }
+
+ 
+
 })
 
 app.listen(3000)

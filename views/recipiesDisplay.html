@@ -24,11 +24,19 @@
                 <div>
                     <h1>Recipe Gallery</h1>
                     <h3>Browse through to view and edit all of your existing recipes</h3>
-                    <span class="authorMsg "><%- msg %></span> 
                     
-            <div id="result">
+                    
+                    <div class="searOptionWrrpr">
+                        <div class="navSearchInputWrapper">
+                            <input class="searchRecipes" id="searchRecipes" type="search" name="searchRecipes" placeholder="Search Recipe" class="navSearchInput">
+                            <div>
+                                <span class="icn"><img src="../resources/images/search.png" alt=""></span>
+                            </div>
+                        </div>
+                    </div>
 
-            </div>
+                    <span class="authorMsg"><%- msg %></span> 
+                    
                     <div class="secendaryContent">
                         <div class="recipeDisplayWrapper">
                             <% recipe.forEach(function(rec){ %>

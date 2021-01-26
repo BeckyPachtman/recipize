@@ -37,15 +37,18 @@
     width: auto;
     min-width: 35%; 
 } 
-.closeModalForm{
-    position: relative;
-}
 .closeModal{
     background: none;
-    color: #ff3939;
+    bottom: .5em;
+    color: var(--mainColor);
     position: absolute;
-    bottom: 0;
-    right: 1em;
+    right: .7em;
+    transition: color .3s ease;
+}
+.closeModal:hover{
+    background: none;
+    color: var(--newmainColor);
+    transition: color .3s ease;
 }
 .errMsg{
     display: inline-block;
@@ -54,9 +57,31 @@
     background: #FFE0E0;
     color: red;
     font-size: .85em;
+    font-weight: 500;
+}
+.mainButtons{
+   margin: auto 5em;
+}
+.mainButtons span{
+    font-size: .9em;
+    padding-top: .2em;
 }
 .mainPageAddRec{
     color: #fff;
+    height: 45.78px
+}
+.mainPageAddRec a{
+    color: #fff;
+}
+.mainPageRecDisply{
+    display: none;
+}
+.loginPropmtButtonWrrpr{
+  display: inline-flex;
+  flex-direction: column;
+}
+#closeModalForm{
+    display: none;
 }
 /*Form input styles*/
 .eachInput{
@@ -125,7 +150,7 @@
     overflow: auto;
     position: relative;
     text-align: center;
-    width: 25%;
+    width: 28vw;
 }
 .confirmDeleteCard{
     align-self: center;

@@ -37,23 +37,19 @@ $(document).ready(() =>{
     });
 
 
-    /*let navWrapper = document.querySelector('nav'),
-    navToogler =  document.querySelector('.navToggler')
+    /* 
+    This function opens and closes the mobile nav
+    */
+    const hamburger = document.querySelector(".hamburger");
+    const navLinks = document.querySelector(".navUl");
+    const links = document.querySelectorAll(".navUl li");
 
-    $(navToogler).on('click', function(){
-        $(navWrapper).toggleClass('active navActive')
-    })*/
-
-const hamburger = document.querySelector(".hamburger");
-const navLinks = document.querySelector(".navUl");
-const links = document.querySelectorAll(".navUl li");
-
-hamburger.addEventListener("click", () => {
-  navLinks.classList.toggle("open");
-  links.forEach(link => {
-    link.classList.toggle("fade");
-  });
-});
+    hamburger.addEventListener("click", () => {
+        navLinks.classList.toggle("open");
+        links.forEach(link => {
+            link.classList.toggle("fade");
+        });
+    });
 
 
     /*
@@ -63,17 +59,6 @@ hamburger.addEventListener("click", () => {
     $('.settings > img').on('click', function(){
         $('.iconWrapperSingleRec').fadeToggle()
     })
-    /*
-    This function adds a scrollbar when viewing one recipe and the directions get longer than a specified height
-    */
-    // if($('.details').height() > 750){
-    //     $('.details').addClass('detailsScrollbar')
-    //     $('.leftSide').addClass('leftSideScrollbarVisible')
-    // }
-
-    // if($('.recIng').height() > 300){
-    //     $('.recipeIngredients').addClass('recipeIngrScrollbar')
-    // }
 
     //This function adds a scrollbar to the add new form at tips, ingredients, and tips
     var ingrdntsInput = $('.ingrdntsInput');
@@ -139,46 +124,33 @@ hamburger.addEventListener("click", () => {
             $('.editTipsInputGroup').addClass('recipeEditScrlbr')
         }
     })
-    /*
-    This function toggles a recipe's image visibilty
-    */
-    // $('.recImg').on('click', function(){
-    //    $('.recipeImageModal').fadeToggle()
-    //    $('.pageBody, .recipeBook').toggleClass('imageVisble')
-    //    //$('.recipeBook hr').fadeToggle()
-    //    $('.viewImage').toggleClass('viewImgLighter')
-    //    $('.iconWrapperSingleRec div button, .iconWrapperSingleRec div a').toggleClass('recImageVisible')
-    //    $('.details').toggleClass('detailsScrollbarImgVsbl')
-    // })
 
     var modal = $('.recImgModal'),
     overlay = $('.overlay'),
     showModal = $('.recImg'),
     close = $('.close');
     
-/*show modal and set dimensions based on window */
-$(showModal).on('click', function(e){
-  e.preventDefault();
-  var windowWidth = $(window).width();
+    /*show modal and set dimensions based on window */
+    $(showModal).on('click', function(e){
+        e.preventDefault();
+        var windowWidth = $(window).width();
 
 
-  $(overlay).show();
-  $(overlay).addClass('overlayVisible')
-  $(modal).css({});
-  $('.viewRecPageBody').css('position', 'fixed')
-});
-/*close on click of 'x' */
-$(close).on('click', function(){
-  $(overlay).hide();
-});
-/* close on click outside of modal */
-$(overlay).on('click', function(e) {
-  if (e.target !== this) return;
-  $(overlay).hide();
-});
+        $(overlay).show();
+        $(overlay).addClass('overlayVisible')
+        //$(modal).css({});
+        //$('.viewRecPageBody').css('position', 'fixed')
+    });
 
-
-    
+    /*close on click of 'x' */
+    $(close).on('click', function(){
+        $(overlay).hide();
+    });
+    /* close on click outside of modal */
+    $(overlay).on('click', function(e) {
+        if (e.target !== this) return;
+        $(overlay).hide();
+    });
 
     /*Activats next/previous buttons on form .*/
     $('button[class^="next_btn"]:not(.btnToIngrdnts)').click(function(){
@@ -233,17 +205,6 @@ $(overlay).on('click', function(e) {
     $('.dltRecCnfrmSngleRec').on('click', function(){
         $(this).parent().parent().parent().parent().children('.dltRecWrrpModal').children('.modalDel').addClass('modalDelVisible');
     })
-
-
-    //$('.recImg').on('click', function(){
-        // $(this).css({
-        //     'height': '100%',
-        //     'margin': '0',
-        // })
-        //$(this).toggleClass('recImgBig')
-        
-        //console.log('clicked');
-    //})
     /*
     This function check if the reipce total time hours is 1 and changes the word hours to hour.
     It checks if the hours are mising and removes the word all togethor in that case
@@ -298,13 +259,12 @@ $(overlay).on('click', function(e) {
         }
     });
 
-
-    $('#searchRecipes').on('keyup', function(){
+     function searchRecipes(){
         var searchInput = document.getElementById("searchRecipes");
         var filterValue = searchInput.value.toUpperCase().trim();
         var title = $(".recipeTitle")
 
-        for (var i = 0 ; i < title.length ; i++){
+        for (var i = 0 ; i < title.length; i++){
             var a = title[i].getElementsByTagName("a")[0];
 
             title[i].parentElement.parentElement.classList.remove('searchNotResult');
@@ -317,9 +277,26 @@ $(overlay).on('click', function(e) {
                     title[i].parentElement.parentElement.classList.add('searchNotResult');
                     title[i].parentElement.parentElement.parentElement.classList.remove('oneRecipeDisplayWrapper')
                     title[i].parentElement.parentElement.parentElement.classList.add('oneRecipeDisplayWrapperResult')
-            }
+                }
         }
+    }
+
+    $('#searchRecipes').on('keyup', function(){
+        searchRecipes()
     })
+
+   
+    if($(".recPageBody").length) {
+        document.getElementById("searchRecipes").addEventListener("search", function() {
+            var title = $(".recipeTitle")
+
+            for (var i = 0 ; i < title.length; i++){
+                title[i].parentElement.parentElement.classList.remove('searchNotResult');
+                title[i].parentElement.parentElement.parentElement.classList.remove('oneRecipeDisplayWrapperResult')
+                title[i].parentElement.parentElement.parentElement.classList.add('oneRecipeDisplayWrapper')
+            }
+        });
+    }
 
     var deleteItm = $('.removeEditItem');
         $(deleteItm).on('click', function(){
@@ -355,8 +332,6 @@ $(overlay).on('click', function(e) {
         }
     })
 
-
-
     var yieldSelect = $('.yieldSelect');
     var otherOptionText = $('.otherOptionText')
 
@@ -369,10 +344,8 @@ $(overlay).on('click', function(e) {
     })
 
     if(yieldSelect.val('Servings')){
-        
         $('.yieldSelectViewRec').hide()
     }
-
 
     var selectName = $('.editSelectValue').find(":selected").text();
         if(selectName === 'Servings'){

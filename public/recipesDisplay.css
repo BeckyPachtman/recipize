@@ -1,4 +1,43 @@
 /*All recipe view page - display*/
+.searOptionWrrpr{
+    display: flex;
+    justify-content: center;
+    margin: 0 auto 1em ;
+    width: 100%;
+}
+.navSearchInputWrapper{
+    background-color: rgba(248, 248, 248, 0.424);
+    display: flex;
+    position: relative;
+    width: 35%;
+}
+.searchRecipes:focus,
+.searchRecipes:focus + div .icn {
+    background-color: #fff;
+}
+.navSearchInputWrapper input::placeholder{
+    color: #777;
+}
+.searchRecipes{
+    background: none;
+    border-bottom-left-radius: 0;
+    border-top-left-radius: 0;
+    margin-left: 2.5em;
+    width: 100%;
+}
+.icn{
+    border-radius: .2em;
+    border-bottom-right-radius: 0;
+    border-top-right-radius: 0;
+    height: 2em;
+    left: .1em;
+    padding: .5em 0 .4em .1em;
+    position: absolute;
+    width: 2em;
+}
+.icn img{
+    filter: invert(.2);
+}
 .authorMsg{
     background: #FFE0E0;
     color: red;
@@ -111,8 +150,8 @@
     min-height: 10em;
     display: flex;
     flex-direction: column;
-    flex-wrap: nowrap; */
-    width: 33.33%;
+    flex-wrap: nowrap; 
+    width: 33.33%;*/
 
 }
 .oneRecipeDisplayWrapperResult{

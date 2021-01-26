@@ -14,17 +14,17 @@ $(document).ready(() =>{
             document.getElementById(modalId).classList.add(modalVisible)
             document.getElementById('indexPage').style.position = 'fixed'
             document.getElementById('indexPage').style.width = '100%'
-
             
         })
 
         for(const eachButton of close){
             eachButton.addEventListener('click', () =>{
                 document.getElementById('modal').classList.remove(modalVisible)
-                //document.getElementById('indexPage').style.position = 'static'
             })
         }
     }
+
+
 
     openClosemodal()
 

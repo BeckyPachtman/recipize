@@ -343,3 +343,31 @@ New user successfully created
 New recipe successfully created
 Recipe successfully updated
 User not found at logging in
+User not found at logging in
+Recipe successfully updated
+New user successfully created
+New recipe successfully created
+Recipe successfully updated
+New user successfully created
+New recipe successfully created
+New recipe successfully created
+Recipe successfully deleted
+New user successfully created
+New recipe successfully created
+New recipe successfully created
+New recipe successfully created
+New recipe successfully created
+New recipe successfully created
+New recipe successfully created
+New recipe successfully created
+Recipe successfully deleted
+Recipe successfully deleted
+Recipe successfully deleted
+Recipe successfully deleted
+Recipe successfully deleted
+New recipe successfully created
+Recipe successfully updated
+Recipe successfully deleted
+New recipe successfully created
+Recipe successfully updated
+Recipe successfully deleted
