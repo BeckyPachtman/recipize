@@ -306,25 +306,6 @@ app.get('/edit/:id', function(req, res) {
 
 
 /*
-    This function displays an error to a user who tries to edit
-    or delete a ercipe that is not there's
-*/
-// app.get('/notAuthor', function(req, res){
-//     const {userId} = req.session;
-//     create.findById(userId, (err, loggedUser) =>{
-//     const userName =  createUserName(loggedUser);
-//         recipe.find({}, function(err, allRecipies){
-//             if(err){
-//                 console.log(err);
-//             }else{
-//                 res.render('recipiesDisplay', {recipe: allRecipies, userName: userName, profile: profileMsg, msg: errRecAuthorEdit})
-//             }
-//         })
-//     })
-// })
-
-
-/*
     This function is a route function which directs a user to the 'Update recipe page',
     lets the user make the appropiate changes and updates the date in the database
     displaying the updated version in the gallery of recipes

@@ -1,11 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="author" content="Bracha Pachtman">
-    <meta name="description" content="Recipe Manager Platform">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="keywords" content="HTML, CSS, JavaScript, Node.js, Food, Recipes, Organization">
+    <%- include('favicon.html')%>
     <link rel="stylesheet" href="../headerFooter.css">
     <link rel="stylesheet" href="../modalStyles.css">
     <link rel="stylesheet" href="../generalStyles.css">
@@ -87,7 +83,6 @@
                                 </div>
                                 
                                 <div class="inputGroup">
-            
                                     <div class="moreOptions">
                                         <input type="number" min="0" name="yieldInput" value="<%= recipe.yieldInput %>" placeholder=" ">
                                          <select name="yieldSelect" value="" class="editSelectValue yieldSelect">
@@ -120,12 +115,11 @@
                                                             <textarea name="tips" rows="1"><%= item.trim() %></textarea>
                                                             <span class="removeEditItem">x</span>
                                                         </div>
-                                                    </div>    
+                                                    </div>
                                                 <% }); %>
                                                 <div class="listWrappr editListWrapper">
                                                     <ul class="tipUl"></ul>
                                                 </div>
-                                                
                                             </div>
                                         <label>Recipe Tips</label>
                                         <strong class="plusIcon addTiptoListBttn" title="Click to add item to the list">&#43;</strong>
@@ -159,13 +153,12 @@
                                                 <div class="listWrappr editListWrapper">
                                                     <ul class="igUl"></ul>
                                                 </div>
-
                                             </div>
                                         <label>Recipe Ingredients</label>
                                         <strong class="plusIcon adIngrdntToListBttn" title="Click to add item to the list">&#43;</strong>
                                     </div>
-                        
                                 </div>
+
                                 <div class="btnWrpr">
                                     <button type="button" class="pre_btn">Previous</button>
                                     <button type="button" class="next_btn btnToDir">Next</button>
@@ -194,14 +187,12 @@
                                                 <div class="listWrappr editListWrapper">
                                                     <ol class="dirOl"></ol>
                                                 </div>
-
                                             </div>
                                         <label>Recipe Directions</label>
                                         <strong class="plusIcon adDirToDirListBttn" title="Click to add item to the list">&#43;</strong>
-                        
                                     </div>
-                                    
                                 </div>
+
                                 <div class="btnWrpr">
                                     <button type="button" class="pre_btn preToIng">Previous</button>
                                     <button type="submit" class="submit_btn">Submit</button>
@@ -215,7 +206,6 @@
     </div>
 </body>
 </html>
-
 <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
 <script src="../formsFunctionality.js"></script>
 <script src="../script.js"></script>

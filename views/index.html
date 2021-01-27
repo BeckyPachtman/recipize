@@ -1,11 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="author" content="Bracha Pachtman">
-    <meta name="description" content="Recipe Manager Platform">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="keywords" content="HTML, CSS, JavaScript, Node.js, Food, Recipes, Organization">
+    <%- include('favicon.html')%>
     <link rel="stylesheet" href="headerFooter.css">
     <link rel="stylesheet" href="modalStyles.css">
     <link rel="stylesheet" href="generalStyles.css">
@@ -30,13 +26,12 @@
                                     <button type="button" id="loginPropmtButton" class="loginPropmtButton" data-open='modal'>Login</button>
                                     <span>or sign up</span>
                                 </div>
-                                <button type="button" class="mainPageRecDisply"><a href="recipiesDisplay" class="mainPageAddRec ">View All Recipes</a></button>
-                                <button type="button" class="mainPageAddRec"><a href="AddNewRecipe" class="">Add Recipe</a></button>
+                                <span class="mainPageRecDisply"><a href="recipiesDisplay" class="mainPageAddRec">View All Recipes</a></span>
+                                <span id="addRecHomeBttn" class="addRecBttn"><a href="AddNewRecipe" class="mainPageAddRec">Add Recipe</a></span>
+                                
                             </div>
-                            
                         </div>
                     </div>
-                    
 
                     <div class="modalWrapper">
                         <div id="modal" class="modal">
@@ -53,7 +48,6 @@
                                         
                                         <div class="formWrapper loginFormWrapper">
                                             <form action="/login" method="POST" id="login">
-                                               
                                                 <div class="userFormWrapper">
                                                     
                                                     <h3>Login to your account</h3>    
@@ -78,7 +72,6 @@
                                                     <div class="userFormButtons">
                                                         <button type="submit" class="modalButton">Login</button>
                                                         <button type="button" class="reset">Reset</button>
-                                                        
                                                     </div>
                                                 </div>
                                             </form>
@@ -106,10 +99,12 @@
                                                             <label for="lastName">Last Name</label>
                                                         </div>
                                                     </div>
+
                                                     <div class="eachInput">
                                                         <input class="frmInpt" type="email" name="email" id="signUpEmail" placeholder=" " required>
                                                         <label for="email">Email address</label>
                                                     </div>
+
                                                     <div class="eachInput">
                                                         <input class="frmInpt" type="password" name="password" class="password" placeholder=" " required>
                                                         <span class="showHidePassIcon">
@@ -118,12 +113,14 @@
                                                         </span>
                                                         <label for="password">Password</label>
                                                     </div>
+
                                                     <div class="userFormButtons">
                                                         <button type="submit" class="modalButton">Sigup</button>
                                                         <button type="button" class="reset">Reset</button>
                                                     </div>
                                                 </div>
                                             </form>
+
                                             <form action="/closeModal" method="GET" class="closeModalForm">
                                                 <button type="submit" class="closeModal" data-close>✕</button>
                                             </form>
@@ -135,11 +132,8 @@
                     </div>
                 </div><%- include('footer.html')%>
         </div>
-    
-
 </body>
 </html>
-
 <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
 <script src="loginSigupForm.js"></script>
 <script src="script.js"></script>

@@ -11,16 +11,13 @@ const reuse6 = `<style>.modal{opacity: 1; visibility: visible;}
                 .modal{opacity: 1; visibility: visible;}</style>`;
 
 const reuse7 = `<style>.authorMsg{opacity: 1; padding: .4em .7em}</style>
-                <script>
-                window.setTimeout(fadeout, 2000);
-
+                <script>window.setTimeout(fadeout, 2000);
                 function fadeout() {
                     document.getElementById('authorMsg').style.opacity = '0';
                     document.getElementById('authorMsg').style.padding = 0;
-                }
-                </script>`;
+                }</script>`;
 
-const loginReAttempt = `<script>document.getElementById('loginErr').innerHTML = "<strong class='errMsg'>Already logged in</strong>"; </script>
+const loginReAttempt = `<script>document.getElementById('loginErr').innerHTML = "<strong class='errMsg'>Already logged in</strong>";</script>
 <style>.signUpButton{pointer-events: none} #SignUpBtnWrpr:hover{cursor:not-allowed;}</style>
 <script> var allElem = document.querySelectorAll('.eachInput input');        
 for(var i = 0; i < allElem.length; i += 1){allElem[i].disabled = true};</script>`

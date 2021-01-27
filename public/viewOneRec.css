@@ -171,7 +171,7 @@
 .recImageVisible{
     display: none;
 } 
-.close {
+.close{
     display: none;
     position: absolute;
     top: 0;
@@ -179,20 +179,20 @@
     padding: 10px;
     background: #f2456f;
 }
-.close:hover {
+.close:hover{
   cursor: pointer;
 }
-.overlay {
+.overlay{
+    background: rgba(0,0,0,0.7);
     display: none;
-    position: fixed;
-    top: 0;
-    left: 0;
     height: 100%;
+    left: 0;
+    margin: 0;
+    position: fixed;
+    text-align: center;
+    top: 0;
     width: 100%;
     z-index: 5;
-    background: rgba(0,0,0,0.7);
-    text-align: center;
-    margin: 0;
 }
 .close {
     display: block;

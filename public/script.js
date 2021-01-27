@@ -1,19 +1,10 @@
 $(document).ready(() =>{
 
-    $(function() {
-        $('textarea').each(function() {
-            $(this).height($(this).prop('scrollHeight'));
-        });
-    });
-
-    //nav and footer functions
-    $('.userOptions').hide()
-    $('.userName').on('click', function(){
-        $('.userOptions').fadeToggle()
-    })
-
-    ///sticky nav
-   // var stickyNavTop = $('.nav').offset().top;
+    /*
+        This function exchages the original nav with a more
+        visible one once the page is scrolled a bit
+    */
+ 
     var stickyNavTop = 50;
     var stickyNav = function(){
         var scrollTop = $(window).scrollTop();
@@ -23,22 +14,23 @@ $(document).ready(() =>{
             $('.logoWrapper img:first-child').css('display', 'none');
             $('.logoWrapper img:last-child').css('display', 'block');
          
-        } else {
-            $('.nav').removeClass('sticky'); 
-            $('.nav a').removeClass('stickyLinks'); 
+        }else{
+            $('.nav').removeClass('sticky');
+            $('.nav a').removeClass('stickyLinks');
             $('.nav img').removeClass('stickyLogo');
             $('.logoWrapper img:first-child').css('display', 'block');
             $('.logoWrapper img:last-child').css('display', 'none');
         }
     };
-    stickyNav();
+
     $(window).scroll(function() {
         stickyNav();
     });
 
 
     /* 
-    This function opens and closes the mobile nav
+        This function opens and closes the mobile nav
+        when clicking on the icon menu on smaller screens
     */
     const hamburger = document.querySelector(".hamburger");
     const navLinks = document.querySelector(".navUl");
@@ -53,161 +45,49 @@ $(document).ready(() =>{
 
 
     /*
-    This function show and hides the setting options on the view-one recipe page
+        This function displays the log out option
+        when the user nickname is clicked on
     */
-    
+    $('.userOptions').hide()
+    $('.userName').on('click', function(){
+        $('.userOptions').fadeToggle()
+    })
+
+
+    /*
+        This function show and hides the setting options of edit and delete
+        recipe when the settings wheel is clicked on the view-one recipe page
+    */
     $('.settings > img').on('click', function(){
         $('.iconWrapperSingleRec').fadeToggle()
     })
 
-    //This function adds a scrollbar to the add new form at tips, ingredients, and tips
-    var ingrdntsInput = $('.ingrdntsInput');
-    var dirctnsInput = $('.dirctnsInput');
-    var tipsInput = $('.tipsInput');
-
-    /*
-    This function cheks the height of the tip textarea when cre
-    */
-    $(tipsInput).keydown(function(e){
-        if(e.keyCode == 13 && $('.tipUl').height() > 100){
-            e.preventDefault()
-            $('.addTipUl').addClass('listWrapprScrollbar listWrapprTipScrollbar')
-            $('.editTipsInputGroup').addClass('recipeEditScrlbr')
-        }
-    })   
-
-    $('.addTiptoListBttn').on('click', function(){
-        if($('.tipUl').height() > 100){
-            $('.addTipUl').addClass('listWrapprScrollbar listWrapprTipScrollbar')
-            $('.editTipsInputGroup').addClass('recipeEditScrlbr')
-        }
-    })
-
-
-    $(ingrdntsInput).keydown(function(e){
-        if(e.keyCode == 13 && $('.igUl').height() > 250){
-            e.preventDefault()
-            $('.addIgUl').addClass('listWrapprScrollbar')
-        }
-
-        if(e.keyCode == 13 && $('.igUl').height() > 50){
-            e.preventDefault()
-            $('.editTipsInputGroup').addClass('listWrapprScrollbar')
-        }
-
-    })
-
-    $('.adIngrdntToListBttn').on('click', function(){
-        if($('.igUl').height() > 250){
-            $('.addIgUl').addClass('listWrapprScrollbar')
-        }
-
-        if($('.igUl').height() > 50){
-            $('.editTipsInputGroup').addClass('listWrapprScrollbar')
-        }
-
-    })
-
-    $(dirctnsInput).keydown(function(e){
-        if(e.keyCode == 13){
-            e.preventDefault()
-            if($('.dirOl').height() > 250){
-                $('.addDirOl').addClass('listWrapprScrollbar')
-                $('.editTipsInputGroup').addClass('recipeEditScrlbr')
-            }
-        }
-    })
     
-    $('.adDirToDirListBttn').on('click', function(){
-        if($('.dirOl').height() > 250){
-            $('.addDirOl').addClass('listWrapprScrollbar')
-            $('.editTipsInputGroup').addClass('recipeEditScrlbr')
-        }
-    })
-
-    var modal = $('.recImgModal'),
+    /*
+        This function shows a larger version of the image when the image on the 'View-on recipe page' is clicked
+        if anywhere on the screen but on the image is clicked the image will close
+    */
+   
     overlay = $('.overlay'),
     showModal = $('.recImg'),
     close = $('.close');
-    
-    /*show modal and set dimensions based on window */
+
     $(showModal).on('click', function(e){
         e.preventDefault();
-        var windowWidth = $(window).width();
-
-
         $(overlay).show();
         $(overlay).addClass('overlayVisible')
-        //$(modal).css({});
-        //$('.viewRecPageBody').css('position', 'fixed')
+       
     });
-
-    /*close on click of 'x' */
-    $(close).on('click', function(){
-        $(overlay).hide();
-    });
-    /* close on click outside of modal */
     $(overlay).on('click', function(e) {
         if (e.target !== this) return;
         $(overlay).hide();
     });
 
-    /*Activats next/previous buttons on form .*/
-    $('button[class^="next_btn"]:not(.btnToIngrdnts)').click(function(){
-        $(this).parent().parent().next().css('display', 'flex')
-        $(this).parent().parent().css('display', 'none')
-       $('.active').next().addClass('active')
-    })
-
-    $('.btnToIng').on('click', function(){
-        $(this).parent().parent().next().css({'visibility': 'visible', 'overflow': 'visible', 'height': 574})
-        $(this).parent().parent().css('display', 'none')
-    })
-
-    $('.btnToDir').on('click', function(){
-        $(this).parent().parent().next().css({'visibility': 'visible', 'overflow': 'visible', 'height': 574})
-        $(this).parent().parent().css('visibility', 'hidden')
-    })
-
-    $('.preToIng').on('click', function(){
-        $(this).parent().parent().prev().css({'visibility': 'visible', 'overflow': 'visible', 'height': 574})
-        $(this).parent().parent().css('display', 'none')
-    })
-
-    $('.pre_btn').click(function(){
-        $(this).parent().parent().prev().css('display', 'flex')
-        $(this).parent().parent().css('display', 'none')
-        $('.active:last').removeClass('active')
-    })
-
-    if($('.tipsInputGroup').height() > 90){
-        $('.tipsInputGroup').addClass('editListItemScrol')
-    } 
-
-    if($('.ingInputGroup').height() > 270){
-        $('.ingInputGroup').addClass('recipeIngDirEditScrlbr')
-    }  
-
-    if($('.ingInputGroup2').height() > 250){
-        $('.ingInputGroup2').css('overflow-y', 'scroll')         
-    }
     
-    if($('.ingInputGroup2').height() < 50){
-        $('.ingInputGroup2').css('overflow-y', 'hidden')         
-    }
     /*
-    This function displays the 'delete a recipe confirmation window' when clicking the delete a recipe icon
-    */
-    $('.deleteRecConfirm').on('click', function(){
-        $(this).parent().parent().children('.dltRecWrrpModal').children('.modalDel').addClass('modalDelVisible');
-    })
-
-    $('.dltRecCnfrmSngleRec').on('click', function(){
-        $(this).parent().parent().parent().parent().children('.dltRecWrrpModal').children('.modalDel').addClass('modalDelVisible');
-    })
-    /*
-    This function check if the reipce total time hours is 1 and changes the word hours to hour.
-    It checks if the hours are mising and removes the word all togethor in that case
+        This function check if the reipce prep, cook, and total times are
+        1 and changes the word hours to hour. It also checks if there are
+        hours or minutes empty and, in that case, removes the word all togethor
     */
    var list = [];
 
@@ -229,37 +109,37 @@ $(document).ready(() =>{
     var ttlTimeMin = $('.ttlTimeMin').text()
     list.push({key:'ttlTimeMin', value: ttlTimeMin});
 
-    $.each(list, function(i,obj){
+    $.each(list, function(i, obj){
         if(obj.value === ' ' || obj.value == 0){
-            $('.'+obj.key).css('display', 'none')
+            $('.' + obj.key).css('display', 'none')
 
             if(obj.key ==='prpTimeHrs'){
                 $('.prpTmeHrsSpan').css('display', 'none')
             }
-
             else if(obj.key ==='prpTimeMin'){
                 $('.prpTmeMinSpan').css('display', 'none')
             }
-
             else if(obj.key ==='ckTimeHrs' ){
                 $('.ckTmeHrsSpan').css('display', 'none')
             }
-
             else if(obj.key ==='ckTimeMin' ){
                 $('.ckTmeMinSpan').css('display', 'none')
             }
-
             else if(obj.key ==='ttlTimeHrs' ){
                 $('.ttlTmeHrsSpan').css('display', 'none')
             }
-
             else if(obj.key ==='ttlTimeMin' ){
                 $('.ttlTmeMinSpan').css('display', 'none')
             }
         }
     });
 
-     function searchRecipes(){
+    /*
+        This function searches for a recipe title according to what
+        is searched for in the search bar, it will then display
+        the recipes that are relevant
+    */
+    function searchRecipes(){
         var searchInput = document.getElementById("searchRecipes");
         var filterValue = searchInput.value.toUpperCase().trim();
         var title = $(".recipeTitle")
@@ -272,20 +152,23 @@ $(document).ready(() =>{
             title[i].parentElement.parentElement.parentElement.classList.add('oneRecipeDisplayWrapper')
 
             if(a.innerHTML.toUpperCase().indexOf(filterValue) > -1){
-                
-                }else{
-                    title[i].parentElement.parentElement.classList.add('searchNotResult');
-                    title[i].parentElement.parentElement.parentElement.classList.remove('oneRecipeDisplayWrapper')
-                    title[i].parentElement.parentElement.parentElement.classList.add('oneRecipeDisplayWrapperResult')
-                }
+            }else{
+                title[i].parentElement.parentElement.classList.add('searchNotResult');
+                title[i].parentElement.parentElement.parentElement.classList.remove('oneRecipeDisplayWrapper')
+                title[i].parentElement.parentElement.parentElement.classList.add('oneRecipeDisplayWrapperResult')
+            }
         }
     }
-
     $('#searchRecipes').on('keyup', function(){
         searchRecipes()
     })
 
-   
+
+    /*
+        This function is part of the search recipe function,
+        it will empty the search bar and display all recipes
+        if he x on the searchbar is clicked
+    */
     if($(".recPageBody").length) {
         document.getElementById("searchRecipes").addEventListener("search", function() {
             var title = $(".recipeTitle")
@@ -298,39 +181,10 @@ $(document).ready(() =>{
         });
     }
 
-    var deleteItm = $('.removeEditItem');
-        $(deleteItm).on('click', function(){
-            $(this).parent().children().remove()
-    })
-
     /*
-    This function helps add ingredients to the list to edit an then update the recipe
-    */    
-    var editAdDirctnInpt = $('.editAdDirctnInpt')
-   
-    function editAddNewItemDrctn(){
-        var newItemVal = $(editAdDirctnInpt).val()
-        var newEditItem = $(`<span class="circle">○</span><input type="text" name="dirctns" class="editInputs" value='${newItemVal}'>`)
-        $(newEditItem).appendTo('.drctnInputWrapper .eachInput')
-        $(editAdDirctnInpt).val(' ')
-
-        var deleteIng = $('<span class="removeEditItem removeEditItemFromJs">x</span>').appendTo(newEditItem);
-        $(deleteIng).on('click', function(){
-            $(this).parent().remove()
-            $(newEditItem).remove()
-        })
-
-     }
-
-    $('.adDirToDirListBttn').on('click', function(){
-        editAddNewItemDrctn()
-    });
-    $(editAdDirctnInpt).keydown(function(e){
-        if(e.keyCode == 13){
-            editAddNewItemDrctn()
-            e.preventDefault()
-        }
-    })
+        This function checks if the yield select field text is Other
+        if so it displays a text box to let the user add some free text
+    */
 
     var yieldSelect = $('.yieldSelect');
     var otherOptionText = $('.otherOptionText')
@@ -343,22 +197,16 @@ $(document).ready(() =>{
         }
     })
 
-    if(yieldSelect.val('Servings')){
-        $('.yieldSelectViewRec').hide()
-    }
 
-    var selectName = $('.editSelectValue').find(":selected").text();
-        if(selectName === 'Servings'){
-            $('.selectServings').css('display', 'none')
-        }else if(selectName === 'Other' || selectName === 'Minutes'){
-            $('.selectOther').css('display', 'none')
-    }
-
+    /*
+        This function checks if the user is on a mobile or desktop
+        device and will open the appropiate whatsapp to chat to, mobile or web, accordingly
+    */
     if(/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)) {
         var device = 'api'
-        }else{
-            device = 'web'
-        }
+    }else{
+        device = 'web'
+    }
     $('a.footerWhApp').attr('href', 'https://'+device+'.whatsapp.com/send?phone=972533402859&text&source&data&app_absent');
 })
 

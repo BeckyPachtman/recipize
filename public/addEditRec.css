@@ -38,9 +38,8 @@ fieldset{
     justify-content: flex-start;
     height: 35.93em;
     margin: 2em 2em 0;
-    width: 100%;
-
     max-width: 52em;
+    width: 100%;    
 }
 fieldset > div h2{
     padding-bottom: .2em;
@@ -298,9 +297,6 @@ label .timeIcon{
     display: flex;
     justify-content: space-between;
 }
-.editTipsInputGroup{
-    /*overflow-y: scroll;*/
-}
 .inputGroup .plusIconParent .editListItem textarea{
     border: none;
     height: auto;
@@ -326,9 +322,7 @@ label .timeIcon{
     padding-left: .5em;
 }
 .circle{
-    font-size: .9em;
-    /* margin: 0 .5em 0 1em; */
-}
+    font-size: .9em;}
 .removeEditItem{
     cursor: pointer;
     font-weight: bold;
@@ -336,7 +330,4 @@ label .timeIcon{
 .removeEditItemFromJs{
     float: right;
     font-size: 1.1em;
-    /*margin-right: .11em;
-    margin-left: 1em;*/
-   
 }

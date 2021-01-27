@@ -44,6 +44,7 @@
     display: inline-block;
     font-size: 1em;
     margin-bottom: 1.3em;
+    opacity: 0;
 }
 .recPageBody{
     background: url('../resources/images/backgrndColorsLight2.svg'); 
@@ -80,25 +81,25 @@
     width: 75%;
 }
 .plate{
+    align-items: center; 
     background-color: rgb(228, 228, 228);
     border-radius: 50%;
-    cursor: default;    
+    cursor: default;
+    display: flex;   
     height: 130px;
+    justify-content: center;
     overflow: hidden;
     width: 130px;
-    display: flex;
-    justify-content: center;
-    align-items: center; 
 }
 .dynamicImage{
     height: 100%;
 }
 .defaultImage{
-    background: url('../resources/images/platesOfFood/125.jpg');
-    background-size: cover;
+    background: url('../resources/images/plateOfFood.jpeg');
     background-position: center;
-    width: inherit;
+    background-size: cover;
     height: inherit;
+    width: inherit;
 }
 .recipeDisplay .text{
     font-size: .9em;
@@ -144,20 +145,8 @@
     height: 1.15em;
     margin: .2em 0 0 .12em;
 }
-.resultRecipeWrapper{
-    /* margin: 0 auto;
-    border: solid 1px orangered;
-    min-height: 10em;
-    display: flex;
-    flex-direction: column;
-    flex-wrap: nowrap; 
-    width: 33.33%;*/
-
-}
 .oneRecipeDisplayWrapperResult{
     display: none;
-    /* min-width: 0; 
-    width: 0;*/
 }
 .searchNotResult{
     display: none;

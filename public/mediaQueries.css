@@ -213,12 +213,12 @@
     } 
     .secendaryContent.mainButtons{
         display: flex;
-        flex-direction: column;
+        flex-direction: column-reverse;
         margin: 1em auto;
-        width: 45%;
+        width: 95%;
     }
-    .secendaryContent.mainButtons button{
-        margin: .5em 0;
+    .secendaryContent.mainButtons > span{
+        margin: 1.1em 0;
     }
     .recipeDisplay{
         width: 90%;
@@ -276,7 +276,6 @@
     }
 }
 @media only screen and (max-width: 400px){
-    /*might hav to add or remove on mobile*/
     .navUl{
         height: 112%;
         clip-path: circle(100px at 90% -10%);
@@ -291,11 +290,12 @@
     .modalMainContent{
         min-height: 60vh;
     }
-    .secendaryContent.mainButtons{
-        display: flex;
-        flex-direction: column;
-        margin: 1em auto;
-        width: 55%;
+    .secendaryContent.mainButtons > span{
+        margin: .9em 0;
+    }
+    .mainPageAddRec{
+        font-size: 1.2em;
+        padding: .4em .6em;
     }
     .oneRecipeDisplayWrapper{
         position: relative;
@@ -315,6 +315,7 @@
         height: 37vh;
         width: 100vw;
     }
-
-   
+    footer{
+        height: 12em;
+    }
 }
