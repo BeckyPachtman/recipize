@@ -18,7 +18,7 @@
                 <div class="content">
                     <div class="main">
                         <span class="msg"></span>
-                        <form action="/editRecipe/<%=recipe._id%>?_method=PUT" method="POST" class="recipeForm">
+                        <form action="/editRecipe/<%=recipe._id%>?_method=PUT" method="POST" class="recipeForm" id="recipeForm">
                             <ul class="progressbar">
                                 <li class="active">Step 1</li>
                                 <li>Step 2</li>
@@ -106,19 +106,19 @@
                                     </div>
 
                                     <div class="plusIconParent">
-                                        <input type="text" class="tipsInput editTipsInput" placeholder=" ">
+                                        <input type="text" id="tipsInput" class="tipsInput editTipsInput" placeholder=" ">
                                             <div class="editTipsInputGroup tipsInputGroup">
                                                 <% recipe.tips.forEach(function(item){ %>
                                                     <div class="editParent editListItem">
                                                         <div class="orginalEditItem">
-                                                            <span class="circle">○</span>
+                                                            <span id="circle" class="circle">○</span>
                                                             <textarea name="tips" rows="1"><%= item.trim() %></textarea>
                                                             <span class="removeEditItem">x</span>
                                                         </div>
                                                     </div>
                                                 <% }); %>
                                                 <div class="listWrappr editListWrapper">
-                                                    <ul class="tipUl"></ul>
+                                                    <ul class="tipUl" id="tipUl"></ul>
                                                 </div>
                                             </div>
                                         <label>Recipe Tips</label>

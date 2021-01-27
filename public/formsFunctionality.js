@@ -9,18 +9,44 @@ $(document).ready(() =>{
     var tipsInput = $('.tipsInput');
 
     function addTipstoTipsList(){
-        tipsList = $(document.createElement('li')).text($(tipsInput).val()).appendTo('.tipUl');
+        //tipsList = $(document.createElement('li')).text($(tipsInput).val()).appendTo('.tipUl');
 
-        var tipsListToInput = $('<input type="hidden" />').attr({
-            name: 'tips'
-        }).appendTo('form');
 
-        $(tipsListToInput).val(tipsList.text());
-        var deleteIng = $(document.createElement('span')).text('x').prependTo(tipsList);
+         //'<li><input name="tips" type="text" value=""/></li>'
+
+      var input =  `<span class="circle">○</span><textarea name="tips" type="text" rows="1">${$(tipsInput).val()}</textarea><span class="deleteIng">x</span>`
+       // var tipsListToInput = $('<input type="text" />').attr({ name: 'tips'})
+
+
+        //var input = document.createElement('input')
+
+       // all.append(input)
+
+        
+        //input.setAttribute('name', 'tips')
+        //input.classList.add('editTipNewInput')
+       // input.value = document.getElementById('tipsInput').value
+    //$(input).val($(tipsInput).val())
+   
+      
+        //input.append('.recipeForm');
+        //document.getElementById('tipUl').appendChild(input)
+        
+$(input).appendTo($('#tipUl'))
+
+ console.log(input);
+        
+        //.appendTo('form');
+       
+
+
+        //$(tipsListToInput).val(tipsList.text());
+        //var deleteIng = $(document.createElement('span')).text('x').appendTo(input);
+        var deleteIng = $('.deleteIng')
 
         $(deleteIng).on('click', function(){
             $(this).parent().remove()
-            $(tipsListToInput).remove()
+            //$(tipsListToInput).remove()
         })
 
         $(tipsInput).val(' ')
@@ -39,6 +65,30 @@ $(document).ready(() =>{
     })
 
     
+
+         
+
+        
+        // $(tipsList).change(function(){
+        //     console.log("changed");
+        //  });
+         
+        //  previousVal = tipsList;
+        //  function InputChangeListener(){
+        //    if($(tipsList).val()
+        //       != previousVal)
+        //    {
+        //     previousVal  = $('#elementId').val();
+        //     $('#elementId').change();    
+        //    }
+        //  }
+         
+        //  setInterval(InputChangeListener, 500);
+
+        // console.log();
+
+
+
     /*
         The following function adds whatever text is added to a new recipe
         ingredient input and adds them to a list underneath the input until you submit

@@ -93,8 +93,8 @@ fieldset.visibleFieldset > div:last-child{
     padding: 0;
 }
 .inputGroup .moreOptionsColumn div input,
-.inputGroup .plusIconParent input,
-.inputGroup > div input,
+.inputGroup .plusIconParent input:not(.editTipNewInput),
+.inputGroup > div input:not(.editTipNewInput),
 .inputGroup > div select{
     background-color: #F0F5F8;
     border-radius: 0;
@@ -322,7 +322,8 @@ label .timeIcon{
     padding-left: .5em;
 }
 .circle{
-    font-size: .9em;}
+    font-size: .9em;
+}
 .removeEditItem{
     cursor: pointer;
     font-weight: bold;
