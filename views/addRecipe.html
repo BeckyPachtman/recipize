@@ -23,6 +23,7 @@
                                 <li class="active">Step 1</li>
                                 <li>Step 2</li>
                                 <li>Step 3</li>
+                                <li>Step 4</li>
                             </ul>
             
                             <fieldset class="visibleFieldset">
@@ -85,12 +86,12 @@
                                 <div class="inputGroup">
                                     <div class="moreOptions">
                                         <input type="number" min="0" name="yieldInput" placeholder=" ">
-                                        <select name="yieldSelect" class="yieldSelect">
+                                        <select name="yieldSelect" class="yieldSelect addRecSelect">
                                             <option value="Servings">Servings</option>
                                             <option value="Other" class="selectOther">Other</option>
                                         </select>
                                         <label>Yields</label>
-                                        <input type="hidden" class="otherOptionText" title="">
+                                        <input type="hidden" class="otherOptionText" title="" name="">
                                     </div>
             
                                     <div class="moreOptionsColumn">
@@ -104,7 +105,32 @@
                                             <label>Enter Image Url</label> 
                                         </div>
                                     </div>
-                                    
+                                
+                                    <div class="moreOptions categorySelectParent">
+                                        <select name="category" id="Category" class="category addRecSelect">
+                                            <option value="" disabled selected>Select a Category</option>
+                                            <option value="Dairy-Main">Main - Dairy</option>
+                                            <option value="Meat-Main">Main - Meat</option>
+                                            <option value="Pareve-Main">Main - Pareve</option>
+                                            <option value="Dairy-Soup">Soup - Dairy</option>
+                                            <option value="Meat-Soup">Soup - Meat</option>
+                                            <option value="Pareve-Soup">Soup - Pareve</option>
+                                            <option value="Dairy-Salad">Salad - Dairy</option>
+                                            <option value="Meat-Salad">Salad - Meat</option>
+                                            <option value="Pareve-Salad">Salad - Pareve</option>
+                                            <option value="Dairy-Side">Side - Dairy</option>
+                                            <option value="Meat-Side">Side - Meat</option>
+                                            <option value="Pareve-Side">Side - Pareve</option>
+                                            <option value="Dairy-Dessert">Dessert - Dairy</option>
+                                            <option value="Meat-Dessert">Dessert - Meat</option>
+                                            <option value="Pareve-Dessert">Dessert - Pareve</option>
+                                            <option value="Other">Other</option>
+                                        </select>
+                                        <input type="hidden" class="otherOptionText" title="" name="">
+                                    </div>
+
+
+
                                     <div class="plusIconParent">
                                         <input type="text" class="tipsInput" placeholder=" " >
                                         <label>Recipe Tips</label>

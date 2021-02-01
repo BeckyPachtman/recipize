@@ -111,7 +111,7 @@
 .timingSpecific img{
     height: 1em;
 }
-.bottomSection{
+.middleSection{
     align-items: flex-start;
     display: flex;
     justify-content: flex-start;
@@ -163,6 +163,23 @@
 .recipeBook li{
     font-size: .9em;
     list-style-position: inside;
+}
+
+.bottomSection{
+    /* border: solid 1px green; */
+    
+}
+.bottomSection > div{
+    /* border: solid 1px green; */
+}
+.categorySection{
+    align-items: center;
+    display: flex;
+    /*padding: .58em;*/
+}
+.categorySection p{
+    padding: .58em;
+    font-size: .9em;
 }
 .imageVisble{
     background: rgba(0, 0, 0, 0.45);

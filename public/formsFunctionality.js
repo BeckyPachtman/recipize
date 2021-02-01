@@ -9,46 +9,16 @@ $(document).ready(() =>{
     var tipsInput = $('.tipsInput');
 
     function addTipstoTipsList(){
-        //tipsList = $(document.createElement('li')).text($(tipsInput).val()).appendTo('.tipUl');
+        var input = `<div class="tipWrppr"><span class="circle">○</span>
+                    <textarea name="tips" type="text" rows="1">${$(tipsInput).val()}</textarea>
+                    <span class="deleteIng">x</span></div>`
 
-
-         //'<li><input name="tips" type="text" value=""/></li>'
-
-      var input =  `<span class="circle">○</span><textarea name="tips" type="text" rows="1">${$(tipsInput).val()}</textarea><span class="deleteIng">x</span>`
-       // var tipsListToInput = $('<input type="text" />').attr({ name: 'tips'})
-
-
-        //var input = document.createElement('input')
-
-       // all.append(input)
-
-        
-        //input.setAttribute('name', 'tips')
-        //input.classList.add('editTipNewInput')
-       // input.value = document.getElementById('tipsInput').value
-    //$(input).val($(tipsInput).val())
-   
-      
-        //input.append('.recipeForm');
-        //document.getElementById('tipUl').appendChild(input)
-        
-$(input).appendTo($('#tipUl'))
-
- console.log(input);
-        
-        //.appendTo('form');
+        $(input).appendTo($('.tipUl'));
        
-
-
-        //$(tipsListToInput).val(tipsList.text());
-        //var deleteIng = $(document.createElement('span')).text('x').appendTo(input);
         var deleteIng = $('.deleteIng')
-
         $(deleteIng).on('click', function(){
             $(this).parent().remove()
-            //$(tipsListToInput).remove()
         })
-
         $(tipsInput).val(' ')
         $(tipsInput).focus()
     }
@@ -64,52 +34,24 @@ $(input).appendTo($('#tipUl'))
         }
     })
 
-    
-
-         
-
-        
-        // $(tipsList).change(function(){
-        //     console.log("changed");
-        //  });
-         
-        //  previousVal = tipsList;
-        //  function InputChangeListener(){
-        //    if($(tipsList).val()
-        //       != previousVal)
-        //    {
-        //     previousVal  = $('#elementId').val();
-        //     $('#elementId').change();    
-        //    }
-        //  }
-         
-        //  setInterval(InputChangeListener, 500);
-
-        // console.log();
-
-
 
     /*
         The following function adds whatever text is added to a new recipe
         ingredient input and adds them to a list underneath the input until you submit
     */
     function addIngrdntToList(){
-        liStr = $(document.createElement('li')).text($(ingrdntsInput).val()).appendTo('.igUl');
+        var input = `<div class="tipWrppr"><span class="circle">○</span>
+                    <textarea name="ingrdnts" type="text" rows="1">${$(ingrdntsInput).val()}</textarea>
+                    <span class="deleteIng">x</span></div>`
 
-        var liStrToInput = $('<input type="hidden"/>').attr({
-            name: 'ingrdnts'
-        }).appendTo('form');
-
-        $(liStrToInput).val(liStr.text());
-        $(ingrdntsInput).val(' ')
-        $(ingrdntsInput).focus();
-
-        var deleteIng = $(document.createElement('span')).text('x').prependTo(liStr);
-
+        $(input).appendTo($('.igUl'));
+       
+        var deleteIng = $('.deleteIng')
         $(deleteIng).on('click', function(){
             $(this).parent().remove()
-            $(liStrToInput).remove()
         })
+        $(ingrdntsInput).val(' ')
+        $(ingrdntsInput).focus()
     }
 
     $('.adIngrdntToListBttn').on('click', function(){
@@ -122,24 +64,21 @@ $(input).appendTo($('#tipUl'))
         }
     })
 
+
     /*
         The following function adds whatever text is added to a new recipe
         direction input and adds them to a list underneath the input until you submit
     */
-
     function addLDirToDirList(){
-        DirLiStr = $(document.createElement('li')).text($(dirctnsInput).val()).appendTo('.dirOl');
+        var input = `<div class="tipWrppr"><span class="circle">○</span>
+                    <textarea name="dirctns" type="text" rows="1">${$(dirctnsInput).val()}</textarea>
+                    <span class="deleteIng">x</span></div>`
 
-        var DirliStrToInput = $('<input type="hidden" />').attr({
-            name: 'dirctns'
-        }).appendTo('form');
-
-        $(DirliStrToInput).val(DirLiStr.text());
-        var deleteIng = $(document.createElement('span')).text('x').prependTo(DirLiStr);
-
+        $(input).appendTo($('.dirOl'));
+       
+        var deleteIng = $('.deleteIng')
         $(deleteIng).on('click', function(){
             $(this).parent().remove()
-            $(DirliStrToInput).remove()
         })
         $(dirctnsInput).val(' ')
         $(dirctnsInput).focus()
@@ -155,6 +94,7 @@ $(input).appendTo($('#tipUl'))
             e.preventDefault()
         }
     })
+    
 
     /*
         This function adjusts a texarea's height according to it's text
@@ -242,34 +182,6 @@ $(input).appendTo($('#tipUl'))
         $(this).parent().parent().parent().parent().children('.dltRecWrrpModal').children('.modalDel').addClass('modalDelVisible');
     })
 
-    /*LOOK THROUGHT THIS */
-    /*
-        This function helps add ingredients to the list to edit an then update the recipe
-    */    
-//    var editAdDirctnInpt = $('.editAdDirctnInpt')
-   
-//    function editAddNewItemDrctn(){
-//        var newItemVal = $(editAdDirctnInpt).val()
-//        var newEditItem = $(`<span class="circle">○</span><input type="text" name="dirctns" class="editInputs" value='${newItemVal}'>`)
-//        $(newEditItem).appendTo('.drctnInputWrapper .eachInput')
-//        $(editAdDirctnInpt).val(' ')
-
-//        var deleteIng = $('<span class="removeEditItem removeEditItemFromJs">x</span>').appendTo(newEditItem);
-//        $(deleteIng).on('click', function(){
-//            $(this).parent().remove()
-//            $(newEditItem).remove()
-//        })
-//     }
-
-//    $('.adDirToDirListBttn').on('click', function(){
-//        editAddNewItemDrctn()
-//    });
-//    $(editAdDirctnInpt).keydown(function(e){
-//        if(e.keyCode == 13){
-//            editAddNewItemDrctn()
-//            e.preventDefault()
-//        }
-//    })
 
     /*
         These following functions add a scrollbar to the add new form at tips,

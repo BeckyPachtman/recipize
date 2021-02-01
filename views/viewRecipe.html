@@ -79,7 +79,7 @@
                         </div>
                     </div>
 
-                    <div class="bottomSection">
+                    <div class="middleSection">
                         <div class="leftSide">
                             <div class="recipeImage">
                                 <% if(recipe.img == ''){ %>
@@ -121,13 +121,25 @@
                         </div>
                     </div>
                         
-                    <div class="recipeTips">
-                        <h3>Tips for this recipe</h3>
-                        <ul>
-                            <% recipe.tips.forEach(function(tip){ %>
-                                <li><%= tip %></li>
-                            <% }); %>
-                        </ul>
+                    <div class="bottomSection">
+                    
+                        <div class="recipeTips">
+                            <h3>Tips for this recipe</h3>
+                            <ul>
+                                <% recipe.tips.forEach(function(tip){ %>
+                                    <li><%= tip %></li>
+                                <% }); %>
+                                <% if(recipe.tips = ''){} %>
+                            </ul>
+                        </div>
+
+                        <div class="categorySection">         
+                            <h3>Category</h3>                                  
+                            <p>
+                                <a href="" class=""><%= recipe.category %></a>
+                            </p>
+                        </div>
+
                     </div>
 
                     <div class="dltRecWrrpModal">

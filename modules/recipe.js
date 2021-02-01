@@ -11,6 +11,7 @@ const newRecipeSchema = new mongoose.Schema({
     img: String,
     yieldInput: String,
     yieldSelect: String,
+    category: String,
     ingrdnts: Array,
     tips: Array,
     dirctns: Array,

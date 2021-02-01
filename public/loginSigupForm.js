@@ -58,8 +58,8 @@ $(document).ready(() =>{
     /*
         This function toggles the login and signup forms' password visiblity
     */
-    $('.showHidePassIcon').on('click', function(){
-        var passwordField = $('.password');
+   $('.showHidePassIcon').on('click', function(){
+        var passwordField = $(this).siblings()
         var passAtr = passwordField.attr('type') === 'password' ? 'text' : 'password'
         passwordField.attr('type', passAtr)
         $('.showHidePassIcon img').toggle()

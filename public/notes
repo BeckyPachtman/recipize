@@ -378,6 +378,20 @@ being that modal is a child of the page not of this specific recipe when I call 
     padding: 10px 0;
     width: 100%;
 
+$(yieldSelect).on('change', function(){
+    $(otherOptionText).attr({type: 'hidden', name: ''})
+    $(otherOptionText).hide()
+    $(yieldSelect).attr('name', 'yieldSelect')
+
+    if($(yieldSelect).val() != 'Servings'){
+        $(otherOptionText).attr({type: 'text', name: 'yieldSelect'})
+        
+        $(otherOptionText).show()
+        $(otherOptionText).focus()
+        $(this).attr('name', '')
+    }
+})
+
 
 
 

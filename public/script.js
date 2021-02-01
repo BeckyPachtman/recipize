@@ -187,17 +187,35 @@ $(document).ready(() =>{
     */
 
     var yieldSelect = $('.yieldSelect');
+    var category = $('.category');
+    var addRecSelect = $('.addRecSelect')
     var otherOptionText = $('.otherOptionText')
 
-    $(yieldSelect).on('change', function(){
-        if(yieldSelect.val('Other')){
-            $(otherOptionText).attr({type: 'text', name: 'yieldSelect'})
-            $(otherOptionText).focus()
+    $(addRecSelect).on('change', function(){
+        $(otherOptionText).attr({type: 'hidden', name: ''})
+        $(otherOptionText).hide()
+        $(yieldSelect).attr('name', 'yieldSelect')
+        $(category).attr('name', 'category')
+
+        if($(yieldSelect).val() != 'Servings'){
+            $($(this).parent().children(otherOptionText)).attr({type: 'text', name: 'yieldSelect'})
+            
+            $($(this).parent().children(otherOptionText)).show()
+            $($(this).parent().children(otherOptionText)).focus()
+            $(this).attr('name', '')
+        }
+
+        if($(category).val() == 'Other'){
+            $($(this).parent().children(otherOptionText)).attr({type: 'text', name: 'category'})
+            
+            $($(this).parent().children(otherOptionText)).show()
+            $($(this).parent().children(otherOptionText)).focus()
             $(this).attr('name', '')
         }
     })
 
-
+  
+    
     /*
         This function checks if the user is on a mobile or desktop
         device and will open the appropiate whatsapp to chat to, mobile or web, accordingly

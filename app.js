@@ -19,10 +19,10 @@ mongoose.connect('mongodb://localhost/recipize', {
 
 const cookieName = 'AuthenticationApp';
 const log = fs.createWriteStream('log.txt', {flags: 'a'});
-const profileMsg = `<style> #userLoggedIn{display: flex;}</style>`
-const profileHidden = `<style> #userLoggedIn{display: none;}</style>`
+const profileMsg = `<style> #userLoggedIn{display: flex;}</style>`;
+const profileHidden = `<style> #userLoggedIn{display: none;}</style>`;
 const errLoginReAttempt = errMsg.reattempLogin;
-const errloginForAccess = errMsg.loginForAccess
+const errloginForAccess = errMsg.loginForAccess;
 const removeLoginBttn = errMsg.removeLoginBttn;
 const switchCloseBttn = errMsg.switchCloseBttn
 const loginAfterSignupMsg = errMsg.loginAfterSignup;
@@ -44,7 +44,7 @@ app.use(session({
     secret: 'secretString',
     resave: false,
     saveUninitialized: false,
-    store: new MongoStore({ mongooseConnection: mongoose.connection }),
+    store: new MongoStore({mongooseConnection: mongoose.connection}),
     cookie: {
         maxAge: 1000 * 60 * 60 * 24 * 7
     },
@@ -54,7 +54,6 @@ app.use(session({
 /*  this function redirects a user to the login page
     if they try to access a page they have to be logged in to be able to  access
 */
-
 const redirectLogin = (req, res, next) => {
     if(!req.session.userId){
         res.render('index', {
@@ -101,7 +100,6 @@ app.get('/',  function(req, res){
     whenever a user clicks on login either from the home page
     call to action button or from the login/signup link on the navbar
 */
-
 app.get('/login', function(req, res){
     const {userId} = req.session;
     if(userId){ 
@@ -127,7 +125,6 @@ app.get('/loginAfterSignup', function(req, res){
     Before it does so it checks if this user already exists and if
     the information has been added propery, ex. proper email format.
 */
-
 app.post('/createUser', function(req, res){
     var userCreate = {firstName, lastName, email, password} = req.body
     if(!firstName || !lastName || !email || !password){
@@ -169,7 +166,6 @@ app.post('/createUser', function(req, res){
     It checks if the email and password match to an exsisitng user
     and spits out an error accordingly
 */
-
 app.post('/login', function(req, res){
     create.findOne({
         email: req.body.email,
@@ -235,9 +231,10 @@ app.post('/newRecipeData', function(req, res) {
         prpTimeMin: req.body.prpTimeMin,   ckTimeHrs: req.body.ckTimeHrs,
         ckTimeMin: req.body.ckTimeMin,     ttlTimeHrs: req.body.ttlTimeHrs,
         ttlTimeMin: req.body.ttlTimeMin,   yieldInput: req.body.yieldInput,
-        yieldSelect: req.body.yieldSelect, tips: req.body.tips,
-        img: req.body.img,                 ingrdnts: req.body.ingrdnts,
-        dirctns: req.body.dirctns,         author: loggedUser.firstName + ' ' + loggedUser.lastName
+        yieldSelect: req.body.yieldSelect, category:req.body.category,
+        tips: req.body.tips,               img: req.body.img,                
+        ingrdnts: req.body.ingrdnts,       dirctns: req.body.dirctns,         
+        author: loggedUser.firstName + ' ' + loggedUser.lastName
         }
         if(!fullRecipe.title || !fullRecipe.ingrdnts || !fullRecipe.dirctns){
             res.render('addRecipe', {msg: errRecFieldEmpty, userName: '', profile: profileMsg});        
@@ -288,20 +285,23 @@ app.get('/edit/:id', function(req, res) {
             if(err){
                 console.log(err); 
             }else{
-                if(loggedUser.firstName + ' ' + loggedUser.lastName != returningRec.author){
-                    if(err){
-                        console.log(err);
-                    }else{                        
-                        recipe.find({}, function(err, allRecipies){ 
-                            res.render('recipiesDisplay', {recipe: allRecipies, userName: userName, profile: profileMsg, msg: errRecAuthorEdit})
-                        })
-                    }
-                }else {
-                    res.render('editRecipe', {recipe: returningRec, userName: userName, profile: profileMsg})
-                }
+                // if(loggedUser.firstName + ' ' + loggedUser.lastName != returningRec.author){
+                //     if(err){
+                //         console.log(err);
+                //     }else{                        
+                //         recipe.find({}, function(err, allRecipies){ 
+                //             res.render('recipiesDisplay', {recipe: allRecipies, userName: userName, profile: profileMsg, msg: errRecAuthorEdit})
+                //         })
+                //     }
+                // }else {
+                //     res.render('editRecipe', {recipe: returningRec, userName: userName, profile: profileMsg})
+                // }
+
+                res.render('editRecipe', {recipe: returningRec, userName: userName, profile: profileMsg})
             }
         })
-    }) 
+        
+    })
 })
 
 
@@ -316,9 +316,9 @@ app.put('/editRecipe/:id', function(req, res){
         prpTimeMin: req.body.prpTimeMin,    ckTimeHrs: req.body.ckTimeHrs,
         ckTimeMin: req.body.ckTimeMin,      ttlTimeHrs: req.body.ttlTimeHrs,
         ttlTimeMin: req.body.ttlTimeMin,    yieldInput: req.body.yieldInput,
-        yieldSelect: req.body.yieldSelect,  tips: req.body.tips,
-        img: req.body.img,                  ingrdnts: req.body.ingrdnts,
-        dirctns: req.body.dirctns,
+        yieldSelect: req.body.yieldSelect,  category:req.body.category,
+        tips: req.body.tips,                img: req.body.img,                  
+        ingrdnts: req.body.ingrdnts,        dirctns: req.body.dirctns,
     }
     recipe.findByIdAndUpdate(req.params.id, fullRecipe, function(err){
         if(err){
@@ -342,23 +342,28 @@ app.delete('/recipe/:id', function(req, res) {
     const {userId} = req.session;
     create.findById(userId, (err, loggedUser) =>{     
         const userName =  createUserName(loggedUser);   
-        recipe.findById(req.params.id, function(err, recipeToDelete){
-            if(loggedUser.firstName + ' ' + loggedUser.lastName == recipeToDelete.author){
-                    if(err){
-                    log.write('Failed attempt at deleting a recipe\n')
-                    res.send(err)
-                }else{
-                    recipe.findByIdAndRemove(req.params.id, () =>{
-                        log.write('Recipe successfully deleted\n')
-                        res.redirect('/recipiesDisplay')
-                    })
-                }
-            }else{
-                recipe.find({}, function(err, allRecipies){ 
-                    res.render('recipiesDisplay', {recipe: allRecipies, userName: userName, profile: profileMsg, msg: errRecAuthorDelete})
-                })
-            }
-       })
+    //     recipe.findById(req.params.id, function(err, recipeToDelete){
+    //         if(loggedUser.firstName + ' ' + loggedUser.lastName == recipeToDelete.author){
+    //                 if(err){
+    //                 log.write('Failed attempt at deleting a recipe\n')
+    //                 res.send(err)
+    //             }else{
+    //                 recipe.findByIdAndRemove(req.params.id, () =>{
+    //                     log.write('Recipe successfully deleted\n')
+    //                     res.redirect('/recipiesDisplay')
+    //                 })
+    //             }
+    //         }else{
+    //             recipe.find({}, function(err, allRecipies){ 
+    //                 res.render('recipiesDisplay', {recipe: allRecipies, userName: userName, profile: profileMsg, msg: errRecAuthorDelete})
+    //             })
+    //         }
+    //    })
+
+        recipe.findByIdAndRemove(req.params.id, () =>{
+            log.write('Recipe successfully deleted\n')
+            res.redirect('/recipiesDisplay')
+        })
     })
 })
 
