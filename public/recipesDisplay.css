@@ -1,10 +1,50 @@
 /*All recipe view page - display*/
+.searOptionWrrpr{
+    display: flex;
+    justify-content: center;
+    margin: 0 auto 1em ;
+    width: 100%;
+}
+.navSearchInputWrapper{
+    background-color: rgba(248, 248, 248, 0.424);
+    display: flex;
+    position: relative;
+    width: 35%;
+}
+.searchRecipes:focus,
+.searchRecipes:focus + div .icn {
+    background-color: #fff;
+}
+.navSearchInputWrapper input::placeholder{
+    color: #777;
+}
+.searchRecipes{
+    background: none;
+    border-bottom-left-radius: 0;
+    border-top-left-radius: 0;
+    margin-left: 2.5em;
+    width: 100%;
+}
+.icn{
+    border-radius: .2em;
+    border-bottom-right-radius: 0;
+    border-top-right-radius: 0;
+    height: 2em;
+    left: .1em;
+    padding: .5em 0 .4em .1em;
+    position: absolute;
+    width: 2em;
+}
+.icn img{
+    filter: invert(.2);
+}
 .authorMsg{
     background: #FFE0E0;
     color: red;
     display: inline-block;
     font-size: 1em;
     margin-bottom: 1.3em;
+    opacity: 0;
 }
 .recPageBody{
     background: url('../resources/images/backgrndColorsLight2.svg'); 
@@ -41,25 +81,25 @@
     width: 75%;
 }
 .plate{
+    align-items: center; 
     background-color: rgb(228, 228, 228);
     border-radius: 50%;
-    cursor: default;    
+    cursor: default;
+    display: flex;   
     height: 130px;
+    justify-content: center;
     overflow: hidden;
     width: 130px;
-    display: flex;
-    justify-content: center;
-    align-items: center; 
 }
 .dynamicImage{
     height: 100%;
 }
 .defaultImage{
-    background: url('../resources/images/platesOfFood/125.jpg');
-    background-size: cover;
+    background: url('../resources/images/plateOfFood.jpeg');
     background-position: center;
-    width: inherit;
+    background-size: cover;
     height: inherit;
+    width: inherit;
 }
 .recipeDisplay .text{
     font-size: .9em;
@@ -105,21 +145,16 @@
     height: 1.15em;
     margin: .2em 0 0 .12em;
 }
-.resultRecipeWrapper{
-    /* margin: 0 auto;
-    border: solid 1px orangered;
-    min-height: 10em;
-    display: flex;
-    flex-direction: column;
-    flex-wrap: nowrap; */
-    width: 33.33%;
-
-}
 .oneRecipeDisplayWrapperResult{
     display: none;
-    /* min-width: 0; 
-    width: 0;*/
 }
 .searchNotResult{
     display: none;
+}
+input[type=search]::-ms-clear,
+input[type=search]::-ms-reveal{
+    cursor: pointer;
+}
+input[type="search"]::-webkit-search-cancel-button{
+    cursor: pointer;
 }

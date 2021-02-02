@@ -38,7 +38,8 @@ fieldset{
     justify-content: flex-start;
     height: 35.93em;
     margin: 2em 2em 0;
-    width: 100%;
+    max-width: 52em;
+    width: 100%;    
 }
 fieldset > div h2{
     padding-bottom: .2em;
@@ -92,8 +93,8 @@ fieldset.visibleFieldset > div:last-child{
     padding: 0;
 }
 .inputGroup .moreOptionsColumn div input,
-.inputGroup .plusIconParent input,
-.inputGroup > div input,
+.inputGroup .plusIconParent input:not(.editTipNewInput),
+.inputGroup > div input:not(.editTipNewInput),
 .inputGroup > div select{
     background-color: #F0F5F8;
     border-radius: 0;
@@ -103,21 +104,28 @@ fieldset.visibleFieldset > div:last-child{
     margin: .5em;
     outline: none;
     padding: .7em .5em;
-    width: 100%;
+    width: 97%;
 }
 .inputGroup > div select {
     padding-left: .2em;
 }
 .inputGroup .moreOptions input{
     margin-right: 0;
-    width: 75%;
+    width: 70%;
 }
 .inputGroup .moreOptions select{
     border: none;
     background-color: #F0F5F8;
     font-size: .9em;
     font-weight: 500;
-    width: 25%;
+    width: 30%;
+}
+.inputGroup .moreOptions.categorySelectParent select{
+    border: none;
+    background-color: #F0F5F8;
+    font-size: .9em;
+    font-weight: 500;
+    width: 100%;
 }
 .or{
     position: relative;
@@ -138,19 +146,23 @@ fieldset.visibleFieldset > div:last-child{
 .inputGroup .moreOptionsColumn .imgUrlWrppr input{
     font-size: .9em;
 }
+
 .inputGroup .moreOptionsColumn .imgUrlWrppr input:not(:placeholder-shown) ~ label,
-.inputGroup > div input:focus ~ label,
-.inputGroup > div input:not(:placeholder-shown) ~ label{    
+.inputGroup .moreOptionsColumn .imgUrlWrppr input:not(:placeholder-shown) ~ label,
+.inputGroup > div input:focus ~ label:not(.uploadRecPhotoLbl),
+.inputGroup > div input:not(:placeholder-shown) ~ label:not(.uploadRecPhotoLbl){    
     font-size: .8em;
     left: .5em;
-    top: 0 !important;
+    top: .5em;
+    background-color: white;
+    padding: .3em .7em .3em .5em;
 }
 .imgWapper label{
     background-color: #F0F5F8;
-    width: 95%;
-    margin-left: .1em;
-    margin-top: 1.3em;
     height: 57%;
+    margin-left: -.5em;
+    padding: 0;
+    width: 95%;
 }
 .imgWapper img{
     margin-left: .6em
@@ -189,7 +201,6 @@ label .timeIcon{
 .listWrappr{
     width: 100%;
 }
-
 .listWrapprScrollbar{
     overflow-y: scroll;
     height: 100%;
@@ -227,9 +238,24 @@ label .timeIcon{
 }
 .listWrappr ul,
 .listWrappr ol{
+    /*display: flex;*/
+    padding: 0 ;
+}
+.editListWrapper ul.tipUl{
+    padding: 0 .8em;
+}
+.tipWrppr{
     display: flex;
-    flex-direction: column;
-    padding: 0 1em;
+    justify-content: center;
+}
+.tipWrppr textarea{
+    border: none;
+    resize: none;
+    /*height: 1.4em;*/
+    width: 95%;
+}
+.tipWrppr .deleteIng{
+    margin:  0 .1em 0 .3em;
 }
 .tipUl li,
 .igUl li,
@@ -292,9 +318,6 @@ label .timeIcon{
     display: flex;
     justify-content: space-between;
 }
-.editTipsInputGroup{
-    /*overflow-y: scroll;*/
-}
 .inputGroup .plusIconParent .editListItem textarea{
     border: none;
     height: auto;
@@ -321,7 +344,6 @@ label .timeIcon{
 }
 .circle{
     font-size: .9em;
-    /* margin: 0 .5em 0 1em; */
 }
 .removeEditItem{
     cursor: pointer;
@@ -330,7 +352,4 @@ label .timeIcon{
 .removeEditItemFromJs{
     float: right;
     font-size: 1.1em;
-    /*margin-right: .11em;
-    margin-left: 1em;*/
-   
 }

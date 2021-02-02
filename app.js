@@ -19,17 +19,20 @@ mongoose.connect('mongodb://localhost/recipize', {
 
 const cookieName = 'AuthenticationApp';
 const log = fs.createWriteStream('log.txt', {flags: 'a'});
-const profileMsg = `<style> #userLoggedIn{display: flex;}</style>`
-const profileHidden = `<style> #userLoggedIn{display: none;}</style>`
-const errLoginReAttempt = errMsg.loginReAttempt;
-const removeLoginBttn = errMsg.removeLoginBttn
+const profileMsg = `<style> #userLoggedIn{display: flex;}</style>`;
+const profileHidden = `<style> #userLoggedIn{display: none;}</style>`;
+const errLoginReAttempt = errMsg.reattempLogin;
+const errloginForAccess = errMsg.loginForAccess;
+const removeLoginBttn = errMsg.removeLoginBttn;
+const switchCloseBttn = errMsg.switchCloseBttn
 const loginAfterSignupMsg = errMsg.loginAfterSignup;
 const errFieldEmpty = errMsg.fieldEmpty;
 const errUserExists = errMsg.userExists;
 const errUserNotFound = errMsg.userNotFound;
 const errPassword = errMsg.password;
 const errRecFieldEmpty = errMsg.recFieldEmpty;
-const errNotRecAuthor = errMsg.notRecAuthor;
+const errRecAuthorEdit = errMsg.recAuthorEdit;
+const errRecAuthorDelete = errMsg.recAuthorDelete;
 
 app.engine('html', require('ejs').renderFile)
 app.set('view engine', 'html')
@@ -41,55 +44,50 @@ app.use(session({
     secret: 'secretString',
     resave: false,
     saveUninitialized: false,
-    store: new MongoStore({ mongooseConnection: mongoose.connection }),
+    store: new MongoStore({mongooseConnection: mongoose.connection}),
     cookie: {
-        maxAge: 1000 * 60 * 60 * 24 * 7 //one week
+        maxAge: 1000 * 60 * 60 * 24 * 7
     },
     name: cookieName
 }))
 
-/*this function redirect a user to the login page
-if they try to accessa page they have ot be logged in to access*/
+/*  this function redirects a user to the login page
+    if they try to access a page they have to be logged in to be able to  access
+*/
 const redirectLogin = (req, res, next) => {
     if(!req.session.userId){
-    var errMsg = ` <style> .modal{opacity: 1; visibility: visible;} </style>
-    <strong class="errMsg">Log in to be able to access this feature</strong>
-    <script> document.getElementById('signUpErr').innerHTML = ""; </script>`
-            res.render('index', {
-                errMsg: errMsg,
-                userName: '',
-                profile: profileHidden
-            });
-    } else{
-        next()
-    }
-}
-
-/*This function rediercts the uer to hte home page ig the try to access
- the login page while they are already logged in */
-const redirectHome = (req, res, next) => {
-    if(req.session.userId){
-        res.redirect('/')
+        res.render('index', {
+            errMsg: errloginForAccess,
+            userName: '',
+            profile: profileHidden
+        });
     }else{
         next()
     }
-}  
-function createUserName (loggedUser) {
-        const firstName  = loggedUser.firstName;
-        const lastName  = loggedUser.lastName;
-        const fNameInitial = firstName.charAt(0);
-        const lNameInitial = lastName.charAt(0);
-        return(fNameInitial + lNameInitial);
 }
 
+/*
+    This function creates the user nickame to be displayed
+    whenever a user is logged in, it is then exported for testing purposes
+*/
+function createUserName (loggedUser) {
+    const firstName  = loggedUser.firstName;
+    const lastName  = loggedUser.lastName;
+    const fNameInitial = firstName.charAt(0);
+    const lNameInitial = lastName.charAt(0);
+    return(fNameInitial + lNameInitial);
+}
 module.exports = createUserName;
 
-
+/*
+    This function is a route function which directs the user to the home page
+    whenever entering the app or clicking the home link from the navbar
+*/
 app.get('/',  function(req, res){
     const {userId} = req.session;
-    if(userId){    
+    if(userId){ 
         create.findById(userId, (err, loggedUser) =>{
-            const userName =  createUserName(loggedUser);
+            const userName = createUserName(loggedUser);
             res.render('index', {errMsg: removeLoginBttn, userName: userName, profile: profileMsg});
         });
     }else{
@@ -97,26 +95,37 @@ app.get('/',  function(req, res){
     }
 })
 
+/*
+    This function is a route function which directs the user to the login window
+    whenever a user clicks on login either from the home page
+    call to action button or from the login/signup link on the navbar
+*/
 app.get('/login', function(req, res){
-    if(req.session.userId){
-        var errMsg = `<style> .modal{opacity: 1; visibility: visible;} </style>`
-        res.render('index', {errMsg: errLoginReAttempt + errMsg, files: '', userName: '', profile: profileMsg })
+    const {userId} = req.session;
+    if(userId){ 
+        create.findById(userId, (err, loggedUser) =>{
+            const userName =  createUserName(loggedUser);
+            res.render('index', {errMsg: errLoginReAttempt, userName: userName, profile: profileMsg});
+        });
     }else{
-        var errMsg = `<style> .modal{opacity: 1; visibility: visible;} </style>`
-        res.render('index', {errMsg: errMsg, files: '', userName: '', profile: profileMsg })
+        res.render('index', {errMsg: switchCloseBttn, userName: '', profile: profileHidden })
     }
-
 })
 
+/*
+    This function is a route function which directs the user to the login window
+    after successfully signing up
+*/
 app.get('/loginAfterSignup', function(req, res){
     res.render('index', {errMsg: loginAfterSignupMsg, userName: '', profile: ''})
 })
-/*
-This function adds a new user to the database.
-Before it does so it checks if this user already exists.
-*/
 
-app.post('/createUser', redirectHome, function(req, res){
+/*
+    This function adds a new user to the database.
+    Before it does so it checks if this user already exists and if
+    the information has been added propery, ex. proper email format.
+*/
+app.post('/createUser', function(req, res){
     var userCreate = {firstName, lastName, email, password} = req.body
     if(!firstName || !lastName || !email || !password){
         res.render('index', {
@@ -144,17 +153,20 @@ app.post('/createUser', redirectHome, function(req, res){
                                 res.redirect('/loginAfterSignup');
                             }
                         })
-                }))
+                    })
+                )
             }
         })
     }
 })
+
+
 /*
-This function logs a user to the system
-It checks if the email and password match to an exsisitng user
-It spits out an error accordingly
+    This function logs a user in to the system
+    It checks if the email and password match to an exsisitng user
+    and spits out an error accordingly
 */
-app.post('/login', redirectHome, function(req, res){
+app.post('/login', function(req, res){
     create.findOne({
         email: req.body.email,
     }).then((userLogin) => {
@@ -174,8 +186,10 @@ app.post('/login', redirectHome, function(req, res){
     })
 })
 
+
 /*
-This function renders the page to add a new recipe
+    This function is a route function which directs to the
+    proper page for a user to be able to add a new recipe
 */
 app.get('/AddNewRecipe', redirectLogin, function(req, res){
     const {userId} = req.session;
@@ -185,8 +199,10 @@ app.get('/AddNewRecipe', redirectLogin, function(req, res){
     });
 })
 
+
 /*
-This function renders the display page for all exsisiting recipes
+    This function is a route function which directs to the
+    gallery page to display all existing recipes 
 */
 app.get('/recipiesDisplay', redirectLogin, function(req, res){
     const {userId} = req.session;
@@ -201,9 +217,11 @@ app.get('/recipiesDisplay', redirectLogin, function(req, res){
         })
     })
 })
+
+
 /*
-This function takes the data that the user added to the add a new recipe page form and submits it to the database
-this function creates a new recipie (CREATE)
+    This function takes the data that the user submites through the 'Add a new recipe page' form and submits it to the database
+    a new recipe is created and displayed in the galler of all recipes.
 */
 app.post('/newRecipeData', function(req, res) {
     const {userId} = req.session;
@@ -213,9 +231,10 @@ app.post('/newRecipeData', function(req, res) {
         prpTimeMin: req.body.prpTimeMin,   ckTimeHrs: req.body.ckTimeHrs,
         ckTimeMin: req.body.ckTimeMin,     ttlTimeHrs: req.body.ttlTimeHrs,
         ttlTimeMin: req.body.ttlTimeMin,   yieldInput: req.body.yieldInput,
-        yieldSelect: req.body.yieldSelect, tips: req.body.tips,
-        img: req.body.img,                 ingrdnts: req.body.ingrdnts,
-        dirctns: req.body.dirctns,         author: loggedUser.firstName + ' ' + loggedUser.lastName
+        yieldSelect: req.body.yieldSelect, category:req.body.category,
+        tips: req.body.tips,               img: req.body.img,                
+        ingrdnts: req.body.ingrdnts,       dirctns: req.body.dirctns,         
+        author: loggedUser.firstName + ' ' + loggedUser.lastName
         }
         if(!fullRecipe.title || !fullRecipe.ingrdnts || !fullRecipe.dirctns){
             res.render('addRecipe', {msg: errRecFieldEmpty, userName: '', profile: profileMsg});        
@@ -233,8 +252,10 @@ app.post('/newRecipeData', function(req, res) {
     })
 })
 
+
 /*
-This function displays one recipe when clicked on
+    This function is a route function which directs a user to the 'Displays one recipe page'
+    when a recipe is clicked on in the gallery
 */
 app.get('/recipe/:id', function(req, res) {
     const {userId} = req.session;
@@ -250,8 +271,11 @@ app.get('/recipe/:id', function(req, res) {
     })  
 })
 
+
 /*
-This function shows the edit recipe page wehn we want to edit a specific recipe  (EDIT)
+    This function is a route function which directs a user to 'Edit recipe page'
+    when the edit recipe button is clicked.The system will first check if the author
+    of the recipe is also the user who is requesting to edit and will block any other user other than the author to make any changes
 */
 app.get('/edit/:id', function(req, res) {
     const {userId} = req.session;
@@ -261,35 +285,30 @@ app.get('/edit/:id', function(req, res) {
             if(err){
                 console.log(err); 
             }else{
-                //if(loggedUser.firstName + ' ' + loggedUser.lastName != returningRec.author){
-                    if(err){
-                        console.log(err);
-                    //}//else{
-                        //res.redirect('/notAuthor')
-                    //}
-                }else {
-                    res.render('editRecipe', {recipe: returningRec, userName: userName, profile: profileMsg})
-                }
-            }
-        })
-    }) 
-})
+                // if(loggedUser.firstName + ' ' + loggedUser.lastName != returningRec.author){
+                //     if(err){
+                //         console.log(err);
+                //     }else{                        
+                //         recipe.find({}, function(err, allRecipies){ 
+                //             res.render('recipiesDisplay', {recipe: allRecipies, userName: userName, profile: profileMsg, msg: errRecAuthorEdit})
+                //         })
+                //     }
+                // }else {
+                //     res.render('editRecipe', {recipe: returningRec, userName: userName, profile: profileMsg})
+                // }
 
-app.get('/notAuthor', function(req, res){
-    const {userId} = req.session;
-    create.findById(userId, (err, loggedUser) =>{
-    const userName =  createUserName(loggedUser);
-        recipe.find({}, function(err, allRecipies){
-            if(err){
-                console.log(err);
-            }else{
-                res.render('recipiesDisplay', {recipe: allRecipies, userName: userName, profile: profileMsg, msg: errNotRecAuthor})
+                res.render('editRecipe', {recipe: returningRec, userName: userName, profile: profileMsg})
             }
         })
+        
     })
 })
+
+
 /*
-This function updates the recipe data to whatever we added in the edit page (UPDATE)
+    This function is a route function which directs a user to the 'Update recipe page',
+    lets the user make the appropiate changes and updates the date in the database
+    displaying the updated version in the gallery of recipes
 */
 app.put('/editRecipe/:id', function(req, res){
     var fullRecipe = {
@@ -297,9 +316,9 @@ app.put('/editRecipe/:id', function(req, res){
         prpTimeMin: req.body.prpTimeMin,    ckTimeHrs: req.body.ckTimeHrs,
         ckTimeMin: req.body.ckTimeMin,      ttlTimeHrs: req.body.ttlTimeHrs,
         ttlTimeMin: req.body.ttlTimeMin,    yieldInput: req.body.yieldInput,
-        yieldSelect: req.body.yieldSelect,  tips: req.body.tips,
-        img: req.body.img,                  ingrdnts: req.body.ingrdnts,
-        dirctns: req.body.dirctns,
+        yieldSelect: req.body.yieldSelect,  category:req.body.category,
+        tips: req.body.tips,                img: req.body.img,                  
+        ingrdnts: req.body.ingrdnts,        dirctns: req.body.dirctns,
     }
     recipe.findByIdAndUpdate(req.params.id, fullRecipe, function(err){
         if(err){
@@ -312,23 +331,47 @@ app.put('/editRecipe/:id', function(req, res){
     })
 })
 
+
 /*
-This function delets one recipe when user chooses to
+    This function delets a specific recipe when delete recipe button is clicked and confirmed.
+    The system will first check if the author of the recipe is also the user who is requesting
+    to delete and will block any other user other than the author to delete this recipe
 */
+
 app.delete('/recipe/:id', function(req, res) {
-    recipe.findByIdAndRemove(req.params.id, function(err){
-        if(err){
-            log.write('Failed attempt at deleting a recipe\n')
-            res.send(err)
-        }else{
+    const {userId} = req.session;
+    create.findById(userId, (err, loggedUser) =>{     
+        const userName =  createUserName(loggedUser);   
+    //     recipe.findById(req.params.id, function(err, recipeToDelete){
+    //         if(loggedUser.firstName + ' ' + loggedUser.lastName == recipeToDelete.author){
+    //                 if(err){
+    //                 log.write('Failed attempt at deleting a recipe\n')
+    //                 res.send(err)
+    //             }else{
+    //                 recipe.findByIdAndRemove(req.params.id, () =>{
+    //                     log.write('Recipe successfully deleted\n')
+    //                     res.redirect('/recipiesDisplay')
+    //                 })
+    //             }
+    //         }else{
+    //             recipe.find({}, function(err, allRecipies){ 
+    //                 res.render('recipiesDisplay', {recipe: allRecipies, userName: userName, profile: profileMsg, msg: errRecAuthorDelete})
+    //             })
+    //         }
+    //    })
+
+        recipe.findByIdAndRemove(req.params.id, () =>{
             log.write('Recipe successfully deleted\n')
             res.redirect('/recipiesDisplay')
-        }
+        })
     })
 })
 
+
 /*
-This function kills the session and cookie therefore loggin the user out */
+    This function is called when a user clicks on the logout optionit will
+    kill the current session and cookie and the user will be logged out
+*/
 app.get('/logout', redirectLogin, (req, res) =>{
     req.session.destroy(err => {
         if(err){
@@ -344,7 +387,15 @@ app.get('/logout', redirectLogin, (req, res) =>{
 This function will close the login modal window on clicking the close button
 */
 app.get('/closeModal', function(req, res){
-    res.redirect('/')
+    const {userId} = req.session;
+    if(userId){
+        create.findById(userId, (err, loggedUser) =>{
+            const userName =  createUserName(loggedUser);
+            res.render('index', {errMsg: removeLoginBttn, userName: userName, profile: profileMsg});
+        });
+    }else{
+        res.render('index', {errMsg: '', userName: '', profile: profileHidden});   
+    }
 })
 
 app.listen(3000)

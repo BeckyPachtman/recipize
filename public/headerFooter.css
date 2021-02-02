@@ -1,7 +1,6 @@
 /*Header*/
-.navWrapper{
+nav{
     display: flex;
-    justify-content: center;
 }
 .sticky{
     background-color: #eecccc;
@@ -11,6 +10,9 @@
 .stickyLinks{
     color: #fff;
 }
+.nav a.stickyLinks:hover{
+    color: rgb(201, 201, 201);
+} 
 .stickyLogo{
     filter: opacity(70%);
 }
@@ -19,7 +21,7 @@
     display: flex;
     height: 4em;
     justify-content: flex-end;
-    padding: 0 10em;
+    padding: 3em 10em;
     position: fixed;
     top: 0;
     width: 100%;
@@ -29,69 +31,34 @@
     list-style: none;
 }
 .logoWrapper{
-    flex: 1;
+   flex: 1;
 }
 .logoWrapper img{
-    display: block;
-    height: 2.5em;
+    height: 4em;
 }
 .logoWrapper img:last-child{
     display: none;
 }
-.navUl{
+.navUl,
+.navUl .lis{
     display: flex;
-    align-items: baseline;
+    align-items: center;
 }
 .navUl a{
     font-size: .95em;
     padding: 0 1em;
 }
-.navUl a:hover{
-    color: var(--mainRedishColor);
-}
-.searchInputIconWrapper{
-    margin-left: 1em;
+ .navUl a:hover{
+    color: var(--secendaryColor);
+} 
+.userLoggedIn{
     position: relative;
-}
-.navSearchInputWrapper::after{
-    content: url('resources/images/search.png');
-    filter: invert(.5);
-    left: -1.8em;
-    position: relative;
-    top: .2em;
-}
-.navSearchInputWrapper input{
-    background-color: #f8f8f8;
-}
-.navSearchInputWrapper input::placeholder{
-    color: #8a8a8a;
-}
-.userProfile{
-    background-color: #fff;
-    border-radius: 100%;
-    height: 3em;
-    margin-left: .5em;
-    width: 3em;
-}
-.userProfile img{
-    border-radius: 100%;
-    height: 100%;
-    width: 100%;
-}
-#userLoggedIn{
-    display: none;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: flex-end;
-    width: inherit;
 }
 .userName{
     align-items: center;
-    background-color: var(--SecondaryGrayColor);
+    background-color: #666060;
     border-radius: 50%;
     color: #fff;
-   /* display: none;*/
     display: flex;
     font-size: .85em;
     font-weight: 700;
@@ -100,13 +67,10 @@
     position: relative;
     width: 2.4em;
 }
-/* #userLoggedIn img{
-    height: 2em;
-    width: 2em;
-} */
 .userOptions{
     position: absolute;
-    top: 2.8em;
+    right: 0;
+    top: 2.5em;
     background: #fff;
     padding: .8em;
     width: 8em;
@@ -115,7 +79,12 @@
     padding: 0;
     border: none;
 }
-
+.userOptions a:hover{
+    color: var(--tertiaryColor);
+}
+.showGalleryBttn{
+    display: none;
+}
 /*Footer*/
 footer{
     align-items: center;

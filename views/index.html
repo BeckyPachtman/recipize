@@ -1,11 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="author" content="Bracha Pachtman">
-    <meta name="description" content="Recipe Manager Platform">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="keywords" content="HTML, CSS, JavaScript, Node.js, Food, Recipes, Organization">
+    <%- include('favicon.html')%>
     <link rel="stylesheet" href="headerFooter.css">
     <link rel="stylesheet" href="modalStyles.css">
     <link rel="stylesheet" href="generalStyles.css">
@@ -26,13 +22,16 @@
                             <h3>Enter, edit, share, update recipes easily, quickly, and effortlessly.</h3>
                             
                             <div class="secendaryContent mainButtons">
-                                <button type="button" id="loginPropmtButton" class="loginPropmtButton" data-open='modal'>Login/Sign Up</button>
-                                <button type="button"><a href="AddNewRecipe" class="mainPageAddRec">Add Recipe</a></button>
+                                <div class="loginPropmtButtonWrrpr">
+                                    <button type="button" id="loginPropmtButton" class="loginPropmtButton" data-open='modal'>Login</button>
+                                    <span>or sign up</span>
+                                </div>
+                                <span class="mainPageRecDisply"><a href="recipiesDisplay" class="mainPageAddRec">View All Recipes</a></span>
+                                <span id="addRecHomeBttn" class="addRecBttn"><a href="AddNewRecipe" class="mainPageAddRec">Add Recipe</a></span>
+                                
                             </div>
-                            
                         </div>
                     </div>
-                    
 
                     <div class="modalWrapper">
                         <div id="modal" class="modal">
@@ -48,9 +47,7 @@
                                         </ul>
                                         
                                         <div class="formWrapper loginFormWrapper">
-                                      
                                             <form action="/login" method="POST" id="login">
-                                               
                                                 <div class="userFormWrapper">
                                                     
                                                     <h3>Login to your account</h3>    
@@ -63,7 +60,7 @@
                                                     
                                                     <div class="eachInput">
                                                         <input type="password" name="password" class="password" placeholder=" " required>
-                                                        <span class="showHidePassIcon">
+                                                        <span class="showHidePassIcon togglePassLogin">
                                                             <img src="/resources/images/passwordVisibility.png" alt="password icon" class="showPassIcon">
                                                             <img src="/resources/images/passwordInvisible.png" alt="password icon" class="hidePassIcon">
                                                         </span>
@@ -75,14 +72,16 @@
                                                     <div class="userFormButtons">
                                                         <button type="submit" class="modalButton">Login</button>
                                                         <button type="button" class="reset">Reset</button>
-                                                        
                                                     </div>
                                                 </div>
                                             </form>
 
-                                            <form action="/closeModal" method="GET" class="closeModalForm">
+                                            <form action="/closeModal" method="GET" id="closeModalForm">
                                                 <button type="submit" class="closeModal" data-close>✕</button>
                                             </form>
+
+                                            <button type="submit" id="closeModal" class="closeModal" data-close>✕</button>
+                                            
                                         </div>
                                         
                                         <div class="formWrapper signUpFormWrapper" id="signUpFormWrapper">
@@ -100,24 +99,28 @@
                                                             <label for="lastName">Last Name</label>
                                                         </div>
                                                     </div>
+
                                                     <div class="eachInput">
                                                         <input class="frmInpt" type="email" name="email" id="signUpEmail" placeholder=" " required>
                                                         <label for="email">Email address</label>
                                                     </div>
+
                                                     <div class="eachInput">
                                                         <input class="frmInpt" type="password" name="password" class="password" placeholder=" " required>
-                                                        <span class="showHidePassIcon">
+                                                        <span class="showHidePassIcon togglePassSignup">
                                                             <img src="/resources/images/passwordVisibility.png" alt="password icon" class="showPassIcon">
                                                             <img src="/resources/images/passwordInvisible.png" alt="password icon" class="hidePassIcon">
                                                         </span>
                                                         <label for="password">Password</label>
                                                     </div>
+
                                                     <div class="userFormButtons">
                                                         <button type="submit" class="modalButton">Sigup</button>
                                                         <button type="button" class="reset">Reset</button>
                                                     </div>
                                                 </div>
                                             </form>
+
                                             <form action="/closeModal" method="GET" class="closeModalForm">
                                                 <button type="submit" class="closeModal" data-close>✕</button>
                                             </form>
@@ -127,13 +130,11 @@
                             </div>
                         </div>
                     </div>
-                </div><%- include('footer.html')%>
+                </div>
+            <%- include('footer.html')%>
         </div>
-    
-
 </body>
 </html>
-
 <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
 <script src="loginSigupForm.js"></script>
 <script src="script.js"></script>
