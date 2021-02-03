@@ -1,29 +1,56 @@
 /*All recipe view page - display*/
 .searOptionWrrpr{
+    align-items: center;
     display: flex;
+    flex-direction: row;
+    height: 5em;
     justify-content: center;
-    margin: 0 auto 1em ;
+    margin: 0 auto 1em;
     width: 100%;
 }
 .navSearchInputWrapper{
+    width: 50%;
+    display: flex;
+}
+.searchInput,
+.searchByCatergory{
     background-color: rgba(248, 248, 248, 0.424);
     display: flex;
     position: relative;
-    width: 35%;
+    width: 100%;
+}
+.searchByCatergory{
+    background-color: rgba(248, 248, 248, 0.424);
+    margin-left: 1.5em;
+    width: 45%;
 }
 .searchRecipes:focus,
-.searchRecipes:focus + div .icn {
+.searchRecipes:focus ~ div .icn {
+    background-color: #fff;
+}
+.searchByCatergory:focus-within{
     background-color: #fff;
 }
 .navSearchInputWrapper input::placeholder{
-    color: #777;
+    color: #646464;
 }
 .searchRecipes{
     background: none;
     border-bottom-left-radius: 0;
     border-top-left-radius: 0;
-    margin-left: 2.5em;
+    margin-left: 2.5em ;
     width: 100%;
+}
+.searchByCatergory select{
+    background: none;
+    border: none;
+    color: #646464;
+    margin: .5em 0;
+    outline: none;
+    width: 100%;
+}
+.searcRecMobile{
+    display: none;
 }
 .icn{
     border-radius: .2em;
@@ -34,6 +61,13 @@
     padding: .5em 0 .4em .1em;
     position: absolute;
     width: 2em;
+}
+.icn.selectIcn{
+    height: 1.5em;
+    width: 0em; 
+    position: relative;
+    top: .01em;
+    left: .4em; 
 }
 .icn img{
     filter: invert(.2);
@@ -124,6 +158,9 @@
 }
 .text h3::first-letter{
     text-transform: uppercase;  
+}
+.recipeTitle a:last-child{
+    display: none;
 }
 .iconWrapper{
     align-items: center; 

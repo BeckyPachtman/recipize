@@ -23,6 +23,7 @@
                                 <li class="active">Step 1</li>
                                 <li>Step 2</li>
                                 <li>Step 3</li>
+                                <li>Step 4</li>
                             </ul>
             
                             <fieldset class="visibleFieldset">
@@ -69,6 +70,41 @@
                                             <label>Total Time Minutes</label>
                                         </div>
                                     </div>
+
+                                    <div class="moreOptions categorySelectParent">
+                                        <select name="category" id="Category" class="category addRecSelect">
+                                            <option value="<%= recipe.category %>" selected><%= recipe.category %></option>
+                                            <optgroup label="Main">
+                                                <option value="Main - Dairy">Main - Dairy</option>
+                                                <option value="Main - Meat">Main - Meat</option>
+                                                <option value="Main - Pareve">Main - Pareve</option>
+                                            </optgroup>
+                                            <optgroup label="Soup">
+                                                <option value="Soup - Dairy">Soup - Dairy</option>
+                                                <option value="Soup - Meat">Soup - Meat</option>
+                                                <option value="Soup - Pareve">Soup - Pareve</option>
+                                            </optgroup>
+                                            <optgroup label="Salad">
+                                                <option value="Salad - Dairy">Salad - Dairy</option>
+                                                <option value="Salad - Meat">Salad - Meat</option>
+                                                <option value="Salad - Pareve">Salad - Pareve</option>
+                                            </optgroup>
+                                            <optgroup label="Side">
+                                                <option value="Side - Dairy">Side - Dairy</option>
+                                                <option value="Side - Meat">Side - Meat</option>
+                                                <option value="Side - Pareve">Side - Pareve</option>
+                                            </optgroup>
+                                            <optgroup label="Dessert">
+                                                <option value="Dessert - Dairy">Dessert - Dairy</option>
+                                                <option value="Dessert - Meat">Dessert - Meat</option>
+                                                <option value="Dessert - Pareve">Dessert - Pareve</option>
+                                            </optgroup>
+                                            <optgroup label="Other">
+                                                <option value="Other">Other</option>
+                                            </optgroup>
+                                        </select>
+                                        <input type="hidden" class="otherOptionTextCtgry" title="" name="">
+                                    </div>
                                 </div>
             
                                 <div class="btnWrpr">
@@ -85,13 +121,13 @@
                                 <div class="inputGroup">
                                     <div class="moreOptions">
                                         <input type="number" min="0" name="yieldInput" value="<%= recipe.yieldInput %>" placeholder=" ">
-                                        <select name="yieldSelect" class="editSelectValue yieldSelect">
+                                        <select name="yieldSelect" class="editSelectValue yieldSelect addRecSelect">
                                             <option value="<%= recipe.yieldSelect %>"><%= recipe.yieldSelect %></option>
                                             <option class="selectServings" value="Servings">Servings</option>
                                             <option class="selectOther" value="Other">Other</option>
                                         </select>
                                         <label>Yields</label>
-                                        <input type="hidden" class="otherOptionText" title="" name="">
+                                        <input type="hidden" class="otherOptionTextSrvngs" name="">
                                     </div>
             
                                     <div class="moreOptionsColumn">

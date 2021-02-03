@@ -48,7 +48,7 @@ $(document).ready(() =>{
         This function displays the log out option
         when the user nickname is clicked on
     */
-    $('.userOptions').hide()
+    $('.userOptions').hide();
     $('.userName').on('click', function(){
         $('.userOptions').fadeToggle()
     })
@@ -139,31 +139,69 @@ $(document).ready(() =>{
         is searched for in the search bar, it will then display
         the recipes that are relevant
     */
+
+    
+
     function searchRecipes(){
         var searchInput = document.getElementById("searchRecipes");
+        var addRecSelect = document.getElementById("CategorySearch");
+
+        var selectSearch = addRecSelect.value.toUpperCase()
         var filterValue = searchInput.value.toUpperCase().trim();
-        var title = $(".recipeTitle")
+        var title = $('.recipeTitle')
+
 
         for (var i = 0 ; i < title.length; i++){
-            var a = title[i].getElementsByTagName("a")[0];
+            var a = title[i]
 
-            title[i].parentElement.parentElement.classList.remove('searchNotResult');
-            title[i].parentElement.parentElement.parentElement.classList.remove('oneRecipeDisplayWrapperResult')
-            title[i].parentElement.parentElement.parentElement.classList.add('oneRecipeDisplayWrapper')
+            a.parentElement.parentElement.classList.remove('searchNotResult');
+            a.parentElement.parentElement.parentElement.classList.remove('oneRecipeDisplayWrapperResult')
+            a.parentElement.parentElement.parentElement.classList.add('oneRecipeDisplayWrapper')
 
             if(a.innerHTML.toUpperCase().indexOf(filterValue) > -1){
+            } else{
+                a.parentElement.parentElement.classList.add('searchNotResult');
+                a.parentElement.parentElement.parentElement.classList.remove('oneRecipeDisplayWrapper')
+                a.parentElement.parentElement.parentElement.classList.add('oneRecipeDisplayWrapperResult')
+            }
+
+            if(a.innerHTML.toUpperCase().indexOf(selectSearch) > -1){
             }else{
-                title[i].parentElement.parentElement.classList.add('searchNotResult');
-                title[i].parentElement.parentElement.parentElement.classList.remove('oneRecipeDisplayWrapper')
-                title[i].parentElement.parentElement.parentElement.classList.add('oneRecipeDisplayWrapperResult')
+                a.parentElement.parentElement.classList.add('searchNotResult');
+                a.parentElement.parentElement.parentElement.classList.remove('oneRecipeDisplayWrapper')
+                a.parentElement.parentElement.parentElement.classList.add('oneRecipeDisplayWrapperResult')
             }
         }
     }
-    $('#searchRecipes').on('keyup', function(){
-        searchRecipes()
-    })
 
+    if($(".recPageBody").length) {
+        $('#searchRecipes').on('keyup', function(){
+            searchRecipes()
+        })
+        $('.addRecSelect').on('change', function(){
+            searchRecipes()
+        })
+    }
+    
+    
+    /*
+        This function displays all recipes who are under the
+        category 'other' and have a written and specified category
+    */
 
+    if($(".recPageBody").length){
+        var searchCatergorySelect = $('.searchByCtrgrySlct');
+        var eachOption = $('.searchByCtrgrySlct option')
+        eachOption.classList.remove('searchNotResult');
+        $(searchCatergorySelect).on('change', function(){
+            if($(searchCatergorySelect).val() != 'Other'){
+                this.classList.add('searchNotResult');
+            }
+        })
+    }
+    
+
+    
     /*
         This function is part of the search recipe function,
         it will empty the search bar and display all recipes
@@ -188,33 +226,34 @@ $(document).ready(() =>{
 
     var yieldSelect = $('.yieldSelect');
     var category = $('.category');
-    var addRecSelect = $('.addRecSelect')
-    var otherOptionText = $('.otherOptionText')
 
-    $(addRecSelect).on('change', function(){
-        $(otherOptionText).attr({type: 'hidden', name: ''})
-        $(otherOptionText).hide()
+    $(yieldSelect).on('change', function(){
+        $('.otherOptionTextSrvngs').attr({type: 'hidden', name: ''})
         $(yieldSelect).attr('name', 'yieldSelect')
-        $(category).attr('name', 'category')
-
+        
         if($(yieldSelect).val() != 'Servings'){
-            $($(this).parent().children(otherOptionText)).attr({type: 'text', name: 'yieldSelect'})
-            
-            $($(this).parent().children(otherOptionText)).show()
-            $($(this).parent().children(otherOptionText)).focus()
             $(this).attr('name', '')
-        }
+            $('.otherOptionTextSrvngs').attr({type: 'text', name: 'yieldSelect'})
 
-        if($(category).val() == 'Other'){
-            $($(this).parent().children(otherOptionText)).attr({type: 'text', name: 'category'})
-            
-            $($(this).parent().children(otherOptionText)).show()
-            $($(this).parent().children(otherOptionText)).focus()
-            $(this).attr('name', '')
+            $('.otherOptionTextSrvngs').show()
+            $('.otherOptionTextSrvngs').focus()
         }
     })
 
-  
+    $(category).on('change', function(){
+        $('.otherOptionTextCtgry').attr({type: 'hidden', name: ''})
+        $(category).attr('name', 'category')
+        
+     
+        if($(category).val() == 'Other'){
+            $('.otherOptionTextCtgry').attr({type: 'text', name: 'category'})
+      
+            $('.otherOptionTextCtgry').show()
+            $('.otherOptionTextCtgry').focus()
+            $(this).attr('name', '')
+        }
+    })  
+
     
     /*
         This function checks if the user is on a mobile or desktop

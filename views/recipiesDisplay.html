@@ -22,11 +22,51 @@
                         
                         <div class="searOptionWrrpr">
                             <div class="navSearchInputWrapper">
-                                <input class="searchRecipes" id="searchRecipes" type="search" name="searchRecipes" placeholder="Search Recipe" class="navSearchInput">
-                                <div>
-                                    <span class="icn"><img src="../resources/images/search.png"></span>
+                                <div class="searchInput">
+                                    <input class="searchRecipes searcRecDesktp" id="searchRecipes" type="search" name="searchRecipes" placeholder="Search recipe by name or category">
+                                    <input class="searchRecipes searcRecMobile" id="searchRecipes" type="search" name="searchRecipes" placeholder="Search recipe by name">
+                                    <div>
+                                        <span class="icn"><img src="../resources/images/search.png"></span>
+                                    </div>                           
                                 </div>
-                            </div>
+
+                                <div class="searchByCatergory">
+                                    <span class="icn selectIcn"><img src="../resources/images/filterSmall.png"></span>
+
+                                    <select name="category" id="CategorySearch" class="category addRecSelect searchByCtrgrySlct">
+                                        <option value="" selected>&nbsp; &nbsp; &nbsp; Filter by category</option>
+                                        <option value="">&nbsp; &nbsp; &nbsp; Clear filter</option>
+                                        <optgroup label="Main">
+                                            <option value="Main - Dairy">&nbsp; &nbsp; &nbsp; Main - Dairy</option>
+                                            <option value="Main - Meat">&nbsp; &nbsp; &nbsp; Main - Meat</option>
+                                            <option value="Main - Pareve">&nbsp; &nbsp; &nbsp; Main - Pareve</option>
+                                        </optgroup>
+                                        <optgroup label="Soup">
+                                            <option value="Soup - Dairy">&nbsp; &nbsp; &nbsp; Soup - Dairy</option>
+                                            <option value="Soup - Meat">&nbsp; &nbsp; &nbsp; Soup - Meat</option>
+                                            <option value="Soup - Pareve">&nbsp; &nbsp; &nbsp; Soup - Pareve</option>
+                                        </optgroup>
+                                        <optgroup label="Salad">
+                                            <option value="Salad - Dairy">&nbsp; &nbsp; &nbsp; Salad - Dairy</option>
+                                            <option value="Salad - Meat">&nbsp; &nbsp; &nbsp; Salad - Meat</option>
+                                            <option value="Salad - Pareve">&nbsp; &nbsp; &nbsp; Salad - Pareve</option>
+                                        </optgroup>
+                                        <optgroup label="Side">
+                                            <option value="Side - Dairy">&nbsp; &nbsp; &nbsp; Side - Dairy</option>
+                                            <option value="Side - Meat">&nbsp; &nbsp; &nbsp; Side - Meat</option>
+                                            <option value="Side - Pareve">&nbsp; &nbsp; &nbsp; Side - Pareve</option>
+                                        </optgroup>
+                                        <optgroup label="Dessert">
+                                            <option value="Dessert - Dairy">&nbsp; &nbsp; &nbsp; Dessert - Dairy</option>
+                                            <option value="Dessert - Meat">&nbsp; &nbsp; &nbsp; Dessert - Meat</option>
+                                            <option value="Dessert - Pareve">&nbsp; &nbsp; &nbsp; Dessert - Pareve</option>
+                                        </optgroup>
+                                        <optgroup label="Other">
+                                            <option value="Other">&nbsp; &nbsp; &nbsp; Other</option>
+                                        </optgroup>
+                                    </select>
+                                </div>
+                            </div> 
                         </div>
 
                         <span id="authorMsg" class="authorMsg"><%- msg %></span> 
@@ -44,9 +84,12 @@
                                                 <% } %>
                                             </div>
                                             <div class="text">
-                                                <h3 class="recipeTitle"><a href="/recipe/<%= rec._id %>"><%= rec.title %></a></h3>
+                                                <h3 class="recipeTitle">
+                                                    <a href="/recipe/<%= rec._id %>"><%= rec.title %></a>
+                                                    <a href="/recipe/<%= rec._id %>"><%= rec.category %></a>
+                                                </h3>
                                             </div>
-                
+
                                             <div class="iconWrapper">
                                                 <a href="/edit/<%= rec._id %>"><img src="../resources/images/editBlue3.png" class="editIcon" title="Edit"></a>
                                                 <img id="delRec" title="Delete" class="deleteRecConfirm" src="../resources/images/delete1.png">

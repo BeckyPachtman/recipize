@@ -70,6 +70,41 @@
                                             <label><img class="timeIcon" src="../resources/images/timer.png">Total Time Minutes</label>
                                         </div>
                                     </div>
+
+                                    <div class="moreOptions categorySelectParent">
+                                        <select name="category" id="Category" class="category addRecSelect">
+                                            <option disabled selected>Choose a category</option>
+                                            <optgroup label="Main">
+                                                <option value="Main - Dairy">Main - Dairy</option>
+                                                <option value="Main - Meat">Main - Meat</option>
+                                                <option value="Main - Pareve">Main - Pareve</option>
+                                            </optgroup>
+                                            <optgroup label="Soup">
+                                                <option value="Soup - Dairy">Soup - Dairy</option>
+                                                <option value="Soup - Meat">Soup - Meat</option>
+                                                <option value="Soup - Pareve">Soup - Pareve</option>
+                                            </optgroup>
+                                            <optgroup label="Salad">
+                                                <option value="Salad - Dairy">Salad - Dairy</option>
+                                                <option value="Salad - Meat">Salad - Meat</option>
+                                                <option value="Salad - Pareve">Salad - Pareve</option>
+                                            </optgroup>
+                                            <optgroup label="Side">
+                                                <option value="Side - Dairy">Side - Dairy</option>
+                                                <option value="Side - Meat">Side - Meat</option>
+                                                <option value="Side - Pareve">Side - Pareve</option>
+                                            </optgroup>
+                                            <optgroup label="Dessert">
+                                                <option value="Dessert - Dairy">Dessert - Dairy</option>
+                                                <option value="Dessert - Meat">Dessert - Meat</option>
+                                                <option value="Dessert - Pareve">Dessert - Pareve</option>
+                                            </optgroup>
+                                            <optgroup label="Other">
+                                                <option value="Other">Other</option>
+                                            </optgroup>
+                                        </select>
+                                        <input type="hidden" class="otherOptionTextCtgry" title="" name="">
+                                    </div>
                                 </div>
             
                                 <div class="btnWrpr">
@@ -86,12 +121,12 @@
                                 <div class="inputGroup">
                                     <div class="moreOptions">
                                         <input type="number" min="0" name="yieldInput" placeholder=" ">
-                                        <select name="yieldSelect" class="yieldSelect addRecSelect">
+                                        <select name="yieldSelect" class="yieldSelect">
                                             <option value="Servings">Servings</option>
                                             <option value="Other" class="selectOther">Other</option>
                                         </select>
                                         <label>Yields</label>
-                                        <input type="hidden" class="otherOptionText" title="" name="">
+                                        <input type="hidden" class="otherOptionTextSrvngs" title="" name="">
                                     </div>
             
                                     <div class="moreOptionsColumn">
@@ -105,31 +140,6 @@
                                             <label>Enter Image Url</label> 
                                         </div>
                                     </div>
-                                
-                                    <div class="moreOptions categorySelectParent">
-                                        <select name="category" id="Category" class="category addRecSelect">
-                                            <option value="" disabled selected>Select a Category</option>
-                                            <option value="Dairy-Main">Main - Dairy</option>
-                                            <option value="Meat-Main">Main - Meat</option>
-                                            <option value="Pareve-Main">Main - Pareve</option>
-                                            <option value="Dairy-Soup">Soup - Dairy</option>
-                                            <option value="Meat-Soup">Soup - Meat</option>
-                                            <option value="Pareve-Soup">Soup - Pareve</option>
-                                            <option value="Dairy-Salad">Salad - Dairy</option>
-                                            <option value="Meat-Salad">Salad - Meat</option>
-                                            <option value="Pareve-Salad">Salad - Pareve</option>
-                                            <option value="Dairy-Side">Side - Dairy</option>
-                                            <option value="Meat-Side">Side - Meat</option>
-                                            <option value="Pareve-Side">Side - Pareve</option>
-                                            <option value="Dairy-Dessert">Dessert - Dairy</option>
-                                            <option value="Meat-Dessert">Dessert - Meat</option>
-                                            <option value="Pareve-Dessert">Dessert - Pareve</option>
-                                            <option value="Other">Other</option>
-                                        </select>
-                                        <input type="hidden" class="otherOptionText" title="" name="">
-                                    </div>
-
-
 
                                     <div class="plusIconParent">
                                         <input type="text" class="tipsInput" placeholder=" " >

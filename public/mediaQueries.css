@@ -9,6 +9,9 @@
         margin: 0 0 7em 0;
         width: 85%;
     }
+    .searchByCatergory{
+        width: 50%;
+    }
     .recipeBook{
         width: 78vw;
     }
@@ -46,6 +49,19 @@
         padding: 1em 0;
         min-height: 25em;
     }
+    .navSearchInputWrapper{
+        align-items: center;
+        flex-direction: column;
+        width: 50%;
+    }
+    .searchInput{
+        width: 75%; 
+        margin-bottom: 1em;
+    }
+    .searchByCatergory{
+        margin: 0;
+    }
+
 }
 @media only screen and (max-width: 990px){
     .nav{
@@ -192,6 +208,20 @@
     .confirmDeleteCardTxt{
         padding: 0 .2em;
     }
+
+    .navSearchInputWrapper{
+        align-items: center;
+        flex-direction: column;
+        width: 60%;
+    }
+    .searchInput{
+        width: 85%; 
+        margin-bottom: 1em;
+    }
+    .searchByCatergory{
+        margin: 0;
+    }
+
 }
 @media only screen and (max-width: 600px){
     .navUl.open {
@@ -210,7 +240,13 @@
     .modalMainContent{
         min-height: 50vh;
         width: 90%;
-    } 
+    }
+    .loginPropmtButtonWrrpr{
+        align-items: center;
+    }
+    .loginPropmtButton{
+        padding: .6em 2.2em;
+    }
     .secendaryContent.mainButtons{
         display: flex;
         flex-direction: column-reverse;
@@ -222,6 +258,9 @@
     }
     .recipeDisplay{
         width: 90%;
+    }
+    fieldset{
+        height: 40em;
     }
     .inputGroup{
         display: flex;
@@ -274,6 +313,15 @@
         height: 32vh;
         width: 75vw;
     }
+    .navSearchInputWrapper{
+        width: 70%;
+    }
+    .searcRecMobile{
+        display: block;
+    }
+    .searcRecDesktp{
+        display: none;
+    }
 }
 @media only screen and (max-width: 400px){
     .navUl{
@@ -293,9 +341,14 @@
     .secendaryContent.mainButtons > span{
         margin: .9em 0;
     }
-    .mainPageAddRec{
+    .mainPageAddRec,
+    .loginPropmtButton{
         font-size: 1.2em;
         padding: .4em .6em;
+    }
+    .loginPropmtButton{
+        font-size: 1.2em;
+        padding: .4em 2em;
     }
     .oneRecipeDisplayWrapper{
         position: relative;
