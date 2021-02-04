@@ -156,7 +156,7 @@
                                             <% }); %>
                                             <% if(recipe.tips = ''){ }%>
                                             <div class="listWrappr editListWrapper">
-                                                <ul class="tipUl"></ul>
+                                                <ul class="tipUl" id="tipUl"></ul>
                                             </div>
                                         </div>
                                         <label>Recipe Tips</label>
@@ -177,7 +177,7 @@
                                 </div>
                                 <div class="inputGroup">
                                     <div class="plusIconParent">
-                                        <input type="text" class="ingrdntsInput" placeholder=" ">
+                                        <input type="text" class="ingrdntsInput" id="ingrdntsInput" placeholder=" ">
                                         <div class="editTipsInputGroup ingInputGroup">
                                             <% recipe.ingrdnts.forEach(function(item){ %>
                                                 <div class="editParent editListItem">
@@ -189,7 +189,7 @@
                                                 </div>
                                             <% }); %>
                                             <div class="listWrappr editListWrapper">
-                                                <ul class="igUl"></ul>
+                                                <ul class="igUl" id="igUl"></ul>
                                             </div>
                                         </div>
                                         <label>Recipe Ingredients</label>
@@ -210,7 +210,7 @@
                                 </div>
                                 <div class="inputGroup">
                                     <div class="plusIconParent">
-                                        <input type="text" class="dirctnsInput" placeholder=" ">
+                                        <input type="text" class="dirctnsInput" id="dirctnsInput" placeholder=" ">
                                         <div class="editTipsInputGroup ingInputGroup2">
                                             <% recipe.dirctns.forEach(function(item){ %>
                                                 <div class="editParent editListItem">
@@ -222,7 +222,7 @@
                                                 </div>
                                             <% }); %>
                                             <div class="listWrappr editListWrapper">
-                                                <ol class="dirOl"></ol>
+                                                <ol class="dirOl" id="dirOl"></ol>
                                             </div>
                                         </div>
                                         <label>Recipe Directions</label>

@@ -186,7 +186,7 @@ $(document).ready(() =>{
     */
     if($(".recPageBody").length){
         var searchCatergorySelect = $('.searchByCtrgrySlct');
-        var eachOption = $('.searchByCtrgrySlct option')
+        var eachOption = $('.searchByCtrgrySlct option');
         eachOption.classList.remove('searchNotResult');
 
         $(searchCatergorySelect).on('change', function(){

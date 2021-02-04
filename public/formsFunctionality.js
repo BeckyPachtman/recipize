@@ -8,11 +8,8 @@ $(document).ready(() =>{
     var dirctnsInput = $('.dirctnsInput');
     var tipsInput = $('.tipsInput');
 
-    function addTipstoTipsList(){
-        // var input = `<div class="tipWrppr"><span class="circle">○</span>
-        //             <textarea name="tips" rows="1" id="jsCreatedTextarea">${$(tipsInput).val()}</textarea>
-        //             <span class="deleteIng">x</span></div>`
 
+    function addTipstoTipsList(){
         var input = document.createElement('div')
         input.classList.add('tipWrppr')
 
@@ -21,7 +18,7 @@ $(document).ready(() =>{
         circle.classList.add('circle')
 
         var textarea = document.createElement('textarea')
-        textarea.setAttribute('id', 'jsCreatedTextarea')
+        textarea.setAttribute('class', 'jsCreatedTextarea')
         textarea.setAttribute('name', 'tips')
         textarea.innerHTML = document.getElementById('tipsInput').value
         
@@ -30,44 +27,30 @@ $(document).ready(() =>{
         deleteIng.innerHTML = 'x'
         deleteIng.classList.add('deleteIng')
     
+        var hght = textarea.innerText.length
+            if(hght >= 70){
+                $(textarea).css('height', '1.5em')
+            } if(hght >= 100){
+                $(textarea).css('height', '2.5em')
+            }if(hght >= 160){
+                $(textarea).css('height', '3em')
+            }if(hght >= 200){
+                $(textarea).css('height', '3.7em')
+            }if(hght >= 250){
+                $(textarea).css('height', '4em')
+            }if(hght >= 300){
+                $(textarea).css('height', '5em')
+            }if(hght >= 350){
+                $(textarea).css('height', '6em')
+            }if(hght >= 400){
+                $(textarea).css('height', '6.5em')
+            }if(hght >= 450){
+                $(textarea).css('height', '7.5em')
+        }
 
- 
-var hght = textarea.innerText.length
-if(hght >= 70){
-    $(textarea).css('height', '1.5em')
-    console.log(hght);
-} if(hght >= 100){
-    $(textarea).css('height', '2.5em')
-    console.log(hght);
-}if(hght >= 160){
-    $(textarea).css('height', '3em')
-    console.log(hght);
-}if(hght >= 200){
-    $(textarea).css('height', '3.7em')
-    console.log(hght);
-}if(hght >= 250){
-    $(textarea).css('height', '4em')
-    console.log(hght);
-}if(hght >= 300){
-    $(textarea).css('height', '5em')
-    console.log(hght);
-}if(hght >= 350){
-    $(textarea).css('height', '6em')
-    console.log(hght);
-}if(hght >= 400){
-    $(textarea).css('height', '6.5em')
-    console.log(hght);
-}if(hght >= 450){
-    $(textarea).css('height', '7.5em')
-    console.log(hght);
-}else{
-    console.log('smaller');
-}
 
         input.append(circle, textarea, deleteIng)
-
         document.getElementById('tipUl').append(input)
-        //$(input).appendTo($('.tipUl'));
        
         var deleteIng = $('.deleteIng')
         $(deleteIng).on('click', function(){
@@ -89,24 +72,52 @@ if(hght >= 70){
     })
 
 
-
-
-    
-        
-      
-
-
     /*
         The following function adds whatever text is added to a new recipe
         ingredient input and adds them to a list underneath the input until you submit
     */
     function addIngrdntToList(){
-        var input = `<div class="tipWrppr"><span class="circle">○</span>
-                    <textarea name="ingrdnts" type="text" rows="1">${$(ingrdntsInput).val()}</textarea>
-                    <span class="deleteIng">x</span></div>`
+        var input = document.createElement('div')
+        input.classList.add('tipWrppr')
 
-        $(input).appendTo($('.igUl'));
-       
+        var circle = document.createElement('span')
+        circle.innerHTML = 'o'
+        circle.classList.add('circle')
+
+        var textarea = document.createElement('textarea')
+        textarea.setAttribute('class', 'jsCreatedTextarea')
+        textarea.setAttribute('name', 'ingrdnts')
+        textarea.innerHTML = document.getElementById('ingrdntsInput').value
+
+        var deleteIng = document.createElement('span')
+        deleteIng.innerHTML = 'x'
+        deleteIng.classList.add('deleteIng')
+    
+        var hght = textarea.innerText.length
+            if(hght >= 70){
+                $(textarea).css('height', '1.5em')
+            } if(hght >= 100){
+                $(textarea).css('height', '2.5em')
+            }if(hght >= 160){
+                $(textarea).css('height', '3em')
+            }if(hght >= 200){
+                $(textarea).css('height', '3.7em')
+            }if(hght >= 250){
+                $(textarea).css('height', '4em')
+            }if(hght >= 300){
+                $(textarea).css('height', '5em')
+            }if(hght >= 350){
+                $(textarea).css('height', '6em')
+            }if(hght >= 400){
+                $(textarea).css('height', '6.5em')
+            }if(hght >= 450){
+                $(textarea).css('height', '7.5em')
+        }
+
+        input.append(circle, textarea, deleteIng)
+        document.getElementById('igUl').append(input)
+
+
         var deleteIng = $('.deleteIng')
         $(deleteIng).on('click', function(){
             $(this).parent().remove()
@@ -130,13 +141,48 @@ if(hght >= 70){
         The following function adds whatever text is added to a new recipe
         direction input and adds them to a list underneath the input until you submit
     */
-    function addLDirToDirList(){
-        var input = `<div class="tipWrppr"><span class="circle">○</span>
-                    <textarea name="dirctns" type="text" rows="1">${$(dirctnsInput).val()}</textarea>
-                    <span class="deleteIng">x</span></div>`
+    function addLDirToDirList(){      
+        var input = document.createElement('div')
+        input.classList.add('tipWrppr')
 
-        $(input).appendTo($('.dirOl'));
-       
+        var circle = document.createElement('span')
+        circle.innerHTML = 'o'
+        circle.classList.add('circle')
+
+        var textarea = document.createElement('textarea')
+        textarea.setAttribute('class', 'jsCreatedTextarea')
+        textarea.setAttribute('name', 'dirctns')
+        textarea.innerHTML = document.getElementById('dirctnsInput').value
+
+        var deleteIng = document.createElement('span')
+        deleteIng.innerHTML = 'x'
+        deleteIng.classList.add('deleteIng')
+    
+        var hght = textarea.innerText.length
+            if(hght >= 70){
+                $(textarea).css('height', '1.5em')
+            } if(hght >= 100){
+                $(textarea).css('height', '2.5em')
+            }if(hght >= 160){
+                $(textarea).css('height', '3em')
+            }if(hght >= 200){
+                $(textarea).css('height', '3.7em')
+            }if(hght >= 250){
+                $(textarea).css('height', '4em')
+            }if(hght >= 300){
+                $(textarea).css('height', '5em')
+            }if(hght >= 350){
+                $(textarea).css('height', '6em')
+            }if(hght >= 400){
+                $(textarea).css('height', '6.5em')
+            }if(hght >= 450){
+                $(textarea).css('height', '7.5em')
+        }
+
+        input.append(circle, textarea, deleteIng)
+        document.getElementById('dirOl').append(input)
+
+
         var deleteIng = $('.deleteIng')
         $(deleteIng).on('click', function(){
             $(this).parent().remove()

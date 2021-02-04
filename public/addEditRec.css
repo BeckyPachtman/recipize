@@ -250,18 +250,15 @@ label .timeIcon{
     display: flex;
     justify-content: center;
     margin: .5em 0;
-
-   /* border: solid 1px blue;*/
 }
-#jsCreatedTextarea{
+.jsCreatedTextarea{
     border: none;
     resize: none;
     height: 1.5em;
     width: 95%;
 }
-
-
 .tipWrppr .deleteIng{
+    font-weight: bold;
     margin:  0 .1em 0 .3em;
 }
 .tipUl li,
@@ -279,7 +276,6 @@ label .timeIcon{
 .dirOl span{
     cursor: pointer;
     float: right;
-    font-weight: bold;
     margin: 0 .28em .5em 0;
 }
 .btnWrpr{
