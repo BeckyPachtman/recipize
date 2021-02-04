@@ -530,3 +530,10 @@ Recipe successfully deleted
 Recipe successfully deleted
 New recipe successfully created
 Recipe successfully deleted
+New user successfully created
+New recipe successfully created
+New recipe successfully created
+Recipe successfully updated
+New user successfully created
+Recipe successfully updated
+Recipe successfully updated

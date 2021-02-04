@@ -89,7 +89,7 @@ $(document).ready(() =>{
         1 and changes the word hours to hour. It also checks if there are
         hours or minutes empty and, in that case, removes the word all togethor
     */
-   var list = [];
+    var list = [];
 
     var prpTimeHrs = $('.prpTimeHrs').text()
     list.push({key:'prpTimeHrs', value: prpTimeHrs});
@@ -136,12 +136,9 @@ $(document).ready(() =>{
 
     /*
         This function searches for a recipe title according to what
-        is searched for in the search bar, it will then display
-        the recipes that are relevant
+        is searched for in the search bar, it will then display the recipes
+        that are relevant. you can also search according to category
     */
-
-    
-
     function searchRecipes(){
         var searchInput = document.getElementById("searchRecipes");
         var addRecSelect = document.getElementById("CategorySearch");
@@ -149,7 +146,6 @@ $(document).ready(() =>{
         var selectSearch = addRecSelect.value.toUpperCase()
         var filterValue = searchInput.value.toUpperCase().trim();
         var title = $('.recipeTitle')
-
 
         for (var i = 0 ; i < title.length; i++){
             var a = title[i]
@@ -188,18 +184,17 @@ $(document).ready(() =>{
         This function displays all recipes who are under the
         category 'other' and have a written and specified category
     */
-
     if($(".recPageBody").length){
         var searchCatergorySelect = $('.searchByCtrgrySlct');
         var eachOption = $('.searchByCtrgrySlct option')
         eachOption.classList.remove('searchNotResult');
+
         $(searchCatergorySelect).on('change', function(){
             if($(searchCatergorySelect).val() != 'Other'){
                 this.classList.add('searchNotResult');
             }
         })
     }
-    
 
     
     /*
@@ -223,7 +218,6 @@ $(document).ready(() =>{
         This function checks if the yield select field text is Other
         if so it displays a text box to let the user add some free text
     */
-
     var yieldSelect = $('.yieldSelect');
     var category = $('.category');
 

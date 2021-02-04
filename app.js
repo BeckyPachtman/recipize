@@ -285,19 +285,17 @@ app.get('/edit/:id', function(req, res) {
             if(err){
                 console.log(err); 
             }else{
-                // if(loggedUser.firstName + ' ' + loggedUser.lastName != returningRec.author){
-                //     if(err){
-                //         console.log(err);
-                //     }else{                        
-                //         recipe.find({}, function(err, allRecipies){ 
-                //             res.render('recipiesDisplay', {recipe: allRecipies, userName: userName, profile: profileMsg, msg: errRecAuthorEdit})
-                //         })
-                //     }
-                // }else {
-                //     res.render('editRecipe', {recipe: returningRec, userName: userName, profile: profileMsg})
-                // }
-
-                res.render('editRecipe', {recipe: returningRec, userName: userName, profile: profileMsg})
+                if(loggedUser.firstName + ' ' + loggedUser.lastName != returningRec.author){
+                    if(err){
+                        console.log(err);
+                    }else{                        
+                        recipe.find({}, function(err, allRecipies){ 
+                            res.render('recipiesDisplay', {recipe: allRecipies, userName: userName, profile: profileMsg, msg: errRecAuthorEdit})
+                        })
+                    }
+                }else {
+                    res.render('editRecipe', {recipe: returningRec, userName: userName, profile: profileMsg})
+                }
             }
         })
         
@@ -342,27 +340,22 @@ app.delete('/recipe/:id', function(req, res) {
     const {userId} = req.session;
     create.findById(userId, (err, loggedUser) =>{     
         const userName =  createUserName(loggedUser);   
-    //     recipe.findById(req.params.id, function(err, recipeToDelete){
-    //         if(loggedUser.firstName + ' ' + loggedUser.lastName == recipeToDelete.author){
-    //                 if(err){
-    //                 log.write('Failed attempt at deleting a recipe\n')
-    //                 res.send(err)
-    //             }else{
-    //                 recipe.findByIdAndRemove(req.params.id, () =>{
-    //                     log.write('Recipe successfully deleted\n')
-    //                     res.redirect('/recipiesDisplay')
-    //                 })
-    //             }
-    //         }else{
-    //             recipe.find({}, function(err, allRecipies){ 
-    //                 res.render('recipiesDisplay', {recipe: allRecipies, userName: userName, profile: profileMsg, msg: errRecAuthorDelete})
-    //             })
-    //         }
-    //    })
-
-        recipe.findByIdAndRemove(req.params.id, () =>{
-            log.write('Recipe successfully deleted\n')
-            res.redirect('/recipiesDisplay')
+        recipe.findById(req.params.id, function(err, recipeToDelete){
+            if(loggedUser.firstName + ' ' + loggedUser.lastName == recipeToDelete.author){
+                    if(err){
+                    log.write('Failed attempt at deleting a recipe\n')
+                    res.send(err)
+                }else{
+                    recipe.findByIdAndRemove(req.params.id, () =>{
+                        log.write('Recipe successfully deleted\n')
+                        res.redirect('/recipiesDisplay')
+                    })
+                }
+            }else{
+                recipe.find({}, function(err, allRecipies){ 
+                    res.render('recipiesDisplay', {recipe: allRecipies, userName: userName, profile: profileMsg, msg: errRecAuthorDelete})
+                })
+            }
         })
     })
 })
@@ -398,4 +391,4 @@ app.get('/closeModal', function(req, res){
     }
 })
 
-app.listen(3000)
+app.listen(3000);

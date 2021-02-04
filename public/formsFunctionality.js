@@ -9,11 +9,65 @@ $(document).ready(() =>{
     var tipsInput = $('.tipsInput');
 
     function addTipstoTipsList(){
-        var input = `<div class="tipWrppr"><span class="circle">○</span>
-                    <textarea name="tips" type="text" rows="1">${$(tipsInput).val()}</textarea>
-                    <span class="deleteIng">x</span></div>`
+        // var input = `<div class="tipWrppr"><span class="circle">○</span>
+        //             <textarea name="tips" rows="1" id="jsCreatedTextarea">${$(tipsInput).val()}</textarea>
+        //             <span class="deleteIng">x</span></div>`
 
-        $(input).appendTo($('.tipUl'));
+        var input = document.createElement('div')
+        input.classList.add('tipWrppr')
+
+        var circle = document.createElement('span')
+        circle.innerHTML = 'o'
+        circle.classList.add('circle')
+
+        var textarea = document.createElement('textarea')
+        textarea.setAttribute('id', 'jsCreatedTextarea')
+        textarea.setAttribute('name', 'tips')
+        textarea.innerHTML = document.getElementById('tipsInput').value
+        
+
+        var deleteIng = document.createElement('span')
+        deleteIng.innerHTML = 'x'
+        deleteIng.classList.add('deleteIng')
+    
+
+ 
+var hght = textarea.innerText.length
+if(hght >= 70){
+    $(textarea).css('height', '1.5em')
+    console.log(hght);
+} if(hght >= 100){
+    $(textarea).css('height', '2.5em')
+    console.log(hght);
+}if(hght >= 160){
+    $(textarea).css('height', '3em')
+    console.log(hght);
+}if(hght >= 200){
+    $(textarea).css('height', '3.7em')
+    console.log(hght);
+}if(hght >= 250){
+    $(textarea).css('height', '4em')
+    console.log(hght);
+}if(hght >= 300){
+    $(textarea).css('height', '5em')
+    console.log(hght);
+}if(hght >= 350){
+    $(textarea).css('height', '6em')
+    console.log(hght);
+}if(hght >= 400){
+    $(textarea).css('height', '6.5em')
+    console.log(hght);
+}if(hght >= 450){
+    $(textarea).css('height', '7.5em')
+    console.log(hght);
+}else{
+    console.log('smaller');
+}
+
+        input.append(circle, textarea, deleteIng)
+
+        document.getElementById('tipUl').append(input)
+        //$(input).appendTo($('.tipUl'));
        
         var deleteIng = $('.deleteIng')
         $(deleteIng).on('click', function(){
@@ -33,6 +87,13 @@ $(document).ready(() =>{
             e.preventDefault()
         }
     })
+
+
+
+
+    
+        
+      
 
 
     /*
@@ -100,15 +161,13 @@ $(document).ready(() =>{
         This function adjusts a texarea's height according to it's text
         on the edit form exsisting tips, ingredients, and directions
     */
-    $(function() {
-        $('textarea').each(function() {
-            $(this).height($(this).prop('scrollHeight'));
-        });
+    $('textarea').each(function() {
+        $(this).height($(this).prop('scrollHeight'));
     });
-
+    
 
     /*
-        This function activtes the next and previos buttons
+        This function activtes the next and previous buttons
         on the 'Add recipe' and 'edit recipe' pages'
     */
     $('button[class^="next_btn"]:not(.btnToIngrdnts)').click(function(){
@@ -199,7 +258,7 @@ $(document).ready(() =>{
             $('.addTipUl').addClass('listWrapprScrollbar listWrapprTipScrollbar')
             $('.editTipsInputGroup').addClass('recipeEditScrlbr')
         }
-    })   
+    })
 
     $('.addTiptoListBttn').on('click', function(){
         if($('.tipUl').height() > 100){
@@ -207,6 +266,7 @@ $(document).ready(() =>{
             $('.editTipsInputGroup').addClass('recipeEditScrlbr')
         }
     })
+
 
     /*
         This function checks the height of the ingredients textarea, as you are adding new items, and adds a scollbar if needed

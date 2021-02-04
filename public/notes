@@ -863,3 +863,13 @@ deleted cpommented backgounds
 .navWrapper{
     /*flex: auto;*/
 }
+
+edit
+
+//res.render('editRecipe', {recipe: returningRec, userName: userName, profile: profileMsg})
+
+delete
+recipe.findByIdAndRemove(req.params.id, () =>{
+            log.write('Recipe successfully deleted\n')
+            res.redirect('/recipiesDisplay')
+        })

@@ -21,6 +21,7 @@
     right: -3em;
 }
 .settings > img{
+    filter: opacity(80%);
     transition: 0.8s transform;
 }
 .settings > img:hover{

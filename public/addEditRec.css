@@ -217,7 +217,7 @@ label .timeIcon{
     margin: 0 1em;
 }
 .listWrapprTipScrollbar{
-    max-height: 90px;
+    max-height: 130px;
 }
 .tipUl::-webkit-scrollbar,
 .igUl::-webkit-scrollbar,
@@ -241,8 +241,7 @@ label .timeIcon{
 }
 .listWrappr ul,
 .listWrappr ol{
-    /*display: flex;*/
-    padding: 0 ;
+    padding: 0;
 }
 .editListWrapper ul.tipUl{
     padding: 0 .8em;
@@ -250,13 +249,18 @@ label .timeIcon{
 .tipWrppr{
     display: flex;
     justify-content: center;
+    margin: .5em 0;
+
+   /* border: solid 1px blue;*/
 }
-.tipWrppr textarea{
+#jsCreatedTextarea{
     border: none;
     resize: none;
-    /*height: 1.4em;*/
+    height: 1.5em;
     width: 95%;
 }
+
+
 .tipWrppr .deleteIng{
     margin:  0 .1em 0 .3em;
 }
